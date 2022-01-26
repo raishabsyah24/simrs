@@ -48,6 +48,41 @@ class UserSeeder extends Seeder
             $role->givePermissionTo([$permission]);
         }
 
+        // Paru-paru
+        $paru = User::create([
+            'name' => 'dr. paru name',
+            'username' => 'paru username',
+            'email' => 'paru@mail.com',
+            'password' => bcrypt('admin')
+        ]);
+        Profile::create([
+            'user_id' => $paru->id
+        ]);
+        $role = 'dokter';
+        $permission = 'full_permission';
+        $paru->assignRole([$role]);
+        $paru->givePermissionTo([$permission]);
+        $role = Role::find(3);
+        $role->givePermissionTo([$permission]);
+
+        Dokter::create([
+            'user_id' => $paru->id,
+            'nik' => $faker->nik(),
+            'nama' => 'dr. paru',
+            'spesialis' => 'paru-paru',
+            'no_str' => $faker->nik(),
+            'tempat_lahir' => $faker->city,
+            'tanggal_lahir' =>
+            $faker->dateTimeBetween($startDate = '-60 years', $endDate = 'now'),
+            'jenis_kelamin' =>  $faker->randomElement(['laki-laki', 'perempuan']),
+            'alamat' => $faker->address,
+            'no_hp' => $faker->phoneNumber,
+            'email' => $faker->unique()->safeEmail,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        // End paru-paru
+
         /**ADMIN */
         $admins = [
             ['Admin', 'admin', 'admin@mail.com'],
@@ -76,7 +111,7 @@ class UserSeeder extends Seeder
             ['Dokter', 'dokter', 'dokter@mail.com'],
         ];
 
-        for ($i = 4; $i <= 23; $i++) {
+        for ($i = 5; $i <= 23; $i++) {
             $dokter = Dokter::create([
                 'user_id' => $i,
                 'nik' => $faker->nik(),

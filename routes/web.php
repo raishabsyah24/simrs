@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\{
     KasirController,
     RadiologiController
 };
+use App\Http\Controllers\Admin\Dokter\PasienDokterController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -74,8 +75,9 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
 });
 
 // Role dokter
-Route::group(['middleware' => ['auth', 'role:dokter']], function () {
-    Route::get('/create', [PasienListController::class, 'createPasien'])->name('order.create-pasien');
+Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () {
+    Route::get('/dokter/daftar-pasien', [PasienDokterController::class, 'index'])
+        ->name('dokter.daftar-pasien');
 });
 
 // Role apotek

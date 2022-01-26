@@ -4,5 +4,5 @@ namespace App\Repositories\Interfaces;
 
 interface DokterInterface
 {
-    public function dokterPoli(int $poli_id);
+    public function daftarPasien();
 }

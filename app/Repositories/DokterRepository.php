@@ -7,15 +7,16 @@ use App\Repositories\Interfaces\DokterInterface;
 
 class DokterRepository implements DokterInterface
 {
-    public function dokterPoli(int $poli_id)
+    public function daftarPasien()
     {
-        return DB::table('dokter_poli as dp')
+        return DB::table('periksa_dokter as pd')
             ->selectRaw('
-        
+            pd.id, pas.nama as nama_pasien, d.nama as nama_dokter, poli.nama as nama_poli
         ')
-            ->join('dokter as d', 'd.id', '=', 'dp.dokter_id')
-            ->join('poli as p', 'p.id', '=', 'dp.poli_id')
-            ->where('dp.poli_id', $poli_id)
+            ->join('pemeriksaan_detail as pede', 'pede.id', '=', 'pd.pemeriksaan_detail_id')
+            ->join('pasien as pas', 'pas.id', '=', 'pd.pasien_id')
+            ->join('dokter as d', 'd.id', '=', 'pede.dokter_id')
+            ->join('poli', 'poli.id', '=', 'pede.poli_id')
             ->get();
     }
 }
