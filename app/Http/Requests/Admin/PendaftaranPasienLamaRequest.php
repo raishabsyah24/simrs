@@ -35,6 +35,7 @@ class PendaftaranPasienLamaRequest extends FormRequest
                     'faskes_id' => 'required',
                     'dokter_id' => 'required',
                     'tujuan' => 'required',
+                    'tanggal' => 'required|date_format:Y-m-d',
                 ];
         } else {
             return [
@@ -44,6 +45,8 @@ class PendaftaranPasienLamaRequest extends FormRequest
                 'layanan_id' => 'required',
                 'dokter_id' => 'required',
                 'tujuan' => 'required',
+                'tanggal' => 'required|date_format:Y-m-d',
+
             ];
         }
     }

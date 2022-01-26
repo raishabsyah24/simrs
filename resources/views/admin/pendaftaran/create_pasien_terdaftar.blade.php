@@ -77,7 +77,7 @@
                                             </div>
 
                                             {{-- Form order pemeriksaan --}}
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Kategori Pasien <span
                                                             class="text-danger">*</span></label>
@@ -91,6 +91,19 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Tanggal Periksa <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap">
+                                                        <div class="form-icon form-icon-left">
+                                                            <em class="icon ni ni-calendar"></em>
+                                                        </div>
+                                                        <input data-date-format="yyyy-mm-dd" name="tanggal" type="text"
+                                                            class="form-control date-picker">
                                                     </div>
                                                 </div>
                                             </div>
