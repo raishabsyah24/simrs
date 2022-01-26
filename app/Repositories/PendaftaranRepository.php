@@ -11,7 +11,7 @@ class PendaftaranRepository implements PendaftaranInterface
     {
         return DB::table('pemeriksaan as p')
             ->selectRaw('
-            p.id as pemeriksaan_id, p.kode as kode_pasien, p.no_rekam_medis, pasien.nama as nama_pasien, pasien.nik, pasien.tanggal_lahir, pasien.jenis_kelamin, poli.nama as tujuan, dokter.nama as nama_dokter, kp.nama as kategori_pasien, p.created_at , p.no_sep, pd.poli_id
+            p.id as pemeriksaan_id, p.kode as kode_pasien, p.no_rekam_medis, pasien.nama as nama_pasien, pasien.nik, pasien.tanggal_lahir, pasien.jenis_kelamin, poli.nama as tujuan, dokter.nama as nama_dokter, kp.nama as kategori_pasien, p.created_at , p.no_sep, pd.poli_id, p.tanggal
 
         ')
             ->join('pasien', 'pasien.id', '=', 'p.pasien_id')

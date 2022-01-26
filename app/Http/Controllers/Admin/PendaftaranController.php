@@ -46,6 +46,7 @@ class PendaftaranController extends Controller
         $badge = $this->badge();
         $kategori_pasien = $this->kategoriPasien();
         $poli = $this->poli();
+        $per_page = $this->perPage;
         $total = [
             ['Total Pasien Hari Ini', $this->pendaftaranRepository->pasienHariIni()->count()],
             ['BPJS', $this->pendaftaranRepository->totalPasienBpjs()],
@@ -58,7 +59,8 @@ class PendaftaranController extends Controller
             'total',
             'badge',
             'kategori_pasien',
-            'poli'
+            'poli',
+            'per_page'
         ));
     }
 
