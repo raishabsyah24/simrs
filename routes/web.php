@@ -89,6 +89,8 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
         ->name('dokter.change-obat');
     Route::get('/dokter/obat-pasien/{id}', [PasienDokterController::class, 'obatPasien'])
         ->name('dokter.obat-pasien');
+    Route::put('/dokter/obat-pasien/update-quantity/{id}', [PasienDokterController::class, 'updateQuantity'])
+        ->name('dokter.obat-pasien.update-quantity');
 });
 
 // Role apotek

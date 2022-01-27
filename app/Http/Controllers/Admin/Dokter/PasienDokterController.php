@@ -123,14 +123,15 @@ class PasienDokterController extends Controller
         $data = $this->dokterRepository->obatPasien($periksa_dokter_id);
 
         $output = '';
-        foreach ($data as $item) {
+        foreach ($data as $key => $item) {
             $output .= '
             <tr>
+                <td>' . $key + 1 . '</td>
                 <td>' . $item->nama_generik . '</td>
                 <td>
                     <div class="form-group">
                         <div class="form-control-wrap">
-                            <input name="jumlah"
+                            <input onkeyup="updateQuantity(`' . route('dokter.obat-pasien.update-quantity', $item->obat_pasien_periksa_rajal_id) . '`,this,`' . $item->obat_pasien_periksa_rajal_id . '`)" name="jumlah"
                                 value="' . $item->jumlah . '"
                                 type="text" class="form-control">
                         </div>
@@ -145,10 +146,35 @@ class PasienDokterController extends Controller
                         </div>
                     </div>
                 </td>
+                <td class="text-right">' . formatAngka($item->harga_obat, true) . '</td>
+                <td class="text-right">' . formatAngka($item->subtotal, true) . '</td>
             </tr>
         ';
         }
 
         echo $output;
+    }
+
+    public function updateQuantity(Request $request)
+    {
+        $attr = $request->all();
+
+        DB::transaction(
+            function () use ($attr) {
+                $data['obat_pasien_periksa_rajal'] = ObatPasienRajal::find($attr['obat_pasien_periksa_rajal_id']);
+                $data['obat_apotek'] = ObatApotek::find($data['obat_pasien_periksa_rajal']->obat_apotek_id);
+                $data['harga_jual'] = $data['obat_apotek']->harga_jual;
+
+
+                $data['obat_pasien_periksa_rajal']->update([
+                    'jumlah' => $attr['jumlah'],
+                    'subtotal' => $data['harga_jual'] * $attr['jumlah']
+                ]);
+
+                return response()->json([
+                    'message' => 'Ubah quantity berhasil'
+                ], 200);
+            }
+        );
     }
 }

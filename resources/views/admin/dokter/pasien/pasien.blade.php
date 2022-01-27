@@ -228,9 +228,12 @@
                                                         <table class="table table-striped">
                                                             <thead>
                                                                 <tr>
+                                                                    <th>No</th>
                                                                     <th>Nama Obat</th>
                                                                     <th>Jumlah</th>
                                                                     <th>Signa</th>
+                                                                    <th>Harga Obat</th>
+                                                                    <th>Subtotal</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="data-obat">
@@ -387,11 +390,30 @@
                 })
         }
 
-        setInterval(() => {
-            $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
-                .done(output => {
-                    $('table .data-obat').html(output);
+        reloadTable();
+
+        function reloadTable() {
+            setTimeout(() => {
+                $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
+                    .done(output => {
+                        $('table .data-obat').html(output);
+                    })
+            }, 1000);
+        }
+
+        function updateQuantity(url, attr, obat_pasien_periksa_rajal_id) {
+            let qty = $(attr).val();
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        jumlah: qty,
+                        obat_pasien_periksa_rajal_id: obat_pasien_periksa_rajal_id,
+                    },
                 })
-        }, 500);
+                .done(response => {
+                    reloadTable();
+                })
+        }
     </script>
 @endpush
