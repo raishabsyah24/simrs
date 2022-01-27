@@ -173,7 +173,7 @@ class UserSeeder extends Seeder
             Profile::create([
                 'user_id' => $user['id']
             ]);
-            $role = 'apotek';
+            $role = 'dokter';
             $permission = 'full_permission';
             $user->assignRole([$role]);
             $user->givePermissionTo([$permission]);

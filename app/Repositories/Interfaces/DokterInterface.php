@@ -11,4 +11,8 @@ interface DokterInterface
     public function rekamMedisPasienPeriksa(int $periksa_dokter_id);
 
     public function indentitasPasien(int $pasien_id);
+
+    public function dokterPoli(int $poli_id);
+
+    public function tenagaMedis();
 }

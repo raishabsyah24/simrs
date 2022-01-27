@@ -49,82 +49,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon">
-                                <i class="fas fa-user-md fa-lg"></i>
-                            </span>
-                            <span class="nk-menu-text">Dokter</span>
-                        </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item">
-                                <a href="{{ route('dokter.daftar-pasien') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Daftar Pasien</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="html/pages/auths/auth-success.html" class="nk-menu-link"
-                                    target="_blank"><span class="nk-menu-text">Success /
-                                        Confirm</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Classic
-                                        Version - v2</span></a>
-                                <ul class="nk-menu-sub">
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-login-v2.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Login / Signin</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-register-v2.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Register / Signup</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-reset-v2.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Forgot Password</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-success-v2.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Success / Confirm</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nk-menu-item has-sub">
-                                <a href="#" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
-                                    <span class="nk-menu-text">Managemen User</span>
-                                </a>
-                                <ul class="nk-menu-sub ">
-                                    <li class="nk-menu-item">
-                                        <a href="{{ route('data.user') }}" class="nk-menu-link"><span
-                                                class="nk-menu-text">Pengguna</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">No Slider
-                                        Version - v3</span></a>
-                                <ul class="nk-menu-sub">
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-login-v3.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Login / Signin</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-register-v3.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Register / Signup</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-reset-v3.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Forgot Password</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-success-v3.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Success / Confirm</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
 
                     <!-- SUPER ADMIN -->
                     @role('super_admin')
@@ -149,11 +73,31 @@
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
-                                    <a href="#" class="nk-menu-link"><span class="nk-menu-text">Kategori
-                                            Obat</span></a>
+                                    <a href="#" class="nk-menu-link"><span class="nk-menu-text">Kategori Obat</span></a>
                                 </li>
                                 <li class="nk-menu-item">
-                                    <a href="#" class="nk-menu-link"><span class="nk-menu-text">Data Obat</span></a>
+                                    <a href="{{ route('data') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Data Obat</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
+                                <span class="nk-menu-text">Orders</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ route('order.create-obat') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Order Obat - Default</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="html/orders-regular.html" class="nk-menu-link"><span
+                                            class="nk-menu-text">Order List - Regular</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="html/orders-sales.html" class="nk-menu-link"><span
+                                            class="nk-menu-text">Order List - Sales</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->

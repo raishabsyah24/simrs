@@ -10,7 +10,8 @@ use App\Http\Controllers\Admin\{
     UserController,
     LabController,
     KasirController,
-    RadiologiController
+    RadiologiController,
+    TenagaMedisController
 };
 use App\Http\Controllers\Admin\Dokter\PasienDokterController;
 
@@ -26,9 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/profil-saya', [UserController::class, 'show'])->name('user.profile');
 });
 // Role super admin
-Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pendaftaran']], function () {
-
-
+Route::group(['middleware' => ['auth', 'role:super_admin|dokter|poli|pendaftaran']], function () {
     Route::post('/layanan/data', [LayananController::class, 'data'])
         ->name('layanan.data');
     Route::get('/layanan', [LayananController::class, 'index'])
@@ -65,6 +64,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::post('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'storePasienSudahPernahDaftar'])
         ->name('pendaftaran.storePasienSudahPernahDaftar');
 
+    // Managemen user 
     Route::get('/user/data', [UserController::class, 'index'])
         ->name('data.user');
     Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
@@ -73,6 +73,14 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
         ->name('user.create');
     Route::post('/user/store', [UserController::class, 'storeUser'])
         ->name('user.store');
+
+    // Daftar tenaga medis
+    Route::get('/user/medis', [TenagaMedisController::class, 'dataMedis'])
+        ->name('data.medis');
+    Route::get('/user/medis/create', [TenagaMedisController::class, 'createMedis'])
+        ->name('data.create-medis');
+    Route::post('/user/medis/store', [TenagaMedisController::class, 'storeMedis'])
+        ->name('data.store-medis');
 });
 
 // Role dokter
@@ -86,7 +94,7 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
 });
 
 // Role apotek
-Route::group(['middleware' => ['auth', 'role:apotek']], function () {
+Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () {
     // Data obat
     Route::get('/obat', [ObatController::class, 'dataObat'])->name('data');
     Route::get('/obat/fetch-data', [ObatController::class, '_fetchData'])->name('obat.fetchData');

@@ -49,6 +49,7 @@ class DokterRepository implements DokterInterface
             ->get();
     }
 
+<<<<<<< HEAD
     public function indentitasPasien(int $pasien_id)
     {
         return DB::table('pasien as p')
@@ -63,5 +64,13 @@ class DokterRepository implements DokterInterface
             ->join('rekam_medis as rm', 'rm.pasien_id', 'p.id')
             ->where('p.id', $pasien_id)
             ->first();
+=======
+    public function tenagaMedis()
+    {
+
+        return DB::table('dokter as dr')
+            ->selectRaw('dr.id, dr.nama')
+            ->get();
+>>>>>>> 41ca30b (v1 daftar tenaga medis)
     }
 }
