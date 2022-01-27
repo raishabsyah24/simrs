@@ -84,7 +84,7 @@ class DokterRepository implements DokterInterface
     {
         return DB::table('obat_pasien_periksa_rajal as or')
             ->selectRaw('
-            o.nama_generik, or.jumlah, or.signa
+            o.nama_generik, or.jumlah, or.signa, or.subtotal, or.harga_obat, or.id as obat_pasien_periksa_rajal_id
         ')
             ->join('obat_apotek as oa', 'oa.id', '=', 'or.obat_apotek_id')
             ->join('obat as o', 'o.id', '=', 'oa.obat_id')
