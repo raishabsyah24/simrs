@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\User\ActivityLogController;
 use App\Http\Controllers\Admin\Apotek\{ObatController, OrderController, AntrianApotekController};
-use App\Http\Controllers\Admin\Dokter\PasienListController;
 use App\Http\Controllers\Admin\{
     DashboardController,
     LayananController,
@@ -18,6 +17,8 @@ use App\Http\Controllers\Admin\Dokter\PasienDokterController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
+Route::get('/data', [PasienDokterController::class, 'q']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard.index');
@@ -42,7 +43,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::get('/aktifitas-user/fetch-data', [ActivityLogController::class, 'fetchData'])
         ->name('aktifitas-user.fetchData');
 
-    Route::get('/data', [PendaftaranController::class, 'q']);
+
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])
         ->name('pendaftaran.index');
     Route::get('/pendaftaran/fetch-data', [PendaftaranController::class, 'fetchData'])
@@ -78,6 +79,10 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
 Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () {
     Route::get('/dokter/daftar-pasien', [PasienDokterController::class, 'index'])
         ->name('dokter.daftar-pasien');
+    Route::get('/dokter/daftar-pasien/fetch', [PasienDokterController::class, 'fetch'])
+        ->name('dokter.daftar-pasien.fetch');
+    Route::get('/dokter/periksa-pasien/{id}', [PasienDokterController::class, 'periksaPasien'])
+        ->name('dokter-spesialis.periksa-pasien');
 });
 
 // Role apotek

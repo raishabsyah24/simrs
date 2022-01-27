@@ -185,7 +185,9 @@ class PendaftaranController extends Controller
                 $periksa_dokter = PeriksaDokter::create([
                     'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                     'pasien_id' => $pasien->id,
-                    'tanggal' => now(),
+                    'poli_id' => $pemeriksaan_detail->poli_id,
+                    'no_antrian_periksa' => noUrutPasienPeriksa($pemeriksaan_detail->poli_id),
+                    'tanggal' => $attr['tanggal'],
                     'keterangan' => $attr['keterangan'],
                     'status_diperiksa' => 'belum diperiksa'
                 ]);
@@ -265,7 +267,9 @@ class PendaftaranController extends Controller
                     $periksa_dokter = PeriksaDokter::create([
                         'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                         'pasien_id' => $pasien->id,
-                        'tanggal' => now(),
+                        'poli_id' => $pemeriksaan_detail->poli_id,
+                        'no_antrian_periksa' => noUrutPasienPeriksa($pemeriksaan_detail->poli_id),
+                        'tanggal' => $attr['tanggal'],
                         'keterangan' => $attr['keterangan'],
                         'status_diperiksa' => 'belum diperiksa'
                     ]);

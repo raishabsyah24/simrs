@@ -83,6 +83,41 @@ class UserSeeder extends Seeder
         ]);
         // End paru-paru
 
+        // Jantung
+        $jantung = User::create([
+            'name' => 'dr. jantung name',
+            'username' => 'jantung username',
+            'email' => 'jantung@mail.com',
+            'password' => bcrypt('admin')
+        ]);
+        Profile::create([
+            'user_id' => $jantung->id
+        ]);
+        $role = 'dokter';
+        $permission = 'full_permission';
+        $jantung->assignRole([$role]);
+        $jantung->givePermissionTo([$permission]);
+        $role = Role::find(3);
+        $role->givePermissionTo([$permission]);
+
+        Dokter::create([
+            'user_id' => $jantung->id,
+            'nik' => $faker->nik(),
+            'nama' => 'dr. jantung',
+            'spesialis' => 'jantung',
+            'no_str' => $faker->nik(),
+            'tempat_lahir' => $faker->city,
+            'tanggal_lahir' =>
+            $faker->dateTimeBetween($startDate = '-60 years', $endDate = 'now'),
+            'jenis_kelamin' =>  $faker->randomElement(['laki-laki', 'perempuan']),
+            'alamat' => $faker->address,
+            'no_hp' => $faker->phoneNumber,
+            'email' => $faker->unique()->safeEmail,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        // End paru-paru
+
         /**ADMIN */
         $admins = [
             ['Admin', 'admin', 'admin@mail.com'],
@@ -111,7 +146,7 @@ class UserSeeder extends Seeder
             ['Dokter', 'dokter', 'dokter@mail.com'],
         ];
 
-        for ($i = 5; $i <= 23; $i++) {
+        for ($i = 6; $i <= 23; $i++) {
             $dokter = Dokter::create([
                 'user_id' => $i,
                 'nik' => $faker->nik(),

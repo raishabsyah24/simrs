@@ -12,30 +12,30 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">Users Card</h3>
+                                <h3 class="nk-block-title page-title">{{ $title }}</h3>
                                 <div class="nk-block-des text-soft">
-                                    <p>You have total 95 projects.</p>
                                 </div>
-                            </div><!-- .nk-block-head-content -->
+                            </div>
+                            <div class="nk-block-head-content">
+
+                            </div>
+                        </div>
+                        <div class="nk-block-between mt-4">
+                            <div class="nk-block-head-content"></div>
                             <div class="nk-block-head-content">
                                 <div class="toggle-wrap nk-block-tools-toggle">
                                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1"
-                                        data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
-                                    <div class="toggle-expand-content" data-content="pageMenu">
+                                        data-target="more-options"><em class="icon ni ni-more-v"></em></a>
+                                    <div class="toggle-expand-content" data-content="more-options">
                                         <ul class="nk-block-tools g-3">
-                                            <li><a href="#" class="btn btn-white btn-outline-light"><em
-                                                        class="icon ni ni-download-cloud"></em><span>Export</span></a></li>
-                                            <li class="nk-block-tools-opt">
-                                                <div class="drodown">
-                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-primary"
-                                                        data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <ul class="link-list-opt no-bdr">
-                                                            <li><a href="#"><span>Add User</span></a></li>
-                                                            <li><a href="#"><span>Add Team</span></a></li>
-                                                            <li><a href="#"><span>Import User</span></a></li>
-                                                        </ul>
+                                            <li>
+                                                <div class="form-control-wrap">
+                                                    <div class="form-icon form-icon-right">
+                                                        <em class="icon ni ni-search"></em>
                                                     </div>
+                                                    <input onkeyup="search(this)" type="text" name="query"
+                                                        autocomplete="off" class="form-control"
+                                                        placeholder="Cari data . . ." />
                                                 </div>
                                             </li>
                                         </ul>
@@ -44,67 +44,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="nk-block">
-                        <div class="row g-gs">
-                            <div class="col-sm-6 col-lg-4 col-xxl-3">
-                                <div class="card">
-                                    <div class="card-inner">
-                                        <div class="team">
-                                            <div class="team-status bg-danger text-white"><em class="icon ni ni-na"></em>
-                                            </div>
-                                            <div class="team-options">
-                                                <div class="drodown">
-                                                    <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger"
-                                                        data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <ul class="link-list-opt no-bdr">
-                                                            <li><a href="#"><em class="icon ni ni-focus"></em><span>Quick
-                                                                        View</span></a></li>
-                                                            <li><a href="#"><em class="icon ni ni-eye"></em><span>View
-                                                                        Details</span></a></li>
-                                                            <li><a href="#"><em class="icon ni ni-mail"></em><span>Send
-                                                                        Email</span></a></li>
-                                                            <li class="divider"></li>
-                                                            <li><a href="#"><em
-                                                                        class="icon ni ni-shield-star"></em><span>Reset
-                                                                        Pass</span></a></li>
-                                                            <li><a href="#"><em
-                                                                        class="icon ni ni-shield-off"></em><span>Reset
-                                                                        2FA</span></a></li>
-                                                            <li><a href="#"><em class="icon ni ni-na"></em><span>Suspend
-                                                                        User</span></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="user-card user-card-s2">
-                                                <div class="user-avatar md bg-primary">
-                                                    <span>AB</span>
-                                                    <div class="status dot dot-lg dot-success"></div>
-                                                </div>
-                                                <div class="user-info">
-                                                    <h6>Abu Bin Ishtiyak</h6>
-                                                    <span class="sub-text">@ishtiyak</span>
-                                                </div>
-                                            </div>
-                                            <div class="team-details">
-                                                <p>I am an UI/UX Designer and Love to be creative.</p>
-                                            </div>
-                                            <ul class="team-statistics">
-                                                <li><span>213</span><span>Projects</span></li>
-                                                <li><span>87.5%</span><span>Performed</span></li>
-                                                <li><span>587</span><span>Tasks</span></li>
-                                            </ul>
-                                            <div class="team-view">
-                                                <a href="html/user-details-regular.html"
-                                                    class="btn btn-round btn-outline-light w-150px"><span>View
-                                                        Profile</span></a>
-                                            </div>
-                                        </div><!-- .team -->
-                                    </div><!-- .card-inner -->
-                                </div><!-- .card -->
+                    <div class="loader card-inner p-0">
+                        <div class="d-flex justify-content-center my-5">
+                            <div class="spinner-grow text-secondary" role="status">
+                                <span class="sr-only">Loading...</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="nk-block fetch-data d-none">
+                        @include('admin.dokter.pasien.fetch')
+                        <input type="hidden" name="page" value="1" />
                     </div>
                 </div>
             </div>
@@ -113,4 +62,64 @@
 @endsection
 
 @push('js')
+    <script>
+        $(document).ready(function() {
+            $(".fetch-data").removeClass("d-none");
+            $(".loader").addClass("d-none");
+        });
+
+        async function fetchData(
+            page = "",
+            query = "",
+            status = "",
+        ) {
+            await $.get(
+                    `/dokter/daftar-pasien/fetch?page=${page}&query=${query}&status=${status}`
+                )
+                .done((data) => {
+                    $(".loader").addClass("d-none");
+                    $(".fetch-data").removeClass("d-none");
+                    $(".fetch-data").html(data);
+                })
+                .fail((error) => {
+                    $(".loader").addClass("d-none");
+                    modalError();
+                });
+        }
+
+        function search(el) {
+            let query = $(el).val(),
+                // status = $("input[name=status]").val(),
+                page = $("input[name=page]").val();
+            $(".loader").removeClass("d-none");
+            $(".fetch-data").addClass("d-none");
+            fetchData(page, query);
+        }
+
+        function sortBy(sortBy) {
+            let page = $("input[name=page]").val(),
+                query = $("input[name=query]").val();
+            $(".loader").removeClass("d-none");
+            $(".fetch-data").addClass("d-none");
+            fetchData(page, query, sortBy);
+        }
+
+        $(document).on("click", ".pagination a", function(e) {
+            e.preventDefault();
+            let page = $(this).attr("href").split("page=")[1],
+                kategori = $("input[name=kategori]").val(),
+                query = $("input[name=query]").val();
+            $(".loader").removeClass("d-none");
+            $(".fetch-data").addClass("d-none");
+            fetchData(page, query, "desc", kategori);
+        });
+
+        function filterKategori(kategori) {
+            event.preventDefault();
+            let page = $("input[name=page]").val(),
+                query = $("input[name=query]").val(),
+                poli = $("input[name=poli]").val();
+            fetchData(page, query, "desc", kategori, poli);
+        }
+    </script>
 @endpush

@@ -46,7 +46,7 @@
                                 @endforeach
                             </div>
                         </div>
-                        {{-- Filter date --}}
+                        {{-- Head --}}
                         <div class="nk-block-between mt-4">
                             <div class="nk-block-head-content"></div>
                             <div class="nk-block-head-content">
