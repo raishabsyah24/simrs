@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin\Dokter;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\PeriksaDokter;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\ObatApotek;
+use App\Models\ObatPasienRajal;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Interfaces\DokterInterface;
 
@@ -27,6 +30,9 @@ class PasienDokterController extends Controller
     public function index()
     {
         $dokter_id = Auth::user()->dokter->id;
+        if (!$dokter_id) {
+            return abort(403);
+        }
         $dokter = $this->dokterRepository->dokterSpesialis($dokter_id);
         $data = $this->dokterRepository->daftarPasienDokterSpesialis($dokter->poli_id)
             ->paginate($this->perPage);
@@ -66,7 +72,83 @@ class PasienDokterController extends Controller
         return view('admin.dokter.pasien.pasien', compact(
             'title',
             'rekam_medis',
-            'pasien'
+            'pasien',
+            'periksa_dokter_id'
         ));
+    }
+
+    public function searchObat(Request $request)
+    {
+        $obat = $request->get('obat');
+        $periksa_dokter_id = $request->get('periksa_dokter_id');
+        $data = $this->dokterRepository->searchObat($obat, $periksa_dokter_id);
+
+        $output = '<div class="dropdown-menu d-block position-relative">';
+        foreach ($data as $item) {
+            $output .= '
+                <a href="#" class="item dropdown-item" 
+                onclick="pilihObat(`' . $item->id . '`,`' . $periksa_dokter_id . '`,`' . route('dokter.change-obat') . '`)">' . $item->nama_generik . ' ( ' . $item->nama_paten . ' )' . ' </a>
+                ';
+        }
+        $output .= '</div>';
+        echo $output;
+    }
+
+    public function changeObat(Request $request)
+    {
+        $attr = $request->all();
+        DB::transaction(
+            function () use ($attr) {
+                $obat = ObatApotek::find($attr['obat_apotek_id']);
+                $harga_obat = $obat->harga_jual;
+
+                ObatPasienRajal::create([
+                    'obat_apotek_id' => $attr['obat_apotek_id'],
+                    'periksa_dokter_id' => $attr['periksa_dokter_id'],
+                    'harga_obat' => $harga_obat,
+                    'jumlah' => 1,
+                    'subtotal' => $harga_obat
+                ]);
+            }
+        );
+
+        return response()->json([
+            'message' => 'Obat berhasil ditambahkan',
+            'url' => route('dokter.obat-pasien', $attr['periksa_dokter_id'])
+        ], 200);
+    }
+
+    public function obatPasien($periksa_dokter_id)
+    {
+        $data = $this->dokterRepository->obatPasien($periksa_dokter_id);
+
+        $output = '';
+        foreach ($data as $item) {
+            $output .= '
+            <tr>
+                <td>' . $item->nama_generik . '</td>
+                <td>
+                    <div class="form-group">
+                        <div class="form-control-wrap">
+                            <input name="jumlah"
+                                value="' . $item->jumlah . '"
+                                type="text" class="form-control">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <div class="form-control-wrap">
+                            <input name="signa"
+                                value="' . $item->signa . '"
+                                type="text" class="form-control">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        ';
+        }
+
+        echo $output;
     }
 }

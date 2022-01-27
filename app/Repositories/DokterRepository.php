@@ -64,4 +64,31 @@ class DokterRepository implements DokterInterface
             ->where('p.id', $pasien_id)
             ->first();
     }
+
+    public function searchObat(string $nama_obat, int $periksa_dokter_id = null)
+    {
+        return DB::table('obat as o')
+            ->selectRaw('
+            oa.id, o.nama_paten, o.nama_generik, oa.harga_jual, oa.minimal_stok, oa.stok
+        ')
+            ->join('obat_apotek as oa', 'oa.obat_id', '=', 'o.id')
+            ->when($nama_obat ?? false, function ($query) use ($nama_obat) {
+                return $query->where('o.nama_paten', 'like', '%' . $nama_obat . '%')
+                    ->orWhere('o.nama_generik', 'like', '%' . $nama_obat . '%');
+            })
+            ->where('oa.stok', '>=', 'oa.minimal_stok')
+            ->get();
+    }
+
+    public function obatPasien(int $periksa_dokter_id)
+    {
+        return DB::table('obat_pasien_periksa_rajal as or')
+            ->selectRaw('
+            o.nama_generik, or.jumlah, or.signa
+        ')
+            ->join('obat_apotek as oa', 'oa.id', '=', 'or.obat_apotek_id')
+            ->join('obat as o', 'o.id', '=', 'oa.obat_id')
+            ->where('or.periksa_dokter_id', $periksa_dokter_id)
+            ->get();
+    }
 }

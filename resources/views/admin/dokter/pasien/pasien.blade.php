@@ -32,6 +32,7 @@
                                     <div class="card-inner">
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="tabItem1">
+                                                {{-- Informasi pasien --}}
                                                 <div class="nk-block">
                                                     <div class="profile-ud-list">
                                                         <div class="profile-ud-item">
@@ -90,10 +91,15 @@
                                                                     class="profile-ud-value text-justify">{{ $pasien->alamat }}</span>
                                                             </div>
                                                         </div>
-                                                    </div><!-- .profile-ud-list -->
+                                                    </div>
                                                 </div>
-                                                <div class="nk-divider divider md"></div>
+                                                {{-- End Informasi pasien --}}
+
                                                 {{-- Form Pemeriksaan --}}
+                                                <div class="nk-divider divider md"></div>
+                                                <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                    <h5 class="title">Pemeriksaan</h5>
+                                                </div>
                                                 <div class="nk-block">
                                                     <form class="form-validate" action="">
                                                         @csrf
@@ -181,184 +187,74 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            {{-- Button submit --}}
-                                                            <div class="col-md-7 offset-lg-5">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                {{-- End form Pemeriksaan --}}
+
+                                                {{-- Obat pasien --}}
+                                                <div class="nk-divider divider md"></div>
+                                                <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                    <h5 class="title">Obat Pasien</h5>
+                                                </div>
+                                                <div class="nk-block">
+                                                    <form class="form-validate" action="">
+                                                        @csrf
+                                                        <div class="row g-gs">
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <button type="submit" onclick="submitForm(this.form)"
-                                                                        class="tombol-simpan btn btn-lg btn-primary">
-                                                                        <span class="text-simpan">Simpan</span>
-                                                                        <span
-                                                                            class="loading-simpan d-none ml-2 spinner-border spinner-border-sm"
-                                                                            role="status" aria-hidden="true"></span>
-                                                                    </button>
+                                                                    <label class="form-label">Masukan nama obat<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="form-control-wrap">
+                                                                        <input
+                                                                            onkeyup="searchObat(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-obat') }}`,this)"
+                                                                            class="form-control form-control-lg"
+                                                                            name="obat" autocomplete="off">
+                                                                        <div class="dropdown-obat"></div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </form>
+                                                    <div class="mt-3">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Nama Obat</th>
+                                                                    <th>Jumlah</th>
+                                                                    <th>Signa</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="data-obat">
+                                                                {{-- @foreach ($obat_pasien as $item)
+                                                                    <tr>
+                                                                        <td>{{ $item->nama_generik }}</td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="form-control-wrap">
+                                                                                    <input name="jumlah"
+                                                                                        value="{{ $item->jumlah }}"
+                                                                                        type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="form-control-wrap">
+                                                                                    <input name="signa"
+                                                                                        value="{{ $item->signa }}"
+                                                                                        type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach --}}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                                {{-- <div class="nk-block">
-                                                    <div class="nk-block-head nk-block-head-sm nk-block-between">
-                                                        <h5 class="title">Form Pemeriksaan</h5>
-                                                    </div>
-                                                    <div class="card">
-                                                        <div class="card-inner">
-                                                            <div class="card-head">
-                                                                <h5 class="card-title">Website Setting</h5>
-                                                            </div>
-                                                            <form action="#" class="gy-3">
-                                                                <div class="row g-3 align-center">
-                                                                    <div class="col-lg-5">
-                                                                        <div class="form-group">
-                                                                            <label class="form-label"
-                                                                                for="site-name">Site Name</label>
-                                                                            <span class="form-note">Specify the name of
-                                                                                your website.</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-7">
-                                                                        <div class="form-group">
-                                                                            <div class="form-control-wrap">
-                                                                                <input type="text" class="form-control"
-                                                                                    id="site-name"
-                                                                                    value="DashLite Admin Template">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row g-3 align-center">
-                                                                    <div class="col-lg-5">
-                                                                        <div class="form-group">
-                                                                            <label class="form-label">Site Email</label>
-                                                                            <span class="form-note">Specify the email
-                                                                                address of your website.</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-7">
-                                                                        <div class="form-group">
-                                                                            <div class="form-control-wrap">
-                                                                                <input type="text" class="form-control"
-                                                                                    id="site-email"
-                                                                                    value="info@softnio.com">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row g-3 align-center">
-                                                                    <div class="col-lg-5">
-                                                                        <div class="form-group">
-                                                                            <label class="form-label">Site
-                                                                                Copyright</label>
-                                                                            <span class="form-note">Copyright
-                                                                                information of your website.</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-7">
-                                                                        <div class="form-group">
-                                                                            <div class="form-control-wrap">
-                                                                                <input type="text" class="form-control"
-                                                                                    id="site-copyright"
-                                                                                    value="© 2022, DashLite. All Rights Reserved.">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row g-3 align-center">
-                                                                    <div class="col-lg-5">
-                                                                        <div class="form-group">
-                                                                            <label class="form-label">Allow
-                                                                                Registration</label>
-                                                                            <span class="form-note">Enable or disable
-                                                                                registration from site.</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-7">
-                                                                        <ul
-                                                                            class="custom-control-group g-3 align-center flex-wrap">
-                                                                            <li>
-                                                                                <div
-                                                                                    class="custom-control custom-radio checked">
-                                                                                    <input type="radio"
-                                                                                        class="custom-control-input"
-                                                                                        checked="" name="reg-public"
-                                                                                        id="reg-enable">
-                                                                                    <label class="custom-control-label"
-                                                                                        for="reg-enable">Enable</label>
-                                                                                </div>
-                                                                            </li>
-                                                                            <li>
-                                                                                <div class="custom-control custom-radio">
-                                                                                    <input type="radio"
-                                                                                        class="custom-control-input"
-                                                                                        name="reg-public" id="reg-disable">
-                                                                                    <label class="custom-control-label"
-                                                                                        for="reg-disable">Disable</label>
-                                                                                </div>
-                                                                            </li>
-                                                                            <li>
-                                                                                <div class="custom-control custom-radio">
-                                                                                    <input type="radio"
-                                                                                        class="custom-control-input"
-                                                                                        name="reg-public" id="reg-request">
-                                                                                    <label class="custom-control-label"
-                                                                                        for="reg-request">On Request</label>
-                                                                                </div>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row g-3 align-center">
-                                                                    <div class="col-lg-5">
-                                                                        <div class="form-group">
-                                                                            <label class="form-label">Main
-                                                                                Website</label>
-                                                                            <span class="form-note">Specify the URL if
-                                                                                your main website is external.</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-7">
-                                                                        <div class="form-group">
-                                                                            <div class="form-control-wrap">
-                                                                                <input type="text" class="form-control"
-                                                                                    name="site-url"
-                                                                                    value="https://www.softnio.com">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row g-3 align-center">
-                                                                    <div class="col-lg-5">
-                                                                        <div class="form-group">
-                                                                            <label class="form-label"
-                                                                                for="site-off">Maintanance Mode</label>
-                                                                            <span class="form-note">Enable to make
-                                                                                website make offline.</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-7">
-                                                                        <div class="form-group">
-                                                                            <div class="custom-control custom-switch">
-                                                                                <input type="checkbox"
-                                                                                    class="custom-control-input"
-                                                                                    name="reg-public" id="site-off">
-                                                                                <label class="custom-control-label"
-                                                                                    for="site-off">Offline</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row g-3">
-                                                                    <div class="col-lg-7 offset-lg-5">
-                                                                        <div class="form-group mt-2">
-                                                                            <button type="submit"
-                                                                                class="btn btn-lg btn-primary">Update</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
-                                            </div><!-- tab pane -->
+                                                {{-- End Obat pasien --}}
+                                            </div>
                                             <div class="tab-pane" id="tabItem2">
                                                 {{-- Table RM --}}
                                                 <div class="nk-block nk-block-lg">
@@ -390,73 +286,15 @@
                                                             @endforeach
                                                         </tbody>
                                                     </table>
-                                                    {{-- <table class="datatable-init nowrap nk-tb-list is-separate"
-                                                        data-auto-responsive="false">
-                                                        <thead>
-                                                            <tr class="nk-tb-item nk-tb-head">
-                                                                <th class="nk-tb-col"><span>Tanggal Kunjungan</span>
-                                                                </th>
-                                                                <th class="nk-tb-col"><span>Poli</span></th>
-                                                                <th class="nk-tb-col"><span>Dokter</span></th>
-                                                                <th class="nk-tb-col"><span>Subjektif</span></th>
-                                                                <th class="nk-tb-col"><span>Objektif</span></th>
-                                                                <th class="nk-tb-col"><span>Assessment</span></th>
-                                                                <th class="nk-tb-col"><span>Plan</span></th>
-                                                            </tr><!-- .nk-tb-item -->
-                                                        </thead>
-                                                        <tbody>
-                                                            @forelse ($data as $item)
-                                                                <tr class="nk-tb-item">
-                                                                    <td class="nk-tb-col">
-                                                                        <span
-                                                                            class="tb-lead">{{ tanggal($item->tanggal_periksa) }}</span>
-                                                                    </td>
-                                                                    <td class="nk-tb-col">
-                                                                        <span
-                                                                            class="tb-lead text-capitalize">{{ $item->poli }}</span>
-                                                                    </td>
-                                                                    <td class="nk-tb-col">
-                                                                        <span
-                                                                            class="tb-sub">{{ $item->dokter }}</span>
-                                                                    </td>
-                                                                    <td class="nk-tb-col">
-                                                                        <span
-                                                                            class="tb-sub">{{ $item->subjektif }}</span>
-                                                                    </td>
-                                                                    <td class="nk-tb-col">
-                                                                        <span
-                                                                            class="tb-sub">{{ $item->objektif }}</span>
-                                                                    </td>
-                                                                    <td class="nk-tb-col">
-                                                                        <span
-                                                                            class="tb-sub">{{ $item->assesment }}</span>
-                                                                    </td>
-                                                                    <td class="nk-tb-col">
-                                                                        <span
-                                                                            class="tb-sub">{{ $item->plan }}</span>
-                                                                    </td>
-                                                                </tr>
-                                                            @empty
-                                                                <tr>
-                                                                    <td>Tidak ada</td>
-                                                                </tr>
-                                                            @endforelse
-                                                        </tbody>
-                                                    </table> --}}
                                                 </div>
                                                 {{-- Table RM --}}
                                             </div>
-                                            <!--tab pane-->
                                         </div>
-                                        <!--tab content-->
                                     </div>
-                                    <!--card inner-->
-                                </div><!-- .card-content -->
-                            </div><!-- .card-aside-wrap -->
+                                </div>
+                            </div>
                         </div>
-                        <!--card-->
                     </div>
-                    <!--nk block lg-->
                 </div>
             </div>
         </div>
@@ -464,4 +302,52 @@
 @endsection
 
 @push('js')
+    <script>
+        function searchObat(id, url, attr) {
+            if ($('.dropdown-obat').hasClass('d-none')) {
+                $('.dropdown-obat').removeClass('d-none');
+            }
+
+            let obat = $(attr).val();
+
+            $.get(url, {
+                    obat: obat,
+                    periksa_dokter_id: id
+                })
+                .done(output => {
+                    if (output != '') {
+                        $('.dropdown-obat').html(output);
+                    }
+                })
+        }
+
+        function pilihObat(obat_apotek_id, periksa_dokter_id, url) {
+            event.preventDefault();
+            $('.dropdown-obat').addClass('d-none');
+            $.post({
+                    url: url,
+                    type: 'post',
+                    data: {
+                        obat_apotek_id: obat_apotek_id,
+                        periksa_dokter_id: periksa_dokter_id
+                    }
+                })
+                .done(response => {
+                    $('[name=obat]').val('')
+                    alertSuccess(response.message);
+                    let url = response.url;
+                    $.get(url)
+                        .done(output => {
+                            $('table .data-obat').html(output);
+                        })
+                })
+        }
+
+        setInterval(() => {
+            $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
+                .done(output => {
+                    $('table .data-obat').html(output);
+                })
+        }, 500);
+    </script>
 @endpush
