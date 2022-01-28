@@ -203,19 +203,23 @@
                     @endrole
                     @role('lab')
                         <li class="nk-menu-item has-sub">
-                            <a class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-view-list-fill"></em>
+                                </span>
                                 <span class="nk-menu-text">Pemeriksaan Lab</span>
                             </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
+                            <ul class="nk-menu-sub ">
+                                <li class="nk-menu-item {{ activeClass('lab.otc') }}">
                                     <a href="{{ route('lab.otc') }}" class="nk-menu-link"><span
                                             class="nk-menu-text">Pemeriksaan Lab OTC</span></a>
+                                </li>
+                                <li class="nk-menu-item {{ activeClass('lab.umum') }}">
                                     <a href="{{ route('lab.umum') }}" class="nk-menu-link"><span
                                             class="nk-menu-text">Pemeriksaan Lab RS</span></a>
                                 </li>
-                            </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->
+                            </ul>
+                        </li>
                         <li class="nk-menu-item {{ activeClass('aktifitas-user.index') }}">
                             <a href="{{ route('aktifitas-user.index') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon">
@@ -302,7 +306,8 @@
                                     </li>
                                     <li class="nk-menu-item">
                                         <a href="html/pages/auths/auth-register-v2.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Register / Signup</span></a>
+                                            target="_blank"><span class="nk-menu-text">Register /
+                                                Signup</span></a>
                                     </li>
                                     <li class="nk-menu-item">
                                         <a href="html/pages/auths/auth-reset-v2.html" class="nk-menu-link"
@@ -310,7 +315,8 @@
                                     </li>
                                     <li class="nk-menu-item">
                                         <a href="html/pages/auths/auth-success-v2.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Success / Confirm</span></a>
+                                            target="_blank"><span class="nk-menu-text">Success /
+                                                Confirm</span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -345,19 +351,23 @@
                     </li><!-- .nk-menu-item -->
                     <!-- LAB -->
                     <li class="nk-menu-item has-sub">
-                        <a class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-view-list-fill"></em>
+                            </span>
                             <span class="nk-menu-text">Pemeriksaan Lab</span>
                         </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item">
+                        <ul class="nk-menu-sub ">
+                            <li class="nk-menu-item {{ activeClass('lab.otc') }}">
                                 <a href="{{ route('lab.otc') }}" class="nk-menu-link"><span
                                         class="nk-menu-text">Pemeriksaan Lab OTC</span></a>
+                            </li>
+                            <li class="nk-menu-item {{ activeClass('lab.umum') }}">
                                 <a href="{{ route('lab.umum') }}" class="nk-menu-link"><span
                                         class="nk-menu-text">Pemeriksaan Lab RS</span></a>
                             </li>
-                        </ul><!-- .nk-menu-sub -->
-                    </li><!-- .nk-menu-item -->
+                        </ul>
+                    </li>
                     <!-- APOTEK -->
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
@@ -445,7 +455,6 @@
                         </a>
                     </li>
 
-                    <!-- BATAS SUPER ADMIN -->
                 </ul>
             </div>
         </div>
