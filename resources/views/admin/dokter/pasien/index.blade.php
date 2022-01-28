@@ -10,14 +10,12 @@
             <div class="nk-content-inner">
                 <div class="nk-content-body">
                     <div class="nk-block-head nk-block-head-sm">
-                        <div class="nk-block-between">
+                        <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">{{ $title }}</h3>
-                                <div class="nk-block-des text-soft">
-                                </div>
-                            </div>
-                            <div class="nk-block-head-content">
-
+                                <div class="nk-block-head-sub"><a class="back-to"
+                                        href="{{ route('dokter.daftar-pasien') }}"><em
+                                            class="icon ni ni-arrow-left"></em><span>Kembali</span></a></div>
+                                <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
                             </div>
                         </div>
                         <div class="nk-block-between mt-4">

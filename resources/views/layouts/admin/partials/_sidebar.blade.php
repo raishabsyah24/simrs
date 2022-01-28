@@ -27,7 +27,8 @@
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nk-menu-item has-sub">
+                    <li
+                        class="nk-menu-item has-sub {{ activeClass('pendaftaran.index') }} {{ activeClass('pendaftaran.create') }}">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon">
                                 <em class="icon ni ni-view-list-fill"></em>
@@ -49,18 +50,22 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nk-menu-item has-sub">
+                    <li
+                        class="nk-menu-item has-sub  {{ activeClass('dokter-spesialis.periksa-pasien') }} {{ activeClass('dokter.daftar-pasien') }}">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon">
                                 <i class="fas fa-user-md fa-lg"></i>
                             </span>
                             <span class="nk-menu-text">Dokter</span>
                         </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item">
-                                <a href="{{ route('dokter.daftar-pasien') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Daftar Pasien</span></a>
-                            </li>
+                        <ul
+                            class="nk-menu-sub {{ activeClass('dokter-spesialis.periksa-pasien') }} {{ activeClass('dokter.daftar-pasien') }}">
+                            <a href="{{ route('dokter.daftar-pasien') }}">
+                                <li
+                                    class="nk-menu-item {{ activeClass('dokter-spesialis.periksa-pasien') }} {{ activeClass('dokter.daftar-pasien') }}">
+                                    <a href="{{ route('dokter.daftar-pasien') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Daftar Pasien</span></a>
+                                </li>
                         </ul>
                     </li>
                 </ul>

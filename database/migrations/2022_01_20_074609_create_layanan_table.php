@@ -17,7 +17,7 @@ class CreateLayananTable extends Migration
             $table->id();
             $table->string('kode')->unique();
             $table->string('nama');
-            $table->decimal('tarif');
+            $table->bigInteger('tarif');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
