@@ -20,17 +20,16 @@ class CreateObatPasienPeriksaRajal extends Migration
             $table->string('komposisi')->nullable();
             $table->string('signa')->nullable();
             $table->bigInteger('jumlah')->default(1);
-            $table->decimal('harga_obat');
-            $table->decimal('subtotal')->default(0);
+            $table->bigInteger('harga_obat');
+            $table->bigInteger('subtotal')->default(0);
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('periksa_dokter_id')->references('id')->on('periksa_dokter')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('obat_apotek_id')->references('id')->on('obat_apotek')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
         });
     }
 

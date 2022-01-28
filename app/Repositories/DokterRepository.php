@@ -49,7 +49,7 @@ class DokterRepository implements DokterInterface
             ->get();
     }
 
-    public function indentitasPasien(int $pasien_id)
+    public function identitasPasien(int $pasien_id)
     {
         return DB::table('pasien as p')
             ->selectRaw('

@@ -45,7 +45,11 @@
                                              Pasien </span><em class="icon ni ni-arrow-right-round-fill"></em></a>
                                  </div>
                              @else
-                                 <div class="team-view mb-4 pb-3">
+                                 <div class="team-view">
+                                     <a href="{{ route('dokter-spesialis.periksa-pasien', $item->periksa_dokter_id) }}"
+                                         class="btn btn-round btn-outline-light w-150px"><span
+                                             class="ml-4 ">Lihat </span><em
+                                             class="icon ni ni-arrow-right-round-fill"></em></a>
                                  </div>
                              @endif
                          </div>

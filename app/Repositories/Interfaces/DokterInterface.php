@@ -10,7 +10,7 @@ interface DokterInterface
 
     public function rekamMedisPasienPeriksa(int $periksa_dokter_id);
 
-    public function indentitasPasien(int $pasien_id);
+    public function identitasPasien(int $pasien_id);
 
     public function searchObat(string $nama_obat, int $periksa_dokter_id = null);
 

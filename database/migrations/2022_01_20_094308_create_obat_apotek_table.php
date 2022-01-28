@@ -16,7 +16,7 @@ class CreateObatApotekTable extends Migration
         Schema::create('obat_apotek', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('obat_id');
-            $table->decimal('harga_jual')->default(0);
+            $table->bigInteger('harga_jual')->default(0);
             $table->bigInteger('stok')->default(0);
             $table->bigInteger('minimal_stok')->default(0);
             $table->bigInteger('maksimal_stok')->default(0);

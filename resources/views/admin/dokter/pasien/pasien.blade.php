@@ -100,9 +100,11 @@
                                                 <div class="nk-block-head nk-block-head-sm nk-block-between">
                                                     <h5 class="title">Pemeriksaan</h5>
                                                 </div>
-                                                <div class="nk-block">
-                                                    <form class="form-validate" action="">
-                                                        @csrf
+                                                <form class="form-validate"
+                                                    action="{{ route('dokter.store-pasien', $periksa_dokter_id) }}">
+                                                    @csrf
+                                                    @method('put')
+                                                    <div class="nk-block">
                                                         <div class="row g-gs">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
@@ -110,7 +112,7 @@
                                                                             class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <textarea class="form-control form-control-sm"
-                                                                            name="alamat" required
+                                                                            name="keluhan" required
                                                                             autocomplete="off"></textarea>
                                                                     </div>
                                                                 </div>
@@ -121,7 +123,7 @@
                                                                             class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <textarea class="form-control form-control-sm"
-                                                                            name="alamat" required
+                                                                            name="subjektif" required
                                                                             autocomplete="off"></textarea>
                                                                     </div>
                                                                 </div>
@@ -132,7 +134,18 @@
                                                                             class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <textarea class="form-control form-control-sm"
-                                                                            name="alamat" required
+                                                                            name="objektif" required
+                                                                            autocomplete="off"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Assesment<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="form-control-wrap">
+                                                                        <textarea class="form-control form-control-sm"
+                                                                            name="assesment" required
                                                                             autocomplete="off"></textarea>
                                                                     </div>
                                                                 </div>
@@ -148,7 +161,7 @@
                                                                                     class="custom-control custom-radio custom-control-pro no-control">
                                                                                     <input type="radio" value="laki-laki"
                                                                                         class="custom-control-input"
-                                                                                        name="jenis_kelamin" id="lab">
+                                                                                        name="plan" id="lab">
                                                                                     <label for="lab"
                                                                                         class="custom-control-label"><i
                                                                                             class="fas fa-vials mr-1"></i>Cek
@@ -160,9 +173,8 @@
                                                                                     class="custom-control custom-radio custom-control-pro no-control">
                                                                                     <input type="radio"
                                                                                         class="custom-control-input"
-                                                                                        name="jenis_kelamin"
-                                                                                        value="perempuan" id="radiologi"
-                                                                                        autocomplete="off">
+                                                                                        name="plan" value="perempuan"
+                                                                                        id="radiologi" autocomplete="off">
                                                                                     <label for="radiologi"
                                                                                         class="custom-control-label"><i
                                                                                             class="fas fa-radiation mr-1"></i>
@@ -187,18 +199,48 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Status Lanjutan<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="form-control-wrap ">
+                                                                        <select class="form-select select2"
+                                                                            style="position:absolute;"
+                                                                            name="status_lanjutan"
+                                                                            data-placeholder="Pilih data">
+                                                                            <option label="Pilih data" disabled selected
+                                                                                value=""></option>
+                                                                            <option value="dirujuk">Dirujuk</option>
+                                                                            <option value="selesai">Selesai</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Jadwal Kontrol</label>
+                                                                    <div class="form-control-wrap">
+                                                                        <div class="form-icon form-icon-left">
+                                                                            <em class="icon ni ni-calendar"></em>
+                                                                        </div>
+                                                                        <input data-date-format="yyyy-mm-dd"
+                                                                            name="jadwal_kontrol" type="text"
+                                                                            class="form-control date-picker">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </form>
-                                                </div>
-                                                {{-- End form Pemeriksaan --}}
+                                                        {{-- </form> --}}
+                                                    </div>
+                                                    {{-- End form Pemeriksaan --}}
 
-                                                {{-- Obat pasien --}}
-                                                <div class="nk-divider divider md"></div>
-                                                <div class="nk-block-head nk-block-head-sm nk-block-between">
-                                                    <h5 class="title">Obat Pasien</h5>
-                                                </div>
-                                                <div class="nk-block">
-                                                    <form class="form-validate" action="">
+                                                    {{-- Obat pasien --}}
+                                                    <div class="nk-divider divider md"></div>
+                                                    <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                        <h5 class="title">Obat Pasien</h5>
+                                                    </div>
+                                                    <div class="nk-block">
+                                                        {{-- <form class="form-validate"> --}}
                                                         @csrf
                                                         <div class="row g-gs">
                                                             <div class="col-md-6">
@@ -215,47 +257,39 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </form>
-                                                    <div class="mt-3">
-                                                        <table class="table table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>No</th>
-                                                                    <th>Nama Obat</th>
-                                                                    <th>Jumlah</th>
-                                                                    <th>Signa</th>
-                                                                    <th>Harga Obat</th>
-                                                                    <th>Subtotal</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="data-obat">
-                                                                {{-- @foreach ($obat_pasien as $item)
+                                                        <div class="mt-3">
+                                                            <table class="table table-striped">
+                                                                <thead>
                                                                     <tr>
-                                                                        <td>{{ $item->nama_generik }}</td>
-                                                                        <td>
-                                                                            <div class="form-group">
-                                                                                <div class="form-control-wrap">
-                                                                                    <input name="jumlah"
-                                                                                        value="{{ $item->jumlah }}"
-                                                                                        type="text" class="form-control">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="form-group">
-                                                                                <div class="form-control-wrap">
-                                                                                    <input name="signa"
-                                                                                        value="{{ $item->signa }}"
-                                                                                        type="text" class="form-control">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
+                                                                        <th class="text-center">No</th>
+                                                                        <th class="text-center">Nama Obat</th>
+                                                                        <th class="text-center">Dosis</th>
+                                                                        <th class="text-center">Satuan</th>
+                                                                        <th class="text-center">Signa</th>
+                                                                        <th>Harga Obat</th>
+                                                                        <th>Subtotal</th>
+                                                                        <th class="text-center">Opsi</th>
                                                                     </tr>
-                                                                @endforeach --}}
-                                                            </tbody>
-                                                        </table>
+                                                                </thead>
+                                                                <tbody class="data-obat">
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        {{-- Button submit --}}
+                                                        <div class="col-md-7 offset-lg-5">
+                                                            <div class="form-group">
+                                                                <button type="submit" onclick="submitForm(this.form)"
+                                                                    class="tombol-simpan btn btn-lg btn-primary">
+                                                                    <span class="text-simpan">Simpan</span>
+                                                                    <span
+                                                                        class="loading-simpan d-none ml-2 spinner-border spinner-border-sm"
+                                                                        role="status" aria-hidden="true"></span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        {{-- </form> --}}
                                                     </div>
-                                                </div>
+                                                </form>
                                                 {{-- End Obat pasien --}}
                                             </div>
                                             <div class="tab-pane" id="tabItem2">
@@ -306,14 +340,16 @@
 
 @push('js')
     <script>
-        function searchObat(id, url, attr) {
+        reloadTable();
+
+        async function searchObat(id, url, attr) {
             if ($('.dropdown-obat').hasClass('d-none')) {
                 $('.dropdown-obat').removeClass('d-none');
             }
 
             let obat = $(attr).val();
 
-            $.get(url, {
+            await $.get(url, {
                     obat: obat,
                     periksa_dokter_id: id
                 })
@@ -342,23 +378,29 @@
                     $.get(url)
                         .done(output => {
                             $('table .data-obat').html(output);
+                            reloadTable();
                         })
                 })
         }
 
-        reloadTable();
-
         function reloadTable() {
             setTimeout(() => {
                 $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
-                    .done(output => {
-                        $('table .data-obat').html(output);
+                    .done(response => {
+                        let limit = response.limit;
+                        if (limit == 'limit') {
+                            $('input[name=obat]').prop('disabled', true);
+                            alertError('Limit bos');
+                        }
+                        $('table .data-obat').html(response.output);
                     })
-            }, 1000);
+            }, 600);
         }
 
         function updateQuantity(url, attr, obat_pasien_periksa_rajal_id) {
             let qty = $(attr).val();
+            $('input[name=obat]').prop('disabled', false);
+
             $.post({
                     url: url,
                     data: {
@@ -368,7 +410,58 @@
                     },
                 })
                 .done(response => {
+                    console.log(response);
+                    let limit = response.limit;
+                    if (limit == 'limit') {
+                        $(attr).val(1);
+                        $('input[name=obat]').prop('disabled', true);
+                        alertError('Pasien bpjs sudah mencapai limit obat',
+                            'Silahkan kurangi jumlah obat atau kurangi obat pasien');
+                    }
                     reloadTable();
+                })
+        }
+
+        function hapusObat(url, id) {
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "DELETE",
+                        id: id
+                    },
+                })
+                .done(response => {
+                    alertSuccess(response.message)
+                    reloadTable();
+                })
+        }
+
+        function submitForm(originalForm) {
+            event.preventDefault();
+            $.post({
+                    url: $(originalForm).attr('action'),
+                    data: new FormData(originalForm),
+                    beforeSend: function() {
+                        $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                        $(originalForm).find('.text-simpan').text('Menyimpan . . .');
+                        $(originalForm).find('.loading-simpan').removeClass('d-none');
+                    },
+                    dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    complete: function() {
+                        $(originalForm).find('.loading-simpan').addClass('d-none');
+                        $(originalForm).find('.text-simpan').text('Simpan');
+                        $(originalForm).find('.tombol-simpan').attr('disabled', false);
+
+                    }
+                })
+                .done(response => {
+                    console.log(response);
+                    $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                    alertSuccess(response.message);
+                    pindahHalaman(response.url, 1500);
                 })
         }
     </script>
