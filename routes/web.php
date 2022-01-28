@@ -143,7 +143,7 @@ Route::group(['middleware' => ['auth', 'role:radiologi|super_admin']], function 
 
     Route::get('/otcradio', [RadiologiController::class, 'radiologi_otc'])
         ->name('order.radiologi-otc');
-    Route::get('/umumradio', [RadiologiController::class, 'radiologi_umum'])
+    Route::get('/umumradio', [RadiologiController::class, 'radiologi_'])
         ->name('order.radiologi-umum');
     Route::get('/aktifitas-user', [ActivityLogController::class, 'index'])
         ->name('aktifitas-user.index');
