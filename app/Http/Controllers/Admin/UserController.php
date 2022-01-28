@@ -149,19 +149,19 @@ class UserController extends Controller
         $role->givePermissionTo([$permissions]);
 
         // Insert ke table dokter
-        $dokter = Dokter::create([
-            'user_id' => $user->id,
-            'nik' => $request->nik,
-            'nama' => $request->nama,
-            'spesialis' => $request->spesialis,
-            'no_str' => $request->no_str,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'no_hp' => $request->no_hp,
-            'email' => $request->email,
-            'alamat' => $request->alamat
-        ]);
+        // $dokter = Dokter::create([
+        //     'user_id' => $user->id,
+        //     'nik' => $request->nik,
+        //     'nama' => $request->nama,
+        //     'spesialis' => $request->spesialis,
+        //     'no_str' => $request->no_str,
+        //     'tempat_lahir' => $request->tempat_lahir,
+        //     'tanggal_lahir' => $request->tanggal,
+        //     'jenis_kelamin' => $request->jenis_kelamin,
+        //     'no_hp' => $request->no_hp,
+        //     'email' => $request->email,
+        //     'alamat' => $request->alamat
+        // ]);
 
         return redirect()->back();
 

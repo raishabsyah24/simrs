@@ -32,7 +32,7 @@ class MasterSeeder extends Seeder
             ]);
         }
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             DB::table('activity_logs')->insert([
                 'id' => Str::uuid(),
                 'user_id' => rand(1, 3),
@@ -45,7 +45,7 @@ class MasterSeeder extends Seeder
         }
 
         // Dokter
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             DB::table('dokter')->insert([
                 // 'user_id' => $i,
                 'nik' => $faker->nik(),

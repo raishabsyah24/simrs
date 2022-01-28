@@ -65,6 +65,13 @@ class DokterRepository implements DokterInterface
             ->first();
     }
 
+    // public function tenagaMedis()
+    // {
+    //     return DB::table('dokter as dr')
+    //         ->selectRaw('dr.id, dr.nama')
+    //         ->get();
+    // }
+
     public function searchObat(string $nama_obat, int $periksa_dokter_id = null)
     {
         return DB::table('obat as o')
