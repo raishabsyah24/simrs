@@ -126,7 +126,7 @@
                                             class="nk-menu-text">Data Obat</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->
+                        </li>
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
@@ -138,7 +138,7 @@
                                             class="nk-menu-text">Order Obat - Default</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->
+                        </li>
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon"><em class="icon ni ni-filter-alt"></em></span>
@@ -147,18 +147,18 @@
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
                                     <a href="{{ route('data.antrian') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Bpjs</span></a>
+                                            class="nk-menu-text">Pasien Bpjs</span></a>
                                 </li>
                                 <li class="nk-menu-item">
                                     <a href="html/orders-regular.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Umum - Regular</span></a>
+                                            class="nk-menu-text">Pasien Umum</span></a>
                                 </li>
                                 <li class="nk-menu-item">
                                     <a href="html/orders-sales.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Asuransi - Sales</span></a>
+                                            class="nk-menu-text">Pasien Asuransi</span></a>
                                 </li>
-                            </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->
+                            </ul>
+                        </li>
                     @endrole
                     @role('lab|super_admin')
                         <li class="nk-menu-item has-sub">

@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Admin\Dokter;
 
-use App\Models\Poli;
-use App\Models\Layanan;
-use App\Models\ObatApotek;
-use App\Models\RekamMedis;
-use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
-use App\Models\PeriksaDokter;
-use App\Models\ObatPasienRajal;
-use App\Models\RekamMedisPasien;
-use App\Models\PemeriksaanDetail;
+use App\Models\{
+    Poli,
+    Layanan,
+    ObatApotek,
+    RekamMedis,
+    Pemeriksaan,
+    PeriksaDokter,
+    ObatPasienRajal,
+    RekamMedisPasien,
+    PemeriksaanDetail
+};
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;

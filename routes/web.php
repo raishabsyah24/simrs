@@ -66,6 +66,9 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::post('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'storePasienSudahPernahDaftar'])
         ->name('pendaftaran.storePasienSudahPernahDaftar');
 
+    Route::delete('/pendaftaran/pasien/{pemeriksaan}/delete', [PendaftaranController::class, 'destroy'])
+        ->name('pendaftaran.destroy');
+
     Route::get('/user/data', [UserController::class, 'index'])
         ->name('data.user');
     Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
@@ -107,7 +110,7 @@ Route::group(['middleware' => ['auth', 'role:apotek']], function () {
     Route::post('/create', [OrderController::class, 'storeObat'])->name('order.store.obat');
 
     // Daftar antrian
-    Route::get('/antrian', [AntrianApotekController::class, 'index'])->name('data.antrian');
+    Route::get('/antrian-apotek/bpjs', [AntrianApotekController::class, 'index'])->name('data.antrian');
 });
 
 // // Role poli

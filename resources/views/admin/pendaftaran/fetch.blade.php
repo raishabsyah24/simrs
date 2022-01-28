@@ -86,7 +86,9 @@
                                             <a href="#"><em class="icon ni ni-edit-fill"></em><span>Ubah</span></a>
                                         </li>
                                         <li>
-                                            <a href="#"><em class="icon ni ni-trash"></em><span>Hapus</span></a>
+                                            <a href="#"
+                                                onclick="hapusPasien(`{{ route('pendaftaran.destroy', $item->pemeriksaan_id) }}`)"><em
+                                                    class="icon ni ni-trash"></em><span>Hapus</span></a>
                                         </li>
                                     </ul>
                                 </div>

@@ -64,7 +64,7 @@
     }
 
     // Confirm delete alert
-    function confirmDelete(url, table = "", reload = false) {
+    function confirmDelete(url) {
         Swal.fire({
             title: "Apakah anda yakin menghapus data ini?",
             text: "Data yang sudah dihapus tidak dapat dikembalikan lagi!",
@@ -83,11 +83,7 @@
                         },
                     })
                     .done((response) => {
-                        alert_success(response.message);
-                        $(table).DataTable().ajax.reload();
-                        if (reload === true) {
-                            window.location.reload();
-                        }
+                        alertSuccess(response.message);
                     })
                     .fail((errors) => {
                         alert_error(errors.responseJSON.message);
