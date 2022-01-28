@@ -13,13 +13,37 @@
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
                                 <h3 class="nk-block-title page-title">
-                                    {!! $title !!}
+                                    Migrasi Data Lama
                                 </h3>
                             </div>
                         </div>
                         <div class="nk-block">
                             <div class="row mt-2">
-                             
+                                @foreach ($total as $item)
+                                    <div class="col-md-3">
+                                        <div class="card">
+                                            <div class="nk-ecwg nk-ecwg3">
+                                                <div class="card-inner pb-0">
+                                                    <div class="card-title-group">
+                                                        <div class="card-title">
+                                                            <h6 class="title">
+                                                                {{ $item[0] }}
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="data">
+                                                        <div class="data-group">
+                                                            <div class="amount fw-normal">
+                                                                {{ formatAngka($item[1]) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- .nk-ecwg -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                         {{-- Head --}}
@@ -56,7 +80,17 @@
                                                                     </span>
                                                                 </a>
                                                             </li>
-                                                           
+                                                            @foreach ($kategori_pasien as $item)
+                                                                <li>
+                                                                    <a data-id="{{ $item->id }}" href="#"
+                                                                        onclick="filterKategori(`{{ $item->id }}`)"><input
+                                                                            type="hidden" name="kategori" />
+                                                                        <span class="text-uppercase">
+                                                                            {{ $item->nama }}
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -76,7 +110,17 @@
                                                                     </span>
                                                                 </a>
                                                             </li>
-                                                           
+                                                            @foreach ($poli as $item)
+                                                                <li>
+                                                                    <a data-id="{{ $item->id }}" href="#"
+                                                                        onclick="filterPoli(`{{ $item->nama }}`)"><input
+                                                                            type="hidden" name="poli" />
+                                                                        <span class="text-uppercase">
+                                                                            {{ $item->nama }}
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -96,7 +140,7 @@
                         </div>
                     </div>
                     <div class="nk-block fetch-data d-none">
-                        @include('admin.radiologi.fetch')
+                        @include('admin.pendaftaran.fetch')
                         <input type="hidden" name="page" value="1" />
                     </div>
                 </div>

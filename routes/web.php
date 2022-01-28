@@ -12,7 +12,8 @@ use App\Http\Controllers\Admin\{
     LabController,
     KasirController,
     RadiologiController,
-    TenagaMedisController
+    TenagaMedisController,
+    RekammedisController
 };
 
 Route::get('/', function () {
@@ -27,9 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 // Role super admin
-Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pendaftaran']], function () {
-
-
+Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pendaftaran|rekam_medis']], function () {
     Route::post('/layanan/data', [LayananController::class, 'data'])
         ->name('layanan.data');
     Route::get('/layanan', [LayananController::class, 'index'])
@@ -59,14 +58,12 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
         ->name('pendaftaran.search-pasien');
     Route::get('/pendaftaran/change-pasien', [PendaftaranController::class, 'changePasien'])
         ->name('pendaftaran.change-pasien');
-
-
+    Route::get('/messanger', [PendaftaranController::class, 'messanger'])
+        ->name('pendaftaran.messanger');
     Route::post('/pendaftaran', [PendaftaranController::class, 'store'])
         ->name('pendaftaran.store');
     Route::post('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'storePasienSudahPernahDaftar'])
         ->name('pendaftaran.storePasienSudahPernahDaftar');
-
-    // Daftar managemen user
     Route::get('/user/data', [UserController::class, 'index'])
         ->name('data.user');
     Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
@@ -83,6 +80,16 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
         ->name('data.create-medis');
     Route::post('/user/medis/store', [TenagaMedisController::class, 'storeMedis'])
         ->name('data.store-medis');
+});
+
+// Role rekam medis
+Route::group(['middleware' => ['auth', 'role:rekam_medis|super_admin']], function () {
+    Route::get('/rekam_medis', [RekammedisController::class, 'rekam_medis'])
+        ->name('rm.rekammedis');
+    Route::get('/retensi', [RekammedisController::class, 'retensi'])
+        ->name('rm.retensi');
+    Route::get('/migrasi', [RekammedisController::class, 'migrasi_retensi'])
+        ->name('rm.migrasi');
 });
 
 // Role dokter
@@ -179,7 +186,7 @@ Route::group(['middleware' => ['auth', 'role:radiologi|super_admin']], function 
 
     Route::get('/otcradio', [RadiologiController::class, 'radiologi_otc'])
         ->name('order.radiologi-otc');
-    Route::get('/umumradio', [RadiologiController::class, 'radiologi_'])
+    Route::get('/umumradio', [RadiologiController::class, 'radiologi_umum'])
         ->name('order.radiologi-umum');
     Route::get('/aktifitas-user', [ActivityLogController::class, 'index'])
         ->name('aktifitas-user.index');

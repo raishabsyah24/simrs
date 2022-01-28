@@ -38,7 +38,8 @@ class RoleSeeder extends Seeder
             'radiologi',
             'lab',
             'kasir',
-            'apotek'
+            'apotek',
+            'rekam_medis'
         ];
 
         foreach ($roles as $role) {

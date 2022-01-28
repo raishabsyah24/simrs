@@ -20,7 +20,7 @@ class KasirController extends Controller
         $title = 'Aktifitas User';
         $badge = $this->badge();
         // $total = Layanan::count();
-        return view('admin.kasir.bpjs', compact(
+        return view('admin.kasir.bpjskasir', compact(
             'title',
             'data',
             // 'total',
@@ -37,7 +37,7 @@ class KasirController extends Controller
         $title = 'Aktifitas User';
         $badge = $this->badge();
         // $total = Layanan::count();
-        return view('admin.kasir.umum', compact(
+        return view('admin.kasir.umumkasir', compact(
             'title',
             'data',
             // 'total',
@@ -54,7 +54,7 @@ class KasirController extends Controller
         $title = 'Aktifitas User';
         $badge = $this->badge();
         // $total = Layanan::count();
-        return view('admin.kasir.otc', compact(
+        return view('admin.kasir.otckasir', compact(
             'title',
             'data',
             // 'total',

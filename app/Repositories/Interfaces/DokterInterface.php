@@ -14,9 +14,13 @@ interface DokterInterface
 
     // public function dokterPoli(int $poli_id);
 
+<<<<<<< HEAD
     public function tenagaMedis();
 
     public function searchObat(string $nama_obat, int $periksa_dokter_id = null);
 
     public function obatPasien(int $periksa_dokter_id);
+=======
+    // public function tenagaMedis();
+>>>>>>> b684bee (sabtu 29 Januari 2022 00:28)
 }

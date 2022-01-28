@@ -341,5 +341,28 @@ class UserSeeder extends Seeder
             $role = Role::find(10);
             $role->givePermissionTo([$permission]);
         }
+
+         /**REKAM MEDIS */
+         $rekam_mediss = [
+            ['Rekam_Medis', 'rekam_medis', 'rekam_medis@mail.com'],
+        ];
+
+        foreach ($rekam_mediss as $rekam_medis) {
+            $rekam_medis = User::create([
+                'name' => $rekam_medis[0],
+                'username' => $rekam_medis[1],
+                'email' => $rekam_medis[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $rekam_medis->id
+            ]);
+            $role = 'rekam_medis';
+            $permission = 'full_permission';
+            $rekam_medis->assignRole([$role]);
+            $rekam_medis->givePermissionTo([$permission]);
+            $role = Role::find(11);
+            $role->givePermissionTo([$permission]);
+        }
     }
 }

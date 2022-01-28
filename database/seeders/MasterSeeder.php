@@ -65,7 +65,7 @@ class MasterSeeder extends Seeder
         }
 
         // Pasien
-        for ($i = 1; $i <= 1000; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             DB::table('pasien')->insert([
                 'kode' => kodePasien(),
                 'nik' => $faker->nik(),

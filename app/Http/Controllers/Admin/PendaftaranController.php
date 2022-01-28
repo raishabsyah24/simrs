@@ -121,6 +121,22 @@ class PendaftaranController extends Controller
         ));
     }
 
+    public function messanger()
+    {
+        $title = 'Tambah Pasien';
+        $kategori_pasien = $this->kategoriPasien();
+        $faskes = $this->faskes();
+        $layanan = $this->layanan();
+        $poli = $this->poli();
+        return view('admin.pendaftaran.messanger', compact(
+            'title',
+            'kategori_pasien',
+            'faskes',
+            'layanan',
+            'poli',
+        ));
+    }
+
     public function getDokterPoli(Request $request)
     {
         $data = $this->pendaftaranRepository->dokterPoli($request->poli_id);
