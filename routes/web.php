@@ -83,6 +83,12 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
         ->name('dokter.daftar-pasien.fetch');
     Route::get('/dokter/periksa-pasien/{id}', [PasienDokterController::class, 'periksaPasien'])
         ->name('dokter-spesialis.periksa-pasien');
+    Route::get('/dokter/search-obat', [PasienDokterController::class, 'searchObat'])
+        ->name('dokter.search-obat');
+    Route::post('/dokter/change-obat', [PasienDokterController::class, 'changeObat'])
+        ->name('dokter.change-obat');
+    Route::get('/dokter/obat-pasien/{id}', [PasienDokterController::class, 'obatPasien'])
+        ->name('dokter.obat-pasien');
 });
 
 // Role apotek

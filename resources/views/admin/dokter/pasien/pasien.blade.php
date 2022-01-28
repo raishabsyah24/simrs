@@ -32,6 +32,7 @@
                                     <div class="card-inner">
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="tabItem1">
+                                                {{-- Informasi pasien --}}
                                                 <div class="nk-block">
                                                     <div class="profile-ud-list">
                                                         <div class="profile-ud-item">
@@ -90,10 +91,15 @@
                                                                     class="profile-ud-value text-justify">{{ $pasien->alamat }}</span>
                                                             </div>
                                                         </div>
-                                                    </div><!-- .profile-ud-list -->
+                                                    </div>
                                                 </div>
-                                                <div class="nk-divider divider md"></div>
+                                                {{-- End Informasi pasien --}}
+
                                                 {{-- Form Pemeriksaan --}}
+                                                <div class="nk-divider divider md"></div>
+                                                <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                    <h5 class="title">Pemeriksaan</h5>
+                                                </div>
                                                 <div class="nk-block">
                                                     <div class="nk-block-head nk-block-head-sm nk-block-between">
                                                         <h5 class="title">Pemeriksaan</h5>
@@ -184,21 +190,78 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+<<<<<<< HEAD
                                                             {{-- Button submit --}}
                                                             {{-- <div class="col-md-7 offset-lg-5">
+=======
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                {{-- End form Pemeriksaan --}}
+
+                                                {{-- Obat pasien --}}
+                                                <div class="nk-divider divider md"></div>
+                                                <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                    <h5 class="title">Obat Pasien</h5>
+                                                </div>
+                                                <div class="nk-block">
+                                                    <form class="form-validate" action="">
+                                                        @csrf
+                                                        <div class="row g-gs">
+                                                            <div class="col-md-6">
+>>>>>>> 3703707 (malam jum'at 00:45)
                                                                 <div class="form-group">
-                                                                    <button type="submit" onclick="submitForm(this.form)"
-                                                                        class="tombol-simpan btn btn-lg btn-primary">
-                                                                        <span class="text-simpan">Simpan</span>
-                                                                        <span
-                                                                            class="loading-simpan d-none ml-2 spinner-border spinner-border-sm"
-                                                                            role="status" aria-hidden="true"></span>
-                                                                    </button>
+                                                                    <label class="form-label">Masukan nama obat<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="form-control-wrap">
+                                                                        <input
+                                                                            onkeyup="searchObat(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-obat') }}`,this)"
+                                                                            class="form-control form-control-lg"
+                                                                            name="obat" autocomplete="off">
+                                                                        <div class="dropdown-obat"></div>
+                                                                    </div>
                                                                 </div>
                                                             </div> --}}
                                                         </div>
                                                     </form>
+                                                    <div class="mt-3">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Nama Obat</th>
+                                                                    <th>Jumlah</th>
+                                                                    <th>Signa</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="data-obat">
+                                                                {{-- @foreach ($obat_pasien as $item)
+                                                                    <tr>
+                                                                        <td>{{ $item->nama_generik }}</td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="form-control-wrap">
+                                                                                    <input name="jumlah"
+                                                                                        value="{{ $item->jumlah }}"
+                                                                                        type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="form-control-wrap">
+                                                                                    <input name="signa"
+                                                                                        value="{{ $item->signa }}"
+                                                                                        type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach --}}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
+<<<<<<< HEAD
 
                                                 <div class="nk-divider divider md"></div>
                                                 {{-- Form Obat --}}
@@ -231,6 +294,10 @@
                                                     </table>
                                                 </div>
                                             </div><!-- tab pane -->
+=======
+                                                {{-- End Obat pasien --}}
+                                            </div>
+>>>>>>> 3703707 (malam jum'at 00:45)
                                             <div class="tab-pane" id="tabItem2">
                                                 {{-- Table RM --}}
                                                 <div class="nk-block nk-block-lg">
@@ -279,4 +346,52 @@
 @endsection
 
 @push('js')
+    <script>
+        function searchObat(id, url, attr) {
+            if ($('.dropdown-obat').hasClass('d-none')) {
+                $('.dropdown-obat').removeClass('d-none');
+            }
+
+            let obat = $(attr).val();
+
+            $.get(url, {
+                    obat: obat,
+                    periksa_dokter_id: id
+                })
+                .done(output => {
+                    if (output != '') {
+                        $('.dropdown-obat').html(output);
+                    }
+                })
+        }
+
+        function pilihObat(obat_apotek_id, periksa_dokter_id, url) {
+            event.preventDefault();
+            $('.dropdown-obat').addClass('d-none');
+            $.post({
+                    url: url,
+                    type: 'post',
+                    data: {
+                        obat_apotek_id: obat_apotek_id,
+                        periksa_dokter_id: periksa_dokter_id
+                    }
+                })
+                .done(response => {
+                    $('[name=obat]').val('')
+                    alertSuccess(response.message);
+                    let url = response.url;
+                    $.get(url)
+                        .done(output => {
+                            $('table .data-obat').html(output);
+                        })
+                })
+        }
+
+        setInterval(() => {
+            $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
+                .done(output => {
+                    $('table .data-obat').html(output);
+                })
+        }, 500);
+    </script>
 @endpush
