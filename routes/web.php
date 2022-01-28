@@ -20,10 +20,11 @@ Route::get('/', function () {
 
 Route::get('/data', [PasienDokterController::class, 'q']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->name('dashboard.index');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/profil-saya', [UserController::class, 'show'])->name('user.profile');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard.index');
 });
 // Role super admin
 Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pendaftaran']], function () {

@@ -114,7 +114,7 @@
                                                             <em class="icon ni ni-calendar"></em>
                                                         </div>
                                                         <input data-date-format="yyyy-mm-dd" name="tanggal_lahir"
-                                                            type="text" class="form-control date-picker">
+                                                            type="text" class="form-control date-picker-alt">
                                                     </div>
                                                 </div>
                                             </div>

@@ -311,6 +311,7 @@ class PasienDokterController extends Controller
                     'objektif' => $attr['objektif'],
                     'assesment' => $attr['assesment'],
                     'plan' => $attr['plan'],
+                    'keluhan' => $attr['keluhan'],
                     'tanggal' => now()
                 ]);
             }

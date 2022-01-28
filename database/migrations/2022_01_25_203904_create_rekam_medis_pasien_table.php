@@ -19,6 +19,7 @@ class CreateRekamMedisPasienTable extends Migration
             $table->string('tujuan')->nullable();
             $table->string('dokter')->nullable();
             $table->date('tanggal');
+            $table->longText('keluhan')->nullable();
             $table->longText('subjektif')->nullable();
             $table->longText('objektif')->nullable();
             $table->longText('assesment')->nullable();

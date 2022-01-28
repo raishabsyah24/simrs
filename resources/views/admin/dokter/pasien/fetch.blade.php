@@ -57,7 +57,9 @@
                  </div>
              </div>
          @empty
-             tidak ada
+             <div class="col-sm-6 col-lg-4 col-xxl-3 offset-lg-4">
+                 <h4>Belum ada pasien</h4>
+             </div>
          @endforelse
      </div>
  </div>
