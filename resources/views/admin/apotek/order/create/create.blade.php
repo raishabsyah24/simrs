@@ -13,7 +13,7 @@
                     </div>
                     <div class="card form-obat">
                         <div class="card-inner">
-                            <form action="{{ route('order.store.obat') }}" method="post" class="gy-3">
+                            <form action="" method="post" class="gy-3">
                                 @csrf
                                 <div class="row g-3 align-center">
                                     <div class="col-lg-5">

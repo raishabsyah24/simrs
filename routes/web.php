@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\User\ActivityLogController;
 use App\Http\Controllers\Admin\Apotek\{ObatController, OrderController, AntrianApotekController};
+use App\Http\Controllers\Admin\Dokter\PasienListController;
 use App\Http\Controllers\Admin\{
     DashboardController,
     LayananController,
@@ -10,21 +11,21 @@ use App\Http\Controllers\Admin\{
     UserController,
     LabController,
     KasirController,
-    RadiologiController
+    RadiologiController,
+    TenagaMedisController
 };
-use App\Http\Controllers\Admin\Dokter\PasienDokterController;
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/data', [PasienDokterController::class, 'q']);
-
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard.index');
+
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/profil-saya', [UserController::class, 'show'])->name('user.profile');
 });
+
 // Role super admin
 Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pendaftaran']], function () {
 
@@ -43,7 +44,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::get('/aktifitas-user/fetch-data', [ActivityLogController::class, 'fetchData'])
         ->name('aktifitas-user.fetchData');
 
-
+    Route::get('/data', [PendaftaranController::class, 'q']);
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])
         ->name('pendaftaran.index');
     Route::get('/pendaftaran/fetch-data', [PendaftaranController::class, 'fetchData'])
@@ -65,14 +66,23 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::post('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'storePasienSudahPernahDaftar'])
         ->name('pendaftaran.storePasienSudahPernahDaftar');
 
+    // Daftar managemen user
     Route::get('/user/data', [UserController::class, 'index'])
         ->name('data.user');
     Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
         ->name('user.fetchData');
-    Route::get('/user/create', [UserController::class, 'createUser'])
-        ->name('user.create');
-    Route::post('/user/store', [UserController::class, 'storeUser'])
-        ->name('user.store');
+    Route::get('/user/{id}/edit', [UserController::class, 'editUser'])
+        ->name('user.edit');
+    Route::put('/user/{id}/update', [UserController::class, 'updateUser'])
+        ->name('user.update');
+
+    // Daftar tenaga medis
+    Route::get('/user/medis', [TenagaMedisController::class, 'dataMedis'])
+        ->name('data.medis');
+    Route::get('/user/medis/create', [TenagaMedisController::class, 'createMedis'])
+        ->name('data.create-medis');
+    Route::post('/user/medis/store', [TenagaMedisController::class, 'storeMedis'])
+        ->name('data.store-medis');
 });
 
 // Role dokter
@@ -102,24 +112,17 @@ Route::group(['middleware' => ['auth', 'role:apotek']], function () {
     // Data obat
     Route::get('/obat', [ObatController::class, 'dataObat'])->name('data');
     Route::get('/obat/fetch-data', [ObatController::class, '_fetchData'])->name('obat.fetchData');
-    Route::get('/create', [OrderController::class, 'createObat'])->name('order.create-obat');
-    Route::post('/create', [OrderController::class, 'storeObat'])->name('order.store.obat');
+    Route::get('/obat/create', [OrderController::class, 'createObat'])->name('order.create-obat');
+    Route::post('/obat/store/obat', [OrderController::class, 'storeObat']);
 
     // Daftar antrian
-    Route::get('/antrian', [AntrianApotekController::class, 'index'])->name('data.antrian');
+    Route::get('/apotek/bpjs', [AntrianApotekController::class, 'index'])->name('data.antrian.bpjs');
+    Route::get('/apotek/fetch-data', [AntrianApotekController::class, '_fetchData'])->name('data.antrian');
 });
 
 // // Role poli
 // Route::group(['middleware' => ['auth', 'role:poli']], function () {
 // });
-
-Route::group(['middleware' => ['auth', 'role:apotek']], function () {
-
-    Route::get('/obat', [ObatController::class, 'dataObat'])->name('data');
-    Route::get('/obat/fetch-data', [ObatController::class, 'fetchData'])->name('obat.fetchData');
-    Route::get('/create', [OrderController::class, 'createObat'])->name('order.create-obat');
-    Route::post('/create', [OrderController::class, 'storeObat'])->name('order.store.obat');
-});
 
 Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
 
@@ -148,6 +151,27 @@ Route::group(['middleware' => ['auth', 'role: lab|super_admin']], function () {
         ->name('aktifitas-user.index');
     Route::get('/aktifitas-user/fetch-data', [ActivityLogController::class, 'fetchData'])
         ->name('aktifitas-user.fetchData');
+});
+
+Route::group(['middleware' => ['auth', 'role:pendaftaran|super_admin']], function () {
+
+    Route::get('/data', [PendaftaranController::class, 'q']);
+    Route::get('/pendaftaran', [PendaftaranController::class, 'index'])
+        ->name('pendaftaran.index');
+    Route::get('/pendaftaran/fetch-data', [PendaftaranController::class, 'fetchData'])
+        ->name('pendaftaran.fetchData');
+    Route::get('/pendaftaran/create', [PendaftaranController::class, 'create'])
+        ->name('pendaftaran.create');
+    Route::get('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'createPasienTerdaftar'])
+        ->name('pendaftaran.create.pasien-terdaftar');
+    Route::get('/pendaftaran/dokter-poli', [PendaftaranController::class, 'getDokterPoli'])
+        ->name('pendaftaran.dokter-poli');
+    Route::post('/pendaftaran', [PendaftaranController::class, 'store'])
+        ->name('pendaftaran.store');
+    Route::get('/pendaftaranmessanger', [PendaftaranController::class, 'messanger'])
+        ->name('pendaftaran.messanger');
+    Route::get('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'createPasienSudahPernahDaftar'])
+        ->name('pendaftaran.createPasienSudahPernahDaftar');
 });
 
 Route::group(['middleware' => ['auth', 'role:radiologi|super_admin']], function () {

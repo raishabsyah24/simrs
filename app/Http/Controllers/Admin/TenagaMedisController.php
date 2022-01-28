@@ -19,7 +19,7 @@ class TenagaMedisController extends Controller
     }
     public function dataMedis()
     {
-        $data = Dokter::all();
+        $data = $this->dokterRepository->tenagaMedis();
         $total = $this->dokterRepository->tenagaMedis()->count();
         $title = 'Daftar Tenaga Medis';
         return view('admin.user.medis.index', compact(
@@ -32,15 +32,19 @@ class TenagaMedisController extends Controller
     public function createMedis()
     {
         $title = 'Tambah Medis';
+        $data = $this->dokterRepository->tenagaMedis();
         $poli = $this->poli();
         return view('admin.user.medis.create', compact(
             'title',
-            'poli'
+            'poli',
+            'data'
         ));
     }
 
     public function storeMedis(Request $request)
     {
+        // dd($request->all());
+
         // Insert ke table user
         $permissions = ['create', 'read', 'update'];
         $role = 3;
@@ -73,7 +77,7 @@ class TenagaMedisController extends Controller
 
         return response()->json([
             'url' => route('data.store-medis'),
-            'message' => 'Tambah' . $request->nama . ' berhasil! '
+            'message' => 'Tambah dokter berhasil!'
         ], 200);
     }
 }

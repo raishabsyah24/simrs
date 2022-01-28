@@ -7,13 +7,15 @@ use App\Repositories\{
     LayananRepository,
     PasienRepository,
     PendaftaranRepository,
-    DokterRepository
+    DokterRepository,
+    ApotekRepository
 };
 use App\Repositories\Interfaces\{
     PasienInterface,
     LayananInterface,
     PendaftaranInterface,
-    DokterInterface
+    DokterInterface,
+    ApotekInterface
 };
 
 class AdminRepositoryServiceProvider extends ServiceProvider
@@ -40,6 +42,10 @@ class AdminRepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             DokterInterface::class,
             DokterRepository::class
+        );
+        $this->app->bind(
+            ApotekInterface::class,
+            ApotekRepository::class
         );
     }
 

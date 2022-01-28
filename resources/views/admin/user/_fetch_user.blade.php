@@ -40,7 +40,7 @@
                 <span class="tb-amount">{!! $item->email !!}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="tb-amount badge badge-dim badge-{{ $badge->random() }}" >{{ $item->status ?? '' }}</span>
+                <span class="tb-amount">{{ $item->status ?? '' }}</span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
@@ -51,7 +51,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
                                     <li>
-                                        <a href="#"><em class="icon ni ni-edit-fill"></em><span>Ubah</span></a>
+                                        <a href="{{ route('user.edit',$item->id) }}" ><em class="icon ni ni-edit-fill"></em><span>Ubah</span></a>
                                     </li>
                                     <li>
                                         <a href="#"><em class="icon ni ni-eye"></em><span>Detail</span></a>

@@ -40,13 +40,19 @@
                 </div>
             </div>
             <div class="nk-tb-col tb-col-mb">
-                <span class="tb-amount"></span>
+                <span class="tb-amount">{!! $item->nama_pasien !!}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="tb-amount"></span>
+                <span class="tb-amount">{{ $item->tanggal_lahir }}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="tb-amount"></span>
+                <span class="tb-amount">{{ $item->spesialis }}</span>
+            </div>
+            <div class="nk-tb-col tb-col-md">
+                <span class="tb-amount">{{ $item->dokter }}</span>
+            </div>
+            <div class="nk-tb-col tb-col-md">
+                <span class="tb-amount">{{ $item->kategori_pasien }}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
                 <span class="tb-amount badge badge-dim badge-{{ $badge->random() }}" ></span>
@@ -60,13 +66,19 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
                                     <li>
-                                        <a href="#"><em class="icon ni ni-edit-fill"></em><span>Ubah</span></a>
+                                        <a href="#"><em class="icon ni ni-edit-fill"></em>
+                                            <span>Ubah</span>
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="#"><em class="icon ni ni-eye"></em><span>Detail</span></a>
+                                        <a href="#"><em class="icon ni ni-eye"></em>
+                                            <span>Detail</span>
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="#"><em class="icon ni ni-trash"></em><span>Hapus</span></a>
+                                        <a href="#"><em class="icon ni ni-trash"></em>
+                                            <span>Hapus</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -97,8 +109,8 @@
         </div>
     @endforelse
     <!-- end tbody -->
-
 </div>
+
 <div class="card-inner">
     <div class="nk-block-between-md g-3">
         <div class="g">

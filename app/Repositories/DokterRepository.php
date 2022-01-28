@@ -65,6 +65,7 @@ class DokterRepository implements DokterInterface
             ->first();
     }
 
+
     // public function tenagaMedis()
     // {
     //     return DB::table('dokter as dr')
@@ -96,6 +97,16 @@ class DokterRepository implements DokterInterface
             ->join('obat_apotek as oa', 'oa.id', '=', 'or.obat_apotek_id')
             ->join('obat as o', 'o.id', '=', 'oa.obat_id')
             ->where('or.periksa_dokter_id', $periksa_dokter_id)
+            ->get();
+    }
+
+    public function tenagaMedis()
+    {
+        return DB::table('dokter as dr')
+            ->selectRaw('
+                     dr.id, dr.nama, dr.no_str, pl.spesialis as spesialis 
+            ')
+            ->join('poli as pl', 'pl.id', '=', 'dr.spesialis')
             ->get();
     }
 }

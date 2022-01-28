@@ -11,11 +11,7 @@ class ObatRepository implements ObatInterface
     {
         return DB::table('obat as l')
             ->selectRaw('
-<<<<<<< HEAD
-            l.id, l.kode, l.nama_paten, l.nama_generik, l.komposisi
-=======
             l.id, l.kode, l.nama_paten, l.nama_generik, l.komposisi, l.status
->>>>>>> 9b68bd2 (rabu pagi)
         ');
     }
 }

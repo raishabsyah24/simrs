@@ -65,25 +65,25 @@ class MasterSeeder extends Seeder
         }
 
         // Pasien
-        // for ($i = 1; $i <= 1000; $i++) {
-        //     DB::table('pasien')->insert([
-        //         'kode' => kodePasien(),
-        //         'nik' => $faker->nik(),
-        //         'no_bpjs' => $faker->nik(),
-        //         'nama' => $faker->name,
-        //         'jenis_kelamin' =>  $faker->randomElement(['laki-laki', 'perempuan']),
-        //         'tempat_lahir' => $faker->city,
-        //         'tanggal_lahir' =>
-        //         $faker->dateTimeBetween($startDate = '-60 years', $endDate = 'now'),
-        //         'agama' => $faker->randomElement(['islam', 'kriste']),
-        //         'golongan_darah' => $faker->randomElement(['A', 'O', 'B']),
-        //         'alamat' => $faker->address,
-        //         'no_hp' => $faker->phoneNumber,
-        //         'email' => $faker->unique()->safeEmail,
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ]);
-        // }
+        for ($i = 1; $i <= 1000; $i++) {
+            DB::table('pasien')->insert([
+                'kode' => kodePasien(),
+                'nik' => $faker->nik(),
+                'no_bpjs' => $faker->nik(),
+                'nama' => $faker->name,
+                'jenis_kelamin' =>  $faker->randomElement(['laki-laki', 'perempuan']),
+                'tempat_lahir' => $faker->city,
+                'tanggal_lahir' =>
+                $faker->dateTimeBetween($startDate = '-60 years', $endDate = 'now'),
+                'agama' => $faker->randomElement(['islam', 'kriste']),
+                'golongan_darah' => $faker->randomElement(['A', 'O', 'B']),
+                'alamat' => $faker->address,
+                'no_hp' => $faker->phoneNumber,
+                'email' => $faker->unique()->safeEmail,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
         // Kategori Pasien
         $kategori_pasien = [

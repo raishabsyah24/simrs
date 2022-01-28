@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $data = DB::table('users')
-            ->selectRaw('name, username, email, status, created_at')
+            ->selectRaw('id,name, username, email, status, created_at')
             ->orderByDesc('created_at')
             ->paginate(12);
         $title = 'Managemen User';
@@ -169,5 +169,33 @@ class UserController extends Controller
         //     'url' => route('user.store'),
         //     'message' => 'Tambah' . $user->name . ' berhasil!'
         // ], 200);
+    }
+
+    public function editUser($id)
+    {
+        $title = 'Ubah user';
+        $user = User::find($id);
+        $roles = Role::select('name')->get();
+        $permissions = Permission::select('name')->get();
+        return view('admin.user.edit', compact(
+            'title',
+            'user',
+            'roles',
+            'permissions'
+        ));
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        $request_user = $request->all();
+        $user->update($request_user);
+        $role = $request->role;
+        $permissions = $request->permissions;
+        $user->syncRoles($role);
+        $user->syncPermissions($permissions);
+
+        return back();
     }
 }
