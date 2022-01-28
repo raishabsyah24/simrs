@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers\Admin\Dokter;
 
-use Illuminate\Http\Request;
-use App\Models\PeriksaDokter;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
+use App\Models\Poli;
 use App\Models\Layanan;
 use App\Models\ObatApotek;
-use App\Models\ObatPasienRajal;
+use App\Models\RekamMedis;
 use App\Models\Pemeriksaan;
+use Illuminate\Http\Request;
+use App\Models\PeriksaDokter;
+use App\Models\ObatPasienRajal;
+use App\Models\RekamMedisPasien;
 use App\Models\PemeriksaanDetail;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Interfaces\DokterInterface;
 
 class PasienDokterController extends Controller
 {
     private $dokterRepository;
-    private $perPage = 2;
+    private $perPage = 20;
     public $limitObatPasienBpjs = 70000;
     public $kategoriPasien = 1;
 
@@ -293,6 +296,22 @@ class PasienDokterController extends Controller
                 $tagihan_obat = $obat_pasien_periksa->sum('subtotal');
                 $pemeriksaan->update([
                     'total_tagihan_obat' => $pemeriksaan->total_tagihan_obat + $tagihan_obat
+                ]);
+
+                // Cek rekam medis pasien
+                $rm = RekamMedis::find($periksaDokter->pasien_id);
+                $poli = Poli::find($periksaDokter->poli_id);
+
+                // Insert rekam medis pasien
+                $rekam_medis_pasien = RekamMedisPasien::create([
+                    'rekam_medis_id' => $rm->id,
+                    'tujuan' => $poli->nama,
+                    'dokter' => Auth::user()->dokter->nama,
+                    'subjektif' => $attr['subjektif'],
+                    'objektif' => $attr['objektif'],
+                    'assesment' => $attr['assesment'],
+                    'plan' => $attr['plan'],
+                    'tanggal' => now()
                 ]);
             }
         );

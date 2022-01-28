@@ -12,11 +12,12 @@
                     <div class="components-preview">
                         <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
-                                <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em
+                                <div class="nk-block-head-sub"><a class="back-to"
+                                        href="{{ route('pendaftaran.index') }}"><em
                                             class="icon ni ni-arrow-left"></em><span>Kembali</span></a></div>
                                 <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
                             </div>
-                        </div><!-- .nk-block-head -->
+                        </div>
                         <div class="nk-block nk-block-lg">
                             <div class="nk-block-head">
                                 <div class="nk-block-head-content">

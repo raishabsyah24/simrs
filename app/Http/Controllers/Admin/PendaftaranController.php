@@ -144,23 +144,18 @@ class PendaftaranController extends Controller
             $pasien = Pasien::create($attr);
 
             // Insert rekam medis
-            $rekam_medis = RekamMedis::create([
-                'kode' => kodeRekamMedis(),
-                'pasien_id' => $pasien->id
-            ]);
-
-            // Insert rekam medis pasien
-            $rekam_medis_pasien = RekamMedisPasien::create([
-                'rekam_medis_id' => $rekam_medis->id,
-                'tujuan' => $nama_poli,
-                'dokter' => $nama_dokter,
-                'tanggal' => now(),
-            ]);
+            $rm = RekamMedis::where('pasien_id', $pasien->id)->first();
+            if (!$rm) {
+                $rekam_medis = RekamMedis::create([
+                    'kode' => kodeRekamMedis(),
+                    'pasien_id' => $pasien->id
+                ]);
+            }
 
             // Insert pemeriksaan
             $pemeriksaan = Pemeriksaan::create([
                 'kode' => kodePemeriksaanPasien(),
-                'no_rekam_medis' => $rekam_medis->kode,
+                'no_rekam_medis' => $rekam_medis->kode ?? '',
                 'no_sep' => $attr['no_sep'] ?? null,
                 'no_bpjs' => $attr['no_bpjs'] ?? null,
                 'faskes_id' => $attr['faskes_id'] ?? null,
@@ -238,6 +233,15 @@ class PendaftaranController extends Controller
                 $pasien = Pasien::find($attr['pasien']);
                 $rekam_medis = RekamMedis::where('pasien_id', $pasien->id)
                     ->first();
+
+                // Insert rekam medis jika ga ada
+                $rm = RekamMedis::where('pasien_id', $pasien->id)->first();
+                if (!$rm) {
+                    $rekam_medis = RekamMedis::create([
+                        'kode' => kodeRekamMedis(),
+                        'pasien_id' => $pasien->id
+                    ]);
+                }
 
                 // Insert pemeriksaan
                 $pemeriksaan = Pemeriksaan::create([
