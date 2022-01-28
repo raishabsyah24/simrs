@@ -41,3 +41,22 @@
          </div>
      </div>
  </div>
+
+ {{-- Modal Terimakasih --}}
+ <div class="modal fade modal-terimakasih" tabindex="-1">
+     <div class="modal-dialog modal-dialog-top" role="document">
+         <div class="modal-content">
+             <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross"></em></a>
+             <div class="modal-body modal-body-lg text-center">
+                 <div class="nk-modal">
+                     <em class="nk-modal-icon icon icon-circle icon-circle-xxl ni ni ni-happy bg-success"></em>
+                     <h4 class="nk-modal-title">Berhasil</h4>
+                     <div class="nk-modal-text">
+                         <div class="caption-text">
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>

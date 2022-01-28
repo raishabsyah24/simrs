@@ -308,7 +308,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($rekam_medis as $item)
+                                                            @forelse ($rekam_medis as $item)
                                                                 <tr>
                                                                     <th scope="row">{{ $loop->iteration }}</th>
                                                                     <td>{{ tanggal($item->tanggal_periksa) }}</td>
@@ -319,7 +319,14 @@
                                                                     <td>{{ $item->assesment }}</td>
                                                                     <td>{{ $item->plan }}</td>
                                                                 </tr>
-                                                            @endforeach
+                                                            @empty
+                                                                <tr>
+                                                                    <td class="text-center" colspan="8">
+                                                                        <h6>Belum ada
+                                                                            riwayat</h6>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforelse
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -455,14 +462,12 @@
                         $(originalForm).find('.loading-simpan').addClass('d-none');
                         $(originalForm).find('.text-simpan').text('Simpan');
                         $(originalForm).find('.tombol-simpan').attr('disabled', false);
-
                     }
                 })
                 .done(response => {
-                    console.log(response);
                     $(originalForm).find('.tombol-simpan').attr('disabled', true);
-                    alertSuccess(response.message);
-                    pindahHalaman(response.url, 1500);
+                    modalTerimakasih(response.message);
+                    pindahHalaman(response.url, 3000);
                 })
         }
     </script>

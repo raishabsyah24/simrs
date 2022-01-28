@@ -136,9 +136,9 @@ function kodeRekamMedis()
     return kode('rekam_medis', 'kode', '15', 'RMP' . $date);
 }
 
-function noUrutPasienPeriksa($poli_id)
+function noUrutPasienPeriksa($tanggal, $poli_id)
 {
-    $prefix = date('d') . $poli_id;
+    $prefix = $tanggal . $poli_id;
     return $kode = kode('periksa_dokter', 'no_antrian_periksa', '8', $prefix);
     // return substr($kode, 4);
 }

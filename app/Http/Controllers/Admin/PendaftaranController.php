@@ -18,6 +18,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\PendaftaranInterface;
 use App\Http\Requests\Admin\PendaftaranPasienBaruRequest;
 use App\Http\Requests\Admin\PendaftaranPasienLamaRequest;
+use Carbon\Carbon;
 
 class PendaftaranController extends Controller
 {
@@ -139,6 +140,7 @@ class PendaftaranController extends Controller
 
             $poli = Poli::find($attr['poli_id']);
             $nama_poli = $poli->nama;
+            $tanggal = Carbon::parse($attr['tanggal'])->format('d');
 
             // Insert pasien
             $pasien = Pasien::create($attr);
@@ -179,7 +181,7 @@ class PendaftaranController extends Controller
                     'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                     'pasien_id' => $pasien->id,
                     'poli_id' => $pemeriksaan_detail->poli_id,
-                    'no_antrian_periksa' => noUrutPasienPeriksa($pemeriksaan_detail->poli_id),
+                    'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id),
                     'tanggal' => $attr['tanggal'],
                     'keterangan' => $attr['keterangan'],
                     'status_diperiksa' => 'belum diperiksa'
@@ -233,6 +235,7 @@ class PendaftaranController extends Controller
                 $pasien = Pasien::find($attr['pasien']);
                 $rekam_medis = RekamMedis::where('pasien_id', $pasien->id)
                     ->first();
+                $tanggal = Carbon::parse($attr['tanggal'])->format('d');
 
                 // Insert rekam medis jika ga ada
                 $rm = RekamMedis::where('pasien_id', $pasien->id)->first();
@@ -270,7 +273,7 @@ class PendaftaranController extends Controller
                         'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                         'pasien_id' => $pasien->id,
                         'poli_id' => $pemeriksaan_detail->poli_id,
-                        'no_antrian_periksa' => noUrutPasienPeriksa($pemeriksaan_detail->poli_id),
+                        'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id),
                         'tanggal' => $attr['tanggal'],
                         'keterangan' => $attr['keterangan'],
                         'status_diperiksa' => 'belum diperiksa'

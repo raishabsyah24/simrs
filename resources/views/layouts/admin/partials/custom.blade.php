@@ -22,6 +22,11 @@
         $(".nk-modal-text .lead").text(message);
     }
 
+    function modalTerimakasih(message = "Terima kasih atas layanan yang anda berikan") {
+        $('.modal-terimakasih').modal('show');
+        $('.caption-text').text(message);
+    }
+
     function alertError(
         title = "Maaf, terjadi kesalahan",
         message = "Harap hubungi tim developer"

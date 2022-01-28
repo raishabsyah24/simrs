@@ -320,7 +320,7 @@ class PasienDokterController extends Controller
         );
 
         return response()->json([
-            'message' => 'Terimakasih atas layanannya',
+            'message' => 'Terimakasih atas layanan yang anda berikan. Semoga anda sehat selalu',
             'url' => route('dokter.daftar-pasien')
         ], 200);
     }
