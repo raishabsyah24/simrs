@@ -19,7 +19,7 @@ class CreatePemeriksaanDetailTable extends Migration
             $table->unsignedBigInteger('poli_id');
             $table->unsignedBigInteger('layanan_id');
             $table->unsignedBigInteger('dokter_id')->nullable();
-            $table->decimal('tagihan_layanan')->default(0);
+            $table->bigInteger('tagihan_layanan')->default(0);
             $table->string('status')->default('belum selesai');
             $table->timestamps();
             $table->softDeletes();

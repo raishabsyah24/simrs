@@ -29,60 +29,60 @@
                     </li>
                     <!-- DOKTER -->
                     @role('dokter')
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon">
-                                <i class="fas fa-user-md fa-lg"></i>
-                            </span>
-                            <span class="nk-menu-text">Dokter</span>
-                        </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item">
-                                <a href="{{ route('dokter.daftar-pasien') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Daftar Pasien</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="html/pages/auths/auth-success.html" class="nk-menu-link"
-                                    target="_blank"><span class="nk-menu-text">Success /
-                                        Confirm</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Classic
-                                        Version - v2</span></a>
-                                <ul class="nk-menu-sub">
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-login-v2.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Login / Signin</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-register-v2.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Register / Signup</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-reset-v2.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Forgot Password</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/pages/auths/auth-success-v2.html" class="nk-menu-link"
-                                            target="_blank"><span class="nk-menu-text">Success / Confirm</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nk-menu-item has-sub">
-                                <a href="#" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
-                                    <span class="nk-menu-text">Managemen User</span>
-                                </a>
-                                <ul class="nk-menu-sub ">
-                                    <li class="nk-menu-item">
-                                        <a href="{{ route('data.user') }}" class="nk-menu-link"><span
-                                                class="nk-menu-text">Pengguna</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>                
-                    @endrole                    
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon">
+                                    <i class="fas fa-user-md fa-lg"></i>
+                                </span>
+                                <span class="nk-menu-text">Dokter</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ route('dokter.daftar-pasien') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Daftar Pasien</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="html/pages/auths/auth-success.html" class="nk-menu-link"
+                                        target="_blank"><span class="nk-menu-text">Success /
+                                            Confirm</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Classic
+                                            Version - v2</span></a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item">
+                                            <a href="html/pages/auths/auth-login-v2.html" class="nk-menu-link"
+                                                target="_blank"><span class="nk-menu-text">Login / Signin</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="html/pages/auths/auth-register-v2.html" class="nk-menu-link"
+                                                target="_blank"><span class="nk-menu-text">Register / Signup</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="html/pages/auths/auth-reset-v2.html" class="nk-menu-link"
+                                                target="_blank"><span class="nk-menu-text">Forgot Password</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="html/pages/auths/auth-success-v2.html" class="nk-menu-link"
+                                                target="_blank"><span class="nk-menu-text">Success / Confirm</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nk-menu-item has-sub">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Managemen User</span>
+                                    </a>
+                                    <ul class="nk-menu-sub ">
+                                        <li class="nk-menu-item">
+                                            <a href="{{ route('data.user') }}" class="nk-menu-link"><span
+                                                    class="nk-menu-text">Pengguna</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    @endrole
 
                     @role('radiologi')
                         <li class="nk-menu-item has-sub">
@@ -146,20 +146,20 @@
 
                     <!-- APOTEK -->
                     @role('apotek')
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb-fill"></em></span>
-                            <span class="nk-menu-text">Apotek</span>
-                        </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item">
-                                <a href="html/project-card.html" class="nk-menu-link"><span
-                                        class="nk-menu-text">Kategori Obat</span></a>
-                                <a href="{{ route('data') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Data Obat</span></a>
-                            </li>
-                        </ul><!-- .nk-menu-sub -->
-                    </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb-fill"></em></span>
+                                <span class="nk-menu-text">Apotek</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="html/project-card.html" class="nk-menu-link"><span
+                                            class="nk-menu-text">Kategori Obat</span></a>
+                                    <a href="{{ route('data') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Data Obat</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
@@ -226,28 +226,28 @@
                         </li>
                     @endrole
                     @role('pendaftaran')
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon">
-                                <em class="icon ni ni-view-list-fill"></em>
-                            </span>
-                            <span class="nk-menu-text">Pendaftaran</span>
-                        </a>
-                        <ul class="nk-menu-sub ">
-                            <li class="nk-menu-item {{ activeClass('pendaftaran.index') }}">
-                                <a href="{{ route('pendaftaran.index') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Pasien Hari Ini</span></a>
-                            </li>
-                            <li class="nk-menu-item {{ activeClass('pendaftaran.create') }}">
-                                <a href="{{ route('pendaftaran.create') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Tambah Pasien</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="https://vclaim.bpjs-kesehatan.go.id/vclaim" target="_blank"
-                                    class="nk-menu-link"><span class="nk-menu-text">V Claim</span></a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-view-list-fill"></em>
+                                </span>
+                                <span class="nk-menu-text">Pendaftaran</span>
+                            </a>
+                            <ul class="nk-menu-sub ">
+                                <li class="nk-menu-item {{ activeClass('pendaftaran.index') }}">
+                                    <a href="{{ route('pendaftaran.index') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Pasien Hari Ini</span></a>
+                                </li>
+                                <li class="nk-menu-item {{ activeClass('pendaftaran.create') }}">
+                                    <a href="{{ route('pendaftaran.create') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Tambah Pasien</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="https://vclaim.bpjs-kesehatan.go.id/vclaim" target="_blank"
+                                        class="nk-menu-link"><span class="nk-menu-text">V Claim</span></a>
+                                </li>
+                            </ul>
+                        </li>
                         {{-- <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-folders-fill"></em></span>
@@ -288,7 +288,7 @@
                             </li>
                         </ul>
                     </li>
-                        {{-- <li class="nk-menu-item has-sub">
+                    {{-- <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-folders-fill"></em></span>
                             <span class="nk-menu-text">Managemen User</span>
@@ -355,23 +355,23 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>                
-                        <!-- RADIOLOGI -->
-                        <li class="nk-menu-item has-sub">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
-                                <span class="nk-menu-text">Pemeriksaan Radiologi</span>
-                            </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('order.radiologi-otc') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pemeriksaan Radiologi OTC</span></a>
-                                    <a href="{{ route('order.radiologi-umum') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pemeriksaan Radiologi RS</span></a>
-                                </li>
-                            </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->
-                        <!-- LAB -->
+                    </li>
+                    <!-- RADIOLOGI -->
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
+                            <span class="nk-menu-text">Pemeriksaan Radiologi</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{ route('order.radiologi-otc') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Pemeriksaan Radiologi OTC</span></a>
+                                <a href="{{ route('order.radiologi-umum') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Pemeriksaan Radiologi RS</span></a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+                    <!-- LAB -->
                     <li class="nk-menu-item has-sub">
                         <a class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
@@ -380,9 +380,9 @@
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
                                 <a href="{{ route('lab.otc') }}" class="nk-menu-link"><span
-                                class="nk-menu-text">Pemeriksaan Lab OTC</span></a>
+                                        class="nk-menu-text">Pemeriksaan Lab OTC</span></a>
                                 <a href="{{ route('lab.umum') }}" class="nk-menu-link"><span
-                                class="nk-menu-text">Pemeriksaan Lab RS</span></a>
+                                        class="nk-menu-text">Pemeriksaan Lab RS</span></a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
@@ -401,82 +401,79 @@
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
-                        <li class="nk-menu-item has-sub">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
-                                <span class="nk-menu-text">Orders</span>
-                            </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('order.create-obat') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Obat - Default</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="html/orders-regular.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order List - Regular</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="html/orders-sales.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order List - Sales</span></a>
-                                </li>
-                            </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->
-                        <li class="nk-menu-item has-sub">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-filter-alt"></em></span>
-                                <span class="nk-menu-text">Daftar Antrian</span>
-                            </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('data.antrian') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Bpjs</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="html/orders-regular.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Umum - Regular</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="html/orders-sales.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Asuransi - Sales</span></a>
-                                </li>
-                            </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->
-                        <li class="nk-menu-item">
-                            <!-- KASIR -->
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-cart-fill"></em></span>
-                                <span class="nk-menu-text">KASIR</span>
-                            </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('kasir.bpjs') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pembayaran BPJS</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('kasir.umum') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pembayaran Umum/Asuransi</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('kasir.otc') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pembayaran OTC</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        </li>
-
-                        <li class="nk-menu-item {{ activeClass('aktifitas-user.index') }}">
-                            <a href="{{ route('aktifitas-user.index') }}" class="nk-menu-link">
-                                <span class="nk-menu-icon">
-                                    <em class="icon ni ni-history"></em>
-                                </span>
-                                <span class="nk-menu-text">History User</span>
-                            </a>
-                        </li>
-                    
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
+                            <span class="nk-menu-text">Orders</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{ route('order.create-obat') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Order Obat - Default</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="html/orders-regular.html" class="nk-menu-link"><span
+                                        class="nk-menu-text">Order List - Regular</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="html/orders-sales.html" class="nk-menu-link"><span
+                                        class="nk-menu-text">Order List - Sales</span></a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-filter-alt"></em></span>
+                            <span class="nk-menu-text">Daftar Antrian</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{ route('data.antrian') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Order Bpjs</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="html/orders-regular.html" class="nk-menu-link"><span
+                                        class="nk-menu-text">Order Umum - Regular</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="html/orders-sales.html" class="nk-menu-link"><span
+                                        class="nk-menu-text">Order Asuransi - Sales</span></a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+                    <li class="nk-menu-item">
+                        <!-- KASIR -->
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-cart-fill"></em></span>
+                            <span class="nk-menu-text">KASIR</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{ route('kasir.bpjs') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Pembayaran BPJS</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{ route('kasir.umum') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Pembayaran Umum/Asuransi</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{ route('kasir.otc') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Pembayaran OTC</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    </li>
+                    <li class="nk-menu-item {{ activeClass('aktifitas-user.index') }}">
+                        <a href="{{ route('aktifitas-user.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-history"></em>
+                            </span>
+                            <span class="nk-menu-text">History User</span>
+                        </a>
+                    </li>
                     <!-- BATAS SUPER ADMIN -->
-
-                </ul><!-- .nk-menu -->
-            </div><!-- .nk-sidebar-menu -->
-        </div><!-- .nk-sidebar-content -->
-    </div><!-- .nk-sidebar-element -->
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

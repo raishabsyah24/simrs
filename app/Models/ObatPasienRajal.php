@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ObatPasienRajal extends Model
 {
-    use HasFactory,
-        SoftDeletes;
+    use HasFactory;
 
     protected $table = 'obat_pasien_periksa_rajal';
 

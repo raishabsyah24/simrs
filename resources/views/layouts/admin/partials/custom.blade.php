@@ -23,9 +23,10 @@
     }
 
     function alertError(
+        title = "Maaf, terjadi kesalahan",
         message = "Harap hubungi tim developer"
     ) {
-        Swal.fire('Maaf, terjadi kesalahan', message, "error");
+        Swal.fire(title, message, "error");
     }
 
     function showModalLogout() {

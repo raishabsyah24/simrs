@@ -17,7 +17,7 @@ class CreateObatNurseStationTable extends Migration
             $table->id();
             $table->unsignedBigInteger('obat_id');
             $table->unsignedBigInteger('nurse_station_id');
-            $table->decimal('harga_jual')->default(0);
+            $table->bigInteger('harga_jual')->default(0);
             $table->bigInteger('stok')->default(0);
             $table->bigInteger('minimal_stok')->default(0);
             $table->bigInteger('maksimal_stok')->default(0);
