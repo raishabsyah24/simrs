@@ -103,11 +103,17 @@
                                                 <div class="nk-block-head nk-block-head-sm nk-block-between">
                                                     <h5 class="title">Pemeriksaan</h5>
                                                 </div>
+<<<<<<< HEAD
                                                 <form class="form-validate"
                                                     action="{{ route('dokter.store-pasien', $periksa_dokter_id) }}">
                                                     @csrf
                                                     @method('put')
                                                     <div class="nk-block">
+=======
+                                                <div class="nk-block">
+                                                    <form class="form-validate" action="">
+                                                        @csrf
+>>>>>>> 3703707 (malam jum'at 00:45)
                                                         <div class="row g-gs">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
@@ -202,6 +208,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+<<<<<<< HEAD
                                                             <div class="col-md-7 offset-lg-5">
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
@@ -284,17 +291,37 @@
                                                             </div>
                                                             {{-- Button submit --}}
                                                             <div class="col-md-7 offset-lg-5">
+=======
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                {{-- End form Pemeriksaan --}}
+
+                                                {{-- Obat pasien --}}
+                                                <div class="nk-divider divider md"></div>
+                                                <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                    <h5 class="title">Obat Pasien</h5>
+                                                </div>
+                                                <div class="nk-block">
+                                                    <form class="form-validate" action="">
+                                                        @csrf
+                                                        <div class="row g-gs">
+                                                            <div class="col-md-6">
+>>>>>>> 3703707 (malam jum'at 00:45)
                                                                 <div class="form-group">
-                                                                    <button type="submit" onclick="submitForm(this.form)"
-                                                                        class="tombol-simpan btn btn-lg btn-primary">
-                                                                        <span class="text-simpan">Simpan</span>
-                                                                        <span
-                                                                            class="loading-simpan d-none ml-2 spinner-border spinner-border-sm"
-                                                                            role="status" aria-hidden="true"></span>
-                                                                    </button>
+                                                                    <label class="form-label">Masukan nama obat<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="form-control-wrap">
+                                                                        <input
+                                                                            onkeyup="searchObat(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-obat') }}`,this)"
+                                                                            class="form-control form-control-lg"
+                                                                            name="obat" autocomplete="off">
+                                                                        <div class="dropdown-obat"></div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+<<<<<<< HEAD
                                                     </div>
                                                     <div class="nk-divider divider md">
                                                     </div>
@@ -364,6 +391,82 @@
                                                 </table>
                                             </div>
                                             {{-- Table RM --}}
+=======
+                                                    </form>
+                                                    <div class="mt-3">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Nama Obat</th>
+                                                                    <th>Jumlah</th>
+                                                                    <th>Signa</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="data-obat">
+                                                                {{-- @foreach ($obat_pasien as $item)
+                                                                    <tr>
+                                                                        <td>{{ $item->nama_generik }}</td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="form-control-wrap">
+                                                                                    <input name="jumlah"
+                                                                                        value="{{ $item->jumlah }}"
+                                                                                        type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="form-control-wrap">
+                                                                                    <input name="signa"
+                                                                                        value="{{ $item->signa }}"
+                                                                                        type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach --}}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                {{-- End Obat pasien --}}
+                                            </div>
+                                            <div class="tab-pane" id="tabItem2">
+                                                {{-- Table RM --}}
+                                                <div class="nk-block nk-block-lg">
+                                                    <table class="table">
+                                                        <thead class="thead-dark">
+                                                            <tr>
+                                                                <th scope="col">No</th>
+                                                                <th scope="col">Tanggal Kunjungan</th>
+                                                                <th scope="col">Poli</th>
+                                                                <th scope="col">Dokter</th>
+                                                                <th scope="col">Subjektif</th>
+                                                                <th scope="col">Objektif</th>
+                                                                <th scope="col">Assesment</th>
+                                                                <th scope="col">Plan</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($rekam_medis as $item)
+                                                                <tr>
+                                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                                    <td>{{ tanggal($item->tanggal_periksa) }}</td>
+                                                                    <td>{{ $item->poli }}</td>
+                                                                    <td>{{ $item->dokter }}</td>
+                                                                    <td>{{ $item->subjektif }}</td>
+                                                                    <td>{{ $item->objektif }}</td>
+                                                                    <td>{{ $item->assesment }}</td>
+                                                                    <td>{{ $item->plan }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                {{-- Table RM --}}
+                                            </div>
+>>>>>>> 3703707 (malam jum'at 00:45)
                                         </div>
                                     </div>
                                 </div>
@@ -380,16 +483,24 @@
 
 @push('js')
     <script>
+<<<<<<< HEAD
         reloadTable();
 
         async function searchObat(id, url, attr) {
+=======
+        function searchObat(id, url, attr) {
+>>>>>>> 3703707 (malam jum'at 00:45)
             if ($('.dropdown-obat').hasClass('d-none')) {
                 $('.dropdown-obat').removeClass('d-none');
             }
 
             let obat = $(attr).val();
 
+<<<<<<< HEAD
             await $.get(url, {
+=======
+            $.get(url, {
+>>>>>>> 3703707 (malam jum'at 00:45)
                     obat: obat,
                     periksa_dokter_id: id
                 })
@@ -418,11 +529,15 @@
                     $.get(url)
                         .done(output => {
                             $('table .data-obat').html(output);
+<<<<<<< HEAD
                             reloadTable();
+=======
+>>>>>>> 3703707 (malam jum'at 00:45)
                         })
                 })
         }
 
+<<<<<<< HEAD
         function reloadTable() {
             setTimeout(() => {
                 $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
@@ -504,5 +619,13 @@
                     pindahHalaman(response.url, 1500);
                 })
         }
+=======
+        setInterval(() => {
+            $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
+                .done(output => {
+                    $('table .data-obat').html(output);
+                })
+        }, 500);
+>>>>>>> 3703707 (malam jum'at 00:45)
     </script>
 @endpush

@@ -106,12 +106,15 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
         ->name('dokter.change-obat');
     Route::get('/dokter/obat-pasien/{id}', [PasienDokterController::class, 'obatPasien'])
         ->name('dokter.obat-pasien');
+<<<<<<< HEAD
     Route::put('/dokter/obat-pasien/update-quantity/{id}', [PasienDokterController::class, 'updateQuantity'])
         ->name('dokter.obat-pasien.update-quantity');
     Route::delete('/dokter/hapus-obat/{id}', [PasienDokterController::class, 'hapusObat'])
         ->name('dokter.obat-pasien.hapus');
     Route::put('/dokter/daftar-pasien/{periksaDokter}', [PasienDokterController::class, 'storePasien'])
         ->name('dokter.store-pasien');
+=======
+>>>>>>> 3703707 (malam jum'at 00:45)
 });
 
 // Role apotek

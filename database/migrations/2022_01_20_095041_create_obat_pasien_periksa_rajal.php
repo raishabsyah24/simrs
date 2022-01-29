@@ -20,8 +20,13 @@ class CreateObatPasienPeriksaRajal extends Migration
             $table->string('komposisi')->nullable();
             $table->string('signa')->nullable();
             $table->bigInteger('jumlah')->default(1);
+<<<<<<< HEAD
             $table->bigInteger('harga_obat');
             $table->bigInteger('subtotal')->default(0);
+=======
+            $table->decimal('harga_obat');
+            $table->decimal('subtotal')->default(0);
+>>>>>>> 3703707 (malam jum'at 00:45)
             $table->timestamps();
 
             $table->foreign('periksa_dokter_id')->references('id')->on('periksa_dokter')
