@@ -161,7 +161,7 @@ class PasienDokterController extends Controller
                 <td>
                     <div class="form-group">
                         <div class="form-control-wrap">
-                            <input autocomplete="off" onkeyup="updateQuantity(`' . route('dokter.obat-pasien.update-quantity', $item->obat_pasien_periksa_rajal_id) . '`,this,`' . $item->obat_pasien_periksa_rajal_id . '`)" name="jumlah"
+                            <input type="number" autocomplete="off" onkeyup="updateQuantity(`' . route('dokter.obat-pasien.update-quantity', $item->obat_pasien_periksa_rajal_id) . '`,this,`' . $item->obat_pasien_periksa_rajal_id . '`)" name="jumlah"
                                 value="' . $item->jumlah . '"
                                 type="text" class="form-control">
                         </div>
