@@ -64,18 +64,8 @@ class DokterRepository implements DokterInterface
             ->where('p.id', $pasien_id)
             ->first();
     }
+\
 
-<<<<<<< HEAD
-
-    // public function tenagaMedis()
-    // {
-    //     return DB::table('dokter as dr')
-    //         ->selectRaw('dr.id, dr.nama')
-    //         ->get();
-    // }
-
-=======
->>>>>>> 3703707 (malam jum'at 00:45)
     public function searchObat(string $nama_obat, int $periksa_dokter_id = null)
     {
         return DB::table('obat as o')
@@ -95,18 +85,13 @@ class DokterRepository implements DokterInterface
     {
         return DB::table('obat_pasien_periksa_rajal as or')
             ->selectRaw('
-<<<<<<< HEAD
-            o.nama_generik, or.jumlah, or.signa, or.subtotal, or.harga_obat, or.id as obat_pasien_periksa_rajal_id
-=======
             o.nama_generik, or.jumlah, or.signa
->>>>>>> 3703707 (malam jum'at 00:45)
         ')
             ->join('obat_apotek as oa', 'oa.id', '=', 'or.obat_apotek_id')
             ->join('obat as o', 'o.id', '=', 'oa.obat_id')
             ->where('or.periksa_dokter_id', $periksa_dokter_id)
             ->get();
     }
-<<<<<<< HEAD
 
     public function tenagaMedis()
     {
@@ -117,6 +102,4 @@ class DokterRepository implements DokterInterface
             ->join('poli as pl', 'pl.id', '=', 'dr.spesialis')
             ->get();
     }
-=======
->>>>>>> 3703707 (malam jum'at 00:45)
 }

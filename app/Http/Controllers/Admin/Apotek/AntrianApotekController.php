@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin\Apotek;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\ApotekInterface;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\Pasien;
+use App\Models\RekamMedis;
+use Illuminate\Support\Facades\Auth;
+use App\Repositories\Interfaces\ApotekInterface;
 
 class AntrianApotekController extends Controller
 {
@@ -21,7 +24,6 @@ class AntrianApotekController extends Controller
     public function index()
     {
         $data = $this->apotekRepository->antrianApotek();
-        // return $data;
         $title = 'Daftar Antrian Apotek';
         $total = $this->apotekRepository->antrianApotek()->count();
         $per_page = $this->perPage;
@@ -59,6 +61,18 @@ class AntrianApotekController extends Controller
                 'badge'
             ))
                 ->render();
+            return $data;
         }
+    }
+
+    public function edit()
+    {
+        // $rm = RekamMedis::select('kode');
+        // $pasien = Pasien::select('nama');
+
+        $title = 'Ubah data pasien apotek';
+        return view('admin.apotek.antrian_apotek_bpjs.edit', compact(
+            'title'
+        ));
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\User\ActivityLogController;
 use App\Http\Controllers\Admin\Apotek\{ObatController, OrderController, AntrianApotekController};
-use App\Http\Controllers\Admin\Dokter\PasienListController;
+use App\Http\Controllers\Admin\Dokter\PasienDokterController;
 use App\Http\Controllers\Admin\{
     DashboardController,
     LayananController,
@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\{
 Route::get('/', function () {
     return redirect()->route('login');
 });
-
+Route::get('/data', [PasienDokterController::class, 'q']);
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard.index');
 
@@ -68,6 +68,10 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
         ->name('data.user');
     Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
         ->name('user.fetchData');
+    Route::get('/user/create', [UserController::class, 'createUser'])
+        ->name('user.create');
+    Route::post('/user/store', [UserController::class, 'storeUser'])
+        ->name('user.store');
     Route::get('/user/{id}/edit', [UserController::class, 'editUser'])
         ->name('user.edit');
     Route::put('/user/{id}/update', [UserController::class, 'updateUser'])
@@ -106,19 +110,16 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
         ->name('dokter.change-obat');
     Route::get('/dokter/obat-pasien/{id}', [PasienDokterController::class, 'obatPasien'])
         ->name('dokter.obat-pasien');
-<<<<<<< HEAD
     Route::put('/dokter/obat-pasien/update-quantity/{id}', [PasienDokterController::class, 'updateQuantity'])
         ->name('dokter.obat-pasien.update-quantity');
     Route::delete('/dokter/hapus-obat/{id}', [PasienDokterController::class, 'hapusObat'])
         ->name('dokter.obat-pasien.hapus');
     Route::put('/dokter/daftar-pasien/{periksaDokter}', [PasienDokterController::class, 'storePasien'])
         ->name('dokter.store-pasien');
-=======
->>>>>>> 3703707 (malam jum'at 00:45)
 });
 
 // Role apotek
-Route::group(['middleware' => ['auth', 'role:apotek']], function () {
+Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () {
     // Data obat
     Route::get('/obat', [ObatController::class, 'dataObat'])->name('data');
     Route::get('/obat/fetch-data', [ObatController::class, '_fetchData'])->name('obat.fetchData');
@@ -128,11 +129,23 @@ Route::group(['middleware' => ['auth', 'role:apotek']], function () {
     // Daftar antrian
     Route::get('/apotek/bpjs', [AntrianApotekController::class, 'index'])->name('data.antrian.bpjs');
     Route::get('/apotek/fetch-data', [AntrianApotekController::class, '_fetchData'])->name('data.antrian');
+    Route::get('/apotek/edit', [AntrianApotekController::class, 'edit'])->name('edit.antrian');
 });
 
 // // Role poli
 // Route::group(['middleware' => ['auth', 'role:poli']], function () {
 // });
+
+// Role rekam medis
+Route::group(['middleware' => ['auth', 'role:rekam_medis|super_admin']], function () {
+    Route::get('/rekam_medis', [RekammedisController::class, 'rekam_medis'])
+        ->name('rm.rekammedis');
+    Route::get('/retensi', [RekammedisController::class, 'retensi'])
+        ->name('rm.retensi');
+    Route::get('/migrasi', [RekammedisController::class, 'migrasi_retensi'])
+        ->name('rm.migrasi');
+});
+
 
 Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
 

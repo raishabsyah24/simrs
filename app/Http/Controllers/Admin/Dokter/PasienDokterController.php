@@ -2,25 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Dokter;
 
-use App\Models\Poli;
-use App\Models\Layanan;
-use App\Models\ObatApotek;
-use App\Models\RekamMedis;
-use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
-use App\Models\PeriksaDokter;
-<<<<<<< HEAD
-use App\Models\ObatPasienRajal;
-use App\Models\RekamMedisPasien;
-use App\Models\PemeriksaanDetail;
+use App\Models\{
+    Poli,
+    Layanan,
+    ObatApotek,
+    RekamMedis,
+    Pemeriksaan,
+    PeriksaDokter,
+    ObatPasienRajal,
+    RekamMedisPasien,
+    PemeriksaanDetail
+};
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-=======
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use App\Models\ObatApotek;
-use App\Models\ObatPasienRajal;
->>>>>>> 3703707 (malam jum'at 00:45)
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Interfaces\DokterInterface;
 
@@ -136,7 +131,6 @@ class PasienDokterController extends Controller
     public function obatPasien($periksa_dokter_id)
     {
         $data = $this->dokterRepository->obatPasien($periksa_dokter_id);
-<<<<<<< HEAD
         $total = $data->sum('subtotal');
         $limit = null;
 
@@ -163,29 +157,17 @@ class PasienDokterController extends Controller
             $output .= '
             <tr>
                 <td>' . $key + 1 . '</td>
-=======
-
-        $output = '';
-        foreach ($data as $item) {
-            $output .= '
-            <tr>
->>>>>>> 3703707 (malam jum'at 00:45)
                 <td>' . $item->nama_generik . '</td>
                 <td>
                     <div class="form-group">
                         <div class="form-control-wrap">
-<<<<<<< HEAD
-                            <input autocomplete="off" onkeyup="updateQuantity(`' . route('dokter.obat-pasien.update-quantity', $item->obat_pasien_periksa_rajal_id) . '`,this,`' . $item->obat_pasien_periksa_rajal_id . '`)" name="jumlah"
-=======
-                            <input name="jumlah"
->>>>>>> 3703707 (malam jum'at 00:45)
+                            <input type="number" autocomplete="off" onkeyup="updateQuantity(`' . route('dokter.obat-pasien.update-quantity', $item->obat_pasien_periksa_rajal_id) . '`,this,`' . $item->obat_pasien_periksa_rajal_id . '`)" name="jumlah"
                                 value="' . $item->jumlah . '"
                                 type="text" class="form-control">
                         </div>
                     </div>
                 </td>
                 <td>
-<<<<<<< HEAD
                 <div class="form-control-wrap ">
                     <div class="form-control-select">
                         <select class="form-control" name="satuan">
@@ -331,29 +313,15 @@ class PasienDokterController extends Controller
                     'objektif' => $attr['objektif'],
                     'assesment' => $attr['assesment'],
                     'plan' => $attr['plan'],
+                    'keluhan' => $attr['keluhan'],
                     'tanggal' => now()
                 ]);
             }
         );
 
         return response()->json([
-            'message' => 'Terimakasih atas layanannya',
+            'message' => 'Terimakasih atas layanan yang anda berikan. Semoga anda sehat selalu',
             'url' => route('dokter.daftar-pasien')
         ], 200);
-=======
-                    <div class="form-group">
-                        <div class="form-control-wrap">
-                            <input name="signa"
-                                value="' . $item->signa . '"
-                                type="text" class="form-control">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        ';
-        }
-
-        echo $output;
->>>>>>> 3703707 (malam jum'at 00:45)
     }
 }

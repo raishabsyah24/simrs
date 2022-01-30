@@ -18,6 +18,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\PendaftaranInterface;
 use App\Http\Requests\Admin\PendaftaranPasienBaruRequest;
 use App\Http\Requests\Admin\PendaftaranPasienLamaRequest;
+use Carbon\Carbon;
 
 class PendaftaranController extends Controller
 {
@@ -155,6 +156,7 @@ class PendaftaranController extends Controller
 
             $poli = Poli::find($attr['poli_id']);
             $nama_poli = $poli->nama;
+            $tanggal = Carbon::parse($attr['tanggal'])->format('d');
 
             // Insert pasien
             $pasien = Pasien::create($attr);
@@ -195,7 +197,7 @@ class PendaftaranController extends Controller
                     'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                     'pasien_id' => $pasien->id,
                     'poli_id' => $pemeriksaan_detail->poli_id,
-                    'no_antrian_periksa' => noUrutPasienPeriksa($pemeriksaan_detail->poli_id),
+                    'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id),
                     'tanggal' => $attr['tanggal'],
                     'keterangan' => $attr['keterangan'],
                     'status_diperiksa' => 'belum diperiksa'
@@ -249,6 +251,7 @@ class PendaftaranController extends Controller
                 $pasien = Pasien::find($attr['pasien']);
                 $rekam_medis = RekamMedis::where('pasien_id', $pasien->id)
                     ->first();
+                $tanggal = Carbon::parse($attr['tanggal'])->format('d');
 
                 // Insert rekam medis jika ga ada
                 $rm = RekamMedis::where('pasien_id', $pasien->id)->first();
@@ -286,7 +289,7 @@ class PendaftaranController extends Controller
                         'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                         'pasien_id' => $pasien->id,
                         'poli_id' => $pemeriksaan_detail->poli_id,
-                        'no_antrian_periksa' => noUrutPasienPeriksa($pemeriksaan_detail->poli_id),
+                        'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id),
                         'tanggal' => $attr['tanggal'],
                         'keterangan' => $attr['keterangan'],
                         'status_diperiksa' => 'belum diperiksa'
@@ -349,6 +352,35 @@ class PendaftaranController extends Controller
             'data' => $data,
             'usia' => $usia,
             'tanggal_periksa' => $tanggal_periksa
+        ], 200);
+    }
+    public function destroy(Pemeriksaan $pemeriksaan)
+    {
+        $pemeriksaan_id = $pemeriksaan->id;
+        $pemeriksaan_detail = PemeriksaanDetail::where('pemeriksaan_id', $pemeriksaan_id)->get();
+
+        $pemeriksaan->delete();
+        foreach ($pemeriksaan_detail as $item) {
+            $periksa_dokter = PeriksaDokter::where('pemeriksaan_detail_id', $item->id)->first();
+            $periksa_lab = PeriksaLab::where('pemeriksaan_detail_id', $item->id)->first();
+            $periksa_radiologi = PeriksaRadiologi::where('pemeriksaan_detail_id', $item->id)->first();
+
+            if ($periksa_radiologi) {
+                $periksa_radiologi->delete();
+            }
+            if ($periksa_lab) {
+                $periksa_lab->delete();
+            }
+            if ($periksa_dokter) {
+                $periksa_dokter->delete();
+            }
+            $item->delete();
+        }
+
+
+
+        return response()->json([
+            'message' => 'Data berhasil dihapus'
         ], 200);
     }
 }
