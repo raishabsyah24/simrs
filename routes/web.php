@@ -185,8 +185,8 @@ Route::group(['middleware' => ['auth', 'role:pendaftaran|super_admin']], functio
         ->name('pendaftaran.dokter-poli');
     Route::post('/pendaftaran', [PendaftaranController::class, 'store'])
         ->name('pendaftaran.store');
-    Route::get('/pendaftaranmessanger', [PendaftaranController::class, 'messanger'])
-        ->name('pendaftaran.messanger');
+    // Route::get('/pendaftaranmessanger', [PendaftaranController::class, 'messanger'])
+        // ->name('pendaftaran.messanger');
     Route::get('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'createPasienSudahPernahDaftar'])
         ->name('pendaftaran.createPasienSudahPernahDaftar');
 });
