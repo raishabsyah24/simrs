@@ -20,5 +20,5 @@ interface DokterInterface
 
     public function obatPasien(int $periksa_dokter_id);
     
-    public function tenagaMedis()
+    public function tenagaMedis();
 }

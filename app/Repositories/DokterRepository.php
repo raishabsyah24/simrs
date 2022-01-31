@@ -64,7 +64,7 @@ class DokterRepository implements DokterInterface
             ->where('p.id', $pasien_id)
             ->first();
     }
-\
+
 
     public function searchObat(string $nama_obat, int $periksa_dokter_id = null)
     {
