@@ -43,11 +43,7 @@ class ObatSeeder extends Seeder
             ]);
         }
 
-<<<<<<< HEAD
-        for ($i = 1; $i <= 5; $i++) {
-=======
         for ($i = 1; $i <= 100; $i++) {
->>>>>>> 3703707 (malam jum'at 00:45)
             Obat::create([
                 'kategori_obat' => rand(1, 10),
                 'kode' => uniqid(),
@@ -58,17 +54,14 @@ class ObatSeeder extends Seeder
             ]);
         }
 
-<<<<<<< HEAD
         for ($i = 1; $i <= 5; $i++) {
             ObatApotek::create([
                 'obat_id' => $i,
                 'harga_jual' => rand(1000, 10000),
-=======
-        for ($i = 1; $i <= 100; $i++) {
+            ]);
             ObatApotek::create([
                 'obat_id' => $i,
                 'harga_jual' => rand(1000, 100000),
->>>>>>> 3703707 (malam jum'at 00:45)
                 'stok' => rand(10, 1000),
                 'minimal_stok' => rand(1, 10),
                 'maksimal_stok' => rand(10, 10000),
@@ -76,5 +69,5 @@ class ObatSeeder extends Seeder
                 'ed' => $faker->dateTimeBetween($startDate = 'now', $endDate = '+5 years'),
             ]);
         }
-    }
+}
 }

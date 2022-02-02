@@ -10,6 +10,8 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 use App\Repositories\Interfaces\DokterInterface;
+use Illuminate\Support\Facades\DB;
+
 
 class TenagaMedisController extends Controller
 {

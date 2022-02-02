@@ -8,12 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ObatPasienRajal extends Model
 {
-<<<<<<< HEAD
-    use HasFactory;
-=======
     use HasFactory,
         SoftDeletes;
->>>>>>> 3703707 (malam jum'at 00:45)
+    use HasFactory,
+        SoftDeletes;
 
     protected $table = 'obat_pasien_periksa_rajal';
 

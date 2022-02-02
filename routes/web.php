@@ -110,12 +110,6 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
         ->name('dokter.change-obat');
     Route::get('/dokter/obat-pasien/{id}', [PasienDokterController::class, 'obatPasien'])
         ->name('dokter.obat-pasien');
-    Route::put('/dokter/obat-pasien/update-quantity/{id}', [PasienDokterController::class, 'updateQuantity'])
-        ->name('dokter.obat-pasien.update-quantity');
-    Route::delete('/dokter/hapus-obat/{id}', [PasienDokterController::class, 'hapusObat'])
-        ->name('dokter.obat-pasien.hapus');
-    Route::put('/dokter/daftar-pasien/{periksaDokter}', [PasienDokterController::class, 'storePasien'])
-        ->name('dokter.store-pasien');
 });
 
 // Role apotek
@@ -191,8 +185,8 @@ Route::group(['middleware' => ['auth', 'role:pendaftaran|super_admin']], functio
         ->name('pendaftaran.dokter-poli');
     Route::post('/pendaftaran', [PendaftaranController::class, 'store'])
         ->name('pendaftaran.store');
-    Route::get('/pendaftaranmessanger', [PendaftaranController::class, 'messanger'])
-        ->name('pendaftaran.messanger');
+    // Route::get('/pendaftaranmessanger', [PendaftaranController::class, 'messanger'])
+        // ->name('pendaftaran.messanger');
     Route::get('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'createPasienSudahPernahDaftar'])
         ->name('pendaftaran.createPasienSudahPernahDaftar');
 });
