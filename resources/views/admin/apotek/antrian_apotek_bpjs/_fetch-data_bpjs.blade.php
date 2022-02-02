@@ -66,8 +66,8 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
                                     <li>
-                                        <a href="{{ route('edit.antrian') }}"><em class="icon ni ni-edit-fill"></em>
-                                            <span>Ubah</span>
+                                        <a href="{{ route('edit.antrian', $item->id) }}"><em class="icon ni ni-edit-fill"></em>
+                                            <span>Proses</span>
                                         </a>
                                     </li>
                                     <li>

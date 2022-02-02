@@ -245,7 +245,7 @@
                                 </li>
                             </ul>
                         </li>
-                        @endrole 
+                        @endrole
                     <!-- BATAS SUPER ADMIN -->
 
                     <!-- DOKTER -->
@@ -293,7 +293,7 @@
                             </li>
                         </ul>
                     </li>                
-                    @endrole    
+                    @endrole
 
                     @role('rekam_medis')
                         <li class="nk-menu-item has-sub">
@@ -321,7 +321,7 @@
                             </a>
                         </li>
                     @endrole             
-
+                    
                     @role('radiologi')
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
@@ -351,9 +351,11 @@
                                             class="nk-menu-text">Pemeriksaan Lab Umum</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->    
-                    <!-- APOTEK -->
-                    @role('apotek')
+                        </li><!-- .nk-menu-item -->   
+                        @endrole
+
+                     <!-- APOTEK -->
+                        @role('apotek')
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb-fill"></em></span>
@@ -368,21 +370,6 @@
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb-fill"></em></span>
-                            <span class="nk-menu-text">Apotek</span>
-                        </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item">
-                                <a href="html/project-card.html" class="nk-menu-link"><span
-                                        class="nk-menu-text">Kategori Obat</span></a>
-                                <a href="{{ route('data') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Data Obat</span></a>
-                            </li>
-                        </ul><!-- .nk-menu-sub -->
-                    </li><!-- .nk-menu-item -->
-
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
@@ -423,7 +410,7 @@
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
-                    @endrole
+                         @endrole
                     
                     @role('lab')
                     <li class="nk-menu-item has-sub">
@@ -506,7 +493,6 @@
                                 </li>
                             </ul>
                         </li>
-                    @endrole
                     @endrole
                 </ul>
             </div>

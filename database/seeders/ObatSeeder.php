@@ -54,11 +54,7 @@ class ObatSeeder extends Seeder
             ]);
         }
 
-        for ($i = 1; $i <= 5; $i++) {
-            ObatApotek::create([
-                'obat_id' => $i,
-                'harga_jual' => rand(1000, 10000),
-            ]);
+        for ($i = 1; $i <= 100; $i++) {
             ObatApotek::create([
                 'obat_id' => $i,
                 'harga_jual' => rand(1000, 100000),
@@ -69,5 +65,5 @@ class ObatSeeder extends Seeder
                 'ed' => $faker->dateTimeBetween($startDate = 'now', $endDate = '+5 years'),
             ]);
         }
-}
+    }
 }

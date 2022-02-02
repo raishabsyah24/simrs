@@ -90,6 +90,7 @@ class PasienDokterController extends Controller
     public function searchObat(Request $request)
     {
         $obat = $request->get('obat');
+        // dd($obat);
         $periksa_dokter_id = $request->get('periksa_dokter_id');
         $data = $this->dokterRepository->searchObat($obat, $periksa_dokter_id);
 
@@ -273,7 +274,7 @@ class PasienDokterController extends Controller
     {
         $attr = $request->except(['obat', 'satuan', 'signa', 'jumlah']);
         $attr['status_diperiksa'] = 'sudah diperiksa';
-
+        // dd($request->all());
         DB::transaction(
             function () use ($attr, $periksaDokter) {
                 $periksaDokter->update($attr);
@@ -299,16 +300,16 @@ class PasienDokterController extends Controller
                 $pemeriksaan->update([
                     'total_tagihan_obat' => $pemeriksaan->total_tagihan_obat + $tagihan_obat
                 ]);
-
                 // Cek rekam medis pasien
-                $rm = RekamMedis::find($periksaDokter->pasien_id);
+                $rm = RekamMedis::where('pasien_id', $periksaDokter->pasien_id)->first();
                 $poli = Poli::find($periksaDokter->poli_id);
 
+                // dd($rm);
                 // Insert rekam medis pasien
                 $rekam_medis_pasien = RekamMedisPasien::create([
                     'rekam_medis_id' => $rm->id,
                     'tujuan' => $poli->nama,
-                    'dokter' => Auth::user()->dokter->nama,
+                    'dokter' => Auth::user()->dokter->id,
                     'subjektif' => $attr['subjektif'],
                     'objektif' => $attr['objektif'],
                     'assesment' => $attr['assesment'],

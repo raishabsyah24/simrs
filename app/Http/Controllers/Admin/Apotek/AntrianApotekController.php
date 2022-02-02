@@ -65,14 +65,27 @@ class AntrianApotekController extends Controller
         }
     }
 
-    public function edit()
+    public function editApotek($riwayat_pasien_id)
     {
-        // $rm = RekamMedis::select('kode');
-        // $pasien = Pasien::select('nama');
+        // $pasien = Pasien::findOrfail($id);
+        $pasien = $this->apotekRepository->antrianApotek()->get($riwayat_pasien_id);
 
+        // dd($obat);
         $title = 'Ubah data pasien apotek';
         return view('admin.apotek.antrian_apotek_bpjs.edit', compact(
-            'title'
+            'title',
+            'pasien'
         ));
+    }
+
+    public function updateApotek(Request $request, $id)
+    {
+        // dd($request->all());
+        Pasien::where('id', $request->id)
+            ->update([
+                'nama' => $request->nama
+            ]);
+
+        return back();
     }
 }
