@@ -182,9 +182,8 @@
                             },
                         })
                         .done(response => {
-                            console.log(response);
-                            alertSuccess('Data berhasil dihapus');
-                            pindahHalaman(location.reload(), 1500)
+                            alertSuccess(response.message);
+                            pindahHalaman(response.url, 1500);
 
                         })
                         .fail(errors => {

@@ -11,9 +11,10 @@
                 <div class="nk-content-body">
                     <div class="nk-block-head nk-block-head-lg wide-sm">
                         <div class="nk-block-head-content">
-                            <div class="nk-block-head-sub"><a class="back-to"
-                                    href="{{ route('dokter.daftar-pasien') }}"><em
-                                        class="icon ni ni-arrow-left"></em><span>Kembali</span></a></div>
+                            <div class="nk-block-head-sub">
+                                <a class="back-to" href="{{ route('dokter.daftar-pasien') }}"><em
+                                        class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
+                            </div>
                             <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
                         </div>
                     </div>
@@ -277,6 +278,7 @@
                                                         {{-- Button submit --}}
                                                         <div class="col-md-7 offset-lg-5 mt-4">
                                                             <div class="form-group">
+
                                                                 <button type="submit" onclick="submitForm(this.form)"
                                                                     class="tombol-simpan btn btn-lg btn-primary">
                                                                     <span class="text-simpan">Simpan</span>
@@ -286,6 +288,7 @@
                                                                 </button>
                                                             </div>
                                                         </div>
+
                                                         {{-- </form> --}}
                                                     </div>
                                                 </form>
@@ -380,14 +383,21 @@
                     }
                 })
                 .done(response => {
+                    let status = response.status;
                     $('[name=obat]').val('')
-                    alertSuccess(response.message);
-                    let url = response.url;
-                    $.get(url)
-                        .done(output => {
-                            $('table .data-obat').html(output);
-                            reloadTable();
-                        })
+                    if (status == false) {
+                        $('input[name=obat]').prop('disabled', true);
+                        alertError('Pasien bpjs sudah mencapai limit obat',
+                            'Silahkan kurangi jumlah obat atau kurangi obat pasien');
+                    } else {
+                        alertSuccess(response.message);
+                        let url = response.url;
+                        $.get(url)
+                            .done(output => {
+                                $('table .data-obat').html(output);
+                                reloadTable();
+                            })
+                    }
                 })
         }
 
@@ -418,7 +428,6 @@
                     },
                 })
                 .done(response => {
-                    console.log(response);
                     let limit = response.limit;
                     if (limit == 'limit') {
                         $(attr).val(1);
@@ -430,16 +439,21 @@
                 })
         }
 
-        function hapusObat(url, id) {
+        function hapusObat(url, id, periksa_dokter_id) {
             event.preventDefault();
             $.post({
                     url: url,
                     data: {
                         _method: "DELETE",
-                        id: id
+                        id: id,
+                        periksa_dokter_id: periksa_dokter_id
                     },
                 })
                 .done(response => {
+                    let input = response.input;
+                    if (input == true) {
+                        $('[name=obat]').prop('disabled', false)
+                    }
                     alertSuccess(response.message)
                     reloadTable();
                 })
@@ -469,6 +483,40 @@
                     $(originalForm).find('.tombol-simpan').attr('disabled', true);
                     modalTerimakasih(response.message);
                     pindahHalaman(response.url, 3000);
+                })
+        }
+
+        function signaSatu(url, attr, obat_pasien_periksa_rajal_id) {
+            let signa1 = $(attr).val();
+            $('input[name=obat]').prop('disabled', false);
+
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        signa1: signa1,
+                        obat_pasien_periksa_rajal_id: obat_pasien_periksa_rajal_id,
+                    },
+                })
+                .done(response => {
+                    reloadTable();
+                })
+        }
+
+        function signaDua(url, attr, obat_pasien_periksa_rajal_id) {
+            let signa2 = $(attr).val();
+            $('input[name=obat]').prop('disabled', false);
+
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        signa2: signa2,
+                        obat_pasien_periksa_rajal_id: obat_pasien_periksa_rajal_id,
+                    },
+                })
+                .done(response => {
+                    reloadTable();
                 })
         }
     </script>

@@ -59,7 +59,7 @@
                                 <span class="nk-menu-icon">
                                     <i class="fas fa-user-md fa-lg"></i>
                                 </span>
-                                <span class="nk-menu-text">Dokter</span>
+                                <span class="nk-menu-text">Pasien Dokter Rawat Jalan</span>
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
@@ -183,6 +183,22 @@
                     @endrole
 
                     @role('super_admin')
+                        <li class="nk-menu-item {{ activeClass('dokter.index') }}">
+                            <a href="{{ route('dokter.index') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-users-fill"></em>
+                                </span>
+                                <span class="nk-menu-text">Dokter</span>
+                            </a>
+                        </li>
+                        <li class="nk-menu-item {{ activeClass('user.index') }}">
+                            <a href="{{ route('user.index') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-users-fill"></em>
+                                </span>
+                                <span class="nk-menu-text">User</span>
+                            </a>
+                        </li>
                         <li class="nk-menu-item {{ activeClass('aktifitas-user.index') }}">
                             <a href="{{ route('aktifitas-user.index') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon">
@@ -192,23 +208,6 @@
                             </a>
                         </li>
                     @endrole
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
-                            <span class="nk-menu-text">Managemen User</span>
-                        </a>
-                        <ul class="nk-menu-sub ">
-                            <li class="nk-menu-item">
-                                <a href="{{ route('user.index') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Semua User</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="{{ route('data.medis') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Daftar Tenaga Medis</span></a>
-                            </li>
-                        </ul>
-                    </li>
-
                 </ul>
             </div>
         </div>

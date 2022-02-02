@@ -8,6 +8,10 @@
                     <div class="nk-block nk-block-lg">
                         <div class="nk-block-head">
                             <div class="nk-block-head-content">
+                                <div class="nk-block-head-sub">
+                                    <a class="back-to" href="{{ route('user.index') }}"><em
+                                            class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
+                                </div>
                                 <h4 class="nk-block-title page-title align-center">Form Tambah User</h4>
                             </div>
                         </div>

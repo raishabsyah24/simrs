@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\{
     KasirController,
     RadiologiController
 };
-use App\Http\Controllers\Admin\Dokter\PasienDokterController;
+use App\Http\Controllers\Admin\Dokter\{PasienDokterController, DokterController};
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
 // Role super admin
 Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pendaftaran']], function () {
 
-
+    // Layanan
     Route::post('/layanan/data', [LayananController::class, 'data'])
         ->name('layanan.data');
     Route::get('/layanan', [LayananController::class, 'index'])
@@ -39,12 +39,17 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::post('/layanan', [LayananController::class, 'store'])
         ->name('layanan.store');
 
+    // dokter
+    Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
+
+    // History user
     Route::get('/aktifitas-user', [ActivityLogController::class, 'index'])
         ->name('aktifitas-user.index');
     Route::get('/aktifitas-user/fetch-data', [ActivityLogController::class, 'fetchData'])
         ->name('aktifitas-user.fetchData');
 
 
+    // Pendaftaran
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])
         ->name('pendaftaran.index');
     Route::get('/pendaftaran/fetch-data', [PendaftaranController::class, 'fetchData'])
@@ -109,6 +114,10 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
         ->name('dokter.obat-pasien.hapus');
     Route::put('/dokter/daftar-pasien/{periksaDokter}', [PasienDokterController::class, 'storePasien'])
         ->name('dokter.store-pasien');
+    Route::put('/dokter/obat-pasien/signa-1/{id}', [PasienDokterController::class, 'signa1'])
+        ->name('dokter.obat-pasien.signa1');
+    Route::put('/dokter/obat-pasien/signa-2/{id}', [PasienDokterController::class, 'signa2'])
+        ->name('dokter.obat-pasien.signa2');
 });
 
 // Role apotek

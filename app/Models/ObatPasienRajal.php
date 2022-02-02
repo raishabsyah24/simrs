@@ -13,6 +13,6 @@ class ObatPasienRajal extends Model
     protected $table = 'obat_pasien_periksa_rajal';
 
     protected $fillable = [
-        'periksa_dokter_id', 'obat_apotek_id', 'signa', 'harga_obat', 'komposisi', 'jumlah', 'subtotal'
+        'periksa_dokter_id', 'obat_apotek_id', 'signa1', 'signa2', 'harga_obat', 'komposisi', 'jumlah', 'subtotal'
     ];
 }

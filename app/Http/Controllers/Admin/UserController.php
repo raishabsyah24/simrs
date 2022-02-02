@@ -96,13 +96,13 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         // Insert ke table user
-        $user = $request->all();
+        $attr = $request->all();
 
-        DB::transaction(function () use ($user) {
-            $permissions = $user['permissions'];
-            $role = $user['role'];
-            $user['password'] = bcrypt($this->defaultPassword);
-            $user = User::create($user);
+        DB::transaction(function () use ($attr) {
+            $permissions = $attr['permissions'];
+            $role = $attr['role'];
+            $attr['password'] = bcrypt($this->defaultPassword);
+            $user = User::create($attr);
 
             $profile = Profile::create(['user_id' => $user->id]);
 
@@ -112,12 +112,11 @@ class UserController extends Controller
             $role->givePermissionTo([$permissions]);
 
             activity('menambahkan user ' . $this->namaUser($user->id));
-
-            return response()->json([
-                'url' => route('user.index'),
-                'message' => 'Tambah user atas nama ' . $user->name . ' berhasil!'
-            ], 200);
         });
+        return response()->json([
+            'url' => route('user.index'),
+            'message' => 'Tambah user atas nama ' . $attr['name'] . ' berhasil!'
+        ], 200);
     }
 
     public function edit(User $user)
@@ -154,13 +153,12 @@ class UserController extends Controller
                 $user->syncPermissions($permissions);
 
                 activity('mengubah data user ' . $this->namaUser($user->id));
-
-                return response()->json([
-                    'url' => route('user.index'),
-                    'message' => 'Update user berhasil!'
-                ], 200);
             }
         );
+        return response()->json([
+            'url' => route('user.index'),
+            'message' => 'Update user berhasil!'
+        ], 200);
     }
 
     public function namaUser($user_id)
@@ -171,21 +169,21 @@ class UserController extends Controller
 
     public function delete(User $user)
     {
-        DB::transaction(function () use ($user) {
-            // $role = $user->getRoleNames();
-            // $permission = $user->getPermissionNames();
+        // DB::transaction(function () use ($user) {
+        // $role = $user->getRoleNames();
+        // $permission = $user->getPermissionNames();
 
-            // $user->revokePermissionTo($permission);
-            // $user->removeRole($role);
+        // $user->revokePermissionTo($permission);
+        // $user->removeRole($role);
 
-            activity('menghapus data user ' . $this->namaUser($user->id));
+        activity('menghapus data user ' . $this->namaUser($user->id));
 
-            $user->delete();
+        $user->delete();
 
-            return response()->json([
-                'url' => route('user.index'),
-                'message' => 'User berhasil dihapus!'
-            ]);
-        });
+        return response()->json([
+            'url' => route('user.index'),
+            'message' => 'User berhasil dihapus!'
+        ]);
+        // });
     }
 }

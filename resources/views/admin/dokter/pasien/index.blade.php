@@ -12,9 +12,6 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
-                                <div class="nk-block-head-sub"><a class="back-to"
-                                        href="{{ route('dokter.daftar-pasien') }}"><em
-                                            class="icon ni ni-arrow-left"></em><span>Kembali</span></a></div>
                                 <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
                             </div>
                         </div>
