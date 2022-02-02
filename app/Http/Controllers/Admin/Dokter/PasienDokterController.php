@@ -162,32 +162,24 @@ class PasienDokterController extends Controller
                     <div class="form-group">
                         <div class="form-control-wrap">
                             <input type="number" autocomplete="off" onkeyup="updateQuantity(`' . route('dokter.obat-pasien.update-quantity', $item->obat_pasien_periksa_rajal_id) . '`,this,`' . $item->obat_pasien_periksa_rajal_id . '`)" name="jumlah"
-                                value="' . $item->jumlah . '"
-                                type="text" class="form-control">
+                                value="' . $item->jumlah . '" style="width: 7em" class="form-control">
                         </div>
                     </div>
                 </td>
                 <td>
-                <div class="form-control-wrap ">
-                    <div class="form-control-select">
-                        <select class="form-control" name="satuan">
-                            <option value="" disabled selected>Satuan</option>
-                            <option value="default_option">Papan</option>
-                            <option value="option_select_name">Botol</option>
-                            <option value="option_select_name">Kaplet</option>
-                        </select>
+                    <div class="form-group">
+                        <div class="form-control-wrap">
+                            <input type="number" style="width: 4em;" autocomplete="off" name="signa" type="number" class="form-control">
+                        </div>
                     </div>
-                </div>
+                </td>
+                <td class="text-center">
+                    <p class="pt-1">X</p>
                 </td>
                 <td>
-                     <div class="form-control-wrap ">
-                        <div class="form-control-select">
-                            <select class="form-control" name="signa">
-                                <option value="" disabled selected>Signa</option>
-                                <option value="default_option">1 X 1</option>
-                                <option value="option_select_name">2 X 1</option>
-                                <option value="option_select_name">3 X 1</option>
-                            </select>
+                    <div class="form-group">
+                        <div class="form-control-wrap ">
+                            <input type="number" style="width: 4em" autocomplete="off" name="signa" type="number" class="form-control">
                         </div>
                     </div>
                 </td>
@@ -200,7 +192,7 @@ class PasienDokterController extends Controller
         ';
         }
         $output .= '<tr> 
-                        <td colspan="5" class="text-right"><h5>Total</h5></td>
+                        <td colspan="6" class="text-right"><h5>Total</h5></td>
                         <td class="text-right"><h5>Rp. </h5></td>
                         <td colspan="2" class="text-right"><h4>' . formatAngka($total) . '</h4></td>
                     </tr>';

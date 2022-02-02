@@ -257,15 +257,15 @@
                                                             </div>
                                                         </div>
                                                         <div class="mt-3">
-                                                            <table class="table table-striped">
+                                                            <table class="table table-hover">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center">No</th>
-                                                                        <th class="text-center">Nama Obat</th>
-                                                                        <th class="text-center">Dosis</th>
-                                                                        <th class="text-center">Satuan</th>
-                                                                        <th class="text-center">Signa</th>
-                                                                        <th>Harga Obat</th>
+                                                                        <th>No</th>
+                                                                        <th>Nama Obat</th>
+                                                                        <th class="text-left">Jumlah</th>
+                                                                        <th colspan="3" scope="colgroup"
+                                                                            class="text-center">Signa</th>
+                                                                        <th class="text-center">Harga Obat</th>
                                                                         <th>Subtotal</th>
                                                                         <th class="text-center">Opsi</th>
                                                                     </tr>
@@ -431,6 +431,7 @@
         }
 
         function hapusObat(url, id) {
+            event.preventDefault();
             $.post({
                     url: url,
                     data: {

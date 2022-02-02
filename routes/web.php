@@ -69,14 +69,24 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::delete('/pendaftaran/pasien/{pemeriksaan}/delete', [PendaftaranController::class, 'destroy'])
         ->name('pendaftaran.destroy');
 
-    Route::get('/user/data', [UserController::class, 'index'])
-        ->name('data.user');
+    Route::get('/user', [UserController::class, 'index'])
+        ->name('user.index');
     Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
         ->name('user.fetchData');
-    Route::get('/user/create', [UserController::class, 'createUser'])
+    Route::get('/user/create', [UserController::class, 'create'])
         ->name('user.create');
-    Route::post('/user/store', [UserController::class, 'storeUser'])
+    Route::get('/user/{user}/edit', [UserController::class, 'edit'])
+        ->name('user.edit');
+    Route::post('/user/store', [UserController::class, 'store'])
         ->name('user.store');
+    Route::put('/user/{user}/update-status', [UserController::class, 'updateStatus'])
+        ->name('user.update-status');
+    Route::put('/user/{user}/reset-password', [UserController::class, 'resetPassword'])
+        ->name('user.reset-password');
+    Route::put('/user/{user}/update', [UserController::class, 'update'])
+        ->name('user.update');
+    Route::delete('/user/{user}/delete', [UserController::class, 'delete'])
+        ->name('user.delete');
 });
 
 // Role dokter
@@ -190,6 +200,13 @@ Route::group(['middleware' => ['auth', 'role:admin|super_admin']], function () {
         ->name('layanan.fetchData');
     Route::post('/layanan', [LayananController::class, 'store'])
         ->name('layanan.store');
+
+    Route::get('/user/medis', [TenagaMedisController::class, 'dataMedis'])
+        ->name('data.medis');
+    Route::get('/user/medis/create', [TenagaMedisController::class, 'createMedis'])
+        ->name('data.create-medis');
+    Route::post('/user/medis/store', [TenagaMedisController::class, 'storeMedis'])
+        ->name('data.store-medis');
 });
 
 Route::group(['middleware' => ['auth', 'role:poli|super_admin']], function () {

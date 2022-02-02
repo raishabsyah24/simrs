@@ -192,6 +192,22 @@
                             </a>
                         </li>
                     @endrole
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                            <span class="nk-menu-text">Managemen User</span>
+                        </a>
+                        <ul class="nk-menu-sub ">
+                            <li class="nk-menu-item">
+                                <a href="{{ route('user.index') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Semua User</span></a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{ route('data.medis') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Daftar Tenaga Medis</span></a>
+                            </li>
+                        </ul>
+                    </li>
 
                 </ul>
             </div>

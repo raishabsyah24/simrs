@@ -8,14 +8,16 @@ use App\Repositories\{
     PasienRepository,
     PendaftaranRepository,
     DokterRepository,
-    DashboardRepository
+    DashboardRepository,
+    UserRepository
 };
 use App\Repositories\Interfaces\{
     PasienInterface,
     LayananInterface,
     PendaftaranInterface,
     DokterInterface,
-    DashboardInterface
+    DashboardInterface,
+    UserInterface
 };
 
 class AdminRepositoryServiceProvider extends ServiceProvider
@@ -46,6 +48,10 @@ class AdminRepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             DashboardInterface::class,
             DashboardRepository::class
+        );
+        $this->app->bind(
+            UserInterface::class,
+            UserRepository::class
         );
     }
 

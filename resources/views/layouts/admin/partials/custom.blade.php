@@ -87,10 +87,10 @@
                             _method: "DELETE",
                         },
                     })
-                    .done((response) => {
+                    .done(response => {
                         alertSuccess(response.message);
                     })
-                    .fail((errors) => {
+                    .fail(errors => {
                         alert_error(errors.responseJSON.message);
                         return;
                     });
