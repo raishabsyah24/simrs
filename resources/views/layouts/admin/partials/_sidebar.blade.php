@@ -56,7 +56,7 @@
                                     <span class="nk-menu-text">Messages</span></a>
                             </li>
                             <li class="nk-menu-item">
-                                <a href="{{route('pendaftaran.messanger')}}" class="nk-menu-link">
+                                <a href="{{route('pendaftaran.antrian')}}" class="nk-menu-link">
                                     <span class="nk-menu-text">Antrian</span></a>
                             </li>
 
@@ -155,7 +155,7 @@
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb-fill"></em></span>
-                            <span class="nk-menu-text">Apotek</span>
+                            <span class="nk-menu-text">Gudang Farmasi</span>
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
@@ -221,15 +221,7 @@
                         </li>
                         </li>
 
-                        <li class="nk-menu-item {{ activeClass('aktifitas-user.index') }}">
-                            <a href="{{ route('aktifitas-user.index') }}" class="nk-menu-link">
-                                <span class="nk-menu-icon">
-                                    <em class="icon ni ni-history"></em>
-                                </span>
-                                <span class="nk-menu-text">History User</span>
-                            </a>
-                        </li>
-
+                        <!-- Managemen User -->
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
@@ -245,6 +237,18 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <!-- History -->
+                        <li class="nk-menu-item {{ activeClass('aktifitas-user.index') }}">
+                            <a href="{{ route('aktifitas-user.index') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-history"></em>
+                                </span>
+                                <span class="nk-menu-text">History User</span>
+                            </a>
+                        </li>
+
+                        
                         @endrole 
                     <!-- BATAS SUPER ADMIN -->
 
@@ -352,6 +356,8 @@
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->    
+                        @endrole
+                        
                     <!-- APOTEK -->
                     @role('apotek')
                         <li class="nk-menu-item has-sub">
@@ -497,19 +503,36 @@
                                         class="nk-menu-link"><span class="nk-menu-text">V Claim</span></a>
                                 </li>
                                 <li class="nk-menu-item">
-                                    <a href="#" target="_blank" class="nk-menu-link"><span
-                                            class="nk-menu-text">Antrian</span></a>
-                                </li>
-                                <li class="nk-menu-item">
                                     <a href="{{ route('pendaftaran.messanger') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Messages</span></a>
+                                    class="nk-menu-text">Messages</span></a>
                                 </li>
                             </ul>
                         </li>
-                    @endrole
-                    @endrole
-                </ul>
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-view-list-fill"></em>
+                                </span>
+                                <span class="nk-menu-text">Antrian</span>
+                            </a>
+                            <ul class="nk-menu-sub ">
+                                <li class="nk-menu-item {{ activeClass('pendaftaran.index') }}">
+                                    <a href="{{ route('pendaftaran.loket') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Loket Antrian</span></a>
+                                </li>
+                                <li class="nk-menu-item {{ activeClass('pendaftaran.create') }}">
+                                    <a href="{{ route('pendaftaran.antrian') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Dashboard Antrian</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ route('pendaftaran.loket') }}" class="nk-menu-link"><span
+                                    class="nk-menu-text">Panggil Antrian</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endrole
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
