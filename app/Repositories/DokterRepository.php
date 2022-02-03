@@ -65,7 +65,6 @@ class DokterRepository implements DokterInterface
             ->first();
     }
 
-
     public function searchObat(string $nama_obat, int $periksa_dokter_id = null)
     {
         return DB::table('obat as o')
@@ -85,7 +84,7 @@ class DokterRepository implements DokterInterface
     {
         return DB::table('obat_pasien_periksa_rajal as or')
             ->selectRaw('
-            o.nama_generik, or.jumlah, or.signa
+            o.nama_generik, or.jumlah, or.signa1, or.signa2, or.subtotal, or.harga_obat, or.id as obat_pasien_periksa_rajal_id,or.periksa_dokter_id
         ')
             ->join('obat_apotek as oa', 'oa.id', '=', 'or.obat_apotek_id')
             ->join('obat as o', 'o.id', '=', 'oa.obat_id')
@@ -93,13 +92,13 @@ class DokterRepository implements DokterInterface
             ->get();
     }
 
-    public function tenagaMedis()
+    public function semuaDokter()
     {
-        return DB::table('dokter as dr')
+        return DB::tabel('dokter as d')
             ->selectRaw('
-                     dr.id, dr.nama, dr.no_str, pl.spesialis as spesialis 
-            ')
-            ->join('poli as pl', 'pl.id', '=', 'dr.spesialis')
-            ->get();
+            d.nama
+        ')
+            ->join('users as u', 'u.id', '=', 'd.user_id')
+            ->whereNull('d.deleted_at');
     }
 }

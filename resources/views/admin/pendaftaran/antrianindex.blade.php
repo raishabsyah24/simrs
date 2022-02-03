@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div>
-                    @foreach ($total as $item)
+                    
                     <div class="card">
                         <div class="card-inner">
                          <div class="team">
@@ -75,7 +75,7 @@
                         </div><!-- .team -->
                       </div><!-- .card-inner -->
                     </div><!-- .card -->
-                    @endforeach
+
 
                     </div>
                     <div class="loader card-inner p-0">

@@ -11,6 +11,7 @@ use App\Models\{
     Pemeriksaan,
     PeriksaDokter,
     ObatPasienRajal,
+    Pasien,
     RekamMedisPasien,
     PemeriksaanDetail
 };
@@ -24,7 +25,7 @@ class PasienDokterController extends Controller
     private $dokterRepository;
     private $perPage = 20;
     public $limitObatPasienBpjs = 70000;
-    public $kategoriPasien = 1;
+    public $kategoriPasienBpjs = 1;
 
     public function __construct(DokterInterface $dokterRepository)
     {
@@ -41,7 +42,7 @@ class PasienDokterController extends Controller
     {
         $dokter_id = Auth::user()->dokter->id;
         if (!$dokter_id) {
-            return abort(403);
+            return redirect()->abort(403);
         }
         $dokter = $this->dokterRepository->dokterSpesialis($dokter_id);
         $data = $this->dokterRepository->daftarPasienDokterSpesialis($dokter->poli_id)
@@ -83,7 +84,8 @@ class PasienDokterController extends Controller
             'title',
             'rekam_medis',
             'pasien',
-            'periksa_dokter_id'
+            'periksa_dokter_id',
+            'periksa_dokter'
         ));
     }
 
@@ -107,8 +109,28 @@ class PasienDokterController extends Controller
     public function changeObat(Request $request)
     {
         $attr = $request->all();
-        DB::transaction(
-            function () use ($attr) {
+
+        // cek total obat pasien
+        $obat_pasien_rajal = ObatPasienRajal::where('periksa_dokter_id', $attr['periksa_dokter_id'])->get();
+        $subtotal = 0;
+        foreach ($obat_pasien_rajal as $obat) {
+            $subtotal += $obat->jumlah * $obat->harga_obat;
+        }
+
+        $harga_obat_dipilih = ObatApotek::find($attr['obat_apotek_id']);
+        $total = $subtotal + $harga_obat_dipilih->harga_jual;
+
+        // cek pasien dokter
+        $periksa_dokter = PeriksaDokter::find($attr['periksa_dokter_id']);
+        $pemeriksaan_detail = PemeriksaanDetail::find($periksa_dokter->pemeriksaan_detail_id);
+        $pemeriksaan = Pemeriksaan::find($pemeriksaan_detail->pemeriksaan_id);
+
+        if ($pemeriksaan->kategori_pasien == $this->kategoriPasienBpjs) {
+            if ($total > $this->limitObatPasienBpjs) {
+                return response()->json([
+                    'status' => false
+                ], 200);
+            } else {
                 $obat = ObatApotek::find($attr['obat_apotek_id']);
                 $harga_obat = $obat->harga_jual;
 
@@ -116,16 +138,35 @@ class PasienDokterController extends Controller
                     'obat_apotek_id' => $attr['obat_apotek_id'],
                     'periksa_dokter_id' => $attr['periksa_dokter_id'],
                     'harga_obat' => $harga_obat,
+                    'signa1' => 1,
+                    'signa2' => 1,
                     'jumlah' => 1,
                     'subtotal' => $harga_obat
                 ]);
+                return response()->json([
+                    'message' => 'Obat berhasil ditambahkan',
+                    'url' => route('dokter.obat-pasien', $attr['periksa_dokter_id'])
+                ], 200);
             }
-        );
+        } else {
 
-        return response()->json([
-            'message' => 'Obat berhasil ditambahkan',
-            'url' => route('dokter.obat-pasien', $attr['periksa_dokter_id'])
-        ], 200);
+            $$obat = ObatApotek::find($attr['obat_apotek_id']);
+            $harga_obat = $obat->harga_jual;
+
+            ObatPasienRajal::create([
+                'obat_apotek_id' => $attr['obat_apotek_id'],
+                'periksa_dokter_id' => $attr['periksa_dokter_id'],
+                'harga_obat' => $harga_obat,
+                'signa1' => 1,
+                'signa2' => 1,
+                'jumlah' => 1,
+                'subtotal' => $harga_obat
+            ]);
+            return response()->json([
+                'message' => 'Obat berhasil ditambahkan',
+                'url' => route('dokter.obat-pasien', $attr['periksa_dokter_id'])
+            ], 200);
+        }
     }
 
     public function obatPasien($periksa_dokter_id)
@@ -146,7 +187,7 @@ class PasienDokterController extends Controller
             ->where('kp.id', $pemeriksaan->kategori_pasien)
             ->first();
 
-        if ($total > $this->limitObatPasienBpjs && $kategori_pasien->kategori_pasien == $this->kategoriPasien) {
+        if ($total > $this->limitObatPasienBpjs && $kategori_pasien->kategori_pasien == $this->kategoriPasienBpjs) {
             $limit = 'limit';
         } else {
             $limit = 'aman';
@@ -162,45 +203,37 @@ class PasienDokterController extends Controller
                     <div class="form-group">
                         <div class="form-control-wrap">
                             <input type="number" autocomplete="off" onkeyup="updateQuantity(`' . route('dokter.obat-pasien.update-quantity', $item->obat_pasien_periksa_rajal_id) . '`,this,`' . $item->obat_pasien_periksa_rajal_id . '`)" name="jumlah"
-                                value="' . $item->jumlah . '"
-                                type="text" class="form-control">
+                                value="' . $item->jumlah . '" style="width: 7em" class="form-control">
                         </div>
                     </div>
                 </td>
                 <td>
-                <div class="form-control-wrap ">
-                    <div class="form-control-select">
-                        <select class="form-control" name="satuan">
-                            <option value="" disabled selected>Satuan</option>
-                            <option value="default_option">Papan</option>
-                            <option value="option_select_name">Botol</option>
-                            <option value="option_select_name">Kaplet</option>
-                        </select>
+                    <div class="form-group">
+                        <div class="form-control-wrap">
+                            <input type="number" onkeyup="signaSatu(`' . route('dokter.obat-pasien.signa1', $item->obat_pasien_periksa_rajal_id) . '`,this,`' . $item->obat_pasien_periksa_rajal_id . '`)" value="' . $item->signa1 . '" style="width: 4em;" autocomplete="off" name="signa1" type="number" class="form-control">
+                        </div>
                     </div>
-                </div>
+                </td>
+                <td class="text-center">
+                    <p class="pt-1">X</p>
                 </td>
                 <td>
-                     <div class="form-control-wrap ">
-                        <div class="form-control-select">
-                            <select class="form-control" name="signa">
-                                <option value="" disabled selected>Signa</option>
-                                <option value="default_option">1 X 1</option>
-                                <option value="option_select_name">2 X 1</option>
-                                <option value="option_select_name">3 X 1</option>
-                            </select>
+                    <div class="form-group">
+                        <div class="form-control-wrap ">
+                            <input onkeyup="signaDua(`' . route('dokter.obat-pasien.signa2', $item->obat_pasien_periksa_rajal_id) . '`,this,`' . $item->obat_pasien_periksa_rajal_id . '`)" type="number" style="width: 4em" autocomplete="off" name="signa2" value="' . $item->signa2 . '" type="number" class="form-control">
                         </div>
                     </div>
                 </td>
                 <td class="text-right">' . formatAngka($item->harga_obat, true) . '</td>
                 <td class="text-right">' . formatAngka($item->subtotal, true) . '</td>
                 <td class="text-center">
-                    <button onclick="hapusObat(`' . route('dokter.obat-pasien.hapus', $item->obat_pasien_periksa_rajal_id) . '`,`' . $item->obat_pasien_periksa_rajal_id . '`)" class="btn btn-danger btn-sm"><em class="icon ni ni-trash-alt"></em></button>
+                    <button onclick="hapusObat(`' . route('dokter.obat-pasien.hapus', $item->obat_pasien_periksa_rajal_id) . '`,`' . $item->obat_pasien_periksa_rajal_id . '`,`' . $item->periksa_dokter_id . '`)" class="btn btn-danger btn-sm"><em class="icon ni ni-trash-alt"></em></button>
                 </td>
             </tr>
         ';
         }
         $output .= '<tr> 
-                        <td colspan="5" class="text-right"><h5>Total</h5></td>
+                        <td colspan="6" class="text-right"><h5>Total</h5></td>
                         <td class="text-right"><h5>Rp. </h5></td>
                         <td colspan="2" class="text-right"><h4>' . formatAngka($total) . '</h4></td>
                     </tr>';
@@ -242,7 +275,7 @@ class PasienDokterController extends Controller
             ->where('kp.id', $pemeriksaan->kategori_pasien)
             ->first();
 
-        if ($total >= $this->limitObatPasienBpjs && $kategori_pasien->kategori_pasien == $this->kategoriPasien) {
+        if ($total >= $this->limitObatPasienBpjs && $kategori_pasien->kategori_pasien == $this->kategoriPasienBpjs) {
             return response()->json([
                 'limit' => 'limit',
                 'message' => 'Limit obat pasien sudah melewati batas'
@@ -264,6 +297,25 @@ class PasienDokterController extends Controller
     {
         $obatPasienRajal = ObatPasienRajal::find($request->id);
         $obatPasienRajal->delete();
+
+        $periksa_dokter = ObatPasienRajal::where('periksa_dokter_id', $request->periksa_dokter_id)->get();
+        $total = 0;
+        foreach ($periksa_dokter as $obat) {
+            $total += $obat->jumlah * $obat->harga_obat;
+        }
+
+        $periksa_dokter = PeriksaDokter::find($request->periksa_dokter_id);
+        $pemeriksaan_detail = PemeriksaanDetail::find($periksa_dokter->pemeriksaan_detail_id);
+        $pemeriksaan = Pemeriksaan::find($pemeriksaan_detail->pemeriksaan_id);
+
+        if ($pemeriksaan->kategori_pasien == $this->kategoriPasienBpjs) {
+            if ($total <= $this->limitObatPasienBpjs) {
+                return response()->json([
+                    'input' => true
+                ], 200);
+            }
+        }
+
         return response()->json([
             'message' => 'Hapus obat berhasil'
         ], 200);
@@ -301,7 +353,7 @@ class PasienDokterController extends Controller
                 ]);
 
                 // Cek rekam medis pasien
-                $rm = RekamMedis::find($periksaDokter->pasien_id);
+                $rm = RekamMedis::where('pasien_id', $periksaDokter->pasien_id)->first();
                 $poli = Poli::find($periksaDokter->poli_id);
 
                 // Insert rekam medis pasien
@@ -316,12 +368,47 @@ class PasienDokterController extends Controller
                     'keluhan' => $attr['keluhan'],
                     'tanggal' => now()
                 ]);
+
+                $pasien = Pasien::find($periksaDokter->pasien_id);
+                $nama_pasien = $pasien->nama;
+                $nama_poli = $poli->nama;
+
+                activity('melakukan pemeriksaan pasien ' . $nama_pasien . ' di poli ' . $nama_poli);
             }
         );
-
         return response()->json([
             'message' => 'Terimakasih atas layanan yang anda berikan. Semoga anda sehat selalu',
             'url' => route('dokter.daftar-pasien')
+        ], 200);
+    }
+
+    public function signa1(Request $request)
+    {
+        $attr = $request->all();
+
+        $data['obat_pasien_periksa_rajal'] = ObatPasienRajal::find($attr['obat_pasien_periksa_rajal_id']);
+
+        $data['obat_pasien_periksa_rajal']->update([
+            'signa1' => $attr['signa1']
+        ]);
+
+        return response()->json([
+            'status' => true
+        ], 200);
+    }
+
+    public function signa2(Request $request)
+    {
+        $attr = $request->all();
+
+        $data['obat_pasien_periksa_rajal'] = ObatPasienRajal::find($attr['obat_pasien_periksa_rajal_id']);
+
+        $data['obat_pasien_periksa_rajal']->update([
+            'signa2' => $attr['signa2']
+        ]);
+
+        return response()->json([
+            'status' => true
         ], 200);
     }
 }

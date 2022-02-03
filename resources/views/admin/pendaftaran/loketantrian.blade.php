@@ -49,7 +49,7 @@
 
         </div>
 
-        <div onclick="antrian('B')" class="col-lg-3 mt-3 btn btn-primary btn-lg">
+        <div onclick="antrian('B')" class="col-lg-3 mt-3 btn btn-primary btn-lg mx-5">
 
         <h1>ASURANSI</h1>
 

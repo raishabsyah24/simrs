@@ -385,51 +385,5 @@ class PendaftaranController extends Controller
     }
 
 
-    public function antrian()
-    {
-
-        $data = $this->pendaftaranRepository->pasienHariIni()
-            ->paginate($this->perPage);
-        $title = 'Pendaftaran';
-        $badge = $this->badge();
-        $kategori_pasien = $this->kategoriPasien();
-        $poli = $this->poli();
-        $per_page = $this->perPage;
-        $total = [
-            ['Total Pasien Hari Ini', $this->pendaftaranRepository->pasienHariIni()->count()],
-            ['BPJS', $this->pendaftaranRepository->totalPasienBpjs()],
-            ['Umum', $this->pendaftaranRepository->totalPasienUmum()],
-            ['Asuransi', $this->pendaftaranRepository->totalPasienAsuransi()],
-        ];
-        return view('admin.pendaftaran.antrianindex', compact(
-            'title',
-            'data',
-            'total',
-            'badge',
-            'kategori_pasien',
-            'poli',
-            'per_page'
-        ));
-    }
-
-    public function loket()
-    {
-
-        $data = $this->pendaftaranRepository->pasienHariIni()
-            ->paginate($this->perPage);
-        $title = 'Pendaftaran';
-        $badge = $this->badge();
-        $kategori_pasien = $this->kategoriPasien();
-        $poli = $this->poli();
-        $per_page = $this->perPage;
-       
-        return view('admin.pendaftaran.loketantrian', compact(
-            'title',
-            'data',
-            'badge',
-            'kategori_pasien',
-            'poli',
-            'per_page'
-        ));
-    }
+   
 }
