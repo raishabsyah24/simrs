@@ -26,6 +26,7 @@ class CreateRekamMedisPasienTable extends Migration
             $table->longText('plan')->nullable();
             $table->longText('keterangan')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('rekam_medis_id')->references('id')->on('rekam_medis')
                 ->cascadeOnUpdate()

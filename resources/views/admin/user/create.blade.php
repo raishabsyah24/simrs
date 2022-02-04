@@ -12,7 +12,7 @@
                                     <a class="back-to" href="{{ route('user.index') }}"><em
                                             class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
                                 </div>
-                                <h4 class="nk-block-title page-title align-center">Form Tambah User</h4>
+                                <h4 class="nk-block-title page-title align-center">Form {{ $title }}</h4>
                             </div>
                         </div>
                         <div class="card">

@@ -29,8 +29,38 @@
                                                         placeholder="Cari data . . ." />
                                                 </div>
                                             </li>
+                                            <li>
+                                                <div class="drodown">
+                                                    <a href="#"
+                                                        class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white"
+                                                        data-toggle="dropdown" aria-expanded="false">Filter Berdasarkan
+                                                        Poli</a>
+                                                    <div class="dropdown-menu dropdown-menu-right" style="">
+                                                        <ul class="link-list-opt no-bdr">
+                                                            <li>
+                                                                <a href="" onclick="filterPoli(`semua`)">
+                                                                    <span class="text-uppercase">
+                                                                        Semua
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+                                                            @foreach ($poli as $item)
+                                                                <li>
+                                                                    <a data-id="{{ $item->id }}" href="#"
+                                                                        onclick="filterPoli(`{{ $item->nama }}`)"><input
+                                                                            type="hidden" name="poli" />
+                                                                        <span class="text-uppercase">
+                                                                            {{ $item->nama }}
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
                                             <li class="nk-block-tools-opt">
-                                                <a href="{{ route('user.create') }}"
+                                                <a href="{{ route('dokter.create') }}"
                                                     class="btn btn-primary d-md-inline-flex"><em
                                                         class="icon ni ni-plus"></em><span>Tambah</span></a>
                                             </li>
@@ -48,7 +78,7 @@
                         </div>
                     </div>
                     <div class="nk-block fetch-data d-none">
-                        @include('admin.user.fetch')
+                        @include('admin.dokter.fetch')
                         <input type="hidden" name="page" value="1" />
                     </div>
                 </div>
@@ -64,8 +94,8 @@
             $('.loader').addClass('d-none');
         })
 
-        async function fetchData(page = '', query = '', sortBy = 'desc') {
-            await $.get(`/user/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}`)
+        async function fetchData(page = '', query = '', sortBy = 'desc', poli = '') {
+            await $.get(`/dokter/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}&poli=${poli}`)
                 .done(data => {
                     $('.loader').addClass('d-none');
                     $('.fetch-data').removeClass('d-none');
@@ -93,6 +123,13 @@
             fetchData(page, query, sortBy);
         }
 
+        function filterPoli(poli) {
+            event.preventDefault();
+            let page = $("input[name=page]").val(),
+                query = $("input[name=query]").val();
+            fetchData(page, query, "desc", poli);
+        }
+
         $(document).on('click', '.pagination a', function(e) {
             e.preventDefault();
             let page = $(this).attr('href').split('page=')[1],
@@ -100,6 +137,6 @@
             $('.loader').removeClass('d-none');
             $('.fetch-data').addClass('d-none');
             fetchData(page, query);
-        })
+        });
     </script>
 @endpush

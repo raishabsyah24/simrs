@@ -41,6 +41,9 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
 
     // dokter
     Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
+    Route::get('/dokter/fetch-data', [DokterController::class, 'fetchData'])->name('dokter.fetchData');
+    Route::get('/dokter/create', [DokterController::class, 'create'])->name('dokter.create');
+    Route::post('/dokter', [DokterController::class, 'store'])->name('dokter.store');
 
     // History user
     Route::get('/aktifitas-user', [ActivityLogController::class, 'index'])

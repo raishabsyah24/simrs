@@ -96,9 +96,10 @@ class DokterRepository implements DokterInterface
     {
         return DB::table('dokter as d')
             ->selectRaw('
-            d.nama, u.email, d.nik, d.spesialis, d.no_str, d.tempat_lahir, d.tanggal_lahir, d.no_hp, d.foto, d.alamat, d.status, d.tanggal_bergabung
+            d.id, d.nama, d.email, d.no_str, d.no_hp, d.foto, d.status, d.tanggal_bergabung, d.created_at, p.spesialis, dp.hari_praktek, dp.jam_mulai, dp.jam_selesai, p.nama as nama_poli
         ')
-            ->join('users as u', 'u.id', '=', 'd.user_id')
+            ->join('dokter_poli as dp', 'dp.dokter_id', '=', 'd.id')
+            ->join('poli as p', 'dp.poli_id', '=', 'p.id')
             ->whereNull('d.deleted_at');
     }
 }

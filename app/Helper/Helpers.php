@@ -99,6 +99,16 @@ function tanggalJam($tanggal)
     return Carbon::parse($tanggal)->format('d M Y H:i:s');
 }
 
+function tanggalDate($tanggal)
+{
+    return Carbon::parse($tanggal)->format('d M Y');
+}
+
+function jam($jam)
+{
+    return Carbon::parse($jam)->format('H:i');
+}
+
 function replaceRole($role)
 {
     return Str::title(str_replace("_", " ", $role));
