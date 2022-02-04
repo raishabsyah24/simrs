@@ -189,8 +189,6 @@ Route::group(['middleware' => ['auth', 'role:radiologi|super_admin']], function 
 
 Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () {
 
-    Route::post('/layanan/data', [LayananController::class, 'data'])
-        ->name('layanan.data');
     Route::get('/layanan', [LayananController::class, 'index'])
         ->name('layanan.index');
     Route::get('/layanan/fetch-data', [LayananController::class, 'fetchData'])

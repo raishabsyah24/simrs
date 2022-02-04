@@ -19,9 +19,10 @@ class DokterController extends Controller
 
     public function index()
     {
-        $data = $this->dokterRepository->semuaDokter()
-            ->orderBy('d.created_at', 'desc')
-            ->paginate($this->perPage);
+        $data = $this->dokterRepository->semuaDokter()->get();
+        // ->orderBy('d.created_at', 'desc')
+        // ->paginate($this->perPage);
+        return $data;
         $title = 'Dokter';
         $badge = $this->badge();
         return view('admin.dokter.index', compact(

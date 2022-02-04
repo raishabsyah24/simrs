@@ -109,6 +109,8 @@ class UserSeeder extends Seeder
             'tempat_lahir' => $faker->city,
             'tanggal_lahir' =>
             $faker->dateTimeBetween($startDate = '-60 years', $endDate = 'now'),
+            'tanggal_bergabung' =>
+            $faker->dateTimeBetween($startDate = '-60 years', $endDate = 'now'),
             'jenis_kelamin' =>  $faker->randomElement(['laki-laki', 'perempuan']),
             'alamat' => $faker->address,
             'no_hp' => $faker->phoneNumber,
@@ -156,6 +158,8 @@ class UserSeeder extends Seeder
                 'tempat_lahir' => $faker->city,
                 'tanggal_lahir' =>
                 $faker->dateTimeBetween($startDate = '-60 years', $endDate = 'now'),
+                'tanggal_bergabung' =>
+                $faker->dateTimeBetween($startDate = '-6 years', $endDate = 'now'),
                 'jenis_kelamin' =>  $faker->randomElement(['laki-laki', 'perempuan']),
                 'alamat' => $faker->address,
                 'no_hp' => $faker->phoneNumber,

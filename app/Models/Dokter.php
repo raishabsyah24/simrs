@@ -14,7 +14,7 @@ class Dokter extends Model
     protected $table = 'dokter';
 
     protected $fillable = [
-        'user_id', 'nik', 'nama', 'spesialis', 'no_str', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'no_hp', 'email', 'alamat', 'foto', 'status'
+        'user_id', 'nik', 'nama', 'spesialis', 'no_str', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'no_hp', 'email', 'alamat', 'foto', 'status', 'tanggal_bergabung', 'tanggal_non_aktif'
     ];
 
     public function user()

@@ -57,7 +57,7 @@
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
-                                    <i class="fas fa-user-md fa-lg"></i>
+                                    <em class="icon ni ni-list-index"></em>
                                 </span>
                                 <span class="nk-menu-text">Pasien Dokter Rawat Jalan</span>
                             </a>
@@ -183,10 +183,18 @@
                     @endrole
 
                     @role('super_admin')
+                        <li class="nk-menu-item {{ activeClass('layanan.index') }}">
+                            <a href="{{ route('layanan.index') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-users-fill"></em>
+                                </span>
+                                <span class="nk-menu-text">Layanan</span>
+                            </a>
+                        </li>
                         <li class="nk-menu-item {{ activeClass('dokter.index') }}">
                             <a href="{{ route('dokter.index') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon">
-                                    <em class="icon ni ni-users-fill"></em>
+                                    <i class="fas fa-user-md fa-lg"></i>
                                 </span>
                                 <span class="nk-menu-text">Dokter</span>
                             </a>

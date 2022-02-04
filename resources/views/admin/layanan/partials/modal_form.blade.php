@@ -15,9 +15,6 @@
                      </div>
                  </div>
              </div>
-             <div class="modal-footer bg-light">
-                 <span class="sub-text">Modal Footer Text</span>
-             </div>
          </div>
      </div>
  </div>

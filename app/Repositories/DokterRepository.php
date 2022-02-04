@@ -94,9 +94,9 @@ class DokterRepository implements DokterInterface
 
     public function semuaDokter()
     {
-        return DB::tabel('dokter as d')
+        return DB::table('dokter as d')
             ->selectRaw('
-            d.nama
+            d.nama, u.email, d.nik, d.spesialis, d.no_str, d.tempat_lahir, d.tanggal_lahir, d.no_hp, d.foto, d.alamat, d.status, d.tanggal_bergabung
         ')
             ->join('users as u', 'u.id', '=', 'd.user_id')
             ->whereNull('d.deleted_at');
