@@ -23,26 +23,38 @@ class DokterRequest extends FormRequest
      */
     public function rules()
     {
-        $user = $this->user;
+        $dokter = $this->dokter;
 
-        $rules = [
-            'nama' => 'required',
-            'nik' => 'required|unique:dokter,nik',
-            'jenis_kelamin' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required|date_format:Y-m-d',
-            'no_hp' => 'required',
-            'email' => 'required|unique:users,email',
-            'poli_id' => 'required',
-            'alamat' => 'required',
-            'foto' => 'file|image|mimes:png,jpg,jpeg|max:2048',
-        ];
+        if ($this->method() == 'POST') {
+            return [
+                'nama' => 'required',
+                'nik' => 'required|unique:dokter,nik',
+                'jenis_kelamin' => 'required',
+                'tempat_lahir' => 'required',
+                'tanggal_lahir' => 'required|date_format:Y-m-d',
+                'tanggal_bergabung' => 'date_format:Y-m-d',
+                'no_hp' => 'required',
+                'username' => 'required|unique:users,username',
+                'email' => 'required|email|unique:users,email',
+                'poli_id' => 'required',
+                'alamat' => 'required',
+                'foto' => 'file|image|mimes:png,jpg,jpeg|max:2048',
+            ];
+        }
 
-        // if ($this->method() == 'PUT') {
-        //     $rules['username'] = 'unique:users,username,' . $user;
-        //     $rules['email'] = 'unique:users,email,' . $user;
-        // }
-
-        return $rules;
+        if ($this->method() == 'PUT') {
+            return [
+                'nama' => 'required',
+                'nik' => 'required|unique:dokter,nik,' . $dokter->id,
+                'jenis_kelamin' => 'required',
+                'tempat_lahir' => 'required',
+                'tanggal_lahir' => 'required|date_format:Y-m-d',
+                'tanggal_bergabung' => 'date_format:Y-m-d',
+                'no_hp' => 'required',
+                'poli_id' => 'required',
+                'alamat' => 'required',
+                'foto' => 'file|image|mimes:png,jpg,jpeg|max:2048',
+            ];
+        }
     }
 }

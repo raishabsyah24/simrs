@@ -17,9 +17,10 @@
                         </div>
                         <div class="card">
                             <div class="card-inner">
-                                <form action="{{ route('dokter.store') }}" method="post" enctype="multipart/form-data"
-                                    class="gy-3">
+                                <form action="{{ route('dokter.update', $dokter->id) }}" method="post"
+                                    enctype="multipart/form-data" class="gy-3">
                                     @csrf
+                                    @method('put')
                                     <div class="row g-3 align-center">
                                         <div class="col-lg-3">
                                             <div class="form-group">
@@ -32,9 +33,8 @@
                                         <div class="col-lg-8">
                                             <div class="form-group">
                                                 <div class="form-control-wrap">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="contoh : dr. Muhammad, Sp.PD" name="nama"
-                                                        autocomplete="off" placeholder="Nama">
+                                                    <input type="text" class="form-control" value="{{ $dokter->nama }}"
+                                                        name="nama" autocomplete="off" placeholder="Nama">
                                                 </div>
                                             </div>
                                         </div>
@@ -49,8 +49,8 @@
                                         <div class="col-lg-8">
                                             <div class="form-group">
                                                 <div class="form-control-wrap">
-                                                    <input type="number" class="form-control" name="nik"
-                                                        autocomplete="off">
+                                                    <input value="{{ $dokter->nik }}" type="number" class="form-control"
+                                                        name="nik" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -66,8 +66,8 @@
                                         <div class="col-lg-8">
                                             <div class="form-group">
                                                 <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" name="no_str"
-                                                        autocomplete="off">
+                                                    <input value="{{ $dokter->no_str }}" type="text"
+                                                        class="form-control" name="no_str" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -87,20 +87,24 @@
                                                         <li>
                                                             <div
                                                                 class="custom-control custom-radio custom-control-pro no-control">
-                                                                <input type="radio" value="laki-laki"
+                                                                <input
+                                                                    {{ $dokter->jenis_kelamin == 'laki-laki' ? 'checked' : '' }}
+                                                                    type="radio" value="laki-laki"
                                                                     class="custom-control-input" name="jenis_kelamin"
-                                                                    id="sex-male">
-                                                                <label for="sex-male" class="custom-control-label"><i
+                                                                    id="laki-laki">
+                                                                <label for="laki-laki" class="custom-control-label"><i
                                                                         class="fas fa-male mr-1"></i>Laki-laki</label>
                                                             </div>
                                                         </li>
                                                         <li>
                                                             <div
                                                                 class="custom-control custom-radio custom-control-pro no-control">
-                                                                <input type="radio" class="custom-control-input"
-                                                                    name="jenis_kelamin" value="perempuan" id="sex-female"
+                                                                <input
+                                                                    {{ $dokter->jenis_kelamin == 'perempuan' ? 'checked' : '' }}
+                                                                    type="radio" class="custom-control-input"
+                                                                    name="jenis_kelamin" value="perempuan" id="perempuan"
                                                                     autocomplete="off">
-                                                                <label for="sex-female" class="custom-control-label"><i
+                                                                <label for="perempuan" class="custom-control-label"><i
                                                                         class="fas fa-female mr-1"></i>
                                                                     Perempuan</label>
                                                             </div>
@@ -121,8 +125,8 @@
                                         <div class="col-lg-8">
                                             <div class="form-group">
                                                 <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" name="tempat_lahir"
-                                                        autocomplete="off">
+                                                    <input value="{{ $dokter->tempat_lahir }}" type="text"
+                                                        class="form-control" name="tempat_lahir" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -138,7 +142,8 @@
                                         <div class="col-lg-8">
                                             <div class="form-group">
                                                 <div class="form-control-wrap">
-                                                    <input data-date-format="yyyy-mm-dd" name="tanggal_lahir" type="text"
+                                                    <input value="{{ $dokter->tanggal_lahir }}"
+                                                        data-date-format="yyyy-mm-dd" name="tanggal_lahir" type="text"
                                                         class="form-control date-picker-alt">
                                                 </div>
                                             </div>
@@ -156,44 +161,9 @@
                                         <div class="col-lg-8">
                                             <div class="form-group">
                                                 <div class="form-control-wrap">
-                                                    <input type="number" class="form-control" name="no_hp"
-                                                        autocomplete="off" placeholder="contoh : 086421932132">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row g-3 align-center">
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <label class="form-label">Username <span class="text-danger">*</span>
-                                                    <span class="form-note">Username (digunakan untuk username
-                                                        user).</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="form-group">
-                                                <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" name="username"
-                                                        autocomplete="off">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row g-3 align-center">
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <label class="form-label">Email <span class="text-danger">*</span>
-                                                    <span class="form-note">Email aktif (digunakan untuk login
-                                                        user).</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="form-group">
-                                                <div class="form-control-wrap">
-                                                    <input type="email" class="form-control" name="email"
-                                                        autocomplete="off">
+                                                    <input value="{{ $dokter->no_hp }}" type="number"
+                                                        class="form-control" name="no_hp" autocomplete="off"
+                                                        placeholder="contoh : 086421932132">
                                                 </div>
                                             </div>
                                         </div>
@@ -208,8 +178,9 @@
                                         <div class="col-lg-8">
                                             <div class="form-group">
                                                 <div class="form-control-wrap">
-                                                    <input data-date-format="yyyy-mm-dd" name="tanggal_bergabung"
-                                                        type="text" class="form-control date-picker">
+                                                    <input value="{{ $dokter->tanggal_bergabung }}"
+                                                        data-date-format="yyyy-mm-dd" name="tanggal_bergabung" type="text"
+                                                        class="form-control date-picker">
                                                 </div>
                                             </div>
                                         </div>
@@ -229,7 +200,8 @@
                                                         data-search="on" name="poli_id" data-placeholder="Pilih data">
                                                         <option label="Pilih data" disabled selected value=""></option>
                                                         @foreach ($poli as $item)
-                                                            <option data-kategori="{{ $item->nama }}"
+                                                            <option
+                                                                {{ $item->id == $dokter_poli->poli_id ? 'selected' : '' }}
                                                                 value="{{ $item->id }}">
                                                                 {{ $item->nama }}
                                                             </option>
@@ -269,103 +241,8 @@
                                             <div class="form-group">
                                                 <div class="form-control-wrap">
                                                     <textarea class="form-control form-control-sm" name="alamat" required
-                                                        autocomplete="off"></textarea>
+                                                        autocomplete="off">{{ $dokter->alamat }}</textarea>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row g-3 align-center after">
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <label class="form-label">Jadwal Praktek <span
-                                                        class="text-danger">*</span>
-                                                    <span class="form-note">Tekan tombol tambah jika ada hari
-                                                        lain</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <div class="mt-3 form-control-wrap">
-                                                    <select class="form-control" name="hari[]" data-placeholder="Hari">
-                                                        <option value="" disabled selected>Pilih hari</option>
-                                                        <option value="senin">Senin</option>
-                                                        <option value="selasa">Selasa</option>
-                                                        <option value="rabu">Rabu</option>
-                                                        <option value="kamis">Kamis</option>
-                                                        <option value="jum'at">Jum'at</option>
-                                                        <option value="sabtu">Sabtu</option>
-                                                    </select>
-                                                </div>
-                                                <div class="row mt-3 d-flex">
-                                                    <div class="col-lg-5">
-                                                        <div class="form-control-wrap">
-                                                            <input type="time" name="jam_mulai[]" class="form-control "
-                                                                placeholder="Jam mulai praktek">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-2">Sampai</div>
-                                                    <div class="col-lg-5">
-                                                        <div class="form-control-wrap">
-                                                            <input type="time" name="jam_selesai[]" class="form-control "
-                                                                placeholder="Jam selesai praktek">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <button onclick="tambahWaktuPraktek()" class="btn btn-dark mb-5 mt-1">
-                                                <em class="icon ni ni-plus"></em>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    {{-- Form copy --}}
-                                    <div class="copy d-none">
-                                        <div class="row g-3 align-center isi" id="1">
-                                            <div class="col-lg-3">
-                                                <div class="form-group">
-                                                    <label class="form-label">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <div class="mt-3 form-control-wrap">
-                                                        <select class="form-control" name="hari[]"
-                                                            data-placeholder="Hari">
-                                                            <option value="" disabled selected>Pilih hari</option>
-                                                            <option value="senin">Senin</option>
-                                                            <option value="selasa">Selasa</option>
-                                                            <option value="rabu">Rabu</option>
-                                                            <option value="kamis">Kamis</option>
-                                                            <option value="jum'at">Jum'at</option>
-                                                            <option value="sabtu">Sabtu</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="row mt-3 d-flex">
-                                                        <div class="col-lg-5">
-                                                            <div class="form-control-wrap">
-                                                                <input type="time" name="jam_mulai[]"
-                                                                    class="form-control" placeholder="Jam mulai praktek">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-2">Sampai</div>
-                                                        <div class="col-lg-5">
-                                                            <div class="form-control-wrap">
-                                                                <input type="time" name="jam_selesai[]"
-                                                                    class="form-control"
-                                                                    placeholder="Jam selesai praktek">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <button onclick="hapusField(this)" id="1"
-                                                    class="btn btn-danger mb-5 mt-3 btn-tambah">
-                                                    <em class="icon ni ni-trash-alt"></em>
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -374,7 +251,7 @@
                                             <div class="form-group mt-2">
                                                 <button type="submit" onclick="submitForm(this.form)"
                                                     class="tombol-simpan btn btn-lg btn-primary">
-                                                    <span class="text-simpan">Simpan</span>
+                                                    <span class="text-simpan">Update</span>
                                                     <span
                                                         class="loading-simpan d-none ml-2 spinner-border spinner-border-sm"
                                                         role="status" aria-hidden="true"></span>
@@ -395,25 +272,6 @@
 
 @push('js')
     <script>
-        let i = 1;
-
-        function tambahWaktuPraktek() {
-            event.preventDefault();
-            i++;
-            let html = $(".copy").html();
-            $('.isi').attr('id', i);
-            $('.btn-tambah').attr('id', i);
-            // console.log(html);
-            $(".after").after(html);
-        }
-
-        function hapusField(attr) {
-            event.preventDefault();
-            // let btn = $(attr).attr("id");
-            // console.log(btn);
-            // $('.isi').attr('id', btn).remove();
-        }
-
         // Simpan 
         function submitForm(originalForm) {
             event.preventDefault();

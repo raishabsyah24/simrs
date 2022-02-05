@@ -5,8 +5,6 @@
         <div class="nk-tb-col"><span class="sub-text">Spesialis</span></div>
         <div class="nk-tb-col"><span class="sub-text">No. HP</span></div>
         <div class="nk-tb-col"><span class="sub-text">Tanggal Bergabung</span></div>
-        <div class="nk-tb-col"><span class="sub-text">Hari Praktek</span></div>
-        <div class="nk-tb-col"><span class="sub-text">Jam Praktek</span></div>
         <div class="nk-tb-col"><span class="sub-text">Status</span></div>
         <div class="nk-tb-col"><span class="sub-text text-center"><em class="icon ni ni-setting-fill"></em></span>
         </div>
@@ -45,12 +43,6 @@
                 <span class="text-capitalize tb-lead">{!! tanggalDate($item->tanggal_bergabung) !!}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="text-capitalize tb-lead">{!! $item->hari_praktek !!}</span>
-            </div>
-            <div class="nk-tb-col tb-col-md">
-                <span class="text-capitalize tb-lead">{!! jam($item->jam_mulai) !!} - {!! jam($item->jam_selesai) !!}</span>
-            </div>
-            <div class="nk-tb-col tb-col-md">
                 <span class="badge badge-dot badge-{{ $item->status == 'aktif' ? 'success' : 'danger' }}">
                     {!! $item->status !!}
                 </span>
@@ -64,28 +56,16 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
                                     <li>
-                                        <a href="{{ route('user.edit', $item->id) }}"><em
+                                        <a href="{{ route('dokter.edit', $item->id) }}"><em
                                                 class="icon ni ni-edit-fill"></em><span>Ubah</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"
-                                            onclick="updateStatus(`{{ route('user.update-status', $item->id) }}`)">
-                                            @if ($item->status == 'aktif')
-                                                <em class="icon ni ni-lock-alt-fill"></em>
-                                                <span>Blokir</span>
-                                            @else
-                                                <em class="icon ni ni-unlock-fill"></em>
-                                                <span>Aktifkan</span>
-                                            @endif
-                                        </a>
+                                        <a href="{{ route('dokter.ganti-jadwal-praktek', $item->id) }}"><em
+                                                class="icon ni ni-clock"></em><span>Ganti Jadwal Praktek</span></a>
                                     </li>
                                     <li>
                                         <a href="#"
-                                            onclick="resetPassword(`{{ route('user.reset-password', $item->id) }}`)"><em
-                                                class="icon ni ni-power"></em><span>Reset Password</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="#" onclick="hapusUser(`{{ route('user.delete', $item->id) }}`)"><em
+                                            onclick="hapusDokter(`{{ route('dokter.delete', $item->id) }}`)"><em
                                                 class="icon ni ni-trash"></em><span>Hapus</span></a>
                                     </li>
                                 </ul>
@@ -111,7 +91,7 @@
 </div>
 
 
-@if ($data->count() > 0)
+@if ($data->count() > $data->perPage())
     <div class="card">
         <div class="card-inner">
             <div class="nk-block-between-md g-3">

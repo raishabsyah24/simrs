@@ -385,7 +385,7 @@
                     let data = response.data;
                     data.forEach(function(item) {
                         $('[name=dokter_id]').append(
-                            `<option class="dokter-id" value="${item.id}">${item.nama_dokter} (${item.jam_mulai} - ${item.jam_selesai})</option>`
+                            `<option class="dokter-id" value="${item.id}">${item.nama_dokter}</option>`
                         )
                     })
                 })

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Dokter;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -48,78 +47,6 @@ class UserSeeder extends Seeder
             $role->givePermissionTo([$permission]);
         }
 
-        // Paru-paru
-        $paru = User::create([
-            'name' => 'dr. paru name',
-            'username' => 'paru username',
-            'email' => 'paru@mail.com',
-            'password' => bcrypt('admin')
-        ]);
-        Profile::create([
-            'user_id' => $paru->id
-        ]);
-        $role = 'dokter';
-        $permission = 'full_permission';
-        $paru->assignRole([$role]);
-        $paru->givePermissionTo([$permission]);
-        $role = Role::find(3);
-        $role->givePermissionTo([$permission]);
-
-        Dokter::create([
-            'user_id' => $paru->id,
-            'nik' => $faker->nik(),
-            'nama' => 'dr. paru',
-            'spesialis' => 'paru-paru',
-            'no_str' => $faker->nik(),
-            'tempat_lahir' => $faker->city,
-            'tanggal_lahir' =>
-            $faker->dateTimeBetween($startDate = '-60 years', $endDate = 'now'),
-            'jenis_kelamin' =>  $faker->randomElement(['laki-laki', 'perempuan']),
-            'alamat' => $faker->address,
-            'no_hp' => $faker->phoneNumber,
-            'email' => $faker->unique()->safeEmail,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        // End paru-paru
-
-        // Jantung
-        $jantung = User::create([
-            'name' => 'dr. jantung name',
-            'username' => 'jantung username',
-            'email' => 'jantung@mail.com',
-            'password' => bcrypt('admin')
-        ]);
-        Profile::create([
-            'user_id' => $jantung->id
-        ]);
-        $role = 'dokter';
-        $permission = 'full_permission';
-        $jantung->assignRole([$role]);
-        $jantung->givePermissionTo([$permission]);
-        $role = Role::find(3);
-        $role->givePermissionTo([$permission]);
-
-        Dokter::create([
-            'user_id' => $jantung->id,
-            'nik' => $faker->nik(),
-            'nama' => 'dr. jantung',
-            'spesialis' => 'jantung',
-            'no_str' => $faker->nik(),
-            'tempat_lahir' => $faker->city,
-            'tanggal_lahir' =>
-            $faker->dateTimeBetween($startDate = '-60 years', $endDate = 'now'),
-            'tanggal_bergabung' =>
-            $faker->dateTimeBetween($startDate = '-60 years', $endDate = 'now'),
-            'jenis_kelamin' =>  $faker->randomElement(['laki-laki', 'perempuan']),
-            'alamat' => $faker->address,
-            'no_hp' => $faker->phoneNumber,
-            'email' => $faker->unique()->safeEmail,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        // End paru-paru
-
         /**ADMIN */
         $admins = [
             ['Admin', 'admin', 'admin@mail.com'],
@@ -140,48 +67,6 @@ class UserSeeder extends Seeder
             $admin->assignRole([$role]);
             $admin->givePermissionTo([$permission]);
             $role = Role::find(2);
-            $role->givePermissionTo([$permission]);
-        }
-
-        /**DOKTER */
-        $dokters = [
-            ['Dokter', 'dokter', 'dokter@mail.com'],
-        ];
-
-        for ($i = 6; $i <= 23; $i++) {
-            $dokter = Dokter::create([
-                'user_id' => $i,
-                'nik' => $faker->nik(),
-                'nama' => $faker->name,
-                'spesialis' => $faker->randomElement(['mata', 'jantung', 'kulit', 'paru-paru']),
-                'no_str' => $faker->nik(),
-                'tempat_lahir' => $faker->city,
-                'tanggal_lahir' =>
-                $faker->dateTimeBetween($startDate = '-60 years', $endDate = 'now'),
-                'tanggal_bergabung' =>
-                $faker->dateTimeBetween($startDate = '-6 years', $endDate = 'now'),
-                'jenis_kelamin' =>  $faker->randomElement(['laki-laki', 'perempuan']),
-                'alamat' => $faker->address,
-                'no_hp' => $faker->phoneNumber,
-                'email' => $faker->unique()->safeEmail,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            $user = User::create([
-                'name' => $dokter['nama'],
-                'username' => Str::lower($faker->lastName() . $faker->firstName()),
-                'email' => $dokter['email'],
-                'password' => bcrypt('admin')
-            ]);
-            Profile::create([
-                'user_id' => $user['id']
-            ]);
-            $role = 'dokter';
-            $permission = 'full_permission';
-            $user->assignRole([$role]);
-            $user->givePermissionTo([$permission]);
-            $role = Role::find(3);
             $role->givePermissionTo([$permission]);
         }
 

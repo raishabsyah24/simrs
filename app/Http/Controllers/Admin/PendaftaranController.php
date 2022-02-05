@@ -361,8 +361,6 @@ class PendaftaranController extends Controller
             $item->delete();
         }
 
-
-
         return response()->json([
             'message' => 'Data berhasil dihapus'
         ], 200);

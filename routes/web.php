@@ -43,7 +43,11 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
     Route::get('/dokter/fetch-data', [DokterController::class, 'fetchData'])->name('dokter.fetchData');
     Route::get('/dokter/create', [DokterController::class, 'create'])->name('dokter.create');
+    Route::get('/dokter/{dokter}/edit', [DokterController::class, 'edit'])->name('dokter.edit');
+    Route::get('/dokter/{dokter}/ganti-jadwal-praktek', [DokterController::class, 'gantiJadwal'])->name('dokter.ganti-jadwal-praktek');
     Route::post('/dokter', [DokterController::class, 'store'])->name('dokter.store');
+    Route::put('/dokter/{dokter}', [DokterController::class, 'update'])->name('dokter.update');
+    Route::delete('/dokter/{dokter}/delete', [DokterController::class, 'delete'])->name('dokter.delete');
 
     // History user
     Route::get('/aktifitas-user', [ActivityLogController::class, 'index'])

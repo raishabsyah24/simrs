@@ -138,5 +138,36 @@
             $('.fetch-data').addClass('d-none');
             fetchData(page, query);
         });
+
+        function hapusDokter(url) {
+            event.preventDefault();
+            Swal.fire({
+                title: "Apakah anda yakin menghapus data ini?",
+                text: "Data yang sudah dihapus tidak dapat dikembalikan lagi!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, Hapus!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post({
+                            url: url,
+                            data: {
+                                _method: "DELETE",
+                            },
+                        })
+                        .done(response => {
+                            alertSuccess(response.message);
+                            pindahHalaman(response.url, 1500);
+
+                        })
+                        .fail(errors => {
+                            alertError(errors.responseJSON.message);
+                            return;
+                        });
+                }
+            });
+        }
     </script>
 @endpush
