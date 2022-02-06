@@ -57,7 +57,7 @@ class ObatSeeder extends Seeder
         for ($i = 1; $i <= 100; $i++) {
             ObatApotek::create([
                 'obat_id' => $i,
-                'harga_jual' => rand(1000, 100000),
+                'harga_jual' => rand(100, 1000),
                 'stok' => rand(10, 1000),
                 'minimal_stok' => rand(1, 10),
                 'maksimal_stok' => rand(10, 10000),

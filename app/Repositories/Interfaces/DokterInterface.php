@@ -16,7 +16,7 @@ interface DokterInterface
 
     public function tenagaMedis();
 
-    public function searchObat(string $nama_obat, int $periksa_dokter_id = null);
+    public function searchObat(string $nama_obat, int $periksa_dokter_id);
 
     public function obatPasien(int $periksa_dokter_id);
 }

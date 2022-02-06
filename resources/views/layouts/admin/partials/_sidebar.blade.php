@@ -358,42 +358,48 @@
                         @role('apotek')
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-tile-thumb-fill"></em></span>
-                                <span class="nk-menu-text">Apotek</span>
+                                <span class="nk-menu-icon"><em class="icon ni ni-share-fill"></em></span>
+                                <span class="nk-menu-text">Master</span>
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
-                                    <a href="#" class="nk-menu-link"><span class="nk-menu-text">Kategori
-                                            Obat</span></a>
                                     <a href="{{ route('data') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Data Obat</span></a>
+                                        class="nk-menu-text">Data Obat</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link"><span
+                                        class="nk-menu-text">Riwayat Pasien</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="#" class="nk-menu-link"><span
+                                        class="nk-menu-text">Riwayat Obat Pasien</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
+                                <span class="nk-menu-icon"><em class="icon ni ni-coins"></em></span>
                                 <span class="nk-menu-text">Orders</span>
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
                                     <a href="{{ route('order.create-obat') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Obat - Default</span></a>
+                                            class="nk-menu-text">Stok Obat - Default</span></a>
                                 </li>
                                 <li class="nk-menu-item">
-                                    <a href="html/orders-regular.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order List - Regular</span></a>
+                                    <a href="#" class="nk-menu-link"><span
+                                            class="nk-menu-text">Obat Pasien - Regular</span></a>
                                 </li>
                                 <li class="nk-menu-item">
-                                    <a href="html/orders-sales.html" class="nk-menu-link"><span
+                                    <a href="#" class="nk-menu-link"><span
                                             class="nk-menu-text">Order List - Sales</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-filter-alt"></em></span>
-                                <span class="nk-menu-text">Daftar Antrian</span>
+                                <span class="nk-menu-icon"><em class="icon ni ni-repeat"></em></span>
+                                <span class="nk-menu-text">Apotek</span>
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
@@ -402,14 +408,23 @@
                                 </li>
                                 <li class="nk-menu-item">
                                     <a href="html/orders-regular.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Umum - Regular</span></a>
+                                            class="nk-menu-text">Order Umum</span></a>
                                 </li>
                                 <li class="nk-menu-item">
                                     <a href="html/orders-sales.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Asuransi - Sales</span></a>
+                                            class="nk-menu-text">Order Asuransi</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"></span>
+                                <span class="nk-menu-text">Laporan Penjualan</span>
+                            </a>
+                            <ul class="nk-menu-item">
+
+                            </ul>
+                        </li>
                          @endrole
                     
                     @role('lab')
