@@ -16,36 +16,6 @@
                                     DASHBOARD ANTRIAN
                                 </h3>
                             </div>
-                        </div>
-                        <div class="nk-block">
-                            <div class="row mt-2">
-                                @foreach ($total as $item)
-                                    <div class="col-md-3">
-                                        <div class="card">
-                                            <div class="nk-ecwg nk-ecwg3">
-                                                <div class="card-inner pb-0">
-                                                    <div class="card-title-group">
-                                                        <div class="card-title">
-                                                            <h6 class="title">
-                                                                {{ $item[0] }}
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="data">
-                                                        <div class="data-group">
-                                                            <div class="amount fw-normal">
-                                                                {{ formatAngka($item[1]) }}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- .nk-ecwg -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
                         {{-- Head --}}
                         <div class="nk-block-between mt-4">
                             <div class="nk-block-head-content"></div>
@@ -68,7 +38,7 @@
                             <div class="user-card user-card-s2">
                                 <div class="user-info">
                                      <h1>LOKET 1</h>
-                                <h2>{{ $item[0] }} {{ formatAngka($item[1]) }}</h2>
+                                <a href="{{route('antrian.umum')}}"> </h2>
                             </div>
                         </div>
             

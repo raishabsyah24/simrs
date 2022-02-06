@@ -27,49 +27,71 @@ class AntrianController extends Controller
 {
     public function antrian()
     {
-
-        $data = $this->pendaftaranRepository->pasienHariIni()
-            ->paginate($this->perPage);
         $title = 'Pendaftaran';
-        $badge = $this->badge();
-        $kategori_pasien = $this->kategoriPasien();
-        $poli = $this->poli();
-        $per_page = $this->perPage;
-        $total = [
-            ['Total Pasien Hari Ini', $this->pendaftaranRepository->pasienHariIni()->count()],
-            ['BPJS', $this->pendaftaranRepository->totalPasienBpjs()],
-            ['Umum', $this->pendaftaranRepository->totalPasienUmum()],
-            ['Asuransi', $this->pendaftaranRepository->totalPasienAsuransi()],
-        ];
         return view('admin.pendaftaran.antrianindex', compact(
-            'title',
-            'data',
-            'total',
-            'badge',
-            'kategori_pasien',
-            'poli',
-            'per_page'
+            'title'
         ));
     }
 
     public function loket()
     {
 
-        $data = $this->pendaftaranRepository->pasienHariIni()
-            ->paginate($this->perPage);
+    
         $title = 'Pendaftaran';
-        $badge = $this->badge();
-        $kategori_pasien = $this->kategoriPasien();
-        $poli = $this->poli();
-        $per_page = $this->perPage;
+
        
         return view('admin.pendaftaran.loketantrian', compact(
-            'title',
-            'data',
-            'badge',
-            'kategori_pasien',
-            'poli',
-            'per_page'
+            'title'
+        ));
+    }
+
+    public function panggil()
+    {
+
+    
+        $title = 'Pendaftaran';
+
+       
+        return view('admin.pendaftaran.panggilantrian', compact(
+            'title'
+        ));
+    }
+
+    
+
+    public function antrian_umum()
+    {
+
+    
+        $title = 'Pendaftaran';
+
+       
+        return view('admin.pendaftaran.umum', compact(
+            'title'
+        ));
+    }
+
+    public function antrian_asuransi()
+    {
+
+    
+        $title = 'Pendaftaran';
+
+       
+        return view('admin.pendaftaran.asuransi', compact(
+            'title'
+        ));
+    }
+
+    public function antrian_bpjs()
+    {
+
+    
+        $title = 'Pendaftaran';
+
+       
+        return view('admin.pendaftaran.bpjs', compact(
+            'title'
         ));
     }
 }

@@ -45,19 +45,19 @@
 
         <a href="{{route('antrian.umum')}}"  target="pendaftaran.loket" class="col-lg-3 mt-3 btn btn-primary btn-lg">
 
-        <h1>UMUM</h1>
+        <h1>LOKET 1</h1>
 
 </a>
 
 <a href="{{route('antrian.bpjs')}}"  target="pendaftaran.loket" class="col-lg-3 mt-3 btn btn-primary btn-lg mx-5">
 
-        <h1>ASURANSI</h1>
+        <h1>LOKET 2</h1>
 
 </a>
 
 <a href="{{route('antrian.asuransi')}}"  target="pendaftaran.loket" class="col-lg-3 mt-3 btn btn-primary btn-lg">
 
-        <h1>BPJS</h1>
+        <h1>LOKET 3</h1>
 
 </a>
 
