@@ -79,8 +79,8 @@ class MasterSeeder extends Seeder
         // Diagnosa
         for ($i = 1; $i <= 20; $i++) {
             DB::table('diagnosa')->insert([
-                'kode' => $faker->nik(),
-                'nama' => $faker->sentence(2),
+                'kode' => $faker->randomElement(['A', 'B', 'C']) . rand(1, 1000),
+                'nama' => 'diagnosa ' . $i . ' '  . $faker->sentence(2),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -89,8 +89,8 @@ class MasterSeeder extends Seeder
         // Tindakan
         for ($i = 1; $i <= 20; $i++) {
             DB::table('tindakan')->insert([
-                'kode' => $faker->nik(),
-                'nama' => $faker->sentence(2),
+                'kode' => $faker->randomElement(['A', 'B', 'C']) . rand(1, 1000),
+                'nama' => 'tindakan ' . $i . ' ' . $faker->sentence(2),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

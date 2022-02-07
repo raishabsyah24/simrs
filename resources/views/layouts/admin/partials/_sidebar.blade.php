@@ -54,19 +54,14 @@
 
                     <!-- DOKTER -->
                     @role('dokter|super_admin')
-                        <li class="nk-menu-item has-sub">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <li
+                            class="nk-menu-item {{ activeClass('dokter-spesialis.periksa-pasien') }} {{ activeClass('dokter.daftar-pasien') }}">
+                            <a href="{{ route('dokter.daftar-pasien') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon">
                                     <em class="icon ni ni-list-index"></em>
                                 </span>
-                                <span class="nk-menu-text">Pasien Dokter Rawat Jalan</span>
+                                <span class="nk-menu-text">Pasien Rawat Jalan</span>
                             </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('dokter.daftar-pasien') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Daftar Pasien</span></a>
-                                </li>
-                            </ul>
                         </li>
                     @endrole
 

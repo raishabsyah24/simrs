@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Dokter;
 
 use Illuminate\Http\Request;
 use App\Models\{
+    Diagnosa,
+    DiagnosaPasienRajal,
     Poli,
     Layanan,
     ObatApotek,
@@ -13,7 +15,8 @@ use App\Models\{
     ObatPasienRajal,
     Pasien,
     RekamMedisPasien,
-    PemeriksaanDetail
+    PemeriksaanDetail,
+    TindakanPasienRajal
 };
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -416,6 +419,155 @@ class PasienDokterController extends Controller
 
         return response()->json([
             'status' => true
+        ], 200);
+    }
+
+    public function searchDiagnosa(Request $request)
+    {
+        $diagnosa = $request->get('diagnosa');
+        $periksa_dokter_id = $request->get('periksa_dokter_id');
+        $data = $this->dokterRepository->searchDiagnosa($diagnosa, $periksa_dokter_id);
+
+        $output = '<div class="dropdown-menu d-block position-relative">';
+        foreach ($data as $item) {
+            $output .= '
+                <a href="#" class="item dropdown-item" 
+                onclick="pilihDiagnosa(`' . $item->id . '`,`' . $periksa_dokter_id . '`,`' . route('dokter.change-diagnosa') . '`)">' . $item->nama . ' </a>
+                ';
+        }
+        $output .= '</div>';
+        echo $output;
+    }
+
+    public function changeDiagnosa(Request $request)
+    {
+        $attr = $request->all();
+        $diagnosa_pasien_rajal = DiagnosaPasienRajal::create($attr);
+
+        return response()->json([
+            'message' => 'Diagnosa berhasil ditambahkan',
+            'url' => route('dokter.diagnosa-pasien', $attr['periksa_dokter_id'])
+        ], 200);
+    }
+
+    public function diagnosaPasien($periksa_dokter_id)
+    {
+        $data = $this->dokterRepository->diagnosaPasien($periksa_dokter_id);
+        $output = '';
+        foreach ($data as $key => $item) {
+            $output .= '
+            <tr>
+                <td>' . $item->kode . '</td>
+                <td>' . $item->nama . '</td>
+                <td>
+                    <div class="form-group">
+                        <div class="form-control-wrap">
+                            <input type="text" autocomplete="off" onkeyup="diagnosaBagian(`' . route('dokter.diagnosa-pasien.bagian', $item->id) . '`,this)" name="bagian"
+                                value="' . $item->bagian . '" style="width: 15em" class="form-control">
+                        </div>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <button onclick="hapusDiagnosa(`' . route('dokter.diagnosa-pasien.hapus', $item->id) . '`,`' . $item->id . '`,`' . $item->periksa_dokter_id . '`)" class="btn btn-danger btn-sm"><em class="icon ni ni-trash-alt"></em></button>
+                </td>
+            </tr>
+        ';
+        }
+
+        return response()->json([
+            'output' => $output
+        ], 200);
+    }
+
+    public function hapusDiagnosa(DiagnosaPasienRajal $diagnosaPasienRajal)
+    {
+        $diagnosaPasienRajal->delete();
+        return response()->json([
+            'message' => 'Diagnosa pasien berhasil dihapus'
+        ], 200);
+    }
+    public function diagnosaBagian(DiagnosaPasienRajal $diagnosaPasienRajal, Request $request)
+    {
+        $diagnosaPasienRajal->update([
+            'bagian' => $request->bagian
+        ]);
+        return response()->json([
+            'message' => 'Bagian diagnosa berhasil diupdate'
+        ], 200);
+    }
+
+    public function searchTindakan(Request $request)
+    {
+        $tindakan = $request->get('tindakan');
+        $periksa_dokter_id = $request->get('periksa_dokter_id');
+        $data = $this->dokterRepository->searchTindakan($tindakan, $periksa_dokter_id);
+
+        $output = '<div class="dropdown-menu d-block position-relative">';
+        foreach ($data as $item) {
+            $output .= '
+                <a href="#" class="item dropdown-item" 
+                onclick="pilihTindakan(`' . $item->id . '`,`' . $periksa_dokter_id . '`,`' . route('dokter.change-tindakan') . '`)">' . $item->nama . ' </a>
+                ';
+        }
+        $output .= '</div>';
+        echo $output;
+    }
+
+    public function changeTindakan(Request $request)
+    {
+        $attr = $request->all();
+        $diagnosa_pasien_rajal = TindakanPasienRajal::create($attr);
+
+        return response()->json([
+            'message' => 'Tindakan berhasil ditambahkan',
+            'url' => route('dokter.tindakan-pasien', $attr['periksa_dokter_id'])
+        ], 200);
+    }
+
+    public function tindakanPasien($periksa_dokter_id)
+    {
+        $data = $this->dokterRepository->tindakanPasien($periksa_dokter_id);
+        $output = '';
+        foreach ($data as $key => $item) {
+            $output .= '
+            <tr>
+                <td>' . $item->kode . '</td>
+                <td>' . $item->nama . '</td>
+                <td>
+                    <div class="form-group">
+                        <div class="form-control-wrap">
+                            <input type="text" autocomplete="off" onkeyup="tindakanBagian(`' . route('dokter.tindakan-pasien.bagian', $item->id) . '`,this)" name="bagian"
+                                value="' . $item->bagian . '" style="width: 15em" class="form-control">
+                        </div>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <button onclick="hapusTindakan(`' . route('dokter.tindakan-pasien.hapus', $item->id) . '`,`' . $item->id . '`,`' . $item->periksa_dokter_id . '`)" class="btn btn-danger btn-sm"><em class="icon ni ni-trash-alt"></em></button>
+                </td>
+            </tr>
+        ';
+        }
+
+        return response()->json([
+            'output' => $output
+        ], 200);
+    }
+
+    public function hapusTindakan(TindakanPasienRajal $tindakanPasienRajal)
+    {
+        $tindakanPasienRajal->delete();
+        return response()->json([
+            'message' => 'Tindakan pasien berhasil dihapus'
+        ], 200);
+    }
+
+    public function tindakanBagian(TindakanPasienRajal $tindakanPasienRajal, Request $request)
+    {
+        $tindakanPasienRajal->update([
+            'bagian' => $request->bagian
+        ]);
+        return response()->json([
+            'message' => 'Bagian tindakan berhasil diupdate'
         ], 200);
     }
 }

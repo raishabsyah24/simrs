@@ -24,8 +24,8 @@ class PeriksaPasienRajalRequest extends FormRequest
     public function rules()
     {
         return [
-            'diagnosa' => 'required',
-            'tindakan' => 'required',
+            // 'diagnosa' => 'required',
+            // 'tindakan' => 'required',
             'keluhan' => 'required',
             'subjektif' => 'required',
             'objektif' => 'required',

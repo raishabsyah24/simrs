@@ -123,6 +123,30 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
         ->name('dokter.obat-pasien.signa1');
     Route::put('/dokter/obat-pasien/signa-2/{id}', [PasienDokterController::class, 'signa2'])
         ->name('dokter.obat-pasien.signa2');
+
+    // Diagnosa
+    Route::get('/dokter/search-diagnosa', [PasienDokterController::class, 'searchDiagnosa'])
+        ->name('dokter.search-diagnosa');
+    Route::get('/dokter/diagnosa-pasien/{id}', [PasienDokterController::class, 'diagnosaPasien'])
+        ->name('dokter.diagnosa-pasien');
+    Route::post('/dokter/change-diagnosa', [PasienDokterController::class, 'changeDiagnosa'])
+        ->name('dokter.change-diagnosa');
+    Route::delete('/dokter/hapus-diagnosa/{diagnosaPasienRajal}', [PasienDokterController::class, 'hapusDiagnosa'])
+        ->name('dokter.diagnosa-pasien.hapus');
+    Route::put('/dokter/diagnosa-pasien/{diagnosaPasienRajal}', [PasienDokterController::class, 'diagnosaBagian'])
+        ->name('dokter.diagnosa-pasien.bagian');
+
+    // Tindakan
+    Route::get('/dokter/search-tindakan', [PasienDokterController::class, 'searchTindakan'])
+        ->name('dokter.search-tindakan');
+    Route::get('/dokter/tindakan-pasien/{id}', [PasienDokterController::class, 'tindakanPasien'])
+        ->name('dokter.tindakan-pasien');
+    Route::post('/dokter/change-tindakan', [PasienDokterController::class, 'changeTindakan'])
+        ->name('dokter.change-tindakan');
+    Route::delete('/dokter/hapus-tindakan/{tindakanPasienRajal}', [PasienDokterController::class, 'hapustindakan'])
+        ->name('dokter.tindakan-pasien.hapus');
+    Route::put('/dokter/tindakan-pasien/{tindakanPasienRajal}', [PasienDokterController::class, 'tindakanBagian'])
+        ->name('dokter.tindakan-pasien.bagian');
 });
 
 // Role apotek

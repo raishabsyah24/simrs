@@ -199,6 +199,64 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Diagnosa (ICD 10)<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="form-control-wrap">
+                                                                        <input
+                                                                            onkeyup="searchDiagnosa(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-diagnosa') }}`,this)"
+                                                                            type="text" class="form-control"
+                                                                            name="diagnosa" autocomplete="off" />
+                                                                    </div>
+                                                                    <div class="dropdown-diagnosa"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 table-diagnosa d-none">
+                                                                <h5>Diagnosa</h5>
+                                                                <table class="table table-hover">
+                                                                    <thead class="table-dark">
+                                                                        <tr>
+                                                                            <th>Kode</th>
+                                                                            <th>Diagnosa</th>
+                                                                            <th align="text-left">Bagian</th>
+                                                                            <th class="text-center">Hapus</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="data-diagnosa">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Tindakan (ICD 9)<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="form-control-wrap">
+                                                                        <input
+                                                                            onkeyup="searchTindakan(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-tindakan') }}`,this)"
+                                                                            type="text" class="form-control"
+                                                                            name="tindakan" autocomplete="off" />
+                                                                    </div>
+                                                                    <div class="dropdown-tindakan"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 table-tindakan d-none">
+                                                                <h5>Tindakan</h5>
+                                                                <table class="table table-hover">
+                                                                    <thead class="table-dark">
+                                                                        <tr>
+                                                                            <th>Kode</th>
+                                                                            <th>Tindakan</th>
+                                                                            <th align="text-left">Bagian</th>
+                                                                            <th class="text-center">Hapus</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="data-tindakan">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Status Lanjutan<span
                                                                             class="text-danger">*</span></label>
@@ -227,44 +285,6 @@
                                                                             class="form-control date-picker">
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Diagnosa (ICD 10)<span
-                                                                            class="text-danger">*</span></label>
-                                                                    <div class="form-control-wrap">
-                                                                        <input onkeyup="diagnosaPasien(this)" type="text"
-                                                                            class="form-control" name="diagnosa"
-                                                                            autocomplete="off" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Tindakan (ICD 9)<span
-                                                                            class="text-danger">*</span></label>
-                                                                    <div class="form-control-wrap">
-                                                                        <input type="text" class="form-control"
-                                                                            name="tindakan" autocomplete="off" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-1">
-                                                                <h5>Diagnosa</h5>
-                                                                <table class="table table-hover">
-                                                                    <thead class="table-success">
-                                                                        <tr>
-                                                                            <th>No</th>
-                                                                            <th>Kode</th>
-                                                                            <th>Diagnosa</th>
-                                                                            <th class="text-center">Opsi</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                    </tbody>
-                                                                </table>
                                                             </div>
                                                         </div>
                                                         {{-- </form> --}}
@@ -388,6 +408,7 @@
 
 @push('js')
     <script>
+        // Obat
         reloadTableObat();
 
         async function searchObat(id, url, attr) {
@@ -448,6 +469,9 @@
                             alertError('Limit bos');
                         }
                         $('table .data-obat').html(response.output);
+                    })
+                    .fail(error => {
+                        alertError();
                     })
             }, 600);
         }
@@ -564,8 +588,176 @@
                 })
         }
 
-        function diagnosaPasien(attr) {
-            diagnosa
+        // Diagnosa
+        reloadTableDiagnosa();
+
+        function reloadTableDiagnosa() {
+            setTimeout(() => {
+                $.get(`/dokter/diagnosa-pasien/{{ $periksa_dokter_id }}`)
+                    .done(response => {
+                        $('.dropdown-diagnosa').addClass('d-none');
+                        $('.table-diagnosa').removeClass('d-none');
+                        $('table .data-diagnosa').html(response.output);
+                    })
+                    .fail(error => {
+                        alertError();
+                    })
+            }, 600);
+        }
+
+        function searchDiagnosa(id, url, attr) {
+            let diagnosa = $(attr).val();
+            if ($('.dropdown-diagnosa').hasClass('d-none')) {
+                $('.dropdown-diagnosa').removeClass('d-none');
+            }
+            $.get(url, {
+                    diagnosa: diagnosa,
+                    periksa_dokter_id: id
+                })
+                .done(output => {
+                    if (output != '') {
+                        $('.dropdown-diagnosa').html(output);
+                    }
+                })
+        }
+
+        function pilihDiagnosa(diagnosa_id, periksa_dokter_id, url) {
+            event.preventDefault();
+            $.post({
+                    url: url,
+                    type: 'post',
+                    data: {
+                        diagnosa_id: diagnosa_id,
+                        periksa_dokter_id: periksa_dokter_id
+                    }
+                })
+                .done(response => {
+                    let status = response.status;
+                    $('[name=diagnosa]').val('')
+                    alertSuccess(response.message);
+                    let url = response.url;
+                    $.get(url)
+                        .done(output => {
+                            $('.dropdown-diagnosa').addClass('d-none');
+                            $('.table-diagnosa').removeClass('d-none');
+                            $('table .data-diagnosa').html(output);
+                            reloadTableDiagnosa();
+                        })
+                })
+        }
+
+        function hapusDiagnosa(url, id, periksa_dokter_id) {
+            event.preventDefault();
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "DELETE"
+                    },
+                })
+                .done(response => {
+                    alertSuccess('Hapus diagnosa pasien berhasil')
+                    reloadTableDiagnosa();
+                })
+        }
+
+        function diagnosaBagian(url, attr) {
+            let bagian = $(attr).val();
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        bagian: bagian
+                    },
+                })
+                .done(response => {
+                    console.log(response);
+                })
+        }
+
+        // Tindakan
+        reloadTableTindakan();
+
+        function reloadTableTindakan() {
+            setTimeout(() => {
+                $.get(`/dokter/tindakan-pasien/{{ $periksa_dokter_id }}`)
+                    .done(response => {
+                        $('.dropdown-tindakan').addClass('d-none');
+                        $('.table-tindakan').removeClass('d-none');
+                        $('table .data-tindakan').html(response.output);
+                    })
+                    .fail(error => {
+                        alertError();
+                    })
+            }, 600);
+        }
+
+        function searchTindakan(id, url, attr) {
+            let tindakan = $(attr).val();
+            if ($('.dropdown-tindakan').hasClass('d-none')) {
+                $('.dropdown-tindakan').removeClass('d-none');
+            }
+            $.get(url, {
+                    tindakan: tindakan,
+                    periksa_dokter_id: id
+                })
+                .done(output => {
+                    if (output != '') {
+                        $('.dropdown-tindakan').html(output);
+                    }
+                })
+        }
+
+        function pilihTindakan(tindakan_id, periksa_dokter_id, url) {
+            event.preventDefault();
+            $.post({
+                    url: url,
+                    type: 'post',
+                    data: {
+                        tindakan_id: tindakan_id,
+                        periksa_dokter_id: periksa_dokter_id
+                    }
+                })
+                .done(response => {
+                    let status = response.status;
+                    $('[name=tindakan]').val('')
+                    alertSuccess(response.message);
+                    let url = response.url;
+                    $.get(url)
+                        .done(output => {
+                            $('.dropdown-tindakan').addClass('d-none');
+                            $('.table-tindakan').removeClass('d-none');
+                            $('table .data-tindakan').html(output);
+                            reloadTableTindakan();
+                        })
+                })
+        }
+
+        function hapusTindakan(url, id, periksa_dokter_id) {
+            event.preventDefault();
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "DELETE"
+                    },
+                })
+                .done(response => {
+                    alertSuccess('Hapus tindakan pasien berhasil')
+                    reloadTableTindakan();
+                })
+        }
+
+        function tindakanBagian(url, attr) {
+            let bagian = $(attr).val();
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        bagian: bagian
+                    },
+                })
+                .done(response => {
+                    console.log(response);
+                })
         }
     </script>
 @endpush
