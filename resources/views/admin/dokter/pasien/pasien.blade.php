@@ -228,6 +228,44 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-6">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Diagnosa (ICD 10)<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="form-control-wrap">
+                                                                        <input onkeyup="diagnosaPasien(this)" type="text"
+                                                                            class="form-control" name="diagnosa"
+                                                                            autocomplete="off" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Tindakan (ICD 9)<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="form-control-wrap">
+                                                                        <input type="text" class="form-control"
+                                                                            name="tindakan" autocomplete="off" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 mt-1">
+                                                                <h5>Diagnosa</h5>
+                                                                <table class="table table-hover">
+                                                                    <thead class="table-success">
+                                                                        <tr>
+                                                                            <th>No</th>
+                                                                            <th>Kode</th>
+                                                                            <th>Diagnosa</th>
+                                                                            <th class="text-center">Opsi</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                         {{-- </form> --}}
                                                     </div>
@@ -259,7 +297,7 @@
                                                         </div>
                                                         <div class="mt-3">
                                                             <table class="table table-hover">
-                                                                <thead>
+                                                                <thead class="table-success">
                                                                     <tr>
                                                                         <th>No</th>
                                                                         <th>Nama Obat</th>
@@ -297,8 +335,8 @@
                                             <div class="tab-pane" id="tabItem2">
                                                 {{-- Table RM --}}
                                                 <div class="nk-block nk-block-lg">
-                                                    <table class="table">
-                                                        <thead class="thead-dark">
+                                                    <table class="table table-hover">
+                                                        <thead class="table-success">
                                                             <tr>
                                                                 <th scope="col">No</th>
                                                                 <th scope="col">Tanggal Kunjungan</th>
@@ -345,13 +383,12 @@
             </div>
         </div>
     </div>
-    </div>
 
 @endsection
 
 @push('js')
     <script>
-        reloadTable();
+        reloadTableObat();
 
         async function searchObat(id, url, attr) {
             if ($('.dropdown-obat').hasClass('d-none')) {
@@ -395,13 +432,13 @@
                         $.get(url)
                             .done(output => {
                                 $('table .data-obat').html(output);
-                                reloadTable();
+                                reloadTableObat();
                             })
                     }
                 })
         }
 
-        function reloadTable() {
+        function reloadTableObat() {
             setTimeout(() => {
                 $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
                     .done(response => {
@@ -435,7 +472,7 @@
                         alertError('Pasien bpjs sudah mencapai limit obat',
                             'Silahkan kurangi jumlah obat atau kurangi obat pasien');
                     }
-                    reloadTable();
+                    reloadTableObat();
                 })
         }
 
@@ -455,7 +492,7 @@
                         $('[name=obat]').prop('disabled', false)
                     }
                     alertSuccess('Hapus obat berhasil')
-                    reloadTable();
+                    reloadTableObat();
                 })
         }
 
@@ -484,6 +521,13 @@
                     modalTerimakasih(response.message);
                     pindahHalaman(response.url, 3000);
                 })
+                .fail(errors => {
+                    if (errors.status === 422) {
+                        loopErrors(errors.responseJSON.errors);
+                        return;
+                    }
+                    alertError();
+                })
         }
 
         function signaSatu(url, attr, obat_pasien_periksa_rajal_id) {
@@ -499,7 +543,7 @@
                     },
                 })
                 .done(response => {
-                    reloadTable();
+                    reloadTableObat();
                 })
         }
 
@@ -516,8 +560,12 @@
                     },
                 })
                 .done(response => {
-                    reloadTable();
+                    reloadTableObat();
                 })
+        }
+
+        function diagnosaPasien(attr) {
+            diagnosa
         }
     </script>
 @endpush

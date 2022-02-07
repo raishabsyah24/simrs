@@ -43,7 +43,7 @@ class ObatSeeder extends Seeder
             ]);
         }
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             Obat::create([
                 'kategori_obat' => rand(1, 10),
                 'kode' => uniqid(),
@@ -54,7 +54,7 @@ class ObatSeeder extends Seeder
             ]);
         }
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             ObatApotek::create([
                 'obat_id' => $i,
                 'harga_jual' => rand(1000, 10000),

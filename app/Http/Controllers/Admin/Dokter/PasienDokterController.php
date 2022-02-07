@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Interfaces\DokterInterface;
+use App\Http\Requests\Admin\PeriksaPasienRajalRequest;
 
 class PasienDokterController extends Controller
 {
@@ -32,12 +33,7 @@ class PasienDokterController extends Controller
         $this->dokterRepository = $dokterRepository;
     }
 
-    public function q()
-    {
-        $daftar_pasien = $this->dokterRepository->identitasPasien(1);
-        return $daftar_pasien;
-    }
-
+    // Data pasien hari ini berdasarkan login dokter spesialis
     public function index()
     {
         $dokter_id = Auth::user()->dokter->id;
@@ -54,6 +50,7 @@ class PasienDokterController extends Controller
         ));
     }
 
+    // Search data pasien hari ini berdasarkan login dokter spesialis
     public function fetch(Request $request)
     {
         $title = 'Daftar Pasien';
@@ -72,6 +69,7 @@ class PasienDokterController extends Controller
             ->render();
     }
 
+    // Halaman periksa pasien
     public function periksaPasien($periksa_dokter_id)
     {
         $title = 'Periksa Pasien';
@@ -89,6 +87,7 @@ class PasienDokterController extends Controller
         ));
     }
 
+    // Search obat untuk pasien
     public function searchObat(Request $request)
     {
         $obat = $request->get('obat');
@@ -106,6 +105,7 @@ class PasienDokterController extends Controller
         echo $output;
     }
 
+    // Pilih obat untuk pasien dan masukan ke database
     public function changeObat(Request $request)
     {
         $attr = $request->all();
@@ -150,7 +150,7 @@ class PasienDokterController extends Controller
             }
         } else {
 
-            $$obat = ObatApotek::find($attr['obat_apotek_id']);
+            $obat = ObatApotek::find($attr['obat_apotek_id']);
             $harga_obat = $obat->harga_jual;
 
             ObatPasienRajal::create([
@@ -169,6 +169,7 @@ class PasienDokterController extends Controller
         }
     }
 
+    // Data obat pasien periksa
     public function obatPasien($periksa_dokter_id)
     {
         $data = $this->dokterRepository->obatPasien($periksa_dokter_id);
@@ -244,6 +245,7 @@ class PasienDokterController extends Controller
         ], 200);
     }
 
+    // Update jumlah obat pasien
     public function updateQuantity(Request $request)
     {
         $attr = $request->all();
@@ -293,6 +295,7 @@ class PasienDokterController extends Controller
         }
     }
 
+    // Hapus obat pasien ditable obat pasien
     public function hapusObat(Request $request)
     {
         $obatPasienRajal = ObatPasienRajal::find($request->id);
@@ -321,7 +324,9 @@ class PasienDokterController extends Controller
         ], 200);
     }
 
-    public function storePasien(PeriksaDokter $periksaDokter, Request $request)
+
+    // Simpan pemeriksaan pasien
+    public function storePasien(PeriksaDokter $periksaDokter, PeriksaPasienRajalRequest $request)
     {
         $attr = $request->except(['obat', 'satuan', 'signa', 'jumlah']);
         $attr['status_diperiksa'] = 'sudah diperiksa';
@@ -382,6 +387,7 @@ class PasienDokterController extends Controller
         ], 200);
     }
 
+    // Update signa 1 untuk obat pasien
     public function signa1(Request $request)
     {
         $attr = $request->all();
@@ -397,6 +403,7 @@ class PasienDokterController extends Controller
         ], 200);
     }
 
+    // Update signa 2 untuk obat pasien
     public function signa2(Request $request)
     {
         $attr = $request->all();

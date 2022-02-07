@@ -32,18 +32,6 @@ class MasterSeeder extends Seeder
             ]);
         }
 
-        // for ($i = 1; $i <= 3; $i++) {
-        //     DB::table('activity_logs')->insert([
-        //         'id' => Str::uuid(),
-        //         'user_id' => rand(1, 3),
-        //         'nama' => $faker->randomElement(['ardi', 'rais', 'ilham']),
-        //         'email' => $faker->randomElement(['ardi@mail.com', 'rais@mail.com', 'ilham@mail.com']),
-        //         'aktifitas' => $faker->sentence(10),
-        //         'created_at' => $faker->dateTimeBetween($startDate = '-1 years', $endDate = 'now'),
-        //         'updated_at' => now()
-        //     ]);
-        // }
-
         // Kategori Pasien
         $kategori_pasien = [
             ['bpjs', 'aktif'],
@@ -88,12 +76,24 @@ class MasterSeeder extends Seeder
             ]);
         }
 
-        // dokter poli
-        // for ($i = 1; $i <= 20; $i++) {
-        //     DB::table('dokter_poli')->insert([
-        //         'dokter_id' => $i,
-        //         'poli_id' => rand(1, 7)
-        //     ]);
-        // }
+        // Diagnosa
+        for ($i = 1; $i <= 20; $i++) {
+            DB::table('diagnosa')->insert([
+                'kode' => $faker->nik(),
+                'nama' => $faker->sentence(2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        // Tindakan
+        for ($i = 1; $i <= 20; $i++) {
+            DB::table('tindakan')->insert([
+                'kode' => $faker->nik(),
+                'nama' => $faker->sentence(2),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

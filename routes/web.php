@@ -18,8 +18,6 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/data', [PasienDokterController::class, 'q']);
-
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/profil-saya', [UserController::class, 'show'])->name('user.profile');
 

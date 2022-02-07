@@ -15,8 +15,8 @@ class CreateDokterPoliTable extends Migration
     {
         Schema::create('dokter_poli', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('dokter_id')->unique();
-            $table->unsignedBigInteger('poli_id')->unique();
+            $table->unsignedBigInteger('dokter_id');
+            $table->unsignedBigInteger('poli_id');
 
             $table->foreign('dokter_id')->references('id')->on('dokter')
                 ->cascadeOnUpdate()
