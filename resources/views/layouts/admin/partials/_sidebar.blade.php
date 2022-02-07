@@ -79,6 +79,232 @@
                                 </li>
                             </ul>
                         </li>
+                        <!-- IGD -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">IGD</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+
+
+                        <!-- RUANGAN (RAWAT INAP) -->
+                        <!-- DAHLIA -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">DAHLIA</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        <!-- MELATI -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">MELATI</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        <!-- KENANGA -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">KENANGA</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        <!-- TULIP -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">TULIP</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        <!-- EDELWEIS -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">EDELWEIS</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        <!-- OK -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">OK</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        <!-- VK -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">VK</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        <!-- HCU/ICU -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">HCU/ICU</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        <!-- HD -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">HD</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        <!-- DAPUR -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">DAPUR</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        <!-- LAUNDRY -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">LAUNDRY</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        <!-- CSSD -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">CSSD</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+
+                        <!-- BATAS RUANGAN -->
                     <!-- REKAM MEDIS -->
                     <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
@@ -547,6 +773,255 @@
                                 </li>
                             </ul>
                         </li>
+                        @endrole
+                        
+                        @role('igd')
+                        <!-- IGD -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">IGD</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+
+                        @role('dahlia')
+                        <!-- DAHLIA -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">DAHLIA</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+                        @role('melati')
+                        <!-- MELATI -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">MELATI</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+                        @role('kenanga')
+                        <!-- KENANGA -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">KENANGA</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+                        @role('tulip')
+                        <!-- TULIP -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">TULIP</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+                        @role('edelweis')
+                        <!-- EDELWEIS -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">EDELWEIS</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+                        @role('ok')
+                        <!-- OK -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">OK</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+                        @role('vk')
+                        <!-- VK -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">VK</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+                        @role('icu')
+                        <!-- HCU/ICU -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">HCU/ICU</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+                        @role('hd')
+                        <!-- HD -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">HD</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+                        @role('dapur')
+                        <!-- DAPUR -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">DAPUR</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+                        @role('laundry')
+                        <!-- LAUNDRY -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">LAUNDRY</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
+                        @endrole
+                        @role('CSSD')
+                        <!-- CSSD -->
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-article"></em></em></span>
+                                <span class="nk-menu-text">CSSD</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Rekam Medis</span></a>
+                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Retensi</span></a>
+                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                </li>
+                            </ul><!-- .nk-menu-sub -->
+                        </li><!-- .nk-menu-item --> 
                         @endrole
                     </ul>
                 </div>

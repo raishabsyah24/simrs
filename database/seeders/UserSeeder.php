@@ -364,5 +364,304 @@ class UserSeeder extends Seeder
             $role = Role::find(11);
             $role->givePermissionTo([$permission]);
         }
+
+        /**IGD */
+        $igds = [
+            ['igd', 'igd', 'igd@mail.com'],
+        ];
+
+        foreach ($igds as $igd) {
+            $igd = User::create([
+                'name' => $igd[0],
+                'username' => $igd[1],
+                'email' => $igd[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $igd->id
+            ]);
+            $role = 'igd';
+            $permission = 'full_permission';
+            $igd->assignRole([$role]);
+            $igd->givePermissionTo([$permission]);
+            $role = Role::find(12);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**DAHLIA */
+        $dahlias = [
+            ['dahlia', 'dahlia', 'dahlia@mail.com'],
+        ];
+
+        foreach ($dahlias as $dahlia) {
+            $dahlia = User::create([
+                'name' => $dahlia[0],
+                'username' => $dahlia[1],
+                'email' => $dahlia[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $dahlia->id
+            ]);
+            $role = 'dahlia';
+            $permission = 'full_permission';
+            $dahlia->assignRole([$role]);
+            $dahlia->givePermissionTo([$permission]);
+            $role = Role::find(13);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**MELATI */
+        $melatis = [
+            ['melati', 'melati', 'melati@mail.com'],
+        ];
+
+        foreach ($melatis as $melati) {
+            $melati = User::create([
+                'name' => $melati[0],
+                'username' => $melati[1],
+                'email' => $melati[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $melati->id
+            ]);
+            $role = 'melati';
+            $permission = 'full_permission';
+            $melati->assignRole([$role]);
+            $melati->givePermissionTo([$permission]);
+            $role = Role::find(14);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**KENANGA */
+        $kenangas = [
+            ['kenanga', 'kenanga', 'kenanga@mail.com'],
+        ];
+
+        foreach ($kenangas as $kenanga) {
+            $kenanga = User::create([
+                'name' => $kenanga[0],
+                'username' => $kenanga[1],
+                'email' => $kenanga[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $kenanga->id
+            ]);
+            $role = 'kenanga';
+            $permission = 'full_permission';
+            $kenanga->assignRole([$role]);
+            $kenanga->givePermissionTo([$permission]);
+            $role = Role::find(15);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**TULIP */
+        $tulips = [
+            ['tulip', 'tulip', 'tulip@mail.com'],
+        ];
+
+        foreach ($tulips as $tulip) {
+            $tulip = User::create([
+                'name' => $tulip[0],
+                'username' => $tulip[1],
+                'email' => $tulip[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $tulip->id
+            ]);
+            $role = 'tulip';
+            $permission = 'full_permission';
+            $tulip->assignRole([$role]);
+            $tulip->givePermissionTo([$permission]);
+            $role = Role::find(16);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**EDELWEIS */
+        $edelweiss = [
+            ['edelweis', 'edelweis', 'edelweis@mail.com'],
+        ];
+
+        foreach ($edelweiss as $edelweis) {
+            $edelweis = User::create([
+                'name' => $edelweis[0],
+                'username' => $edelweis[1],
+                'email' => $edelweis[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $edelweis->id
+            ]);
+            $role = 'edelweis';
+            $permission = 'full_permission';
+            $edelweis->assignRole([$role]);
+            $edelweis->givePermissionTo([$permission]);
+            $role = Role::find(17);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**OK */
+        $oks = [
+            ['ok', 'ok', 'ok@mail.com'],
+        ];
+
+        foreach ($oks as $ok) {
+            $ok = User::create([
+                'name' => $ok[0],
+                'username' => $ok[1],
+                'email' => $ok[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $ok->id
+            ]);
+            $role = 'ok';
+            $permission = 'full_permission';
+            $ok->assignRole([$role]);
+            $ok->givePermissionTo([$permission]);
+            $role = Role::find(18);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**VK */
+        $vks = [
+            ['vk', 'vk', 'vk@mail.com'],
+        ];
+
+        foreach ($vks as $vk) {
+            $vk = User::create([
+                'name' => $vk[0],
+                'username' => $vk[1],
+                'email' => $vk[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $vk->id
+            ]);
+            $role = 'vk';
+            $permission = 'full_permission';
+            $vk->assignRole([$role]);
+            $vk->givePermissionTo([$permission]);
+            $role = Role::find(19);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**ICU/HCU */
+        $icus = [
+            ['icu', 'icu', 'icu@mail.com'],
+        ];
+
+        foreach ($icus as $icu) {
+            $icu = User::create([
+                'name' => $icu[0],
+                'username' => $icu[1],
+                'email' => $icu[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $icu->id
+            ]);
+            $role = 'icu';
+            $permission = 'full_permission';
+            $icu->assignRole([$role]);
+            $icu->givePermissionTo([$permission]);
+            $role = Role::find(20);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**HD */
+        $hds = [
+            ['hd', 'hd', 'hd@mail.com'],
+        ];
+
+        foreach ($hds as $hd) {
+            $hd = User::create([
+                'name' => $hd[0],
+                'username' => $hd[1],
+                'email' => $hd[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $hd->id
+            ]);
+            $role = 'hd';
+            $permission = 'full_permission';
+            $hd->assignRole([$role]);
+            $hd->givePermissionTo([$permission]);
+            $role = Role::find(21);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**DAPUR */
+        $dapurs = [
+            ['dapur', 'dapur', 'dapur@mail.com'],
+        ];
+
+        foreach ($dapurs as $dapur) {
+            $dapur = User::create([
+                'name' => $dapur[0],
+                'username' => $dapur[1],
+                'email' => $dapur[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $dapur->id
+            ]);
+            $role = 'melati';
+            $permission = 'full_permission';
+            $dapur->assignRole([$role]);
+            $dapur->givePermissionTo([$permission]);
+            $role = Role::find(22);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**LAUNDRY */
+        $laundrys = [
+            ['laundry', 'laundry', 'laundry@mail.com'],
+        ];
+
+        foreach ($laundrys as $laundry) {
+            $laundry = User::create([
+                'name' => $laundry[0],
+                'username' => $laundry[1],
+                'email' => $laundry[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $laundry->id
+            ]);
+            $role = 'melati';
+            $permission = 'full_permission';
+            $laundry->assignRole([$role]);
+            $laundry->givePermissionTo([$permission]);
+            $role = Role::find(23);
+            $role->givePermissionTo([$permission]);
+        }
+
+        /**CSSD */
+        $cssds = [
+            ['cssd', 'cssd', 'cssd@mail.com'],
+        ];
+
+        foreach ($cssds as $cssd) {
+            $cssd = User::create([
+                'name' => $cssd[0],
+                'username' => $cssd[1],
+                'email' => $cssd[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $cssd->id
+            ]);
+            $role = 'cssd';
+            $permission = 'full_permission';
+            $cssd->assignRole([$role]);
+            $cssd->givePermissionTo([$permission]);
+            $role = Role::find(24);
+            $role->givePermissionTo([$permission]);
+        }
     }
 }

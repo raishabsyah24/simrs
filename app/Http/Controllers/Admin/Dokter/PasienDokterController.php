@@ -50,7 +50,9 @@ class PasienDokterController extends Controller
         $title = 'Daftar Pasien';
         return view('admin.dokter.pasien.index', compact(
             'title',
-            'data'
+            'data',
+            'dokter_id',
+            'dokter'
         ));
     }
 
