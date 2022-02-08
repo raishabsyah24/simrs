@@ -195,7 +195,7 @@
                                                         <select class="form-select select2" style="position:absolute;"
                                                             name="tujuan">
                                                             <option label="Pilih data" disabled selected value=""></option>
-                                                            <option value="periksa">Periksa</option>
+                                                            <option value="periksa">Periksa Dokter / Konsultasi</option>
                                                             <option value="lab">Lab</option>
                                                             <option value="radiologi">Radiologi</option>
                                                         </select>

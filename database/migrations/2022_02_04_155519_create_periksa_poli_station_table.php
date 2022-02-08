@@ -20,9 +20,11 @@ class CreatePeriksaPoliStationTable extends Migration
             $table->date('tanggal');
             $table->string('tb')->nullable();
             $table->string('bb')->nullable();
+            $table->string('td')->nullable();
+            $table->string('su')->nullable();
+            $table->string('bmi')->nullable();
             $table->string('status_diperiksa')->default('belum diperiksa');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('pemeriksaan_detail_id')->references('id')->on('pemeriksaan_detail')
                 ->cascadeOnUpdate()

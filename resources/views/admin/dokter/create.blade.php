@@ -295,6 +295,7 @@
                                                         <option value="kamis">Kamis</option>
                                                         <option value="jum'at">Jum'at</option>
                                                         <option value="sabtu">Sabtu</option>
+                                                        <option value="minggu">Minggu</option>
                                                     </select>
                                                 </div>
                                                 <div class="row mt-3 d-flex">
@@ -341,6 +342,7 @@
                                                             <option value="kamis">Kamis</option>
                                                             <option value="jum'at">Jum'at</option>
                                                             <option value="sabtu">Sabtu</option>
+                                                            <option value="minggu">Minggu</option>
                                                         </select>
                                                     </div>
                                                     <div class="row mt-3 d-flex">

@@ -14,8 +14,7 @@ class UserRepository implements UserInterface
             u.id, u.name, u.username, u.email, u.status, r.name as role, u.created_at
         ')
             ->join('model_has_roles as mhs', 'mhs.model_id', '=', 'u.id')
-            ->join('roles as r', 'r.id', '=', 'mhs.role_id')
-            ->whereNull('u.deleted_at');
+            ->join('roles as r', 'r.id', '=', 'mhs.role_id');
     }
 
     public function detailUser(int $user_id)

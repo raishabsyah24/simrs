@@ -25,4 +25,6 @@ interface DokterInterface
     public function searchTindakan(string $nama_tindakan, int $periksa_dokter_id = null);
 
     public function tindakanPasien(int $periksa_dokter_id);
+
+    public function periksaPoliStation($periksa_poli_station_id);
 }

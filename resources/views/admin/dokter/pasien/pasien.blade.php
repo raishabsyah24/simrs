@@ -99,6 +99,41 @@
                                                 </div>
                                                 {{-- End Informasi pasien --}}
 
+                                                {{-- Hasil periksa poli station --}}
+                                                @if ($periksa_poli_station->bb)
+                                                    <div class="nk-divider divider md"></div>
+                                                    <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                        <h5 class="title">Hasil Periksa Poli Station</h5>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-12">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Tinggi Badan</th>
+                                                                            <th>Berat Badan</th>
+                                                                            <th>Tekanan Darah</th>
+                                                                            <th>Suhu</th>
+                                                                            <th>BMI</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>{{ $periksa_poli_station->tb }}</td>
+                                                                            <td>{{ $periksa_poli_station->bb }}</td>
+                                                                            <td>{{ $periksa_poli_station->td }}</td>
+                                                                            <td>{{ $periksa_poli_station->su }}</td>
+                                                                            <td>{{ $periksa_poli_station->bmi }}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                {{-- Hasil periksa poli station --}}
+
                                                 {{-- Form Pemeriksaan --}}
                                                 <div class="nk-divider divider md"></div>
                                                 <div class="nk-block-head nk-block-head-sm nk-block-between">

@@ -150,4 +150,15 @@ class DokterRepository implements DokterInterface
             ->where('tpr.periksa_dokter_id', $periksa_dokter_id)
             ->get();
     }
+
+    public function periksaPoliStation($periksa_poli_station_id)
+    {
+        return DB::table('periksa_poli_station as pps')
+            ->selectRaw('
+            pps.tb, pps.bb, pps.td, pps.su, pps.bmi
+        ')
+            ->join('periksa_dokter as pd', 'pd.periksa_poli_station_id', '=', 'pps.id')
+            ->where('pps.id', $periksa_poli_station_id)
+            ->first();
+    }
 }

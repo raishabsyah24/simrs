@@ -31,7 +31,7 @@
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
-                                    <em class="icon ni ni-view-list-fill"></em>
+                                    <i class="fas fa-concierge-bell fa-lg"></i>
                                 </span>
                                 <span class="nk-menu-text">Pendaftaran</span>
                             </a>
@@ -61,6 +61,18 @@
                                     <em class="icon ni ni-list-index"></em>
                                 </span>
                                 <span class="nk-menu-text">Pasien Rawat Jalan</span>
+                            </a>
+                        </li>
+                    @endrole
+
+                    <!-- Poli Station -->
+                    @role('poli_station|super_admin')
+                        <li class="nk-menu-item {{ activeClass('poli-station.index') }}">
+                            <a href="{{ route('poli-station.index') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon">
+                                    <i class="fas fa-first-aid fa-lg"></i>
+                                </span>
+                                <span class="nk-menu-text">Poli Station</span>
                             </a>
                         </li>
                     @endrole

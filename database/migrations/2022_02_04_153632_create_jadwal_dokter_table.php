@@ -17,8 +17,8 @@ class CreateJadwalDokterTable extends Migration
             $table->id();
             $table->unsignedBigInteger('dokter_id');
             $table->string('hari');
-            $table->time('jam_mulai');
-            $table->time('jam_selesai');
+            $table->time('jam_mulai')->nullable();
+            $table->time('jam_selesai')->nullable();
             $table->timestamps();
         });
     }

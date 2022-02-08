@@ -191,6 +191,45 @@ class DokterController extends Controller
         ], 200);
     }
 
+    public function gantiJadwal(Dokter $dokter)
+    {
+        $title = 'Ganti Jadwal Praktek Dokter';
+
+        return view('admin.dokter.ganti_jadwal_praktek', compact(
+            'title',
+            'dokter',
+        ));
+    }
+
+    public function updateJadwal(Dokter $dokter, Request $request)
+    {
+        $attr = $request->all();
+        $jadwal_dokter = DB::table('jadwal_dokter')
+            ->where('dokter_id', $dokter->id)
+            ->delete();
+
+        // Insert ke table jadwal prkatek
+        for ($i = 0; $i < count($attr['hari']); $i++) {
+            $jadwal_terbaru = JadwalDokter::create([
+                'dokter_id' => $dokter->id,
+                'hari' => $attr['hari'][$i],
+                'jam_mulai' => $attr['jam_mulai'][$i],
+                'jam_selesai' => $attr['jam_selesai'][$i],
+            ]);
+        }
+
+        $jadwal = DB::table('jadwal_dokter')
+            ->where('dokter_id', $dokter->id)
+            ->whereNull('jam_mulai')
+            ->whereNull('jam_selesai')
+            ->delete();
+
+        return response()->json([
+            'message' => 'Jadwal dokter berhasil diubah',
+            'url' => route('dokter.index')
+        ], 200);
+    }
+
     public function delete(Dokter $dokter)
     {
         DB::transaction(function () use ($dokter) {

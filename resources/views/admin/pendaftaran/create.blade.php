@@ -128,7 +128,7 @@
                                                             <option label="Pilih data" disabled selected value=""></option>
                                                             <option value="islam">Islam</option>
                                                             <option value="protestan">Protestan</option>
-                                                            <option value="katolik">Kaltolik</option>
+                                                            <option value="katolik">Katolik</option>
                                                             <option value="hindu">Hindu</option>
                                                             <option value="budha">Budha</option>
                                                             <option value="khonghucu">Khonghucu</option>
@@ -331,8 +331,8 @@
                                                         <select class="form-select select2" style="position:absolute;"
                                                             name="tujuan">
                                                             <option label="Pilih data" disabled selected value=""></option>
-                                                            <option value="periksa">Periksa</option>
-                                                            <option value="lab">Lab</option>
+                                                            <option value="periksa">Periksa Dokter / Konsultasi</option>
+                                                            <option value="lab">Laboratorium</option>
                                                             <option value="radiologi">Radiologi</option>
                                                         </select>
                                                     </div>

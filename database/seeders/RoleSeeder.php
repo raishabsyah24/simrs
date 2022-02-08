@@ -34,7 +34,7 @@ class RoleSeeder extends Seeder
             'dokter',
             'direktur',
             'pendaftaran',
-            'poli',
+            'poli_station',
             'radiologi',
             'lab',
             'kasir',

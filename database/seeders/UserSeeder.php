@@ -131,7 +131,7 @@ class UserSeeder extends Seeder
             Profile::create([
                 'user_id' => $poli->id
             ]);
-            $role = 'poli';
+            $role = 'poli_station';
             $permission = 'full_permission';
             $poli->assignRole([$role]);
             $poli->givePermissionTo([$permission]);

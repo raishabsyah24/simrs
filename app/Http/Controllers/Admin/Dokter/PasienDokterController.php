@@ -80,13 +80,15 @@ class PasienDokterController extends Controller
         $pasien_id = $periksa_dokter->pasien_id;
         $rekam_medis = $this->dokterRepository->rekamMedisPasienPeriksa($periksa_dokter_id);
         $pasien = $this->dokterRepository->identitasPasien($pasien_id);
+        $periksa_poli_station = $this->dokterRepository->periksaPoliStation($periksa_dokter->periksa_poli_station_id);
 
         return view('admin.dokter.pasien.pasien', compact(
             'title',
             'rekam_medis',
             'pasien',
             'periksa_dokter_id',
-            'periksa_dokter'
+            'periksa_dokter',
+            'periksa_poli_station'
         ));
     }
 
@@ -331,7 +333,7 @@ class PasienDokterController extends Controller
     // Simpan pemeriksaan pasien
     public function storePasien(PeriksaDokter $periksaDokter, PeriksaPasienRajalRequest $request)
     {
-        $attr = $request->except(['obat', 'satuan', 'signa', 'jumlah']);
+        $attr = $request->except(['obat', 'satuan', 'signa', 'jumlah', 'tindakan', 'diagnosa']);
         $attr['status_diperiksa'] = 'sudah diperiksa';
 
         DB::transaction(
@@ -372,7 +374,7 @@ class PasienDokterController extends Controller
                     'subjektif' => $attr['subjektif'],
                     'objektif' => $attr['objektif'],
                     'assesment' => $attr['assesment'],
-                    'plan' => $attr['plan'],
+                    'plan' => $attr['plan'] ?? '',
                     'keluhan' => $attr['keluhan'],
                     'tanggal' => now()
                 ]);

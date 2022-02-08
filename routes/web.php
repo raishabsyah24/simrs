@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\{
     UserController,
     LabController,
     KasirController,
+    PoliStationController,
     RadiologiController
 };
 use App\Http\Controllers\Admin\Dokter\{PasienDokterController, DokterController};
@@ -25,7 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('dashboard.index');
 });
 // Role super admin
-Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pendaftaran']], function () {
+Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|pendaftaran']], function () {
 
     // Layanan
     Route::post('/layanan/data', [LayananController::class, 'data'])
@@ -43,6 +44,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::get('/dokter/create', [DokterController::class, 'create'])->name('dokter.create');
     Route::get('/dokter/{dokter}/edit', [DokterController::class, 'edit'])->name('dokter.edit');
     Route::get('/dokter/{dokter}/ganti-jadwal-praktek', [DokterController::class, 'gantiJadwal'])->name('dokter.ganti-jadwal-praktek');
+    Route::put('/dokter/{dokter}/ganti-jadwal-praktek', [DokterController::class, 'updateJadwal'])->name('dokter.update-jadwal-praktek');
     Route::post('/dokter', [DokterController::class, 'store'])->name('dokter.store');
     Route::put('/dokter/{dokter}', [DokterController::class, 'update'])->name('dokter.update');
     Route::delete('/dokter/{dokter}/delete', [DokterController::class, 'delete'])->name('dokter.delete');
@@ -161,9 +163,17 @@ Route::group(['middleware' => ['auth', 'role:apotek']], function () {
     Route::get('/antrian-apotek/bpjs', [AntrianApotekController::class, 'index'])->name('data.antrian');
 });
 
-// // Role poli
-// Route::group(['middleware' => ['auth', 'role:poli']], function () {
-// });
+// Role poli
+Route::group(['middleware' => ['auth', 'role:poli_station|super_admin']], function () {
+    Route::get('/poli-station', [PoliStationController::class, 'index'])
+        ->name('poli-station.index');
+    Route::get('/poli-station/fetch-data', [PoliStationController::class, 'fetchData'])
+        ->name('poli-station.fetchData');
+    Route::get('/poli-station/{periksaPoliStation}/detail', [PoliStationController::class, 'show'])
+        ->name('poli-station.detail-pasien');
+    Route::put('/poli-station/{periksaPoliStation}/update', [PoliStationController::class, 'update'])
+        ->name('poli-station.update');
+});
 
 Route::group(['middleware' => ['auth', 'role:apotek']], function () {
 
@@ -203,7 +213,6 @@ Route::group(['middleware' => ['auth', 'role: lab|super_admin']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'role:radiologi|super_admin']], function () {
-
 
     Route::get('/otcradio', [RadiologiController::class, 'radiologi_otc'])
         ->name('order.radiologi-otc');

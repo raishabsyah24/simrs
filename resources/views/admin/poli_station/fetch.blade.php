@@ -7,8 +7,8 @@
             <div class="nk-tb-col"><span class="sub-text">Tanggal Lahir</span></div>
             <div class="nk-tb-col"><span class="sub-text">Tujuan Poli</span></div>
             <div class="nk-tb-col"><span class="sub-text">Tenaga Medis</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Waktu Daftar</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Rencana Periksa</span></div>
+            <div class="nk-tb-col"><span class="sub-text">Tanggal Periksa</span></div>
+            <div class="nk-tb-col"><span class="sub-text">Status Periksa</span></div>
             <div class="nk-tb-col"><span class="sub-text"><em class="icon ni ni-setting-fill"></em></span>
             </div>
 
@@ -35,7 +35,6 @@
                                 <span class="tb-lead">{!! $item->nama_pasien !!}
                                     <span class="dot dot-success d-md-none ml-1"></span>
                                 </span>
-                                <span>{!! $item->nik ?? '' !!}</span>
                             </div>
                         </div>
                     </a>
@@ -55,44 +54,49 @@
                     </span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span class="text-capitalize tb-lead">{!! $item->tujuan !!}</span>
+                    <span class="text-capitalize tb-lead">{!! $item->nama_poli !!}</span>
                 </div>
                 <div class="nk-tb-col">
                     <span class="tb-lead text-capitalize">{!! $item->nama_dokter !!}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span class="tb-lead">{!! tanggalJam($item->created_at) !!}</span>
+                    <span class="tb-lead">{!! tanggal($item->tanggal_periksa) !!}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span class="tb-lead">{!! tanggal($item->tanggal) !!}</span>
+                    <span
+                        class="badge badge-dim badge-{{ $item->status_diperiksa == 'sudah diperiksa' ? 'success' : 'danger' }} text-capitalize">
+                        {!! $item->status_diperiksa !!}
+                    </span>
                 </div>
-
                 <div class="nk-tb-col nk-tb-col-tools">
                     <ul class="nk-tb-actions gx-1">
-                        <li class="nk-tb-action-hidden">
-                            <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
-                                title="Print">
-                                <em class="icon ni ni-printer-fill"></em>
-                            </a>
-                        </li>
-                        <li>
-                            <div class="dropdown">
-                                <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em
-                                        class="icon ni ni-more-h"></em></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <ul class="link-list-opt no-bdr">
-                                        <li>
-                                            <a href="#"><em class="icon ni ni-edit-fill"></em><span>Ubah</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                onclick="hapusPasien(`{{ route('pendaftaran.destroy', $item->pemeriksaan_id) }}`)"><em
-                                                    class="icon ni ni-trash"></em><span>Hapus</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
+                        @if ($item->status_diperiksa == 'belum diperiksa')
+                            <li class="nk-tb-action-hidden">
+                                <a href="#"
+                                    onclick="periksa(`{{ route('poli-station.update', $item->periksa_poli_station_id) }}`, `{{ $item->nama_pasien }}`)"
+                                    class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
+                                    title="Periksa {{ $item->nama_pasien }}">
+                                    <em class="icon ni ni-arrow-right-fill-c"></em>
+                                </a>
+                            </li>
+                        @else
+                            <li class="nk-tb-action-hidden">
+                                <a href="#"
+                                    onclick="detailPasien(`{{ route('poli-station.detail-pasien', $item->periksa_poli_station_id) }}`)"
+                                    class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
+                                    title="Lihat Detail">
+                                    <em class="icon ni ni-eye"></em>
+                                </a>
+                            </li>
+                            <li class="nk-tb-action-hidden">
+                                <a href="#"
+                                    onclick="periksa(`{{ route('poli-station.update', $item->periksa_poli_station_id) }}`, `{{ $item->nama_pasien }}`)"
+                                    class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
+                                    title="Periksa {{ $item->nama_pasien }}">
+                                    <em class="icon ni ni-arrow-right-fill-c"></em>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>
