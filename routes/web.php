@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\{
     TenagaMedisController,
     AntrianController,
     RekammedisController,
+    GudangFarmasiController
 };
 use App\Http\Controllers\Admin\Dokter\{PasienDokterController, DokterController};
 
@@ -181,6 +182,14 @@ Route::group(['middleware' => ['auth', 'role:pendaftaran|super_admin']], functio
         ->name('antrian.asuransi');
     Route::get('/antrian-bpjs', [AntrianController::class, 'antrian_bpjs'])
         ->name('antrian.bpjs');
+    Route::post('/antrian-umum', [AntrianController::class, 'afo_umum'])
+        ->name('afo.umum');
+    Route::get('/panggil-lk1', [AntrianController::class, 'loket_1'])
+        ->name('panggil.loket1');
+    Route::get('/panggil-lk2', [AntrianController::class, 'loket_2'])
+        ->name('panggil.loket2');
+    Route::get('/panggil-lk3', [AntrianController::class, 'loket_3'])
+        ->name('panggil.loket3');
         
 });
 
@@ -242,6 +251,33 @@ Route::group(['middleware' => ['auth', 'role:poli|super_admin']], function () {
     Route::post('/layanan', [LayananController::class, 'store'])
         ->name('layanan.store');
 });
+
+// GUDANG
+Route::group(['middleware' => ['auth', 'role:gudangfarmasi|super_admin']], function () {
+
+   
+    Route::get('/gudang-migrasi', [GudangFarmasiController::class, 'migrasi'])
+        ->name('gudang.migrasi');
+    Route::get('/gudang-penyimpanan', [GudangFarmasiController::class, 'penyimpanan'])
+        ->name('gudang.penyimpanan');
+    Route::get('/gudang-po', [GudangFarmasiController::class, 'perencanaan_po'])
+        ->name('gudang.po');
+        Route::get('/gudang-permintaan-bhp', [GudangFarmasiController::class, 'permintaan_bhp'])
+        ->name('gudang.permintaan_bhp');
+});
+
+// Route::group(['middleware' => ['auth', 'role:atk|super_admin']], function () {
+
+   
+//     Route::get('/gudang-migrasi', [GudangFarmasiController::class, 'migrasi'])
+//         ->name('gudang.migrasi');
+//     Route::get('/gudang-permintaanbhp', [GudangFarmasiController::class, 'permintaan_bhp'])
+//         ->name('gudang.permintaanbhp');
+//     Route::get('/gudang-penyimpanan', [GudangFarmasiController::class, 'migrasi'])
+//         ->name('gudang.penyimpanan');
+//     Route::get('/gudang-po', [GudangFarmasiController::class, 'perencanaan'])
+//         ->name('gudang.po');
+// });
 
 Route::get('/pasien-list', [PasienController::class, 'data_pasien'])->name('list.pasien');
 Route::post('/pasien-store', [PasienController::class, 'store'])->name('store.pasien');

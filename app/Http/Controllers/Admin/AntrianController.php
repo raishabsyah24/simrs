@@ -20,15 +20,29 @@ use ElephantIO\Client;
 
 use ElephantIO\Engine\SocketIO\Version2X;
 
+use App\Repositories\Interfaces\AntrianInterface;
+
+use App\Repositories\AntrianRepositoriy;
+
 
 
 class AntrianController extends Controller
 
 {
+    private $AntrianRepository;
+
+    public function __construct(AntrianInterface $AntrianRepository)
+    {
+        $this->AntrianRepository = $AntrianRepository;
+    }
+
+
     public function antrian()
     {
-        $title = 'Pendaftaran';
-        return view('admin.pendaftaran.antrianindex', compact(
+        $title = 'Antrian Dashboard';
+
+       
+        return view('admin.pendaftaran.antrian.panggil_antrian', compact(
             'title'
         ));
     }
@@ -37,37 +51,48 @@ class AntrianController extends Controller
     {
 
     
-        $title = 'Pendaftaran';
+        $title = 'Antrian Loket';
 
        
         return view('admin.pendaftaran.loketantrian', compact(
-            'title'
+            'title',
         ));
     }
 
     public function panggil()
     {
-
-    
-        $title = 'Pendaftaran';
-
-       
+        $data = $this->AntrianRepository->antrian_fo_umum()
+        ->first();
+        $title = 'Antrian Panggil';
         return view('admin.pendaftaran.panggilantrian', compact(
             'title'
         ));
+    
+        
     }
 
     
 
     public function antrian_umum()
     {
+        $antrian = DB::table('antrian_fo')->insert([
+            'antrian_fo_id'=>2,
+            'tujuan'=>null,
+            'tanggal'=>now(),
+            'nomor_antrian'=>'U0001',
+            'kategori_pasien'=>'UMUM',
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
 
-    
-        $title = 'Pendaftaran';
+        $data = $this->AntrianRepository->antrian_fo_umum()
+        ->first();
 
+        $title = 'Antrian';
        
         return view('admin.pendaftaran.umum', compact(
-            'title'
+            'data',
+            'title',
         ));
     }
 
@@ -75,22 +100,77 @@ class AntrianController extends Controller
     {
 
     
-        $title = 'Pendaftaran';
+        $antrian = DB::table('antrian_fo')->insert([
+            'antrian_fo_id'=>2,
+            'tujuan'=>null,
+            'tanggal'=>now(),
+            'nomor_antrian'=>'A0001',
+            'kategori_pasien'=>'ASURANSI',
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
 
+        $data = $this->AntrianRepository->antrian_fo_umum()
+        ->first();
+
+        $title = 'Antrian';
        
         return view('admin.pendaftaran.asuransi', compact(
+            'data',
+            'title',
+        ));
+    }
+
+    public function antrian_bpjs(Request $request)
+    {
+        $antrian = DB::table('antrian_fo')->insert([
+            'antrian_fo_id'=>2,
+            'tujuan'=>null,
+            'tanggal'=>now(),
+            'nomor_antrian'=>'B0001',
+            'kategori_pasien'=>'BPJS',
+            'created_at'=>now(),
+            'updated_at'=>now()
+        ]);
+
+
+        $data = $this->AntrianRepository->antrian_fo_umum()
+        ->first();
+        $title = 'Antrian';
+       
+        return view('admin.pendaftaran.bpjs', compact(
+            'data',
+            'title',
+        ));
+    }
+
+
+    public function loket_1()
+    {
+        $title = 'Antrian Dashboard';
+
+       
+        return view('admin.pendaftaran.panggil.loket_1', compact(
             'title'
         ));
     }
 
-    public function antrian_bpjs()
+    public function loket_2()
     {
-
-    
-        $title = 'Pendaftaran';
+        $title = 'Antrian Dashboard';
 
        
-        return view('admin.pendaftaran.bpjs', compact(
+        return view('admin.pendaftaran.panggil.loket_2', compact(
+            'title'
+        ));
+    }
+
+    public function loket_3()
+    {
+        $title = 'Antrian Dashboard';
+
+       
+        return view('admin.pendaftaran.panggil.loket_3', compact(
             'title'
         ));
     }

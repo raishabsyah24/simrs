@@ -52,7 +52,9 @@ class RoleSeeder extends Seeder
             'ICU',
             'dapur',
             'laundry',
-            'CSSD'
+            'CSSD',
+            'gudangfarmasi',
+            'gudangatk'
         ];
 
         foreach ($roles as $role) {

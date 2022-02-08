@@ -663,5 +663,51 @@ class UserSeeder extends Seeder
             $role = Role::find(24);
             $role->givePermissionTo([$permission]);
         }
+
+         /**Gudang Farmasi */
+         $gudangfarmasis = [
+            ['gudangfarmasi', 'gudangfarmasi', 'gudangfarmasi@mail.com'],
+        ];
+
+        foreach ($gudangfarmasis as $gudangfarmasi) {
+            $gudangfarmasi = User::create([
+                'name' => $gudangfarmasi[0],
+                'username' => $gudangfarmasi[1],
+                'email' => $gudangfarmasi[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $gudangfarmasi->id
+            ]);
+            $role = 'cssd';
+            $permission = 'full_permission';
+            $gudangfarmasi->assignRole([$role]);
+            $gudangfarmasi->givePermissionTo([$permission]);
+            $role = Role::find(25);
+            $role->givePermissionTo([$permission]);
+        }
+
+          /**Gudang ATK */
+          $gudangatks = [
+            ['gudangatk', 'gudangatk', 'gudangatk@mail.com'],
+        ];
+
+        foreach ($gudangatks as $gudangatk) {
+            $gudangatk = User::create([
+                'name' => $gudangatk[0],
+                'username' => $gudangatk[1],
+                'email' => $gudangatk[2],
+                'password' => bcrypt('admin')
+            ]);
+            Profile::create([
+                'user_id' => $gudangatk->id
+            ]);
+            $role = 'cssd';
+            $permission = 'full_permission';
+            $gudangatk->assignRole([$role]);
+            $gudangatk->givePermissionTo([$permission]);
+            $role = Role::find(26);
+            $role->givePermissionTo([$permission]);
+        }
     }
 }

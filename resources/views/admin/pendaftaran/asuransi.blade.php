@@ -22,9 +22,9 @@
 </head>
 
 <body class="bg-white" onload="printPromot()">
-    <h1>Asuransi </h1>
-    <h1>Antrian </h1>
-    <h1>No Bla </h1>
+<h4>ANTRIAN PENDAFTARAN</h4>
+    <h1>{{$data->kategori_pasien}} </h1>
+    <h1>{{$data->nomor_antrian}} </h1>
     <script type="text/javascript">
 window.print();
 window.onfocus=function(){ window.close();}

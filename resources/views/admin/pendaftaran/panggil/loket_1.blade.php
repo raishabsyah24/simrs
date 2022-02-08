@@ -38,6 +38,7 @@
     }
 
 </style>
+
 <script>
     const audioMap = {
   '1': 'https://freesound.org/data/previews/67/67739_7037-lq.mp3',
@@ -45,22 +46,22 @@
   '3': 'https://freesound.org/data/previews/67/67752_7037-lq.mp3',
   '4': 'https://freesound.org/data/previews/67/67753_7037-lq.mp3',
   '5': 'https://freesound.org/data/previews/67/67754_7037-lq.mp3',
-  '6': 'https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=14487'
+  '6': 'https://freesound.org/s/254031/'
 }
 
-const main = new LocketAudio();
+const main = new umum()
 
 function play(num) {
 	main.playAudio(num);
 }
 
-function LocketAudio() {
+function umum() {
   this.queue = [];
 
   this.playAudio = function(num) {
     let self = this;
     self.queue.push(num);
-    document.getElementById("list_antrian").innerHTML = JSON.stringify(self.queue);
+    document.getElementById("umum").innerHTML = JSON.stringify(self.queue);
     if (self.queue.length === 1) {
       self._call();
     }
@@ -74,7 +75,7 @@ function LocketAudio() {
 				var audio = new Audio(audioMap[self.queue[0]]);
 				audio.play();
         self.queue.shift();
-        document.getElementById("list_antrian").innerHTML = JSON.stringify(self.queue);
+        document.getElementById("umum").innerHTML = JSON.stringify(self.queue);
         audio.onended = function() {
     			self._call();
 				};
@@ -82,34 +83,60 @@ function LocketAudio() {
     }
   }
 }
-</script>
 
+function asuransi() {
+  this.queue = [];
+
+  this.playAudio = function(num) {
+    let self = this;
+    self.queue.push(num);
+    document.getElementById("asuransi").innerHTML = JSON.stringify(self.queue);
+    if (self.queue.length === 1) {
+      self._call();
+    }
+  }
+
+  this._call = function() {
+    let self = this;
+    
+    if (self.queue.length) {
+      setTimeout(() => {
+				var audio = new Audio(audioMap[self.queue[0]]);
+				audio.play();
+        self.queue.shift();
+        document.getElementById("asuransi").innerHTML = JSON.stringify(self.queue);
+        audio.onended = function() {
+    			self._call();
+				};
+      }, 2000);
+    }
+  }
+}
+</script>
 
 <div class="container">
 
     <div class="row justify-content-center generate">
 
-        <a href="{{route('panggil.loket1')}}" class="col-lg-3 mt-3 btn btn-primary btn-lg">
+        <a onclick="play(1)" class="col-lg-3 mt-3 btn btn-primary btn-lg">
 
-        <h1>LOKET 1</h1>
+        <h1>UMUM</h1>
+        <p>List antrian: <span id="umum">[]</span></p>
+    </a>
 
-</a>
+<a onclick="play(2)" class="col-lg-3 mt-3 btn btn-primary btn-lg mx-5">
 
-<a href="{{route('panggil.loket1')}}" class="col-lg-3 mt-3 btn btn-primary btn-lg mx-5">
-
-        <h1>LOKET 2</h1>
-
-</a>
-
-<a href="{{route('panggil.loket1')}}" class="col-lg-3 mt-3 btn btn-primary btn-lg">
-
-        <h1>LOKET 3</h1>
+        <h1>ASURANSI</h1>
+        <p>List antrian: <span id="asuransi">[]</span></p>
 
 </a>
 
-<div>
-<p><span id="list_antrian"></span></p>
-</div>
+<a onclick="play(3)" class="col-lg-3 mt-3 btn btn-primary btn-lg">
+
+        <h1>BPJS</h1>
+        <p>List antrian: <span id="list_antrian">[]</span></p>
+
+</a>
 
     </div>
 

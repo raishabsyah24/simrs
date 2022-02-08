@@ -38,6 +38,7 @@
     }
 
 </style>
+
 <script>
     const audioMap = {
   '1': 'https://freesound.org/data/previews/67/67739_7037-lq.mp3',
@@ -45,7 +46,7 @@
   '3': 'https://freesound.org/data/previews/67/67752_7037-lq.mp3',
   '4': 'https://freesound.org/data/previews/67/67753_7037-lq.mp3',
   '5': 'https://freesound.org/data/previews/67/67754_7037-lq.mp3',
-  '6': 'https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=14487'
+  '6': 'https://freesound.org/s/254031/'
 }
 
 const main = new LocketAudio();
@@ -84,35 +85,23 @@ function LocketAudio() {
 }
 </script>
 
-
 <div class="container">
 
-    <div class="row justify-content-center generate">
+    <div class="column justify-content-center generate">
 
-        <a href="{{route('panggil.loket1')}}" class="col-lg-3 mt-3 btn btn-primary btn-lg">
-
-        <h1>LOKET 1</h1>
-
-</a>
-
-<a href="{{route('panggil.loket1')}}" class="col-lg-3 mt-3 btn btn-primary btn-lg mx-5">
-
-        <h1>LOKET 2</h1>
-
-</a>
-
-<a href="{{route('panggil.loket1')}}" class="col-lg-3 mt-3 btn btn-primary btn-lg">
-
-        <h1>LOKET 3</h1>
-
-</a>
-
+        
 <div>
-<p><span id="list_antrian"></span></p>
+<button onclick="play(1)">1</button>
+<button onclick="play(2)">2</button>
+<button onclick="play(3)">3</button>
+<button onclick="play(4)">4</button>
+<button onclick="play(5)">5</button>
+</div>
+<div>
+  <p>List antrian: <span id="list_antrian">[]</span></p>
 </div>
 
-    </div>
-
+</div>
 </div>
 
 
