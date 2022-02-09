@@ -152,3 +152,12 @@ function noUrutPasienPeriksa($tanggal, $poli_id)
     return $kode = kode('periksa_dokter', 'no_antrian_periksa', '8', $prefix);
     // return substr($kode, 4);
 }
+
+function jumlahWaktuPasien($waktu_awal, $waktu_selesai){
+    $waktu_awal = Carbon::parse($waktu_awal);
+    $waktu_selesai = Carbon::parse($waktu_selesai);
+
+    $jumlah = date_diff($waktu_awal, $waktu_selesai);
+
+    return "{$jumlah->d} hari, {$jumlah->h} jam, {$jumlah->i} menit, {$jumlah->s} detik";
+}

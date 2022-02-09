@@ -125,6 +125,7 @@ class PendaftaranController extends Controller
         ], 200);
     }
 
+
     public function store(PendaftaranPasienBaruRequest $request)
     {
         $attr = $request->all();
@@ -171,7 +172,6 @@ class PendaftaranController extends Controller
                 'posisi_pasien_rajal_id' => $posisi_pasien_rajal->id,
                 'aktifitas' => 'Pasien selesai melakukan pendaftaran',
                 'waktu' => now(),
-                'keterangan' => 'checkout',
                 'status' => 'selesai'
             ]);
 
@@ -183,7 +183,6 @@ class PendaftaranController extends Controller
                 'dokter_id' => $attr['dokter_id'],
                 'status' => 'belum selesai',
             ]);
-
             if ($attr['tujuan'] == 'periksa') {
                 $periksa_poli_station = PeriksaPoliStation::create([
                     'pemeriksaan_detail_id' => $pemeriksaan_detail->id,

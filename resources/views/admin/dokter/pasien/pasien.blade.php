@@ -1,9 +1,5 @@
 @extends('layouts.admin.master', ['title' => $title])
 
-@push('css')
-
-@endpush
-
 @section('admin-content')
     <div class="nk-content ">
         <div class="container-fluid">

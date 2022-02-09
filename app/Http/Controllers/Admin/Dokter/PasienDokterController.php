@@ -85,7 +85,6 @@ class PasienDokterController extends Controller
         $pasien = $this->dokterRepository->identitasPasien($pasien_id);
         $periksa_poli_station = $this->dokterRepository->periksaPoliStation($periksa_dokter->periksa_poli_station_id);
 
-
         // Aktifitas user
         $posisi_pasien_rajal = $this->dokterRepository->posisiPasienRajal($pasien->pemeriksaan_id);
         $posisi_pasien_rajal_status = PosisiPasienRajal::findOrFail($posisi_pasien_rajal->id);
@@ -108,7 +107,6 @@ class PasienDokterController extends Controller
                 'status' => 'proses'
             ]);
         }
-        // End aktifitas user
 
         return view('admin.dokter.pasien.pasien', compact(
             'title',
@@ -130,7 +128,7 @@ class PasienDokterController extends Controller
         $output = '<div class="dropdown-menu d-block position-relative">';
         foreach ($data as $item) {
             $output .= '
-                <a href="#" class="item dropdown-item" 
+                <a href="#" class="item dropdown-item"
                 onclick="pilihObat(`' . $item->id . '`,`' . $periksa_dokter_id . '`,`' . route('dokter.change-obat') . '`)">' . $item->nama_generik . ' ( ' . $item->nama_paten . ' )' . ' </a>
                 ';
         }
@@ -266,7 +264,7 @@ class PasienDokterController extends Controller
             </tr>
         ';
         }
-        $output .= '<tr> 
+        $output .= '<tr>
                         <td colspan="6" class="text-right"><h5>Total</h5></td>
                         <td class="text-right"><h5>Rp. </h5></td>
                         <td colspan="2" class="text-right"><h4>' . formatAngka($total) . '</h4></td>
@@ -393,12 +391,13 @@ class PasienDokterController extends Controller
                 // Cek rekam medis pasien
                 $rm = RekamMedis::where('pasien_id', $periksaDokter->pasien_id)->first();
                 $poli = Poli::find($periksaDokter->poli_id);
+                $nama_dokter = Auth::user()->dokter->nama;
 
                 // Insert rekam medis pasien
                 $rekam_medis_pasien = RekamMedisPasien::create([
                     'rekam_medis_id' => $rm->id,
                     'tujuan' => $poli->nama,
-                    'dokter' => Auth::user()->dokter->nama,
+                    'dokter' => $nama_dokter,
                     'subjektif' => $attr['subjektif'],
                     'objektif' => $attr['objektif'],
                     'assesment' => $attr['assesment'],
@@ -412,6 +411,26 @@ class PasienDokterController extends Controller
                 $nama_poli = $poli->nama;
 
                 activity('melakukan pemeriksaan pasien ' . $nama_pasien . ' di poli ' . $nama_poli);
+
+                // Update posisi pasien
+                $posisi_pasien_rajal = PosisiPasienRajal::where('pemeriksaan_id', $pemeriksaan->id)->firstOrFail();
+                if($posisi_pasien_rajal->status == 'selesai'){
+                    $posisi_pasien_rajal->update([
+                       'status' => 'proses'
+                    ]);
+
+                    $posisi_detail_pasien_rajal_last = PosisiDetailPasienRajal::where('posisi_pasien_rajal_id', $posisi_pasien_rajal->id)->latest('waktu');
+                    $posisi_detail_pasien_rajal_last->update(['status' => 'selesai']);
+
+                    $aktifitas = "Pasien selesai diperiksa di poli {$nama_poli} oleh {$nama_dokter}";
+                    $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+                        'posisi_pasien_rajal_id' => $posisi_pasien_rajal->id,
+                        'aktifitas' => $aktifitas,
+                        'waktu' => now(),
+                        'keterangan' => 'checkout',
+                        'status' => 'selesai'
+                    ]);
+                }
             }
         );
         return response()->json([
@@ -461,7 +480,7 @@ class PasienDokterController extends Controller
         $output = '<div class="dropdown-menu d-block position-relative">';
         foreach ($data as $item) {
             $output .= '
-                <a href="#" class="item dropdown-item" 
+                <a href="#" class="item dropdown-item"
                 onclick="pilihDiagnosa(`' . $item->id . '`,`' . $periksa_dokter_id . '`,`' . route('dokter.change-diagnosa') . '`)">' . $item->nama . ' </a>
                 ';
         }
@@ -535,7 +554,7 @@ class PasienDokterController extends Controller
         $output = '<div class="dropdown-menu d-block position-relative">';
         foreach ($data as $item) {
             $output .= '
-                <a href="#" class="item dropdown-item" 
+                <a href="#" class="item dropdown-item"
                 onclick="pilihTindakan(`' . $item->id . '`,`' . $periksa_dokter_id . '`,`' . route('dokter.change-tindakan') . '`)">' . $item->nama . ' </a>
                 ';
         }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\PosisiDetailPasienRajal;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\PosisiPasienInterface;
@@ -19,6 +21,7 @@ class PosisiPasienController extends Controller
     {
         $title = 'Posisi Pasien';
         $data = $this->posisiPasienRepository->pasienRajal($pemeriksaan_id);
+
         return view('admin.posisi_pasien.rajal', compact(
             'title',
             'data'

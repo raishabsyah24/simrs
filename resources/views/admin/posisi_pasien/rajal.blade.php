@@ -1,11 +1,6 @@
 @extends('layouts.admin.master', ['title' => $title])
-
-@push('css')
-
-@endpush
-
 @section('admin-content')
-    <div class="nk-content ">
+    <div class="nk-content">
         <div class="container-fluid">
             <div class="nk-content-inner">
                 <div class="nk-content-body">
@@ -26,7 +21,7 @@
                                             <div class="card-inner border-bottom">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title">Notifications</h6>
+                                                        <h6 class="title">Jumlah Waktu Yang Dikeluarkan Pasien <br>{{ jumlahWaktuPasien($data->first()->waktu, $data->last()->waktu) }}</h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -92,6 +87,3 @@
         </div>
     </div>
 @endsection
-
-@push('js')
-@endpush

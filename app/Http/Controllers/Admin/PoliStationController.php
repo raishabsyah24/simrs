@@ -82,30 +82,33 @@ class PoliStationController extends Controller
     {
         DB::transaction(function () use ($request, $periksaPoliStation) {
 
-            $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
-                'posisi_pasien_rajal_id' => $this->posisiPasienRajal($periksaPoliStation->id),
-                'aktifitas' => 'Pasien diperiksa di poli station',
-                'waktu' => Carbon::now()->subMinutes(5),
-                'keterangan' => 'checkin',
-                'status' => 'selesai'
-            ]);
-
             $attr = $request->all();
             $attr['status_diperiksa'] = 'sudah diperiksa';
             $periksaPoliStation->update($attr);
 
             // Update posisi pasien
             $posisi_pasien_rajal = PosisiPasienRajal::findOrFail($this->posisiPasienRajal($periksaPoliStation->id));
-            $posisi_pasien_rajal->update([
-                'status' => 'proses'
-            ]);
-            $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
-                'posisi_pasien_rajal_id' => $this->posisiPasienRajal($periksaPoliStation->id),
-                'aktifitas' => 'Pasien selesai diperiksa di poli station',
-                'waktu' => Carbon::now(),
-                'keterangan' => 'checkout',
-                'status' => 'selesai'
-            ]);
+            if ($posisi_pasien_rajal->status == 'selesai'){
+                $posisi_pasien_rajal->update([
+                    'status' => 'proses'
+                ]);
+
+                $posisi_detail_pasien_rajal_checkin = PosisiDetailPasienRajal::create([
+                    'posisi_pasien_rajal_id' => $this->posisiPasienRajal($periksaPoliStation->id),
+                    'aktifitas' => 'Pasien diperiksa di poli station',
+                    'waktu' => Carbon::now()->subMinutes(5),
+                    'keterangan' => 'checkin',
+                    'status' => 'selesai'
+                ]);
+
+                $posisi_detail_pasien_rajal_checkout = PosisiDetailPasienRajal::create([
+                    'posisi_pasien_rajal_id' => $this->posisiPasienRajal($periksaPoliStation->id),
+                    'aktifitas' => 'Pasien selesai diperiksa di poli station',
+                    'waktu' => Carbon::now(),
+                    'keterangan' => 'checkout',
+                    'status' => 'selesai'
+                ]);
+            }
         });
 
         return response()->json([
