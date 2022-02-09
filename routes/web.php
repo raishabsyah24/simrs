@@ -11,16 +11,19 @@ use App\Http\Controllers\Admin\{
     LabController,
     KasirController,
     PoliStationController,
-    RadiologiController
+    RadiologiController,
+    PosisiPasienController
 };
 use App\Http\Controllers\Admin\Dokter\{PasienDokterController, DokterController};
+use App\Http\Controllers\Auth\UserDetailController;
+
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/profil-saya', [UserController::class, 'show'])->name('user.profile');
+    Route::get('/profil-saya', [UserDetailController::class, 'show'])->name('user.profile');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard.index');
@@ -99,6 +102,11 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|pendaftar
         ->name('user.update');
     Route::delete('/user/{user}/delete', [UserController::class, 'delete'])
         ->name('user.delete');
+
+
+    // Posisi pasien
+    Route::get('/pendaftaran/{id}/posisi-pasien', [PosisiPasienController::class, 'rajal'])
+        ->name('posisi-pasien.rajal');
 });
 
 // Role dokter

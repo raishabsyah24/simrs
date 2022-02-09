@@ -223,6 +223,7 @@
                     }
                 })
                 .done(response => {
+                    $('.modal-periksa').modal('hide');
                     $(originalForm).find('.tombol-simpan').attr('disabled', true);
                     alertSuccess(response.message);
                     pindahHalaman(response.url, 1500);
@@ -245,7 +246,7 @@
                 .done(response => {
                     let data = response.data;
                     $('.modal-detail .nama').text(data.nama);
-                    $('.modal-detail .tanggal-lahir').text(data.tanggal_lahir);
+                    $('.modal-detail .tanggal-lahir').text(response.usia);
                     $('.modal-detail .tb').text(data.tb);
                     $('.modal-detail .bb').text(data.bb);
                     $('.modal-detail .td').text(data.td);

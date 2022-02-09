@@ -26,9 +26,10 @@ class PoliStationRepository implements PoliStationInterface
     {
         return DB::table('periksa_poli_station as pps')
             ->selectRaw('
-            p.nama, pps.tb, pps.bb, pps.su, pps.bmi, p.tanggal_lahir, pps.td
+            p.nama, pps.tb, pps.bb, pps.su, pps.bmi, p.tanggal_lahir, pps.td, pd.pemeriksaan_id
         ')
             ->join('pasien as p', 'p.id', '=', 'pps.pasien_id')
+            ->join('pemeriksaan_detail as pd', 'pd.id', '=', 'pps.pemeriksaan_detail_id')
             ->where('pps.id', $periksa_poli_station_id)
             ->first();
     }

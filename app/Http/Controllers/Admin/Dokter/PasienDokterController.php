@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\{
     Diagnosa,
     DiagnosaPasienRajal,
+    Dokter,
     Poli,
     Layanan,
     ObatApotek,
@@ -16,6 +17,8 @@ use App\Models\{
     Pasien,
     RekamMedisPasien,
     PemeriksaanDetail,
+    PosisiDetailPasienRajal,
+    PosisiPasienRajal,
     TindakanPasienRajal
 };
 use Illuminate\Support\Facades\DB;
@@ -81,6 +84,31 @@ class PasienDokterController extends Controller
         $rekam_medis = $this->dokterRepository->rekamMedisPasienPeriksa($periksa_dokter_id);
         $pasien = $this->dokterRepository->identitasPasien($pasien_id);
         $periksa_poli_station = $this->dokterRepository->periksaPoliStation($periksa_dokter->periksa_poli_station_id);
+
+
+        // Aktifitas user
+        $posisi_pasien_rajal = $this->dokterRepository->posisiPasienRajal($pasien->pemeriksaan_id);
+        $posisi_pasien_rajal_status = PosisiPasienRajal::findOrFail($posisi_pasien_rajal->id);
+        if ($posisi_pasien_rajal_status->status == 'proses') {
+            $posisi_pasien_rajal_status->update([
+                'status' => 'selesai'
+            ]);
+            $user_id = Auth::id();
+            $dokter = Dokter::where('user_id', $user_id)->firstOrFail();
+
+            $poli = Poli::findOrFail($periksa_dokter->poli_id);
+
+            $aktifitas = "Pasien diperiksa di poli {$poli->nama} oleh {$dokter->nama}";
+
+            $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+                'posisi_pasien_rajal_id' => $posisi_pasien_rajal->id,
+                'aktifitas' => $aktifitas,
+                'waktu' => now(),
+                'keterangan' => 'checkin',
+                'status' => 'proses'
+            ]);
+        }
+        // End aktifitas user
 
         return view('admin.dokter.pasien.pasien', compact(
             'title',

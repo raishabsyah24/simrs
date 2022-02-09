@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class UserDetailController extends Controller
 {
     public function show()
     {
-        $title = 'Profile user';
+        $title = 'Profile saya';
         $user = Auth::user();
         return view('user.show', compact(
             'title',

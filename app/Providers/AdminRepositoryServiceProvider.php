@@ -10,7 +10,8 @@ use App\Repositories\{
     DokterRepository,
     DashboardRepository,
     UserRepository,
-    PoliStationRepository
+    PoliStationRepository,
+    PosisiPasienRepository
 };
 use App\Repositories\Interfaces\{
     PasienInterface,
@@ -19,7 +20,8 @@ use App\Repositories\Interfaces\{
     DokterInterface,
     DashboardInterface,
     UserInterface,
-    PoliStationInterface
+    PoliStationInterface,
+    PosisiPasienInterface
 };
 
 class AdminRepositoryServiceProvider extends ServiceProvider
@@ -58,6 +60,10 @@ class AdminRepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             PoliStationInterface::class,
             PoliStationRepository::class
+        );
+        $this->app->bind(
+            PosisiPasienInterface::class,
+            PosisiPasienRepository::class
         );
     }
 

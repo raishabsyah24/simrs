@@ -27,4 +27,6 @@ interface DokterInterface
     public function tindakanPasien(int $periksa_dokter_id);
 
     public function periksaPoliStation($periksa_poli_station_id);
+
+    public function posisiPasienRajal(int $pemeriksaan_id);
 }

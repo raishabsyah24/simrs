@@ -88,14 +88,6 @@
                                     <em class="icon ni ni-eye"></em>
                                 </a>
                             </li>
-                            <li class="nk-tb-action-hidden">
-                                <a href="#"
-                                    onclick="periksa(`{{ route('poli-station.update', $item->periksa_poli_station_id) }}`, `{{ $item->nama_pasien }}`)"
-                                    class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
-                                    title="Periksa {{ $item->nama_pasien }}">
-                                    <em class="icon ni ni-arrow-right-fill-c"></em>
-                                </a>
-                            </li>
                         @endif
                     </ul>
                 </div>

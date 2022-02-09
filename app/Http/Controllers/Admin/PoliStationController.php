@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\PosisiPasienRajal;
 use App\Models\PeriksaPoliStation;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\PosisiDetailPasienRajal;
 use App\Repositories\Interfaces\PoliStationInterface;
 use App\Http\Requests\Admin\PeriksaPoliStationRequest;
 
@@ -76,9 +80,33 @@ class PoliStationController extends Controller
 
     public function update(PeriksaPoliStation $periksaPoliStation, PeriksaPoliStationRequest $request)
     {
-        $attr = $request->all();
-        $attr['status_diperiksa'] = 'sudah diperiksa';
-        $periksaPoliStation->update($attr);
+        DB::transaction(function () use ($request, $periksaPoliStation) {
+
+            $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+                'posisi_pasien_rajal_id' => $this->posisiPasienRajal($periksaPoliStation->id),
+                'aktifitas' => 'Pasien diperiksa di poli station',
+                'waktu' => Carbon::now()->subMinutes(5),
+                'keterangan' => 'checkin',
+                'status' => 'selesai'
+            ]);
+
+            $attr = $request->all();
+            $attr['status_diperiksa'] = 'sudah diperiksa';
+            $periksaPoliStation->update($attr);
+
+            // Update posisi pasien
+            $posisi_pasien_rajal = PosisiPasienRajal::findOrFail($this->posisiPasienRajal($periksaPoliStation->id));
+            $posisi_pasien_rajal->update([
+                'status' => 'proses'
+            ]);
+            $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+                'posisi_pasien_rajal_id' => $this->posisiPasienRajal($periksaPoliStation->id),
+                'aktifitas' => 'Pasien selesai diperiksa di poli station',
+                'waktu' => Carbon::now(),
+                'keterangan' => 'checkout',
+                'status' => 'selesai'
+            ]);
+        });
 
         return response()->json([
             'message' => 'Pasien berhasil diperiksa',
@@ -89,8 +117,17 @@ class PoliStationController extends Controller
     public function show(PeriksaPoliStation $periksaPoliStation)
     {
         $data = $this->poliStationRepository->detailPasien($periksaPoliStation->id);
+
         return response()->json([
             'data' => $data,
+            'usia' => usia($data->tanggal_lahir)
         ], 200);
+    }
+
+    public function posisiPasienRajal($periksa_poli_station_id)
+    {
+        $data = $this->poliStationRepository->detailPasien($periksa_poli_station_id);
+        $posisi_pasien_rajal = PosisiPasienRajal::where('pemeriksaan_id', $data->pemeriksaan_id)->first();
+        return $posisi_pasien_rajal->id;
     }
 }

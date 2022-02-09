@@ -26,9 +26,6 @@ class PeriksaPoliStationRequest extends FormRequest
         return [
             'tb' => 'required',
             'bb' => 'required',
-            'td' => 'required',
-            'su' => 'required',
-            'bmi' => 'required',
         ];
     }
 }

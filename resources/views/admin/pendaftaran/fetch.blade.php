@@ -82,6 +82,12 @@
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <ul class="link-list-opt no-bdr">
                                         <li>
+                                            <a href="{{ route('posisi-pasien.rajal', $item->pemeriksaan_id) }}">
+                                                <em class="icon ni ni-location"></em>
+                                                <span>Lihat Posisi Pasien</span>
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a href="#"><em class="icon ni ni-edit-fill"></em><span>Ubah</span></a>
                                         </li>
                                         <li>

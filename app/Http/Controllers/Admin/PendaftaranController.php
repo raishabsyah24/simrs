@@ -18,6 +18,8 @@ use App\Repositories\Interfaces\PendaftaranInterface;
 use App\Http\Requests\Admin\PendaftaranPasienBaruRequest;
 use App\Http\Requests\Admin\PendaftaranPasienLamaRequest;
 use App\Models\PeriksaPoliStation;
+use App\Models\PosisiDetailPasienRajal;
+use App\Models\PosisiPasienRajal;
 use Carbon\Carbon;
 
 class PendaftaranController extends Controller
@@ -160,6 +162,19 @@ class PendaftaranController extends Controller
                 'status' => 'belum selesai',
             ]);
 
+            // Insert posisi pasien saat ini
+            $posisi_pasien_rajal = PosisiPasienRajal::create([
+                'pemeriksaan_id' => $pemeriksaan->id,
+                'status' => 'selesai'
+            ]);
+            $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+                'posisi_pasien_rajal_id' => $posisi_pasien_rajal->id,
+                'aktifitas' => 'Pasien selesai melakukan pendaftaran',
+                'waktu' => now(),
+                'keterangan' => 'checkout',
+                'status' => 'selesai'
+            ]);
+
             // Insert pemeriksaan detail
             $pemeriksaan_detail = PemeriksaanDetail::create([
                 'pemeriksaan_id' => $pemeriksaan->id,
@@ -257,6 +272,18 @@ class PendaftaranController extends Controller
                     'kategori_pasien' => $attr['kategori_pasien'],
                     'tanggal' => $attr['tanggal'],
                     'status' => 'belum selesai',
+                ]);
+
+                // Insert posisi pasien saat ini
+                $posisi_pasien_rajal = PosisiPasienRajal::create([
+                    'pemeriksaan_id' => $pemeriksaan->id,
+                    'status' => 'selesai'
+                ]);
+                $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+                    'aktifitas' => 'Pasien selesai melakukan pendaftaran',
+                    'waktu' => now(),
+                    'keterangan' => 'checkout',
+                    'status' => 'selesai'
                 ]);
 
                 // Insert pemeriksaan detail

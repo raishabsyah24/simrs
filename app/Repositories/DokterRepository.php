@@ -54,7 +54,7 @@ class DokterRepository implements DokterInterface
         return DB::table('pasien as p')
             ->selectRaw('
             p.nama as nama_pasien, p.tanggal_lahir, p.jenis_kelamin, p.alamat, p.no_hp,
-            kp.nama as kategori_pasien, rm.kode as no_rekam_medis, p.golongan_darah
+            kp.nama as kategori_pasien, rm.kode as no_rekam_medis, p.golongan_darah, pem.id as pemeriksaan_id
         ')
             ->join('periksa_dokter as pd', 'pd.pasien_id', 'p.id')
             ->join('pemeriksaan_detail as pede', 'pede.id', 'pd.pemeriksaan_detail_id')
@@ -159,6 +159,17 @@ class DokterRepository implements DokterInterface
         ')
             ->join('periksa_dokter as pd', 'pd.periksa_poli_station_id', '=', 'pps.id')
             ->where('pps.id', $periksa_poli_station_id)
+            ->first();
+    }
+
+    public function posisiPasienRajal(int $pemeriksaan_id)
+    {
+        return DB::table('posisi_pasien_rajal AS ppr')
+            ->selectRaw('
+                ppr.id
+            ')
+            ->join('pemeriksaan AS pe', 'pe.id', '=', 'ppr.pemeriksaan_id')
+            ->where('ppr.pemeriksaan_id', $pemeriksaan_id)
             ->first();
     }
 }

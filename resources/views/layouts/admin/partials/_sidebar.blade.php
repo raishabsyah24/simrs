@@ -31,7 +31,7 @@
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
-                                    <i class="fas fa-concierge-bell fa-lg"></i>
+                                    <i class="fas fa-clinic-medical fa-lg"></i>
                                 </span>
                                 <span class="nk-menu-text">Pendaftaran</span>
                             </a>
