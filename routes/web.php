@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\User\ActivityLogController;
-use App\Http\Controllers\Admin\Apotek\{ObatController, OrderController, AntrianApotekController, Select2Controller};
+use App\Http\Controllers\Admin\Apotek\{ObatController, OrderController, AntrianBpjsController, AntrianUmumController, Select2Controller};
 use App\Http\Controllers\Admin\Dokter\PasienDokterController;
 use App\Http\Controllers\Admin\{
     DashboardController,
@@ -122,20 +122,30 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
 });
 
 // Role apotek
-Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () {
+Route::group(['middleware' => ['auth', 'role:apotek']], function () {
     // Data obat
     Route::get('/obat', [ObatController::class, 'dataObat'])->name('data');
     Route::get('/obat/fetch-data', [ObatController::class, '_fetchData'])->name('obat.fetchData');
     Route::get('/obat/create', [OrderController::class, 'createObat'])->name('order.create-obat');
     Route::post('/obat/store/obat', [OrderController::class, 'storeObat']);
 
-    // Daftar antrian
-    Route::get('/apotek/bpjs', [AntrianApotekController::class, 'index'])->name('data.antrian.bpjs');
-    Route::get('/apotek/fetch-data', [AntrianApotekController::class, '_fetchData'])->name('data.antrian');
-    Route::get('/create/apotek', [AntrianApotekController::class, 'createApotek'])->name('create.antrian');
-    Route::post('/store/apotek', [AntrianApotekController::class, 'storeApotek'])->name('store.antrian');
-    Route::get('/apotek/{id}/proses/data', [AntrianApotekController::class, 'prosesApotek'])->name('edit.antrian');
-    Route::post('/apotek/{id}/update/', [AntrianApotekController::class, 'updateApotek'])->name('update.antrian');
+    // Daftar antrian bpjs
+    Route::get('/apotek/bpjs', [AntrianBpjsController::class, 'index'])->name('data.antrian.bpjs');
+    Route::get('/apotek/fetch-data', [AntrianBpjsController::class, '_fetchData'])->name('data.antrian');
+    Route::get('/apotek/detail/pasien/{id}', [AntrianBpjsController::class, 'detailPasienBpjs'])
+        ->name('apotek.pasien-bpjs');
+    Route::get('/apotek/proses/data/{id}', [AntrianBpjsController::class, 'obatApotek'])
+        ->name('apotek.proses-pasien');
+    Route::post('/apotek/proses/pasien/{id}/update/', [AntrianBpjsController::class, 'prosesPasienBpjs'])
+        ->name('apotek.pasien-bpjs-update');
+
+    // Daftar antrian umum
+    Route::get('/apotek/data-umum', [AntrianUmumController::class, 'umum'])->name('data.umum');
+    Route::get('/apotek/fetch/umum', [AntrianUmumController::class, '_fetchUmum'])->name('fetch-umum');
+    Route::get('/apotek/pasien/umum/{id}', [AntrianUmumController::class, 'detailPasienUmum'])->name('pasien-umum');
+    // Route::get('/create/apotek', [AntrianBpjsController::class, 'createApotek'])->name('create.antrian');
+    // Route::post('/store/apotek', [AntrianBpjsController::class, 'storeApotek'])->name('store.antrian');
+    // Route::post('/apotek/{id}/update/', [AntrianBpjsController::class, 'updateApotek'])->name('update.antrian');
 
     // Search obat
     Route::get('/search-obat-apotek', [Select2Controller::class, 'searchObat'])->name('search.obat-apotek');

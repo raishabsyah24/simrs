@@ -19,7 +19,7 @@ class ObatController extends Controller
         $title = 'Data Obat';
         $total = Obat::count();
         $badge = $this->badge();
-        return view('admin.apotek.master._dataObat', compact(
+        return view('admin.apotek.data_obat._dataObat', compact(
             'title',
             'data',
             'total',
@@ -45,7 +45,7 @@ class ObatController extends Controller
                 })
                 ->orderBy('created_at', $sortBy)
                 ->paginate(12);
-            return view('admin.apotek.master._fetch-data', compact('data', 'badge'))->render();
+            return view('admin.apotek.data_obat._fetch-data', compact('data', 'badge'))->render();
         }
     }
 

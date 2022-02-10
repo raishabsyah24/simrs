@@ -94,8 +94,9 @@
         </div>
     @endforelse
     <!-- end tbody -->
-
 </div>
+
+@if($data->count() > 0)
 <div class="card-inner">
     <div class="nk-block-between-md g-3">
         <div class="g">
@@ -103,3 +104,4 @@
         </div>
     </div>
 </div>
+@endif

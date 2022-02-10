@@ -30,8 +30,7 @@
                                                     data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <ul class="link-list-opt no-bdr">
-                                                        <li><a href="#"><span>Tambah User</span></a></li>
-                                                        <li><a href="#"><span>Import User</span></a></li>
+                                                        <li><a href="#"><span>Export PDF</span></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -119,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="card-inner p-0 fetch-data d-none">
-                                @include('admin.apotek.antrian_apotek_bpjs._fetch-data_bpjs')
+                                @include('admin.apotek.antrian_umum._fetch-umum')
                                 <input type="hidden" name="page" value="1">
                             </div>
                             <!-- .card-inner -->
@@ -141,7 +140,7 @@
         })
 
         async function fetchData(page = '', query = '', sortBy = 'desc') {
-            await $.get(`/apotek/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}`)
+            await $.get(`/apotek/fetch/umum?page=${page}&query=${query}&sortBy=${sortBy}`)
                 .done(data => {
                     $('.loader').addClass('d-none');
                     $('.fetch-data').removeClass('d-none');

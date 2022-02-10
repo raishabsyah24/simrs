@@ -22,6 +22,9 @@
             <h6>Kategori</h6>
         </div>
         <div class="nk-tb-col">
+            <h6>Status</h6>
+        </div>
+        <div class="nk-tb-col">
             <h6>Aksi</h6>
         </div>
     </div>
@@ -34,7 +37,7 @@
             <div class="nk-tb-col">
                 <div class="user-card">
                     <div class="user-info">
-                        <span class="tb-lead">{!! $item->kode !!} <span
+                        <span class="tb-lead">{!! $item->no_rekam_medis !!} <span
                                 class="dot dot-success d-md-none ml-1"></span></span>
                     </div>
                 </div>
@@ -49,13 +52,13 @@
                 <span class="tb-amount">{{ $item->spesialis }}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="tb-amount">{{ $item->dokter }}</span>
+                <span class="tb-amount">{{ $item->nama_dokter }}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
                 <span class="tb-amount">{{ $item->kategori_pasien }}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="tb-amount badge badge-dim badge-{{ $badge->random() }}" ></span>
+                <span class="tb-amount badge badge-dim badge-{{ $badge->random() }}" >{{ $item->status_diperiksa ?? '' }}</span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
@@ -66,18 +69,16 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
                                     <li>
-                                        <a href="{{ route('edit.antrian', $item->id) }}"><em class="icon ni ni-edit-fill"></em>
+                                        <a href="{{ route('apotek.proses-pasien', $item->id) }}">
+                                            <em class="icon ni ni-edit-fill"></em>
                                             <span>Proses</span>
                                         </a>
                                     </li>
+                                    
                                     <li>
-                                        <a href="#"><em class="icon ni ni-eye"></em>
+                                        <a href="{{ route('apotek.pasien-bpjs', $item->id) }}">
+                                            <em class="icon ni ni-eye"></em>
                                             <span>Detail</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><em class="icon ni ni-trash"></em>
-                                            <span>Hapus</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -111,6 +112,8 @@
     <!-- end tbody -->
 </div>
 
+
+@if($data->count() > 0) 
 <div class="card-inner">
     <div class="nk-block-between-md g-3">
         <div class="g">
@@ -118,3 +121,4 @@
         </div>
     </div>
 </div>
+@endif

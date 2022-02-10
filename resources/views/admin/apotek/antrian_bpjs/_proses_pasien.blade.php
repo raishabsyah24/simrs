@@ -1,4 +1,5 @@
-@extends('layouts.admin.master', ['title' => $title])
+@extends('layouts.admin.master')
+
 @push('css')
     <style>
         .title__description {
@@ -18,7 +19,7 @@
                             <h3 class="nk-block-title page-title">Proses Obat Pasien</h3>
                         </div>
                         <div class="nk-block-head-content">
-                            <a href="{{ route('data.antrian.bpjs') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em>
+                            <a href="{{ url('apotek/bpjs') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em>
                                 <span>Kembali</span>
                             </a>
                             <a href="#" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
@@ -43,8 +44,7 @@
                                             <div class="profile-ud-item">
                                                 <div class="profile-ud wider">
                                                     <span class="profile-ud-label">Nama</span>
-                                                    <span
-                                                        class="profile-ud-value text-capitalize title__description">
+                                                    <span class="profile-ud-value text-capitalize title__description">
                                                         {{ $pasien->nama_pasien }}</span>
                                                 </div>
                                             </div>
@@ -53,7 +53,7 @@
                                                     <span class="profile-ud-label">Nomor Rekam Medis</span>
                                                     <span
                                                         class="profile-ud-value text-capitalize title__description">
-                                                        {{ $pasien->kode }}
+                                                        {{ $pasien->no_rekam_medis }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -96,7 +96,7 @@
                                                     <span class="profile-ud-label">Alamat</span>
                                                     <span
                                                         class="profile-ud-value title__description">
-                                                        {{ $pasien->alamat_pasien }}
+                                                        {{ $pasien->alamat }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -116,8 +116,6 @@
                                     <div class="nk-block">
                                         <div class="nk-block-head nk-block-head-sm nk-block-between">
                                             <h5 class="title">Admin Note</h5>
-                                            <a href="#" class="btn btn-info" onclick="modalTambahObat()">
-                                                <em class="icon ni ni-plus"></em> Tambah Obat</a>
                                         </div><!-- .nk-block-head -->
                                         <div class="nk-block nk-block-lg">
                                             {{-- Table detail obat --}}
@@ -130,28 +128,20 @@
                                                         <th scope="col">Jumlah</th>
                                                         <th scope="col">Harga Obat</th>
                                                         <th scope="col">Status</th>
-                                                        <th scope="col">Opsi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @forelse ($data as $item)
                                                         <tr>
                                                             <th scope="row">{{ $loop->iteration }}</th>
-                                                            <td>{{ $item->tanggal_periksa }}</td>
+                                                            <td></td>
                                                             <td>{{ $item->nama_generik }}</td>
+                                                            <td></td>
+                                                            <td></td>
                                                             <td>
-                                                                <input class="form-control" type="text" name="jumlah" 
-                                                                    value="{{ $item->jumlah }}">
-                                                            </td>
-                                                            <td>Rp. {{ formatAngka($item->harga_obat)}}</td>
-                                                            <td class="text-success">selesai</td>
-                                                            <td>
-                                                                <button type="" class="btn btn-dim btn-outline-primary">
-                                                                    <em class="icon ni ni-edit"></em>
-                                                                </button>
-                                                                <button class="btn btn-dim btn-outline-danger">
-                                                                    <em class="icon ni ni-trash"></em>
-                                                                </button>
+                                                                <span class="badge-dim badge-{{ $badge->random() }}">
+                                                                    {{ $item->status_menerima ?? '' }}
+                                                                </span>
                                                             </td>
                                                         </tr>
                                                         @empty
@@ -164,6 +154,13 @@
                                                 </tbody>
                                                 @endforelse
                                             </table>
+                                            <div class="form-group mt-1">
+                                                <div class="col-lg-12 offset-col-md-5 d-flex justify-content-center">
+                                                    <button type="button" class="btn btn-success" 
+                                                    onclick="approvePasien('{{ route('apotek.pasien-bpjs-update', $pasien->pemeriksaan_id) }}')">Konfirmasi
+                                                    </button>
+                                                </div>
+                                            </div>
                                             {{-- End detail obat --}}
                                         </div>
                                     </div><!-- .nk-block -->
@@ -176,41 +173,28 @@
         </div>
     </div>
 </div>
-@include('admin.apotek.antrian_apotek_bpjs.partials._modal_tambah_obat')
 @endsection
 
 @push('js')
     <script>
-        function modalTambahObat() {
-            $('.modalTambahObat').modal('show');
-        }    
+        // Fungsi update status pasien
+        function approvePasien(url, pemeriksaan_id) {
+            console.log(url);
+            event.preventDefault();
+            $.post({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        pemeriksaan : pemeriksaan_id
 
-     // Search nama obat 
-      $('.select2obat').select2({
-            placeholder: 'Cari...',
-            // theme: 'bootstrap',
-            ajax: {
-              url: '/search-obat-apotek',
-              dataType: 'json',
-              delay: 250,
-              processResults: function (data) {
-                  return {
-                  results:  $.map(data, function (item) {
-                    //   return {
-                    //   text: item.nama_paten,
-                    //   id: item.id
-                    //   }
-                    if(item.id!=0) {
-                            return { id: item.id, text: item.nama_paten +' ('+ `${item.nama_generik}`+ ' )'};
-                        }
-                    else
-                        {return {id: item.id, text: item.nama_generik}}
-                  })
-                };
-            },
-            cache: true
-            },
-            debug:false
-        });  
-    </script>    
+                    },
+                })
+                .done(response => {
+                    alertSuccess(response.message);
+                    // setInterval(() => {
+                    //     window.location.reload();
+                    // }, 5000);
+                })
+        }
+    </script>
 @endpush

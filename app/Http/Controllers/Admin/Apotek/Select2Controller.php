@@ -20,7 +20,7 @@ class Select2Controller extends Controller
         $nama_obat = $request->get('obat');
 
         $obat = DB::table('obat as o')
-            ->selectRaw('oa.id, o.nama_paten, o.nama_generik')
+            ->selectRaw('oa.id as obat_id, o.nama_paten, o.nama_generik')
             ->join('obat_apotek as oa', 'oa.obat_id', '=', 'o.id')
             ->when($nama_obat ?? false, function ($query) use ($nama_obat) {
                 return $query->where('o.nama_paten', 'like', '%' . $nama_obat . '%')

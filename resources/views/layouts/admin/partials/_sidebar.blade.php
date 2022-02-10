@@ -366,14 +366,6 @@
                                     <a href="{{ route('data') }}" class="nk-menu-link"><span
                                         class="nk-menu-text">Data Obat</span></a>
                                 </li>
-                                <li class="nk-menu-item">
-                                    <a href="#" class="nk-menu-link"><span
-                                        class="nk-menu-text">Riwayat Pasien</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="#" class="nk-menu-link"><span
-                                        class="nk-menu-text">Riwayat Obat Pasien</span></a>
-                                </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
                         <li class="nk-menu-item has-sub">
@@ -385,14 +377,6 @@
                                 <li class="nk-menu-item">
                                     <a href="{{ route('order.create-obat') }}" class="nk-menu-link"><span
                                             class="nk-menu-text">Stok Obat - Default</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="#" class="nk-menu-link"><span
-                                            class="nk-menu-text">Obat Pasien - Regular</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="#" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order List - Sales</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
@@ -407,7 +391,7 @@
                                             class="nk-menu-text">Order Bpjs</span></a>
                                 </li>
                                 <li class="nk-menu-item">
-                                    <a href="html/orders-regular.html" class="nk-menu-link"><span
+                                    <a href="{{ route('data.umum') }}" class="nk-menu-link"><span
                                             class="nk-menu-text">Order Umum</span></a>
                                 </li>
                                 <li class="nk-menu-item">
@@ -416,15 +400,6 @@
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
-                        <li class="nk-menu-item has-sub">
-                            <a href="" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"></span>
-                                <span class="nk-menu-text">Laporan Penjualan</span>
-                            </a>
-                            <ul class="nk-menu-item">
-
-                            </ul>
-                        </li>
                          @endrole
                     
                     @role('lab')

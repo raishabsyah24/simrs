@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <nav>
             <ul class="breadcrumb breadcrumb-arrow">
-                <li class="breadcrumb-item active">List Obat</li>
+                <li class="breadcrumb-item active">List Antrian</li>
             </ul>
         </nav>
         <div class="nk-content-inner">
@@ -15,7 +15,7 @@
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">{!! $title !!}</h3>
                             <div class="nk-block-des text-soft">
-                                <p>Total Obat {{ formatAngka($total) }}</p>
+                                <p>Total Antrian Apotek {{ formatAngka($total) }}</p>
                             </div>
                         </div><!-- .nk-block-head-content -->
                         <div class="nk-block-head-content">
@@ -30,8 +30,7 @@
                                                     data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <ul class="link-list-opt no-bdr">
-                                                        <li><a href="#"><span>Tambah User</span></a></li>
-                                                        <li><a href="#"><span>Import User</span></a></li>
+                                                        <li><a href="#"><span>Export PDF</span></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -119,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="card-inner p-0 fetch-data d-none">
-                                @include('admin.apotek.master._fetch-data')
+                                @include('admin.apotek.antrian_bpjs._fetch-data_bpjs')
                                 <input type="hidden" name="page" value="1">
                             </div>
                             <!-- .card-inner -->
@@ -141,7 +140,7 @@
         })
 
         async function fetchData(page = '', query = '', sortBy = 'desc') {
-            await $.get(`/obat/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}`)
+            await $.get(`/apotek/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}`)
                 .done(data => {
                     $('.loader').addClass('d-none');
                     $('.fetch-data').removeClass('d-none');
@@ -173,5 +172,25 @@
             $('.fetch-data').addClass('d-none');
             fetchData(page, query);
         })
+
+        // Fungsi update status pasien
+        function approvePasien(url, pemeriksaan_id) {
+            event.preventDefault();
+            console.log(url);
+            $.post({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        pemeriksaan : pemeriksaan_id
+
+                    },
+                })
+                .done(response => {
+                    alertSuccess(response.message);
+                    setInterval(() => {
+                        window.location.reload();
+                    }, 5000);
+                })
+        }
     </script>
 @endpush

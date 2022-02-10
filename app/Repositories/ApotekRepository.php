@@ -9,22 +9,36 @@ class ApotekRepository implements ApotekInterface
 {
     public function antrianApotekBpjs()
     {
-        return DB::table('periksa_dokter as pd')
+        return DB::table('pemeriksaan as pa')
             ->selectRaw('
-            DISTINCT pd.id, rm.kode, pn.tanggal_lahir, pd.pasien_id, pl.spesialis, pn.nama as nama_pasien,
-                pm.dokter_id, do.nama, rp.dokter, pa.kategori_pasien, kp.nama as kategori_pasien,
-                pn.alamat as alamat_pasien, kp.status as status_pasien
+               DISTINCT pa.id, pn.nama as nama_pasien, pn.tanggal_lahir, kp.nama as kategori_pasien, pa.no_rekam_medis,
+                pl.spesialis, dr.nama as nama_dokter, pd.status_diperiksa, pa.status as status_pemeriksaan
             ')
-            ->join('rekam_medis as rm', 'rm.pasien_id', '=', 'pd.pasien_id')
-            ->join('pasien as pn', 'pn.id', '=', 'pd.pasien_id')
+            ->join('pasien as pn', 'pn.id', '=', 'pa.pasien_id')
+            ->join('pemeriksaan_detail as pm', 'pm.pemeriksaan_id', '=', 'pa.id')
+            ->join('periksa_dokter as pd', 'pd.id', '=', 'pd.pemeriksaan_detail_id')
             ->join('poli as pl', 'pl.id', '=', 'pd.poli_id')
-            ->join('pemeriksaan_detail as pm', 'pm.id', '=', 'pd.pemeriksaan_detail_id')
-            ->join('dokter as do', 'do.id', '=', 'pd.pemeriksaan_detail_id')
-            ->join('rekam_medis_pasien as rp', 'rp.id', '=', 'rp.rekam_medis_id')
-            ->join('pemeriksaan as pa', 'pa.id', '=', 'pd.pemeriksaan_detail_id')
-            ->join('kategori_pasien as kp', 'kp.id', '=', 'pd.pemeriksaan_detail_id')
-            ->where('kp.id', 1,)
-            ->paginate(12);
+            ->join('kategori_pasien as kp', 'kp.id', '=', 'pa.kategori_pasien')
+            ->join('dokter as dr', 'dr.id', '=', 'pm.dokter_id')
+            ->where('kp.id', '=', 1);
+        // ->paginate(12);
+    }
+
+    public function antrianApotekUmum()
+    {
+        return DB::table('pemeriksaan as pa')
+            ->selectRaw('
+                DISTINCT pa.id, pn.nama as nama_pasien, pn.tanggal_lahir, kp.nama as kategori_pasien, pa.no_rekam_medis,
+                pl.spesialis, dr.nama as nama_dokter, pd.status_diperiksa, pa.status as status_pemeriksaan, pa.created_at
+            ')
+            ->join('pasien as pn', 'pn.id', '=', 'pa.pasien_id')
+            ->join('pemeriksaan_detail as pm', 'pm.pemeriksaan_id', '=', 'pa.id')
+            ->join('periksa_dokter as pd', 'pd.id', '=', 'pd.pemeriksaan_detail_id')
+            ->join('poli as pl', 'pl.id', '=', 'pd.poli_id')
+            ->join('kategori_pasien as kp', 'kp.id', '=', 'pa.kategori_pasien')
+            ->join('dokter as dr', 'dr.id', '=', 'pm.dokter_id')
+            ->where('kp.id', '>=', 2)
+            ->orderByDesc('pa.created_at');
     }
 
     public function obatApotek()
