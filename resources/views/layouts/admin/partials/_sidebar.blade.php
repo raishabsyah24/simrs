@@ -417,6 +417,9 @@
                                 </li>
                             </ul>
                         </li>
+                    @endrole
+
+                    @role('kasir')
                         <li class="nk-menu-item">
                             <!-- KASIR -->
                             <a href="#" class="nk-menu-link nk-menu-toggle">
@@ -425,32 +428,31 @@
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
-                                    <a href="{{ route('kasir.bpjs') }}" class="nk-menu-link"><span
+                                    <a href="{{ route('kasir.index') }}" class="nk-menu-link"><span
                                             class="nk-menu-text">Pembayaran BPJS</span></a>
                                 </li>
                                 <li class="nk-menu-item">
-                                    <a href="{{ route('kasir.umum') }}" class="nk-menu-link"><span
+                                    <a href="#" class="nk-menu-link"><span
                                             class="nk-menu-text">Pembayaran Umum/Asuransi</span></a>
                                 </li>
                                 <li class="nk-menu-item">
-                                    <a href="{{ route('kasir.otc') }}" class="nk-menu-link"><span
+                                    <a href="#" class="nk-menu-link"><span
                                             class="nk-menu-text">Pembayaran OTC</span></a>
                                 </li>
                             </ul>
                         </li>
-                        </li>
-
+                       </li>
+                       @endrole
                      </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->    
-                        <li class="nk-menu-item {{ activeClass('aktifitas-user.index') }}">
+                    </li><!-- .nk-menu-item -->    
+                        {{-- <li class="nk-menu-item {{ activeClass('aktifitas-user.index') }}">
                             <a href="{{ route('aktifitas-user.index') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon">
                                     <em class="icon ni ni-history"></em>
                                 </span>
                                 <span class="nk-menu-text">History User</span>
                             </a>
-                        </li>
-                    @endrole
+                        </li> --}}
                     
                     @role('pendaftaran')
                         <li class="nk-menu-item has-sub">

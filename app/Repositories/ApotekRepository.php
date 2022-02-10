@@ -11,8 +11,8 @@ class ApotekRepository implements ApotekInterface
     {
         return DB::table('pemeriksaan as pa')
             ->selectRaw('
-               DISTINCT pa.id, pn.nama as nama_pasien, pn.tanggal_lahir, kp.nama as kategori_pasien, pa.no_rekam_medis,
-                pl.spesialis, dr.nama as nama_dokter, pd.status_diperiksa, pa.status as status_pemeriksaan
+               DISTINCT pa.id, pn.nama as nama_pasien, pn.tanggal_lahir, kp.nama as kategori_pasien, 
+               pa.no_rekam_medis, pl.spesialis, dr.nama as nama_dokter, pd.status_diperiksa, pa.status as status_pemeriksaan
             ')
             ->join('pasien as pn', 'pn.id', '=', 'pa.pasien_id')
             ->join('pemeriksaan_detail as pm', 'pm.pemeriksaan_id', '=', 'pa.id')

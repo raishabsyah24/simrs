@@ -45,7 +45,8 @@
                                                 <div class="profile-ud wider">
                                                     <span class="profile-ud-label">Nama</span>
                                                     <span class="profile-ud-value text-capitalize title__description">
-                                                        {{ $pasien->nama_pasien }}</span>
+                                                        {{-- {{ $pasien->nama_pasien }} --}}
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="profile-ud-item">
@@ -53,7 +54,7 @@
                                                     <span class="profile-ud-label">Nomor Rekam Medis</span>
                                                     <span
                                                         class="profile-ud-value text-capitalize title__description">
-                                                        {{ $pasien->no_rekam_medis }}
+                                                        {{-- {{ $pasien->no_rekam_medis }} --}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -62,7 +63,7 @@
                                                     <span class="profile-ud-label">Umur</span>
                                                     <span
                                                         class="profile-ud-value title__description">
-                                                        {{ usia($pasien->tanggal_lahir) }}
+                                                        {{-- {{ usia($pasien->tanggal_lahir) }} --}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -71,7 +72,7 @@
                                                     <span class="profile-ud-label">Kategori </span>
                                                     <span
                                                         class="profile-ud-value text-capitalize title__description">
-                                                        {{ $pasien->kategori_pasien }}
+                                                        {{-- {{ $pasien->kategori_pasien }} --}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -80,7 +81,7 @@
                                                     <span class="profile-ud-label">Tanggal Lahir</span>
                                                     <span
                                                         class="profile-ud-value title__description">
-                                                        {{ $pasien->tanggal_lahir }}
+                                                        {{-- {{ $pasien->tanggal_lahir }} --}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -96,7 +97,7 @@
                                                     <span class="profile-ud-label">Alamat</span>
                                                     <span
                                                         class="profile-ud-value title__description">
-                                                        {{ $pasien->alamat }}
+                                                        {{-- {{ $pasien->alamat }} --}}
                                                     </span>
                                                 </div>
                                             </div>
@@ -131,20 +132,20 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @forelse ($data as $item)
+                                                    {{-- @forelse ($data as $item) --}}
                                                         <tr>
-                                                            <th scope="row">{{ $loop->iteration }}</th>
+                                                            <th scope="row"></th>
                                                             <td></td>
-                                                            <td>{{ $item->nama_generik }}</td>
+                                                            <td></td>
                                                             <td></td>
                                                             <td></td>
                                                             <td>
                                                                 <span class="badge-dim badge-{{ $badge->random() }}">
-                                                                    {{ $item->status_menerima ?? '' }}
+                                                                    {{-- {{ $item->status_menerima ?? '' }} --}}
                                                                 </span>
                                                             </td>
                                                         </tr>
-                                                        @empty
+                                                        {{-- @empty --}}
                                                         <tr>
                                                             <td class="text-center" colspan="8">
                                                                 <h6>Belum ada
@@ -152,12 +153,12 @@
                                                             </td>
                                                         </tr>
                                                 </tbody>
-                                                @endforelse
+                                                {{-- @endforelse --}}
                                             </table>
                                             <div class="form-group mt-1">
                                                 <div class="col-lg-12 offset-col-md-5 d-flex justify-content-center">
                                                     <button type="button" class="btn btn-success" 
-                                                    onclick="approvePasien('{{ route('apotek.pasien-bpjs-update', $pasien->pemeriksaan_id) }}')">Konfirmasi
+                                                    onclick="approvePasien('{{ route('apotek.pasien-bpjs-update', $pasien->id) }}')">Konfirmasi
                                                     </button>
                                                 </div>
                                             </div>

@@ -42,37 +42,37 @@
                                             <div class="data-item">
                                                 <div class="data-col">
                                                     <span class="data-label">Nama Pasien</span>
-                                                    <span class="data-value">{{ $pasien->nama_pasien }}</span>
+                                                    <span class="data-value"></span>
                                                 </div>
                                             </div><!-- data-item -->
                                             <div class="data-item">
                                                 <div class="data-col">
                                                     <span class="data-label">Jenis Kelamin</span>
-                                                    <span class="data-value text-soft">{{ $pasien->jenis_kelamin }}</span>
+                                                    <span class="data-value text-soft"></span>
                                                 </div>
                                             </div><!-- data-item -->
                                             <div class="data-item">
                                                 <div class="data-col">
                                                     <span class="data-label">Tempat Lahir</span>
-                                                    <span class="data-value text-soft">{{ $pasien->tempat_lahir }}</span>
+                                                    <span class="data-value text-soft"></span>
                                                 </div>
                                             </div><!-- data-item -->
                                             <div class="data-item">
                                                 <div class="data-col">
                                                     <span class="data-label">Tanggal Lahir</span>
-                                                    <span class="data-value text-soft">{{ $pasien->tanggal_lahir }}</span>
+                                                    <span class="data-value text-soft"></span>
                                                 </div>
                                             </div><!-- data-item -->
                                             <div class="data-item">
                                                 <div class="data-col">
                                                     <span class="data-label">Gologan Darah</span>
-                                                    <span class="data-value">{{ $pasien->golongan_darah }}</span>
+                                                    <span class="data-value"></span>
                                                 </div>
                                             </div><!-- data-item -->
                                             <div class="data-item" data-tab-target="#address">
                                                 <div class="data-col">
                                                     <span class="data-label">Alamat</span>
-                                                    <span class="data-value">{{ $pasien->alamat }}
+                                                    <span class="data-value">
                                                         <br>
                                                     </span>
                                                 </div>
@@ -85,37 +85,37 @@
                                             <div class="data-item">
                                                 <div class="data-col">
                                                     <span class="data-label">Nomor Antrian Apotek</span>
-                                                    <span class="data-value">{{ $pasien->no_antrian_apotek }}</span>
+                                                    <span class="data-value"></span>
                                                 </div>
                                             </div><!-- data-item -->
                                             <div class="data-item">
                                                 <div class="data-col">
                                                     <span class="data-label">Nomor Rekam Medis</span>
-                                                    <span class="data-value">{{ $pasien->no_rekam_medis }}</span>
+                                                    <span class="data-value"></span>
                                                 </div>
                                             </div><!-- data-item -->
                                             <div class="data-item">
                                                 <div class="data-col">
                                                     <span class="data-label">Tanggal Periksa</span>
-                                                    <span class="data-value">{{ $pasien->tanggal_periksa }}</span>
+                                                    <span class="data-value"></span>
                                                 </div>
                                             </div><!-- data-item -->
                                             <div class="data-item">
                                                 <div class="data-col">
                                                     <span class="data-label">Poli</span>
-                                                    <span class="data-value">{{ $pasien->spesialis }}</span>
+                                                    <span class="data-value"></span>
                                                 </div>
                                             </div><!-- data-item -->
                                             <div class="data-item">
                                                 <div class="data-col">
                                                     <span class="data-label">Dokter Spesialis</span>
-                                                    <span class="data-value">{{ $pasien->nama_dokter }}</span>
+                                                    <span class="data-value"></span>
                                                 </div>
                                             </div><!-- data-item -->
                                             <div class="data-item">
                                                 <div class="data-col">
                                                     <span class="data-label">Kategori Pasien</span>
-                                                    <span class="data-value">{{ $pasien->kategori_pasien }}</span>
+                                                    <span class="data-value"></span>
                                                 </div>
                                             </div><!-- data-item -->
                                         </div><!-- data-list -->
@@ -126,11 +126,11 @@
                                         <div class="card-inner">
                                             <div class="user-card">
                                                 <div class="user-avatar bg-primary">
-                                                    <span>{{ getInitialUser($pasien->nama_pasien) }}</span>
+                                                    <span></span>
                                                 </div>
                                                 <div class="user-info">
-                                                    <span class="lead-text">{{ $pasien->nama_pasien }}</span>
-                                                    <span class="sub-text">{{ $pasien->email }}</span>
+                                                    <span class="lead-text"></span>
+                                                    <span class="sub-text"></span>
                                                 </div>
                                             </div><!-- .user-card -->
                                         </div><!-- .card-inner -->
@@ -138,7 +138,7 @@
                                             <div class="user-account-info py-0">
                                                 <h6 class="overline-title-alt">Status Menerima Obat</h6>
                                                 <div class="user-balance">
-                                                    {{ $pasien->status_menerima ?? '' }}
+
                                                 </div>
                                             </div>
                                         </div><!-- .card-inner -->

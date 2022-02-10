@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Dokter;
 
 use Illuminate\Http\Request;
 use App\Models\{
+    Kasir,
+    KasirDetail,
     Poli,
     Layanan,
     ObatApotek,
@@ -316,6 +318,36 @@ class PasienDokterController extends Controller
                     'plan' => $attr['plan'],
                     'keluhan' => $attr['keluhan'],
                     'tanggal' => now()
+                ]);
+
+                $kasir = Kasir::create([
+                    'pemeriksaan_id' => $pemeriksaan->id,
+                    'status' => 'belum bayar'
+                ]);
+
+                $kasir_detail = KasirDetail::create([
+                    'kasir_id' => $kasir->id,
+                    'jenis_tagihan' => 'periksa dokter',
+                    'tanggal_layanan' => now(),
+                    'subtotal' =>  $pemeriksaan_detail->tagihan_layanan
+                ]);
+
+                $kasir_detail = KasirDetail::create([
+                    'kasir_id' => $kasir->id,
+                    'jenis_tagihan' => 'obat pasien',
+                    'tanggal_layanan' => now(),
+                    'subtotal' =>  $obat_pasien_periksa->sum('subtotal')
+                ]);
+
+                $total_kasir = KasirDetail::where('kasir_id', $kasir->id)->get();
+
+                $kasir_total = Kasir::find($kasir->id);
+
+                $kasir_total->update([
+                    'total_tagihan' => $total_kasir->sum('subtotal'),
+                    'diskon' => 0,
+                    'pajak' => 0,
+                    'grand_total' => $total_kasir->sum('subtotal')
                 ]);
             }
         );

@@ -168,17 +168,8 @@ Route::group(['middleware' => ['auth', 'role:rekam_medis|super_admin']], functio
 
 Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
 
-    Route::get('/bpjs', [KasirController::class, 'kasir_bpjs'])
-        ->name('kasir.bpjs');
-    Route::get('/umum', [KasirController::class, 'kasir_umum'])
-        ->name('kasir.umum');
-    Route::get('/otc', [KasirController::class, 'kasir_otc'])
-        ->name('kasir.otc');
-
-    Route::get('/aktifitas-user', [ActivityLogController::class, 'index'])
-        ->name('aktifitas-user.index');
-    Route::get('/aktifitas-user/fetch-data', [ActivityLogController::class, 'fetchData'])
-        ->name('aktifitas-user.fetchData');
+    Route::get('/kasir', [KasirController::class, 'index'])
+        ->name('kasir.index');
 });
 
 Route::group(['middleware' => ['auth', 'role: lab|super_admin']], function () {

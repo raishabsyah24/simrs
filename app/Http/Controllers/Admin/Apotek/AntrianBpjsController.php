@@ -16,7 +16,6 @@ use App\Models\PeriksaDokter;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Interfaces\ApotekInterface;
 use App\Repositories\Interfaces\DokterInterface;
-use Svg\Tag\Rect;
 
 class AntrianBpjsController extends Controller
 {
@@ -78,22 +77,11 @@ class AntrianBpjsController extends Controller
 
     public function detailPasienBpjs($pasien_bpjs)
     {
-        $pasien = DB::table('pemeriksaan as pd')
-            ->selectRaw('
-                DISTINCT pn.id, pn.nama as nama_pasien, pn.email, pn.tempat_lahir,
-                pn.tanggal_lahir, pn.jenis_kelamin, pn.golongan_darah, pn.alamat, pd.no_rekam_medis,
-                pd.status as status_menerima, pk.no_antrian_apotek, pk.tanggal as tanggal_periksa,
-                pl.spesialis, dr.nama as nama_dokter, kp.nama as kategori_pasien
-            ')
-            ->join('pasien as pn', 'pn.id', '=', 'pd.pasien_id')
-            ->join('pemeriksaan_detail as pm', 'pm.pemeriksaan_id', '=', 'pd.id')
-            ->join('periksa_dokter as pk', 'pk.id', '=', 'pm.dokter_id')
-            ->join('dokter as dr', 'dr.id', '=', 'pm.dokter_id')
-            ->join('poli as pl', 'pl.id', '=', 'pm.poli_id')
-            ->join('kategori_pasien as kp', 'kp.id', '=', 'pd.kategori_pasien')
-            ->where('pd.id', '=', $pasien_bpjs)
+        $pasien = DB::table('pemeriksaan as pi')
+            ->selectRaw('pi.id as pemeriksaan_id')
+            ->join('pasien as ps', 'pi.pasien_id', '=', 'ps.id')
             ->first();
-        // dd($pasien_bpjs);
+        // dd($pasien);
         $title = 'Detail Pasien';
         $head  = 'Informasi Pasien';
         return view('admin.apotek.antrian_bpjs._pasien-bpjs', compact(
@@ -105,21 +93,26 @@ class AntrianBpjsController extends Controller
 
     public function obatApotek($approve_pasien)
     {
+        // $pasien = DB::table('pemeriksaan as pd')
+        //     ->selectRaw('
+        //     DISTINCT pd.id as pemeriksaan_id, pn.id as pasien_id, pn.nama as nama_pasien, pn.email, pn.tempat_lahir,
+        //     pn.tanggal_lahir, pn.jenis_kelamin, pn.golongan_darah, pn.alamat, pd.no_rekam_medis,
+        //     pd.status as status_menerima, pk.no_antrian_apotek, pk.tanggal as tanggal_periksa,
+        //     pl.spesialis, dr.nama as nama_dokter, kp.nama as kategori_pasien
+        // ')
+        //     ->join('pasien as pn', 'pn.id', '=', 'pd.pasien_id')
+        //     ->join('pemeriksaan_detail as pm', 'pm.pemeriksaan_id', '=', 'pd.id')
+        //     ->join('periksa_dokter as pk', 'pk.id', '=', 'pm.dokter_id')
+        //     ->join('dokter as dr', 'dr.id', '=', 'pm.dokter_id')
+        //     ->join('poli as pl', 'pl.id', '=', 'pm.poli_id')
+        //     ->join('kategori_pasien as kp', 'kp.id', '=', 'pd.kategori_pasien')
+        //     ->where('pd.id', '=', $approve_pasien)
+        //     ->first();
         $pasien = DB::table('pemeriksaan as pd')
-            ->selectRaw('
-            DISTINCT pd.id as pemeriksaan_id, pn.id as pasien_id, pn.nama as nama_pasien, pn.email, pn.tempat_lahir,
-            pn.tanggal_lahir, pn.jenis_kelamin, pn.golongan_darah, pn.alamat, pd.no_rekam_medis,
-            pd.status as status_menerima, pk.no_antrian_apotek, pk.tanggal as tanggal_periksa,
-            pl.spesialis, dr.nama as nama_dokter, kp.nama as kategori_pasien
-        ')
-            ->join('pasien as pn', 'pn.id', '=', 'pd.pasien_id')
-            ->join('pemeriksaan_detail as pm', 'pm.pemeriksaan_id', '=', 'pd.id')
-            ->join('periksa_dokter as pk', 'pk.id', '=', 'pm.dokter_id')
-            ->join('dokter as dr', 'dr.id', '=', 'pm.dokter_id')
-            ->join('poli as pl', 'pl.id', '=', 'pm.poli_id')
-            ->join('kategori_pasien as kp', 'kp.id', '=', 'pd.kategori_pasien')
+            ->selectRaw('pd.id as pemeriksaan_id')
             ->where('pd.id', '=', $approve_pasien)
-            ->first();
+            ->get();
+        // return  $pasien;
 
         $data = DB::table('pemeriksaan as pd')
             ->selectRaw('
@@ -130,7 +123,7 @@ class AntrianBpjsController extends Controller
             ->leftJoin('obat as oa', 'oa.id', '=', 'op.obat_id')
             ->rightJoin('periksa_dokter as pe', 'pe.id', '=', 'or.periksa_dokter_id')
             ->get();
-        // return  $data;
+
         $badge = $this->badge();
         return view('admin.apotek.antrian_bpjs._proses_pasien', compact(
             'data',

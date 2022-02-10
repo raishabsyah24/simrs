@@ -58,7 +58,8 @@
                 <span class="tb-amount">{{ $item->kategori_pasien }}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="tb-amount badge badge-dim badge-{{ $badge->random() }}" >{{ $item->status_diperiksa ?? '' }}</span>
+                <span class="tb-amount badge badge-dim badge-{{ $badge->random() }}" >
+                </span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
