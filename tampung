@@ -2,7 +2,7 @@
 
 @push('css')
 
-@endpush
+
 
 @section('admin-content')
 
