@@ -65,7 +65,7 @@ function activity(string $aktifitas)
     ]);
 }
 
-function formatAngka($angka, $rp = false)
+function formatAngka(int $angka, bool $rp = false)
 {
     if ($rp === true) {
         return 'Rp. ' . number_format($angka, 0, ',', '.');

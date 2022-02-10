@@ -88,9 +88,9 @@ class PasienDokterController extends Controller
         // Aktifitas user
         $posisi_pasien_rajal = $this->dokterRepository->posisiPasienRajal($pasien->pemeriksaan_id);
         $posisi_pasien_rajal_status = PosisiPasienRajal::findOrFail($posisi_pasien_rajal->id);
-        if ($posisi_pasien_rajal_status->status == 'proses') {
+        if ($posisi_pasien_rajal_status->status == 'proses periksa dokter') {
             $posisi_pasien_rajal_status->update([
-                'status' => 'selesai'
+                'status' => 'periksa dokter'
             ]);
             $user_id = Auth::id();
             $dokter = Dokter::where('user_id', $user_id)->firstOrFail();
@@ -414,9 +414,9 @@ class PasienDokterController extends Controller
 
                 // Update posisi pasien
                 $posisi_pasien_rajal = PosisiPasienRajal::where('pemeriksaan_id', $pemeriksaan->id)->firstOrFail();
-                if($posisi_pasien_rajal->status == 'selesai'){
+                if($posisi_pasien_rajal->status == 'periksa dokter'){
                     $posisi_pasien_rajal->update([
-                       'status' => 'proses'
+                       'status' => 'proses kasir'
                     ]);
 
                     $posisi_detail_pasien_rajal_last = PosisiDetailPasienRajal::where('posisi_pasien_rajal_id', $posisi_pasien_rajal->id)->latest('waktu');

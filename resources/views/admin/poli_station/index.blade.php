@@ -192,11 +192,18 @@
             fetchData(page, query, "desc", poli, status);
         }
 
-        function periksa(url, nama_pasien) {
+        function periksa(url, nama_pasien, periksaUrl) {
             event.preventDefault();
             $('.modal-periksa').modal('show');
             $('.modal-periksa .modal-title').text(`Periksa ${nama_pasien}`);
             $('.modal-periksa form').attr('action', url);
+            $.post(periksaUrl)
+                .done(response => {
+                    console.log(response);
+                })
+                .fail(errors => {
+                    alertError();
+                })
         }
 
         function submitForm(originalForm) {
@@ -235,7 +242,6 @@
                         return;
                     }
                     alertError();
-
                 })
         }
 

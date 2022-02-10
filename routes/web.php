@@ -179,6 +179,8 @@ Route::group(['middleware' => ['auth', 'role:poli_station|super_admin']], functi
         ->name('poli-station.fetchData');
     Route::get('/poli-station/{periksaPoliStation}/detail', [PoliStationController::class, 'show'])
         ->name('poli-station.detail-pasien');
+    Route::post('/poli-station/{pemeriksaan}/periksa', [PoliStationController::class, 'periksa'])
+        ->name('poli-station.periksa');
     Route::put('/poli-station/{periksaPoliStation}/update', [PoliStationController::class, 'update'])
         ->name('poli-station.update');
 });

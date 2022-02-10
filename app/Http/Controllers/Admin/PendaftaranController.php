@@ -166,7 +166,7 @@ class PendaftaranController extends Controller
             // Insert posisi pasien saat ini
             $posisi_pasien_rajal = PosisiPasienRajal::create([
                 'pemeriksaan_id' => $pemeriksaan->id,
-                'status' => 'selesai'
+                'status' => 'proses periksa poli'
             ]);
             $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
                 'posisi_pasien_rajal_id' => $posisi_pasien_rajal->id,
@@ -276,12 +276,12 @@ class PendaftaranController extends Controller
                 // Insert posisi pasien saat ini
                 $posisi_pasien_rajal = PosisiPasienRajal::create([
                     'pemeriksaan_id' => $pemeriksaan->id,
-                    'status' => 'selesai'
+                    'status' => 'proses periksa poli'
                 ]);
                 $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+                    'posisi_pasien_rajal_id' => $posisi_pasien_rajal->id,
                     'aktifitas' => 'Pasien selesai melakukan pendaftaran',
                     'waktu' => now(),
-                    'keterangan' => 'checkout',
                     'status' => 'selesai'
                 ]);
 
