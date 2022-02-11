@@ -123,7 +123,6 @@ class AntrianBpjsController extends Controller
             ->leftJoin('obat as oa', 'oa.id', '=', 'op.obat_id')
             ->rightJoin('periksa_dokter as pe', 'pe.id', '=', 'or.periksa_dokter_id')
             ->get();
-
         $badge = $this->badge();
         return view('admin.apotek.antrian_bpjs._proses_pasien', compact(
             'data',

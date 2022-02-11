@@ -181,7 +181,7 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
 });
 
 // Role apotek
-Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () {
+Route::group(['middleware' => ['auth', 'role:apotek']], function () {
     // Data obat
     Route::get('/obat', [ObatController::class, 'dataObat'])->name('data');
     Route::get('/obat/fetch-data', [ObatController::class, '_fetchData'])->name('obat.fetchData');
