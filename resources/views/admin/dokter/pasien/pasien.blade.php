@@ -310,9 +310,6 @@
                                                             </thead>
                                                             <tbody>
                                                                 @foreach ($rekam_medis as $item)
-                                                        <div class="mt-3">
-                                                            <table class="table table-striped">
-                                                                <thead>
                                                                     <tr>
                                                                         <th class="text-center">No</th>
                                                                         <th class="text-center">Nama Obat</th>
@@ -343,6 +340,44 @@
                                                         {{-- </form> --}}
                                                     </div>
                                                 </form>
+                                                    </form>
+                                                    <div class="mt-3">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Nama Obat</th>
+                                                                    <th>Jumlah</th>
+                                                                    <th>Signa</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="data-obat">
+                                                                {{-- @foreach ($obat_pasien as $item)
+                                                                    <tr>
+                                                                        <td>{{ $item->nama_generik }}</td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="form-control-wrap">
+                                                                                    <input name="jumlah"
+                                                                                        value="{{ $item->jumlah }}"
+                                                                                        type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="form-control-wrap">
+                                                                                    <input name="signa"
+                                                                                        value="{{ $item->signa }}"
+                                                                                        type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach --}}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                                 {{-- End Obat pasien --}}
                                             </div>
                                             <div class="tab-pane" id="tabItem2">
@@ -386,7 +421,6 @@
                                                 </div>
                                                 {{-- Table RM --}}
                                             </div>
-                                            {{-- Table RM --}}
                                                     </form>
                                                     <div class="mt-3">
                                                         <table class="table table-striped">
