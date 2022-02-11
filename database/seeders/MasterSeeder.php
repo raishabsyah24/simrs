@@ -134,9 +134,7 @@ class MasterSeeder extends Seeder
             DB::table('dokter_poli')->insert([
                 'dokter_id' => $i,
                 'poli_id' => rand(1, 7),
-                'hari_praktek' => $faker->randomElement(["Senin, Selasa, Juma't", "Rabu, Kamis, Sabtu", "Selasa, Kamis"]),
-                'jam_mulai' => $faker->time($format = 'H:i'),
-                'jam_selesai' => $faker->time($format = 'H:i'),
+
             ]);
         }
     }

@@ -736,50 +736,6 @@
                             </a>
                         </li>
                     @endrole
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-                            <ul class="nk-menu-sub ">
-                                <li class="nk-menu-item {{ activeClass('pendaftaran.index') }}">
-                                    <a href="{{ route('pendaftaran.index') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pasien Hari Ini</span></a>
-                                </li>
-                                <li class="nk-menu-item {{ activeClass('pendaftaran.create') }}">
-                                    <a href="{{ route('pendaftaran.create') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Tambah Pasien</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="https://vclaim.bpjs-kesehatan.go.id/vclaim" target="_blank"
-                                        class="nk-menu-link"><span class="nk-menu-text">V Claim</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('pendaftaran.messanger') }}" class="nk-menu-link"><span
-                                    class="nk-menu-text">Messages</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nk-menu-item has-sub">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon">
-                                    <em class="icon ni ni-view-list-fill"></em>
-                                </span>
-                                <span class="nk-menu-text">Pemeriksaan Lab</span>
-                            </a>
-                            <ul class="nk-menu-sub ">
-                                <li class="nk-menu-item {{ activeClass('lab.otc') }}">
-                                    <a href="{{ route('lab.otc') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pemeriksaan Lab OTC</span></a>
-                                </li>
-                                <li class="nk-menu-item {{ activeClass('lab.umum') }}">
-                                    <a href="{{ route('lab.umum') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pemeriksaan Lab RS</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endrole
                         
                         @role('igd')
                         <!-- IGD -->
