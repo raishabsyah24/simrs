@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\User\ActivityLogController;
-use App\Http\Controllers\Admin\Apotek\{ObatController, OrderController, AntrianBpjsController, AntrianUmumController, Select2Controller};
+use App\Http\Controllers\Admin\Apotek\{ObatController, OrderController, AntrianBpjsController, AntrianUmumController, Select2Controller,};
 use App\Http\Controllers\Admin\Dokter\PasienDokterController;
 use App\Http\Controllers\Admin\{
     DashboardController,
@@ -19,7 +19,6 @@ use App\Http\Controllers\Admin\{
 Route::get('/', function () {
     return redirect()->route('login');
 });
-
 Route::get('/data', [PasienDokterController::class, 'q']);
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard.index');
@@ -120,7 +119,7 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
 });
 
 // Role apotek
-Route::group(['middleware' => ['auth', 'role:apotek']], function () {
+Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () {
     // Data obat
     Route::get('/obat', [ObatController::class, 'dataObat'])->name('data');
     Route::get('/obat/fetch-data', [ObatController::class, '_fetchData'])->name('obat.fetchData');
@@ -140,7 +139,8 @@ Route::group(['middleware' => ['auth', 'role:apotek']], function () {
     // Daftar antrian umum
     Route::get('/apotek/data-umum', [AntrianUmumController::class, 'umum'])->name('data.umum');
     Route::get('/apotek/fetch/umum', [AntrianUmumController::class, '_fetchUmum'])->name('fetch-umum');
-    Route::get('/apotek/pasien/umum/{id}', [AntrianUmumController::class, 'detailPasienUmum'])->name('pasien-umum');
+    Route::get('/apotek/pasien/umum/{id}', [AntrianUmumController::class, 'detailPasienUmum'])
+        ->name('pasien-umum');
     // Route::get('/create/apotek', [AntrianBpjsController::class, 'createApotek'])->name('create.antrian');
     // Route::post('/store/apotek', [AntrianBpjsController::class, 'storeApotek'])->name('store.antrian');
     // Route::post('/apotek/{id}/update/', [AntrianBpjsController::class, 'updateApotek'])->name('update.antrian');
@@ -162,7 +162,6 @@ Route::group(['middleware' => ['auth', 'role:rekam_medis|super_admin']], functio
     Route::get('/migrasi', [RekammedisController::class, 'migrasi_retensi'])
         ->name('rm.migrasi');
 });
-
 
 Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
 
