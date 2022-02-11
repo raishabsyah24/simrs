@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateObatPasienPeriksaRajal extends Migration
+class CreateDiagnosaPasienRajalTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,17 @@ class CreateObatPasienPeriksaRajal extends Migration
      */
     public function up()
     {
-        Schema::create('obat_pasien_periksa_rajal', function (Blueprint $table) {
+        Schema::create('diagnosa_pasien_rajal', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('periksa_dokter_id');
-            $table->unsignedBigInteger('obat_apotek_id');
-            $table->string('komposisi')->nullable();
-            $table->string('signa')->nullable();
-            $table->bigInteger('jumlah')->default(1);
-            $table->decimal('harga_obat');
-            $table->decimal('subtotal')->default(0);
+            $table->unsignedBigInteger('diagnosa_id');
+            $table->longText('bagian')->nullable();
             $table->timestamps();
+
             $table->foreign('periksa_dokter_id')->references('id')->on('periksa_dokter')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->foreign('obat_apotek_id')->references('id')->on('obat_apotek')
+            $table->foreign('diagnosa_id')->references('id')->on('diagnosa')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });
@@ -39,6 +36,6 @@ class CreateObatPasienPeriksaRajal extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obat_pasien_periksa_rajal');
+        Schema::dropIfExists('diagnosa_pasien_rajal');
     }
 }

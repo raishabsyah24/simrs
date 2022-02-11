@@ -31,13 +31,13 @@ class CreatePemeriksaanTable extends Migration
 
             $table->foreign('faskes_id')->references('id')->on('faskes')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('pasien_id')->references('id')->on('pasien')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('kategori_pasien')->references('id')->on('kategori_pasien')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
         });
     }
 

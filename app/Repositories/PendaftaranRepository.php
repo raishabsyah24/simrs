@@ -28,7 +28,7 @@ class PendaftaranRepository implements PendaftaranInterface
     {
         return DB::table('dokter_poli as dp')
             ->selectRaw('
-                d.id, d.nama as nama_dokter, dp.jam_mulai, dp.jam_selesai
+                d.id, d.nama as nama_dokter
             ')
             ->join('dokter as d', 'd.id', '=', 'dp.dokter_id')
             ->join('poli as p', 'p.id', '=', 'dp.poli_id')

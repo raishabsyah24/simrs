@@ -94,13 +94,84 @@ class DokterRepository implements DokterInterface
             ->get();
     }
 
-    public function tenagaMedis()
+    public function semuaDokter()
     {
-        return DB::table('dokter as dr')
+        return DB::table('dokter as d')
             ->selectRaw('
-                     dr.id, dr.nama, dr.no_str, pl.spesialis as spesialis 
-            ')
-            ->join('poli as pl', 'pl.id', '=', 'dr.spesialis')
+            d.id, d.nama, d.email, d.no_str, d.no_hp, d.foto, d.status, d.tanggal_bergabung, d.created_at, p.spesialis, p.nama as nama_poli
+        ')
+            ->join('dokter_poli as dp', 'dp.dokter_id', '=', 'd.id')
+            ->join('poli as p', 'dp.poli_id', '=', 'p.id')
+            ->whereNull('d.deleted_at');
+    }
+
+    public function searchDiagnosa(string $nama_diagnosa, int $periksa_dokter_id = null)
+    {
+        return DB::table('diagnosa as d')
+            ->selectRaw('
+            d.id, d.kode, d.nama
+        ')
+            ->when($nama_diagnosa ?? false, function ($query) use ($nama_diagnosa) {
+                return $query->where('d.kode', 'like', '%' . $nama_diagnosa . '%')
+                    ->orWhere('d.nama', 'like', '%' . $nama_diagnosa . '%');
+            })
             ->get();
+    }
+
+    public function diagnosaPasien(int $periksa_dokter_id)
+    {
+        return DB::table('diagnosa_pasien_rajal as dpr')
+            ->selectRaw('
+            dpr.id, dpr.periksa_dokter_id, d.kode, d.nama, dpr.bagian
+        ')
+            ->join('diagnosa as d', 'd.id', '=', 'dpr.diagnosa_id')
+            ->where('dpr.periksa_dokter_id', $periksa_dokter_id)
+            ->get();
+    }
+
+    public function searchTindakan(string $nama_tindakan, int $periksa_dokter_id = null)
+    {
+        return DB::table('tindakan as t')
+            ->selectRaw('
+            t.id, t.kode, t.nama
+        ')
+            ->when($nama_tindakan ?? false, function ($query) use ($nama_tindakan) {
+                return $query->where('t.kode', 'like', '%' . $nama_tindakan . '%')
+                    ->orWhere('t.nama', 'like', '%' . $nama_tindakan . '%');
+            })
+            ->get();
+    }
+
+    public function tindakanPasien(int $periksa_dokter_id)
+    {
+        return DB::table('tindakan_pasien_rajal as tpr')
+            ->selectRaw('
+            tpr.id, tpr.periksa_dokter_id, t.kode, t.nama, tpr.bagian
+        ')
+            ->join('tindakan as t', 't.id', '=', 'tpr.tindakan_id')
+            ->where('tpr.periksa_dokter_id', $periksa_dokter_id)
+            ->get();
+    }
+
+    public function periksaPoliStation($periksa_poli_station_id)
+    {
+        return DB::table('periksa_poli_station as pps')
+            ->selectRaw('
+            pps.tb, pps.bb, pps.td, pps.su, pps.bmi
+        ')
+            ->join('periksa_dokter as pd', 'pd.periksa_poli_station_id', '=', 'pps.id')
+            ->where('pps.id', $periksa_poli_station_id)
+            ->first();
+    }
+
+    public function posisiPasienRajal(int $pemeriksaan_id)
+    {
+        return DB::table('posisi_pasien_rajal AS ppr')
+            ->selectRaw('
+                ppr.id
+            ')
+            ->join('pemeriksaan AS pe', 'pe.id', '=', 'ppr.pemeriksaan_id')
+            ->where('ppr.pemeriksaan_id', $pemeriksaan_id)
+            ->first();
     }
 }

@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DokterPoli extends Model
+class PosisiDetailPasienRajal extends Model
 {
     use HasFactory;
 
-    protected $table = 'dokter_poli';
-
     public $timestamps = false;
 
+    protected $table = 'posisi_detail_pasien_rajal';
+
     protected $fillable = [
-        'dokter_id', 'poli_id',
+        'posisi_pasien_rajal_id', 'keterangan', 'waktu', 'status', 'aktifitas'
     ];
 }

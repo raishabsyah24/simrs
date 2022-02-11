@@ -26,16 +26,16 @@ class CreatePemeriksaanDetailTable extends Migration
 
             $table->foreign('pemeriksaan_id')->references('id')->on('pemeriksaan')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('poli_id')->references('id')->on('poli')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('layanan_id')->references('id')->on('layanan')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('dokter_id')->references('id')->on('dokter')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
         });
     }
 

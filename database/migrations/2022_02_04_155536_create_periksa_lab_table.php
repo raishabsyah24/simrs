@@ -26,13 +26,13 @@ class CreatePeriksaLabTable extends Migration
 
             $table->foreign('periksa_dokter_id')->references('id')->on('periksa_dokter')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('pemeriksaan_detail_id')->references('id')->on('pemeriksaan_detail')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('pasien_id')->references('id')->on('pasien')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
         });
     }
 

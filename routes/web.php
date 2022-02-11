@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\User\ActivityLogController;
 use App\Http\Controllers\Admin\Apotek\{ObatController, OrderController, AntrianBpjsController, AntrianUmumController, Select2Controller,};
-use App\Http\Controllers\Admin\Dokter\PasienDokterController;
+use App\Http\Controllers\Admin\Dokter\{PasienDokterController, DokterController};
 use App\Http\Controllers\Admin\{
     DashboardController,
     LayananController,
@@ -13,7 +13,8 @@ use App\Http\Controllers\Admin\{
     KasirController,
     RadiologiController,
     TenagaMedisController,
-    RekammedisController
+    RekammedisController,
+    PosisiPasienController
 };
 
 Route::get('/', function () {
@@ -65,6 +66,8 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
         ->name('pendaftaran.store');
     Route::post('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'storePasienSudahPernahDaftar'])
         ->name('pendaftaran.storePasienSudahPernahDaftar');
+    Route::delete('/pendaftaran/pasien/{pemeriksaan}/delete', [PendaftaranController::class, 'destroy'])
+        ->name('pendaftaran.destroy');
 
     // dokter
     Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
@@ -76,20 +79,6 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::post('/dokter', [DokterController::class, 'store'])->name('dokter.store');
     Route::put('/dokter/{dokter}', [DokterController::class, 'update'])->name('dokter.update');
     Route::delete('/dokter/{dokter}/delete', [DokterController::class, 'delete'])->name('dokter.delete');
-
-    // Daftar managemen user
-    Route::get('/user/data', [UserController::class, 'index'])
-        ->name('data.user');
-    Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
-        ->name('user.fetchData');
-    Route::get('/user/create', [UserController::class, 'createUser'])
-        ->name('user.create');
-    Route::post('/user/store', [UserController::class, 'storeUser'])
-        ->name('user.store');
-    Route::get('/user/{id}/edit', [UserController::class, 'editUser'])
-        ->name('user.edit');
-    Route::put('/user/{id}/update', [UserController::class, 'updateUser'])
-        ->name('user.update');
 
     Route::get('/user', [UserController::class, 'index'])
         ->name('user.index');
@@ -110,7 +99,6 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::delete('/user/{user}/delete', [UserController::class, 'delete'])
         ->name('user.delete');
 
-
     // Daftar tenaga medis
     Route::get('/user/medis', [TenagaMedisController::class, 'dataMedis'])
         ->name('data.medis');
@@ -118,6 +106,10 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
         ->name('data.create-medis');
     Route::post('/user/medis/store', [TenagaMedisController::class, 'storeMedis'])
         ->name('data.store-medis');
+
+    // Posisi pasien
+    Route::get('/pendaftaran/{id}/posisi-pasien', [PosisiPasienController::class, 'rajal'])
+        ->name('posisi-pasien.rajal');
 });
 
 // Role rekam medis

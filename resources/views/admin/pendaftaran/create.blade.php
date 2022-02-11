@@ -114,7 +114,7 @@
                                                             <em class="icon ni ni-calendar"></em>
                                                         </div>
                                                         <input data-date-format="yyyy-mm-dd" name="tanggal_lahir"
-                                                            type="text" class="form-control date-picker">
+                                                            type="text" class="form-control date-picker-alt">
                                                     </div>
                                                 </div>
                                             </div>
@@ -128,7 +128,7 @@
                                                             <option label="Pilih data" disabled selected value=""></option>
                                                             <option value="islam">Islam</option>
                                                             <option value="protestan">Protestan</option>
-                                                            <option value="katolik">Kaltolik</option>
+                                                            <option value="katolik">Katolik</option>
                                                             <option value="hindu">Hindu</option>
                                                             <option value="budha">Budha</option>
                                                             <option value="khonghucu">Khonghucu</option>
@@ -331,8 +331,8 @@
                                                         <select class="form-select select2" style="position:absolute;"
                                                             name="tujuan">
                                                             <option label="Pilih data" disabled selected value=""></option>
-                                                            <option value="periksa">Periksa</option>
-                                                            <option value="lab">Lab</option>
+                                                            <option value="periksa">Periksa Dokter / Konsultasi</option>
+                                                            <option value="lab">Laboratorium</option>
                                                             <option value="radiologi">Radiologi</option>
                                                         </select>
                                                     </div>
@@ -385,7 +385,7 @@
                     let data = response.data;
                     data.forEach(function(item) {
                         $('[name=dokter_id]').append(
-                            `<option class="dokter-id" value="${item.id}">${item.nama_dokter} (${item.jam_mulai} - ${item.jam_selesai})</option>`
+                            `<option class="dokter-id" value="${item.id}">${item.nama_dokter}</option>`
                         )
                     })
                 })

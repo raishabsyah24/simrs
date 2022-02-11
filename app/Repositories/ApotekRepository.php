@@ -50,30 +50,7 @@ class ApotekRepository implements ApotekInterface
             ->get();
     }
 
-    public function pasienApotek($periksa_dokter_id)
-    {
-        return DB::table('periksa_dokter as pd')
-            ->selectRaw('
-                pd.id periksa_dokter_id, rm.kode, p.nama as nama_pasien, p.tanggal_lahir, p.alamat as alamat_pasien,
-                kn.nama as kategori_pasien
-            ')
-            ->join('pasien as p', 'p.id', '=', 'pd.pasien_id')
-            ->join('rekam_medis as rm', 'rm.pasien_id', '=', 'p.id')
-            ->join('kategori_pasien as kn', 'kn.id', '=', 'kn.id')
-            ->where('pd.id', $periksa_dokter_id)
-            ->first();
-    }
-
-    public function obatApotek()
-    {
-        return DB::table('obat_pasien_periksa_rajal as op')
-            ->selectRaw('op.id, harga_jual as price_sale, harga_obat as price
-            ')
-            ->join('obat_apotek as ap', 'ap.id', '=', 'op.obat_apotek_id')
-            ->get();
-    }
-
-    public function pasienApotek($periksa_dokter_id)
+    public function pasienApotek(int $periksa_dokter_id)
     {
         return DB::table('periksa_dokter as pd')
             ->selectRaw('

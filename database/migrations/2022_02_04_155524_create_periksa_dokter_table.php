@@ -16,11 +16,13 @@ class CreatePeriksaDokterTable extends Migration
         Schema::create('periksa_dokter', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pemeriksaan_detail_id');
+            $table->unsignedBigInteger('periksa_poli_station_id')->nullable();
             $table->unsignedBigInteger('pasien_id');
             $table->unsignedBigInteger('poli_id');
             $table->string('no_antrian_periksa')->nullable();
             $table->string('no_antrian_apotek')->nullable();
             $table->date('tanggal');
+            $table->longText('diagnosa')->nullable();
             $table->longText('keluhan')->nullable();
             $table->longText('subjektif')->nullable();
             $table->longText('objektif')->nullable();
@@ -36,13 +38,16 @@ class CreatePeriksaDokterTable extends Migration
 
             $table->foreign('pemeriksaan_detail_id')->references('id')->on('pemeriksaan_detail')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
+            $table->foreign('periksa_poli_station_id')->references('id')->on('periksa_poli_station')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreign('pasien_id')->references('id')->on('pasien')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('poli_id')->references('id')->on('poli')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
         });
     }
 
