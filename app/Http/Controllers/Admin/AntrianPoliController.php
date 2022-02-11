@@ -33,20 +33,25 @@ class AntrianPoliController extends Controller
         $data = $this->antrianPoliRepository->antrianPoliJantung();
         $output = '';
         foreach ($data as $key => $item){
+            if($item->jenis_kelamin == 'laki-laki'){
+                $jk = 'L';
+            }else {
+                $jk = 'P';
+            }
             $output .= '
-            <div class="nk-tb-item">
-                <div class="nk-tb-col tb-col-md">
-                    <h5 class="tb-lead text-capitalize">'. $key + 1 .'</h5>
-                </div>
-                <div class="nk-tb-col tb-col-md">
+            <tr class="nk-tb-item">
+                <td class="nk-tb-col tb-col-md">
+                    <h5 class="tb-lead text-capitalize">'.$key + 1 .'</h5>
+                </td>
+                <td class="nk-tb-col tb-col-md">
                     <h5 class="tb-lead text-capitalize">'. $item->no_antrian_periksa .'</h5>
-                </div>
-                <div class="nk-tb-col tb-col-md">
+                </td>
+                <td class="nk-tb-col tb-col-md">
                     <a href="">
                         <div class="user-card">
                             <div class="user-avatar bg-primary">
                                     <span class="text-uppercase">
-                                        L
+                                        ' . $jk . '
                                     </span>
                             </div>
                             <div class="user-info">
@@ -56,14 +61,14 @@ class AntrianPoliController extends Controller
                             </div>
                         </div>
                     </a>
-                </div>
-                <div class="nk-tb-col tb-col-md">
+                </td>
+                <td class="nk-tb-col tb-col-md">
                     <h5 class="tb-lead text-capitalize">'. $item->nama_dokter .'</h5>
-                </div>
-                <div class="nk-tb-col tb-col-md">
+                </td>
+                <td class="nk-tb-col tb-col-md">
                     <h5 class="tb-lead">'. tanggalJam($item->created_at) .'</h5>
-                </div>
-           </div>
+                </td>
+           </tr>
             ';
         }
 
