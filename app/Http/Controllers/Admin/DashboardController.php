@@ -14,6 +14,7 @@ class DashboardController extends Controller
     {
         $this->dashboardRepository = $dashboardRepository;
     }
+
     public function index()
     {
         $title = 'Dashboard';
@@ -32,37 +33,9 @@ class DashboardController extends Controller
             ['Pasien Umum Rawat Jalan Hari Ini', $total_pasien_rajal_umum_hari_ini],
             ['Pasien Asuransi Rawat Jalan Hari Ini', $total_pasien_rajal_asuransi_hari_ini]
         ];
-
-
         return view('admin.dashboard.index', compact(
             'title',
             'total'
-        ));
-    }
-
-    public function antrianPoliJantung()
-    {
-        $data = $this->dashboardRepository->antrianPoliJantung();
-        $title = 'Antrian Pasien Poli Jantung';
-        return view('admin.antrian.jantung.index', compact(
-            'title',
-            'data',
-        ));
-    }
-
-    public function antrianPoliAnak()
-    {
-//        $letter = 'A';
-//        $letterAscii = ord($letter);
-//        $letterAscii++;
-//        $letter = chr($letterAscii);
-//        return $letter;
-
-        $data = $this->dashboardRepository->antrianPoliAnak();
-        $title = "Antrian Pasien Poli Anak";
-        return view('admin.antrian.anak.index', compact(
-            'title',
-            'data',
         ));
     }
 }

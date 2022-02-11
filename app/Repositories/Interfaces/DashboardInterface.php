@@ -8,8 +8,4 @@ interface DashboardInterface
     public function totalPasienRajalBpjsHariIni();
     public function totalPasienRajalUmumHariIni();
     public function totalPasienRajalAsuransiHariIni();
-
-    public function antrianPoliJantung();
-    public function antrianPoliAnak();
-
 }

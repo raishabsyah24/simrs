@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="nk-block fetch-data d-none">
-                        @include('admin.antrian.anak.fetch')
+{{--                        @include('admin.antrian.anak.fetch')--}}
                     </div>
                 </div>
             </div>

@@ -12,7 +12,8 @@ use App\Http\Controllers\Admin\{
     KasirController,
     PoliStationController,
     RadiologiController,
-    PosisiPasienController
+    PosisiPasienController,
+    AntrianPoliController
 };
 use App\Http\Controllers\Admin\Dokter\{PasienDokterController, DokterController};
 use App\Http\Controllers\Auth\UserDetailController;
@@ -28,9 +29,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard.index');
 
-    Route::get('/antrian-pasien/poli-jantung', [DashboardController::class, 'antrianPoliJantung'])
-        ->name('dashboard.antrian-poli.jantung');
-    Route::get('/antrian-pasien/poli-anak', [DashboardController::class, 'antrianPoliAnak'])
+    Route::get('/antrian-pasien/poli-jantung', [AntrianPoliController::class, 'antrianPoliJantung'])
+    ->name('dashboard.antrian-poli.jantung');
+    Route::get('/antrian-pasien/poli-jantung/data', [AntrianPoliController::class, 'dataAntrianPoliJantung'])
+        ->name('dashboard.antrian-poli.jantung.data');
+    Route::get('/antrian-pasien/poli-anak', [AntrianPoliController::class, 'antrianPoliAnak'])
         ->name('dashboard.antrian-poli.anak');
 });
 

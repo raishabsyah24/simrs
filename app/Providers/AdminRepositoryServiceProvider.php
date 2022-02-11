@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\{
+    AntrianPoliRepository,
     LayananRepository,
     PasienRepository,
     PendaftaranRepository,
@@ -11,9 +12,9 @@ use App\Repositories\{
     DashboardRepository,
     UserRepository,
     PoliStationRepository,
-    PosisiPasienRepository
-};
+    PosisiPasienRepository};
 use App\Repositories\Interfaces\{
+    AntrianPoliInterface,
     PasienInterface,
     LayananInterface,
     PendaftaranInterface,
@@ -21,8 +22,7 @@ use App\Repositories\Interfaces\{
     DashboardInterface,
     UserInterface,
     PoliStationInterface,
-    PosisiPasienInterface
-};
+    PosisiPasienInterface};
 
 class AdminRepositoryServiceProvider extends ServiceProvider
 {
@@ -64,6 +64,10 @@ class AdminRepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             PosisiPasienInterface::class,
             PosisiPasienRepository::class
+        );
+        $this->app->bind(
+            AntrianPoliInterface::class,
+            AntrianPoliRepository::class
         );
     }
 
