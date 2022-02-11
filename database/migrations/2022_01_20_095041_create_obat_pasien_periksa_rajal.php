@@ -19,6 +19,7 @@ class CreateObatPasienPeriksaRajal extends Migration
             $table->unsignedBigInteger('obat_apotek_id');
             $table->string('komposisi')->nullable();
             $table->string('signa')->nullable();
+            $table->bigInteger('jumlah')->default(1);
             $table->decimal('harga_obat');
             $table->decimal('subtotal')->default(0);
             $table->timestamps();

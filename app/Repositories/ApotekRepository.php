@@ -63,4 +63,13 @@ class ApotekRepository implements ApotekInterface
             ->where('pd.id', $periksa_dokter_id)
             ->first();
     }
+
+    public function obatApotek()
+    {
+        return DB::table('obat_pasien_periksa_rajal as op')
+            ->selectRaw('op.id, harga_jual as price_sale, harga_obat as price
+            ')
+            ->join('obat_apotek as ap', 'ap.id', '=', 'op.obat_apotek_id')
+            ->get();
+    }
 }

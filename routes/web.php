@@ -58,12 +58,14 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
         ->name('pendaftaran.search-pasien');
     Route::get('/pendaftaran/change-pasien', [PendaftaranController::class, 'changePasien'])
         ->name('pendaftaran.change-pasien');
-    Route::get('/messanger', [PendaftaranController::class, 'messanger'])
-        ->name('pendaftaran.messanger');
+    // Route::get('/messanger', [PendaftaranController::class, 'messanger'])
+    //     ->name('pendaftaran.messanger');
     Route::post('/pendaftaran', [PendaftaranController::class, 'store'])
         ->name('pendaftaran.store');
     Route::post('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'storePasienSudahPernahDaftar'])
         ->name('pendaftaran.storePasienSudahPernahDaftar');
+
+    // Daftar managemen user
     Route::get('/user/data', [UserController::class, 'index'])
         ->name('data.user');
     Route::get('/user/fetch-data', [UserController::class, 'fetchData'])

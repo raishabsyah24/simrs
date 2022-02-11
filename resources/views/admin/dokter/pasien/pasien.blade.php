@@ -198,22 +198,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-7 offset-lg-5">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label">Status Lanjutan<span
-                                                                                class="text-danger">*</span></label>
-                                                                        <div class="form-control-wrap ">
-                                                                            <select class="form-select select2"
-                                                                                style="position:absolute;"
-                                                                                name="status_lanjutan"
-                                                                                data-placeholder="Pilih data">
-                                                                                <option label="Pilih data" disabled selected
-                                                                                    value=""></option>
-                                                                                <option value="dirujuk">Dirujuk</option>
-                                                                                <option value="selesai">Selesai</option>
-                                                                            </select>
-                                                                        </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Status Lanjutan<span
@@ -249,21 +233,6 @@
                                                     </div>
                                                     {{-- End form Pemeriksaan --}}
 
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                {{-- End form Pemeriksaan --}}
-
-                                                {{-- Obat pasien --}}
-                                                <div class="nk-divider divider md"></div>
-                                                <div class="nk-block-head nk-block-head-sm nk-block-between">
-                                                    <h5 class="title">Obat Pasien</h5>
-                                                </div>
-                                                <div class="nk-block">
-                                                    <form class="form-validate" action="">
-                                                        @csrf
-                                                        <div class="row g-gs">
-                                                            <div class="col-md-6">
                                                     {{-- Obat pasien --}}
                                                     <div class="nk-divider divider md"></div>
                                                     <div class="nk-block-head nk-block-head-sm nk-block-between">
@@ -288,28 +257,9 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="nk-divider divider md">
-                                                    </div>
-                                                    {{-- Form Obat --}}
-                                                    <div class="nk-block-head nk-block-head-sm nk-block-between">
-                                                        <h5 class="title">Obat</h5>
-                                                        <button type="button" class="btn btn-primary btn-tambah-obat"><em
-                                                                class="icon ni ni-plus"></em>
-                                                            Tambah Obat </button>
-                                                    </div>
-                                                    <div class="nk-block nk-block-lg">
-                                                        <table class="table">
-                                                            <thead class="thead-dark">
-                                                                <tr>
-                                                                    <th scope="col">No</th>
-                                                                    <th scope="col">Nama Obat</th>
-                                                                    <th scope="col">Harga</th>
-                                                                    <th scope="col">Signa</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach ($rekam_medis as $item)
+                                                        <div class="mt-3">
+                                                            <table class="table table-striped">
+                                                                <thead>
                                                                     <tr>
                                                                         <th class="text-center">No</th>
                                                                         <th class="text-center">Nama Obat</th>
@@ -380,6 +330,7 @@
                                                 </div>
                                                 {{-- End Obat pasien --}}
                                             </div>
+
                                             <div class="tab-pane" id="tabItem2">
                                                 {{-- Table RM --}}
                                                 <div class="nk-block nk-block-lg">
@@ -421,80 +372,6 @@
                                                 </div>
                                                 {{-- Table RM --}}
                                             </div>
-                                                    </form>
-                                                    <div class="mt-3">
-                                                        <table class="table table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Nama Obat</th>
-                                                                    <th>Jumlah</th>
-                                                                    <th>Signa</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="data-obat">
-                                                                {{-- @foreach ($obat_pasien as $item)
-                                                                    <tr>
-                                                                        <td>{{ $item->nama_generik }}</td>
-                                                                        <td>
-                                                                            <div class="form-group">
-                                                                                <div class="form-control-wrap">
-                                                                                    <input name="jumlah"
-                                                                                        value="{{ $item->jumlah }}"
-                                                                                        type="text" class="form-control">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="form-group">
-                                                                                <div class="form-control-wrap">
-                                                                                    <input name="signa"
-                                                                                        value="{{ $item->signa }}"
-                                                                                        type="text" class="form-control">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach --}}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                {{-- End Obat pasien --}}
-                                            </div>
-                                            <div class="tab-pane" id="tabItem2">
-                                                {{-- Table RM --}}
-                                                <div class="nk-block nk-block-lg">
-                                                    <table class="table">
-                                                        <thead class="thead-dark">
-                                                            <tr>
-                                                                <th scope="col">No</th>
-                                                                <th scope="col">Tanggal Kunjungan</th>
-                                                                <th scope="col">Poli</th>
-                                                                <th scope="col">Dokter</th>
-                                                                <th scope="col">Subjektif</th>
-                                                                <th scope="col">Objektif</th>
-                                                                <th scope="col">Assesment</th>
-                                                                <th scope="col">Plan</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @foreach ($rekam_medis as $item)
-                                                                <tr>
-                                                                    <th scope="row">{{ $loop->iteration }}</th>
-                                                                    <td>{{ tanggal($item->tanggal_periksa) }}</td>
-                                                                    <td>{{ $item->poli }}</td>
-                                                                    <td>{{ $item->dokter }}</td>
-                                                                    <td>{{ $item->subjektif }}</td>
-                                                                    <td>{{ $item->objektif }}</td>
-                                                                    <td>{{ $item->assesment }}</td>
-                                                                    <td>{{ $item->plan }}</td>
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                {{-- Table RM --}}
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -506,141 +383,134 @@
         </div>
     </div>
     </div>
+
 @endsection
 
 @push('js')
     <script>
-         reloadTable();
+        reloadTable();
 
-async function searchObat(id, url, attr) {
-function searchObat(id, url, attr) {
-
-    if ($('.dropdown-obat').hasClass('d-none')) {
-        $('.dropdown-obat').removeClass('d-none');
-    }
-
-    let obat = $(attr).val();
-
-    await $.get(url, {
-    $.get(url, {
-            obat: obat,
-            periksa_dokter_id: id
-        })
-        .done(output => {
-            if (output != '') {
-                $('.dropdown-obat').html(output);
+        async function searchObat(id, url, attr) {
+            if ($('.dropdown-obat').hasClass('d-none')) {
+                $('.dropdown-obat').removeClass('d-none');
             }
-        })
-}
 
-function pilihObat(obat_apotek_id, periksa_dokter_id, url) {
-    event.preventDefault();
-    $('.dropdown-obat').addClass('d-none');
-    $.post({
-            url: url,
-            type: 'post',
-            data: {
-                obat_apotek_id: obat_apotek_id,
-                periksa_dokter_id: periksa_dokter_id
-            }
-        })
-        .done(response => {
-            $('[name=obat]').val('')
-            alertSuccess(response.message);
-            let url = response.url;
-            $.get(url)
+            let obat = $(attr).val();
+
+            await $.get(url, {
+                    obat: obat,
+                    periksa_dokter_id: id
+                })
                 .done(output => {
-                    $('table .data-obat').html(output);
+                    if (output != '') {
+                        $('.dropdown-obat').html(output);
+                    }
+                })
+        }
+
+        function pilihObat(obat_apotek_id, periksa_dokter_id, url) {
+            event.preventDefault();
+            $('.dropdown-obat').addClass('d-none');
+            $.post({
+                    url: url,
+                    type: 'post',
+                    data: {
+                        obat_apotek_id: obat_apotek_id,
+                        periksa_dokter_id: periksa_dokter_id
+                    }
+                })
+                .done(response => {
+                    $('[name=obat]').val('')
+                    alertSuccess(response.message);
+                    let url = response.url;
+                    $.get(url)
+                        .done(output => {
+                            $('table .data-obat').html(output);
+                            reloadTable();
+                        })
+                })
+        }
+
+        function reloadTable() {
+            setTimeout(() => {
+                $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
+                    .done(response => {
+                        let limit = response.limit;
+                        if (limit == 'limit') {
+                            $('input[name=obat]').prop('disabled', true);
+                            alertError('Limit bos');
+                        }
+                        $('table .data-obat').html(response.output);
+                    })
+            }, 600);
+        }
+
+        function updateQuantity(url, attr, obat_pasien_periksa_rajal_id) {
+            let qty = $(attr).val();
+            $('input[name=obat]').prop('disabled', false);
+
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        jumlah: qty,
+                        obat_pasien_periksa_rajal_id: obat_pasien_periksa_rajal_id,
+                    },
+                })
+                .done(response => {
+                    console.log(response);
+                    let limit = response.limit;
+                    if (limit == 'limit') {
+                        $(attr).val(1);
+                        $('input[name=obat]').prop('disabled', true);
+                        alertError('Pasien bpjs sudah mencapai limit obat',
+                            'Silahkan kurangi jumlah obat atau kurangi obat pasien');
+                    }
                     reloadTable();
-        })
-    })
-}
+                })
+        }
 
-function reloadTable() {
-    setTimeout(() => {
-        $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
-            .done(response => {
-                let limit = response.limit;
-                if (limit == 'limit') {
-                    $('input[name=obat]').prop('disabled', true);
-                    alertError('Limit bos');
-                }
-                $('table .data-obat').html(response.output);
-            })
-    }, 600);
-}
+        function hapusObat(url, id) {
+            event.preventDefault();
+            console.log(url);
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "DELETE",
+                        id: id
+                    },
+                })
+                .done(response => {
+                    alertSuccess(response.message)
+                    reloadTable();
+                })
+        }
 
-function updateQuantity(url, attr, obat_pasien_periksa_rajal_id) {
-    let qty = $(attr).val();
-    $('input[name=obat]').prop('disabled', false);
-
-    $.post({
-            url: url,
-            data: {
-                _method: "PUT",
-                jumlah: qty,
-                obat_pasien_periksa_rajal_id: obat_pasien_periksa_rajal_id,
-            },
-        })
-        .done(response => {
-            console.log(response);
-            let limit = response.limit;
-            if (limit == 'limit') {
-                $(attr).val(1);
-                $('input[name=obat]').prop('disabled', true);
-                alertError('Pasien bpjs sudah mencapai limit obat',
-                    'Silahkan kurangi jumlah obat atau kurangi obat pasien');
-            }
-            reloadTable();
-        })
-}
-
-function hapusObat(url, id) {
-    $.post({
-            url: url,
-            data: {
-                _method: "DELETE",
-                id: id
-            },
-        })
-        .done(response => {
-            alertSuccess(response.message)
-            reloadTable();
-        })
-}
-
-function submitForm(originalForm) {
-    event.preventDefault();
-    $.post({
-            url: $(originalForm).attr('action'),
-            data: new FormData(originalForm),
-            beforeSend: function() {
-                $(originalForm).find('.tombol-simpan').attr('disabled', true);
-                $(originalForm).find('.text-simpan').text('Menyimpan . . .');
-                $(originalForm).find('.loading-simpan').removeClass('d-none');
-            },
-            dataType: 'json',
-            contentType: false,
-            cache: false,
-            processData: false,
-            complete: function() {
-                $(originalForm).find('.loading-simpan').addClass('d-none');
-                $(originalForm).find('.text-simpan').text('Simpan');
-                $(originalForm).find('.tombol-simpan').attr('disabled', false);
-            }
-        })
-        .done(response => {
-            $(originalForm).find('.tombol-simpan').attr('disabled', true);
-            modalTerimakasih(response.message);
-            pindahHalaman(response.url, 3000);
-        })
-}
-
-setInterval(() => {
-    $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
-        .done(output => {
-            $('table .data-obat').html(output);
-        })
-}, 500);
+        function submitForm(originalForm) {
+            event.preventDefault();
+            $.post({
+                    url: $(originalForm).attr('action'),
+                    data: new FormData(originalForm),
+                    beforeSend: function() {
+                        $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                        $(originalForm).find('.text-simpan').text('Menyimpan . . .');
+                        $(originalForm).find('.loading-simpan').removeClass('d-none');
+                    },
+                    dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    complete: function() {
+                        $(originalForm).find('.loading-simpan').addClass('d-none');
+                        $(originalForm).find('.text-simpan').text('Simpan');
+                        $(originalForm).find('.tombol-simpan').attr('disabled', false);
+                    }
+                })
+                .done(response => {
+                    $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                    modalTerimakasih(response.message);
+                    pindahHalaman(response.url, 3000);
+                })
+        }
     </script>
 @endpush
