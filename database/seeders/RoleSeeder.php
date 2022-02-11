@@ -39,7 +39,22 @@ class RoleSeeder extends Seeder
             'lab',
             'kasir',
             'apotek',
-            'rekam_medis'
+            'rekam_medis',
+            'igd',
+            'dahlia',
+            'melati',
+            'kenanga',
+            'tulip',
+            'edelweis',
+            'OK',
+            'VK',
+            'HD',
+            'ICU',
+            'dapur',
+            'laundry',
+            'CSSD',
+            'gudangfarmasi',
+            'gudangatk'
         ];
 
         foreach ($roles as $role) {

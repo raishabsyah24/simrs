@@ -454,7 +454,7 @@
                     if (input == true) {
                         $('[name=obat]').prop('disabled', false)
                     }
-                    alertSuccess('Hapus obat berhasil')
+                    alertSuccess(response.message)
                     reloadTable();
                 })
         }
