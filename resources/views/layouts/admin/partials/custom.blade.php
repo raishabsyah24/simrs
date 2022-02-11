@@ -22,6 +22,11 @@
         $(".nk-modal-text .lead").text(message);
     }
 
+    function modalTerimakasih(message = "Terima kasih atas layanan yang anda berikan") {
+        $('.modal-terimakasih').modal('show');
+        $('.caption-text').text(message);
+    }
+
     function alertError(
         title = "Maaf, terjadi kesalahan",
         message = "Harap hubungi tim developer"
@@ -64,7 +69,7 @@
     }
 
     // Confirm delete alert
-    function confirmDelete(url, table = "", reload = false) {
+    function confirmDelete(url) {
         Swal.fire({
             title: "Apakah anda yakin menghapus data ini?",
             text: "Data yang sudah dihapus tidak dapat dikembalikan lagi!",
@@ -82,14 +87,10 @@
                             _method: "DELETE",
                         },
                     })
-                    .done((response) => {
-                        alert_success(response.message);
-                        $(table).DataTable().ajax.reload();
-                        if (reload === true) {
-                            window.location.reload();
-                        }
+                    .done(response => {
+                        alertSuccess(response.message);
                     })
-                    .fail((errors) => {
+                    .fail(errors => {
                         alert_error(errors.responseJSON.message);
                         return;
                     });

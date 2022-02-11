@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin\Dokter;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Repositories\Interfaces\DokterInterface;
 use App\Models\{
     Poli,
     Layanan,
@@ -13,12 +17,10 @@ use App\Models\{
     ObatPasienRajal,
     Pasien,
     RekamMedisPasien,
-    PemeriksaanDetail
+    PemeriksaanDetail,
+    Kasir,
+    KasirDetail
 };
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Repositories\Interfaces\DokterInterface;
 
 class PasienDokterController extends Controller
 {
@@ -94,6 +96,7 @@ class PasienDokterController extends Controller
     public function searchObat(Request $request)
     {
         $obat = $request->get('obat');
+        // dd($obat);
         $periksa_dokter_id = $request->get('periksa_dokter_id');
         $data = $this->dokterRepository->searchObat($obat, $periksa_dokter_id);
 
@@ -327,7 +330,7 @@ class PasienDokterController extends Controller
     {
         $attr = $request->except(['obat', 'satuan', 'signa', 'jumlah']);
         $attr['status_diperiksa'] = 'sudah diperiksa';
-
+        // dd($request->all());
         DB::transaction(
             function () use ($attr, $periksaDokter) {
                 $periksaDokter->update($attr);
@@ -353,16 +356,16 @@ class PasienDokterController extends Controller
                 $pemeriksaan->update([
                     'total_tagihan_obat' => $pemeriksaan->total_tagihan_obat + $tagihan_obat
                 ]);
-
                 // Cek rekam medis pasien
                 $rm = RekamMedis::where('pasien_id', $periksaDokter->pasien_id)->first();
                 $poli = Poli::find($periksaDokter->poli_id);
 
+                // dd($rm);
                 // Insert rekam medis pasien
                 $rekam_medis_pasien = RekamMedisPasien::create([
                     'rekam_medis_id' => $rm->id,
                     'tujuan' => $poli->nama,
-                    'dokter' => Auth::user()->dokter->nama,
+                    'dokter' => Auth::user()->dokter->id,
                     'subjektif' => $attr['subjektif'],
                     'objektif' => $attr['objektif'],
                     'assesment' => $attr['assesment'],
@@ -371,6 +374,35 @@ class PasienDokterController extends Controller
                     'tanggal' => now()
                 ]);
 
+                $kasir = Kasir::create([
+                    'pemeriksaan_id' => $pemeriksaan->id,
+                    'status' => 'belum bayar'
+                ]);
+
+                $kasir_detail = KasirDetail::create([
+                    'kasir_id' => $kasir->id,
+                    'jenis_tagihan' => 'periksa dokter',
+                    'tanggal_layanan' => now(),
+                    'subtotal' =>  $pemeriksaan_detail->tagihan_layanan
+                ]);
+
+                $kasir_detail = KasirDetail::create([
+                    'kasir_id' => $kasir->id,
+                    'jenis_tagihan' => 'obat pasien',
+                    'tanggal_layanan' => now(),
+                    'subtotal' =>  $obat_pasien_periksa->sum('subtotal')
+                ]);
+
+                $total_kasir = KasirDetail::where('kasir_id', $kasir->id)->get();
+
+                $kasir_total = Kasir::find($kasir->id);
+
+                $kasir_total->update([
+                    'total_tagihan' => $total_kasir->sum('subtotal'),
+                    'diskon' => 0,
+                    'pajak' => 0,
+                    'grand_total' => $total_kasir->sum('subtotal')
+                ]);
                 $pasien = Pasien::find($periksaDokter->pasien_id);
                 $nama_pasien = $pasien->nama;
                 $nama_poli = $poli->nama;

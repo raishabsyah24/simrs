@@ -88,6 +88,7 @@ class DokterRepository implements DokterInterface
         ')
             ->join('obat_apotek as oa', 'oa.id', '=', 'or.obat_apotek_id')
             ->join('obat as o', 'o.id', '=', 'oa.obat_id')
+            ->join('periksa_dokter as pr', 'pr.id', '=', 'or.periksa_dokter_id')
             ->where('or.periksa_dokter_id', $periksa_dokter_id)
             ->get();
     }

@@ -13,13 +13,13 @@ interface DokterInterface
     public function identitasPasien(int $pasien_id);
 
 
-    public function searchObat(string $nama_obat, int $periksa_dokter_id = null);
+    public function tenagaMedis();
+
+    public function searchObat(string $nama_obat, int $periksa_dokter_id);
 
     public function obatPasien(int $periksa_dokter_id);
-
     public function semuaDokter();
 
     // public function dokterPoli(int $poli_id);
 
-    // public function tenagaMedis();
 }

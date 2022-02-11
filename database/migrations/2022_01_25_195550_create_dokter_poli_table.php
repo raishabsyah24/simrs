@@ -14,20 +14,16 @@ class CreateDokterPoliTable extends Migration
     public function up()
     {
         Schema::create('dokter_poli', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('dokter_id');
             $table->unsignedBigInteger('poli_id');
-            $table->string('hari_praktek')->nullable();
-            $table->time('jam_mulai')->nullable();
-            $table->time('jam_selesai')->nullable();
-
-            $table->primary(['dokter_id', 'poli_id']);
 
             $table->foreign('dokter_id')->references('id')->on('dokter')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('poli_id')->references('id')->on('poli')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
         });
     }
 
