@@ -150,33 +150,19 @@
                                             class="nk-menu-text">Order Bpjs</span></a>
                                 </li>
                                 <li class="nk-menu-item">
-<<<<<<< HEAD
                                     <a href="html/orders-regular.html" class="nk-menu-link"><span
                                             class="nk-menu-text">Pasien Umum</span></a>
-=======
-                                    <a href="{{ route('data.umum') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Umum</span></a>
->>>>>>> beb73c2 (v1 proses pasien apotek)
                                 </li>
                                 <li class="nk-menu-item">
                                     <a href="html/orders-sales.html" class="nk-menu-link"><span
                                             class="nk-menu-text">Pasien Asuransi</span></a>
                                 </li>
-<<<<<<< HEAD
                             </ul>
                         </li>
                     @endrole
 
                     @role('lab|super_admin')
                         <li class="nk-menu-item has-sub">
-=======
-                            </ul><!-- .nk-menu-sub -->
-                        </li><!-- .nk-menu-item -->
-                         @endrole
-                    
-                    @role('lab')
-                    <li class="nk-menu-item has-sub">
->>>>>>> beb73c2 (v1 proses pasien apotek)
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
                                     <em class="icon ni ni-view-list-fill"></em>
