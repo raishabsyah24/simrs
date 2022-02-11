@@ -38,16 +38,16 @@ class CreatePeriksaDokterTable extends Migration
 
             $table->foreign('pemeriksaan_detail_id')->references('id')->on('pemeriksaan_detail')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('periksa_poli_station_id')->references('id')->on('periksa_poli_station')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('pasien_id')->references('id')->on('pasien')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('poli_id')->references('id')->on('poli')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
         });
     }
 

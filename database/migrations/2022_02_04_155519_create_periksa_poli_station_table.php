@@ -28,10 +28,10 @@ class CreatePeriksaPoliStationTable extends Migration
 
             $table->foreign('pemeriksaan_detail_id')->references('id')->on('pemeriksaan_detail')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('pasien_id')->references('id')->on('pasien')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
         });
     }
 

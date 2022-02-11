@@ -195,7 +195,7 @@ class PendaftaranController extends Controller
                     'periksa_poli_station_id' => $periksa_poli_station->id,
                     'pasien_id' => $pasien->id,
                     'poli_id' => $pemeriksaan_detail->poli_id,
-                    'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id),
+                    'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id, $pemeriksaan_detail->dokter_id),
                     'tanggal' => $attr['tanggal'],
                     'keterangan' => $attr['keterangan'],
                     'status_diperiksa' => 'belum diperiksa'
@@ -306,7 +306,7 @@ class PendaftaranController extends Controller
                         'periksa_poli_station_id' => $periksa_poli_station->id,
                         'pasien_id' => $pasien->id,
                         'poli_id' => $pemeriksaan_detail->poli_id,
-                        'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id),
+                        'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id, $pemeriksaan_detail->dokter_id),
                         'tanggal' => $attr['tanggal'],
                         'keterangan' => $attr['keterangan'],
                         'status_diperiksa' => 'belum diperiksa'

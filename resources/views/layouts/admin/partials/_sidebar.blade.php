@@ -21,11 +21,30 @@
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
-                    <li class="nk-menu-item {{ activeClass('dashboard.index') }}">
-                        <a href="{{ route('dashboard.index') }}" class="nk-menu-link">
+                    {{--Dashboard pasien--}}
+                    <li class="nk-menu-item has-sub {{ activeClass('dashboard.antrian-poli.jantung') }} {{ activeClass('dashboard.index') }}">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item {{ activeClass('dashboard.index') }}">
+                                <a href="{{ route('dashboard.index') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Dashboard</span></a>
+                           </li>
+                            <li class="nk-menu-item {{ activeClass('dashboard.antrian-poli.jantung') }}">
+                                <a href="{{ route('dashboard.antrian-poli.jantung') }}" class="nk-menu-link">
+                                    <span
+                                        class="nk-menu-text">Antrian Poli Jantung</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item {{ activeClass('dashboard.antrian-poli.anak') }}">
+                                <a href="{{ route('dashboard.antrian-poli.anak') }}" class="nk-menu-link">
+                                    <span
+                                        class="nk-menu-text">Antrian Poli Anak</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     @role('pendaftaran|super_admin')
                         <li class="nk-menu-item has-sub">

@@ -39,4 +39,30 @@ class DashboardController extends Controller
             'total'
         ));
     }
+
+    public function antrianPoliJantung()
+    {
+        $data = $this->dashboardRepository->antrianPoliJantung();
+        $title = 'Antrian Pasien Poli Jantung';
+        return view('admin.antrian.jantung.index', compact(
+            'title',
+            'data',
+        ));
+    }
+
+    public function antrianPoliAnak()
+    {
+//        $letter = 'A';
+//        $letterAscii = ord($letter);
+//        $letterAscii++;
+//        $letter = chr($letterAscii);
+//        return $letter;
+
+        $data = $this->dashboardRepository->antrianPoliAnak();
+        $title = "Antrian Pasien Poli Anak";
+        return view('admin.antrian.anak.index', compact(
+            'title',
+            'data',
+        ));
+    }
 }

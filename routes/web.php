@@ -27,7 +27,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard.index');
+
+    Route::get('/antrian-pasien/poli-jantung', [DashboardController::class, 'antrianPoliJantung'])
+        ->name('dashboard.antrian-poli.jantung');
+    Route::get('/antrian-pasien/poli-anak', [DashboardController::class, 'antrianPoliAnak'])
+        ->name('dashboard.antrian-poli.anak');
 });
+
 // Role super admin
 Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|pendaftaran']], function () {
 
