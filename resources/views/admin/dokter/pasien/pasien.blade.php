@@ -212,6 +212,22 @@
                                                                             <option value="dirujuk">Dirujuk</option>
                                                                             <option value="selesai">Selesai</option>
                                                                         </select>
+                                                            <div class="col-md-7 offset-lg-5">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label">Status Lanjutan<span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="form-control-wrap ">
+                                                                            <select class="form-select select2"
+                                                                                style="position:absolute;"
+                                                                                name="status_lanjutan"
+                                                                                data-placeholder="Pilih data">
+                                                                                <option label="Pilih data" disabled selected
+                                                                                    value=""></option>
+                                                                                <option value="dirujuk">Dirujuk</option>
+                                                                                <option value="selesai">Selesai</option>
+                                                                            </select>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -233,13 +249,63 @@
                                                     </div>
                                                     {{-- End form Pemeriksaan --}}
 
-                                                    {{-- Obat pasien --}}
-                                                    <div class="nk-divider divider md"></div>
-                                                    <div class="nk-block-head nk-block-head-sm nk-block-between">
-                                                        <h5 class="title">Obat Pasien</h5>
-                                                    </div>
-                                                    <div class="nk-block">
-                                                        {{-- <form class="form-validate"> --}}
+                                                        {{-- Obat pasien --}}
+                                                        <div class="nk-divider divider md"></div>
+                                                        <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                            <h5 class="title">Obat Pasien</h5>
+                                                        </div>
+                                                        <div class="nk-block">
+                                                            {{-- <form class="form-validate"> --}}
+                                                            @csrf
+                                                            <div class="row g-gs">
+                                                                <div class="col-md-6">
+                                                                    >>>>>>> 3703707 (malam jum'at 00:45)
+                                                                    <div class="form-group">
+                                                                        <label class="form-label">Masukan nama
+                                                                            obat<span
+                                                                                class="text-danger">*</span></label>
+                                                                        <div class="form-control-wrap">
+                                                                            <input
+                                                                                onkeyup="searchObat(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-obat') }}`,this)"
+                                                                                class="form-control form-control-lg"
+                                                                                name="obat" autocomplete="off">
+                                                                            <div class="dropdown-obat"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mt-3">
+                                                                <table class="table table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="text-center">No</th>
+                                                                            <th class="text-center">Nama Obat</th>
+                                                                            <th class="text-center">Dosis</th>
+                                                                            <th class="text-center">Satuan</th>
+                                                                            <th class="text-center">Signa</th>
+                                                                            <th>Harga Obat</th>
+                                                                            <th>Subtotal</th>
+                                                                            <th class="text-center">Opsi</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="data-obat">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            {{-- Button submit --}}
+                                                            <div class="col-md-7 offset-lg-5">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                {{-- End form Pemeriksaan --}}
+
+                                                {{-- Obat pasien --}}
+                                                <div class="nk-divider divider md"></div>
+                                                <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                    <h5 class="title">Obat Pasien</h5>
+                                                </div>
+                                                <div class="nk-block">
+                                                    <form class="form-validate" action="">
                                                         @csrf
                                                         <div class="row g-gs">
                                                             <div class="col-md-6">
@@ -250,8 +316,7 @@
                                                                         <input
                                                                             onkeyup="searchObat(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-obat') }}`,this)"
                                                                             class="form-control form-control-lg"
-                                                                            name="obat" placeholder="Masukan nama obat"
-                                                                            autocomplete="off">
+                                                                            name="obat" autocomplete="off">
                                                                         <div class="dropdown-obat"></div>
                                                                     </div>
                                                                 </div>
@@ -260,6 +325,28 @@
                                                         <div class="mt-3">
                                                             <table class="table table-hover">
                                                                 <thead>
+                                                    </div>
+                                                    <div class="nk-divider divider md">
+                                                    </div>
+                                                    {{-- Form Obat --}}
+                                                    <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                        <h5 class="title">Obat</h5>
+                                                        <button type="button" class="btn btn-primary btn-tambah-obat"><em
+                                                                class="icon ni ni-plus"></em>
+                                                            Tambah Obat </button>
+                                                    </div>
+                                                    <div class="nk-block nk-block-lg">
+                                                        <table class="table">
+                                                            <thead class="thead-dark">
+                                                                <tr>
+                                                                    <th scope="col">No</th>
+                                                                    <th scope="col">Nama Obat</th>
+                                                                    <th scope="col">Harga</th>
+                                                                    <th scope="col">Signa</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($rekam_medis as $item)
                                                                     <tr>
                                                                         <th>No</th>
                                                                         <th>Nama Obat</th>
@@ -335,6 +422,81 @@
                                                 </div>
                                                 {{-- Table RM --}}
                                             </div>
+                                            {{-- Table RM --}}
+                                                    </form>
+                                                    <div class="mt-3">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Nama Obat</th>
+                                                                    <th>Jumlah</th>
+                                                                    <th>Signa</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="data-obat">
+                                                                {{-- @foreach ($obat_pasien as $item)
+                                                                    <tr>
+                                                                        <td>{{ $item->nama_generik }}</td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="form-control-wrap">
+                                                                                    <input name="jumlah"
+                                                                                        value="{{ $item->jumlah }}"
+                                                                                        type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="form-control-wrap">
+                                                                                    <input name="signa"
+                                                                                        value="{{ $item->signa }}"
+                                                                                        type="text" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach --}}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                {{-- End Obat pasien --}}
+                                            </div>
+                                            <div class="tab-pane" id="tabItem2">
+                                                {{-- Table RM --}}
+                                                <div class="nk-block nk-block-lg">
+                                                    <table class="table">
+                                                        <thead class="thead-dark">
+                                                            <tr>
+                                                                <th scope="col">No</th>
+                                                                <th scope="col">Tanggal Kunjungan</th>
+                                                                <th scope="col">Poli</th>
+                                                                <th scope="col">Dokter</th>
+                                                                <th scope="col">Subjektif</th>
+                                                                <th scope="col">Objektif</th>
+                                                                <th scope="col">Assesment</th>
+                                                                <th scope="col">Plan</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($rekam_medis as $item)
+                                                                <tr>
+                                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                                    <td>{{ tanggal($item->tanggal_periksa) }}</td>
+                                                                    <td>{{ $item->poli }}</td>
+                                                                    <td>{{ $item->dokter }}</td>
+                                                                    <td>{{ $item->subjektif }}</td>
+                                                                    <td>{{ $item->objektif }}</td>
+                                                                    <td>{{ $item->assesment }}</td>
+                                                                    <td>{{ $item->plan }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                {{-- Table RM --}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -351,16 +513,14 @@
 
 @push('js')
     <script>
-        reloadTable();
-
-        async function searchObat(id, url, attr) {
+        function searchObat(id, url, attr) {
             if ($('.dropdown-obat').hasClass('d-none')) {
                 $('.dropdown-obat').removeClass('d-none');
             }
 
             let obat = $(attr).val();
 
-            await $.get(url, {
+            $.get(url, {
                     obat: obat,
                     periksa_dokter_id: id
                 })
@@ -398,6 +558,12 @@
                                 reloadTable();
                             })
                     }
+                    alertSuccess(response.message);
+                    let url = response.url;
+                    $.get(url)
+                        .done(output => {
+                            $('table .data-obat').html(output);
+                        })
                 })
         }
 

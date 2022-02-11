@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin\Dokter;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Repositories\Interfaces\DokterInterface;
 use App\Models\{
     Kasir,
     KasirDetail,
@@ -16,10 +20,9 @@ use App\Models\{
     RekamMedisPasien,
     PemeriksaanDetail
 };
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Repositories\Interfaces\DokterInterface;
+
+
+
 
 class PasienDokterController extends Controller
 {
@@ -134,37 +137,17 @@ class PasienDokterController extends Controller
     public function obatPasien($periksa_dokter_id)
     {
         $data = $this->dokterRepository->obatPasien($periksa_dokter_id);
-        $total = $data->sum('subtotal');
-        $limit = null;
-
-        // cek kategori pasien
-        $periksa_dokter = PeriksaDokter::find($periksa_dokter_id);
-        $pemeriksaan_detail = PemeriksaanDetail::find($periksa_dokter->pemeriksaan_detail_id);
-        $pemeriksaan = Pemeriksaan::find($pemeriksaan_detail->pemeriksaan_id);
-        $kategori_pasien = DB::table('kategori_pasien as kp')
-            ->selectRaw('
-            p.kategori_pasien, kp.nama as kategori
-        ')
-            ->join('pemeriksaan as p', 'p.kategori_pasien', '=', 'kp.id')
-            ->where('kp.id', $pemeriksaan->kategori_pasien)
-            ->first();
-
-        if ($total > $this->limitObatPasienBpjs && $kategori_pasien->kategori_pasien == $this->kategoriPasien) {
-            $limit = 'limit';
-        } else {
-            $limit = 'aman';
-        }
 
         $output = '';
-        foreach ($data as $key => $item) {
+        foreach ($data as $item) {
             $output .= '
             <tr>
-                <td>' . $key + 1 . '</td>
                 <td>' . $item->nama_generik . '</td>
                 <td>
                     <div class="form-group">
                         <div class="form-control-wrap">
                             <input type="number" autocomplete="off" onkeyup="updateQuantity(`' . route('dokter.obat-pasien.update-quantity', $item->obat_pasien_periksa_rajal_id) . '`,this,`' . $item->obat_pasien_periksa_rajal_id . '`)" name="jumlah"
+                            <input name="jumlah"
                                 value="' . $item->jumlah . '"
                                 type="text" class="form-control">
                         </div>
