@@ -21,6 +21,5 @@ interface DokterInterface
 
     // public function dokterPoli(int $poli_id);
 
-    public function tenagaMedis();
-
+    // public function tenagaMedis();
 }
