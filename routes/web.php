@@ -255,7 +255,4 @@ Route::group(['middleware' => ['auth', 'role:poli|super_admin']], function () {
         ->name('layanan.store');
 });
 
-Route::get('/pasien-list', [PasienController::class, 'data_pasien'])->name('list.pasien');
-Route::post('/pasien-store', [PasienController::class, 'store'])->name('store.pasien');
-
 require __DIR__ . '/auth.php';
