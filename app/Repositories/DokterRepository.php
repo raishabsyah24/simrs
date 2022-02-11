@@ -65,7 +65,8 @@ class DokterRepository implements DokterInterface
             ->first();
     }
 
-    public function searchObat(string $nama_obat, int $periksa_dokter_id = null)
+
+    public function searchObat($nama_obat, $periksa_dokter_id)
     {
         return DB::table('obat as o')
             ->selectRaw('
@@ -84,7 +85,7 @@ class DokterRepository implements DokterInterface
     {
         return DB::table('obat_pasien_periksa_rajal as or')
             ->selectRaw('
-            o.nama_generik, or.jumlah, or.signa, or.subtotal, or.harga_obat, or.id as obat_pasien_periksa_rajal_id
+            o.nama_generik, or.jumlah, or.signa, or.subtotal, or.harga_obat, or.id as obat_pasien_periksa_rajal_id, pr.tanggal as tanggal_periksa
         ')
             ->join('obat_apotek as oa', 'oa.id', '=', 'or.obat_apotek_id')
             ->join('obat as o', 'o.id', '=', 'oa.obat_id')

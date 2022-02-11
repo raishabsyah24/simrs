@@ -258,15 +258,15 @@
                                                             </div>
                                                         </div>
                                                         <div class="mt-3">
-                                                            <table class="table table-striped">
+                                                            <table class="table table-hover">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center">No</th>
-                                                                        <th class="text-center">Nama Obat</th>
-                                                                        <th class="text-center">Dosis</th>
-                                                                        <th class="text-center">Satuan</th>
-                                                                        <th class="text-center">Signa</th>
-                                                                        <th>Harga Obat</th>
+                                                                        <th>No</th>
+                                                                        <th>Nama Obat</th>
+                                                                        <th class="text-left">Jumlah</th>
+                                                                        <th colspan="3" scope="colgroup"
+                                                                            class="text-center">Signa</th>
+                                                                        <th class="text-center">Harga Obat</th>
                                                                         <th>Subtotal</th>
                                                                         <th class="text-center">Opsi</th>
                                                                     </tr>
@@ -278,6 +278,7 @@
                                                         {{-- Button submit --}}
                                                         <div class="col-md-7 offset-lg-5 mt-4">
                                                             <div class="form-group">
+
                                                                 <button type="submit" onclick="submitForm(this.form)"
                                                                     class="tombol-simpan btn btn-lg btn-primary">
                                                                     <span class="text-simpan">Simpan</span>
@@ -287,50 +288,12 @@
                                                                 </button>
                                                             </div>
                                                         </div>
+
                                                         {{-- </form> --}}
                                                     </div>
                                                 </form>
-                                                    </form>
-                                                    <div class="mt-3">
-                                                        <table class="table table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Nama Obat</th>
-                                                                    <th>Jumlah</th>
-                                                                    <th>Signa</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody class="data-obat">
-                                                                {{-- @foreach ($obat_pasien as $item)
-                                                                    <tr>
-                                                                        <td>{{ $item->nama_generik }}</td>
-                                                                        <td>
-                                                                            <div class="form-group">
-                                                                                <div class="form-control-wrap">
-                                                                                    <input name="jumlah"
-                                                                                        value="{{ $item->jumlah }}"
-                                                                                        type="text" class="form-control">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div class="form-group">
-                                                                                <div class="form-control-wrap">
-                                                                                    <input name="signa"
-                                                                                        value="{{ $item->signa }}"
-                                                                                        type="text" class="form-control">
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach --}}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
                                                 {{-- End Obat pasien --}}
                                             </div>
-
                                             <div class="tab-pane" id="tabItem2">
                                                 {{-- Table RM --}}
                                                 <div class="nk-block nk-block-lg">
@@ -420,14 +383,21 @@
                     }
                 })
                 .done(response => {
+                    let status = response.status;
                     $('[name=obat]').val('')
-                    alertSuccess(response.message);
-                    let url = response.url;
-                    $.get(url)
-                        .done(output => {
-                            $('table .data-obat').html(output);
-                            reloadTable();
-                        })
+                    if (status == false) {
+                        $('input[name=obat]').prop('disabled', true);
+                        alertError('Pasien bpjs sudah mencapai limit obat',
+                            'Silahkan kurangi jumlah obat atau kurangi obat pasien');
+                    } else {
+                        alertSuccess(response.message);
+                        let url = response.url;
+                        $.get(url)
+                            .done(output => {
+                                $('table .data-obat').html(output);
+                                reloadTable();
+                            })
+                    }
                 })
         }
 
@@ -458,7 +428,6 @@
                     },
                 })
                 .done(response => {
-                    console.log(response);
                     let limit = response.limit;
                     if (limit == 'limit') {
                         $(attr).val(1);
@@ -470,18 +439,22 @@
                 })
         }
 
-        function hapusObat(url, id) {
+        function hapusObat(url, id, periksa_dokter_id) {
             event.preventDefault();
-            console.log(url);
             $.post({
                     url: url,
                     data: {
                         _method: "DELETE",
-                        id: id
+                        id: id,
+                        periksa_dokter_id: periksa_dokter_id
                     },
                 })
                 .done(response => {
-                    alertSuccess(response.message)
+                    let input = response.input;
+                    if (input == true) {
+                        $('[name=obat]').prop('disabled', false)
+                    }
+                    alertSuccess('Hapus obat berhasil')
                     reloadTable();
                 })
         }
@@ -510,6 +483,40 @@
                     $(originalForm).find('.tombol-simpan').attr('disabled', true);
                     modalTerimakasih(response.message);
                     pindahHalaman(response.url, 3000);
+                })
+        }
+
+        function signaSatu(url, attr, obat_pasien_periksa_rajal_id) {
+            let signa1 = $(attr).val();
+            $('input[name=obat]').prop('disabled', false);
+
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        signa1: signa1,
+                        obat_pasien_periksa_rajal_id: obat_pasien_periksa_rajal_id,
+                    },
+                })
+                .done(response => {
+                    reloadTable();
+                })
+        }
+
+        function signaDua(url, attr, obat_pasien_periksa_rajal_id) {
+            let signa2 = $(attr).val();
+            $('input[name=obat]').prop('disabled', false);
+
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        signa2: signa2,
+                        obat_pasien_periksa_rajal_id: obat_pasien_periksa_rajal_id,
+                    },
+                })
+                .done(response => {
+                    reloadTable();
                 })
         }
     </script>

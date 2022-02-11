@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\{
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
 Route::get('/data', [PasienDokterController::class, 'q']);
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard.index');
@@ -58,8 +59,8 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
         ->name('pendaftaran.search-pasien');
     Route::get('/pendaftaran/change-pasien', [PendaftaranController::class, 'changePasien'])
         ->name('pendaftaran.change-pasien');
-    // Route::get('/messanger', [PendaftaranController::class, 'messanger'])
-    //     ->name('pendaftaran.messanger');
+    Route::get('/messanger', [PendaftaranController::class, 'messanger'])
+        ->name('pendaftaran.messanger');
     Route::post('/pendaftaran', [PendaftaranController::class, 'store'])
         ->name('pendaftaran.store');
     Route::post('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'storePasienSudahPernahDaftar'])
@@ -143,7 +144,6 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
         ->name('dokter.change-obat');
     Route::get('/dokter/obat-pasien/{id}', [PasienDokterController::class, 'obatPasien'])
         ->name('dokter.obat-pasien');
-
     Route::put('/dokter/obat-pasien/update-quantity/{id}', [PasienDokterController::class, 'updateQuantity'])
         ->name('dokter.obat-pasien.update-quantity');
     Route::delete('/dokter/hapus-obat/{id}', [PasienDokterController::class, 'hapusObat'])
