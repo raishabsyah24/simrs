@@ -65,6 +65,17 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
     Route::post('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'storePasienSudahPernahDaftar'])
         ->name('pendaftaran.storePasienSudahPernahDaftar');
 
+    // dokter
+    Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
+    Route::get('/dokter/fetch-data', [DokterController::class, 'fetchData'])->name('dokter.fetchData');
+    Route::get('/dokter/create', [DokterController::class, 'create'])->name('dokter.create');
+    Route::get('/dokter/{dokter}/edit', [DokterController::class, 'edit'])->name('dokter.edit');
+    Route::get('/dokter/{dokter}/ganti-jadwal-praktek', [DokterController::class, 'gantiJadwal'])->name('dokter.ganti-jadwal-praktek');
+    Route::put('/dokter/{dokter}/ganti-jadwal-praktek', [DokterController::class, 'updateJadwal'])->name('dokter.update-jadwal-praktek');
+    Route::post('/dokter', [DokterController::class, 'store'])->name('dokter.store');
+    Route::put('/dokter/{dokter}', [DokterController::class, 'update'])->name('dokter.update');
+    Route::delete('/dokter/{dokter}/delete', [DokterController::class, 'delete'])->name('dokter.delete');
+
     // Daftar managemen user
     Route::get('/user/data', [UserController::class, 'index'])
         ->name('data.user');
@@ -78,6 +89,26 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|pend
         ->name('user.edit');
     Route::put('/user/{id}/update', [UserController::class, 'updateUser'])
         ->name('user.update');
+
+    Route::get('/user', [UserController::class, 'index'])
+        ->name('user.index');
+    Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
+        ->name('user.fetchData');
+    Route::get('/user/create', [UserController::class, 'create'])
+        ->name('user.create');
+    Route::get('/user/{user}/edit', [UserController::class, 'edit'])
+        ->name('user.edit');
+    Route::post('/user/store', [UserController::class, 'store'])
+        ->name('user.store');
+    Route::put('/user/{user}/update-status', [UserController::class, 'updateStatus'])
+        ->name('user.update-status');
+    Route::put('/user/{user}/reset-password', [UserController::class, 'resetPassword'])
+        ->name('user.reset-password');
+    Route::put('/user/{user}/update', [UserController::class, 'update'])
+        ->name('user.update');
+    Route::delete('/user/{user}/delete', [UserController::class, 'delete'])
+        ->name('user.delete');
+
 
     // Daftar tenaga medis
     Route::get('/user/medis', [TenagaMedisController::class, 'dataMedis'])
@@ -112,6 +143,41 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
         ->name('dokter.change-obat');
     Route::get('/dokter/obat-pasien/{id}', [PasienDokterController::class, 'obatPasien'])
         ->name('dokter.obat-pasien');
+
+    Route::put('/dokter/obat-pasien/update-quantity/{id}', [PasienDokterController::class, 'updateQuantity'])
+        ->name('dokter.obat-pasien.update-quantity');
+    Route::delete('/dokter/hapus-obat/{id}', [PasienDokterController::class, 'hapusObat'])
+        ->name('dokter.obat-pasien.hapus');
+    Route::put('/dokter/daftar-pasien/{periksaDokter}', [PasienDokterController::class, 'storePasien'])
+        ->name('dokter.store-pasien');
+    Route::put('/dokter/obat-pasien/signa-1/{id}', [PasienDokterController::class, 'signa1'])
+        ->name('dokter.obat-pasien.signa1');
+    Route::put('/dokter/obat-pasien/signa-2/{id}', [PasienDokterController::class, 'signa2'])
+        ->name('dokter.obat-pasien.signa2');
+
+    // Diagnosa
+    Route::get('/dokter/search-diagnosa', [PasienDokterController::class, 'searchDiagnosa'])
+        ->name('dokter.search-diagnosa');
+    Route::get('/dokter/diagnosa-pasien/{id}', [PasienDokterController::class, 'diagnosaPasien'])
+        ->name('dokter.diagnosa-pasien');
+    Route::post('/dokter/change-diagnosa', [PasienDokterController::class, 'changeDiagnosa'])
+        ->name('dokter.change-diagnosa');
+    Route::delete('/dokter/hapus-diagnosa/{diagnosaPasienRajal}', [PasienDokterController::class, 'hapusDiagnosa'])
+        ->name('dokter.diagnosa-pasien.hapus');
+    Route::put('/dokter/diagnosa-pasien/{diagnosaPasienRajal}', [PasienDokterController::class, 'diagnosaBagian'])
+        ->name('dokter.diagnosa-pasien.bagian');
+
+    // Tindakan
+    Route::get('/dokter/search-tindakan', [PasienDokterController::class, 'searchTindakan'])
+        ->name('dokter.search-tindakan');
+    Route::get('/dokter/tindakan-pasien/{id}', [PasienDokterController::class, 'tindakanPasien'])
+        ->name('dokter.tindakan-pasien');
+    Route::post('/dokter/change-tindakan', [PasienDokterController::class, 'changeTindakan'])
+        ->name('dokter.change-tindakan');
+    Route::delete('/dokter/hapus-tindakan/{tindakanPasienRajal}', [PasienDokterController::class, 'hapustindakan'])
+        ->name('dokter.tindakan-pasien.hapus');
+    Route::put('/dokter/tindakan-pasien/{tindakanPasienRajal}', [PasienDokterController::class, 'tindakanBagian'])
+        ->name('dokter.tindakan-pasien.bagian');
 });
 
 // Role apotek
