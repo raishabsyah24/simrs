@@ -17,29 +17,29 @@
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
                                 <h3 class="nk-block-title page-title">{!! $title !!}</h3>
-                            </div><!-- .nk-block-head-content -->
+                            </div>
                             <div class="nk-block-head-content">
                                 <button onclick="addForm(`{{ route('layanan.store') }}`)" class="btn btn-primary"><em
                                         class="icon ni ni-plus"></em>
                                     Tambah Layanan
                                 </button>
-                            </div><!-- .nk-block-head-content -->
-                        </div><!-- .nk-block-between -->
-                    </div><!-- .nk-block-head -->
+                            </div>
+                        </div>
+                    </div>
                     <div class="nk-block">
                         <div class="card card-stretch">
                             <div class="card-inner-group">
                                 <div class="card-inner position-relative card-tools-toggle">
                                     <div class="card-title-group">
                                         <div class="card-tools">
-                                        </div><!-- .card-tools -->
+                                        </div>
                                         <div class="card-tools mr-n1">
                                             <ul class="btn-toolbar gx-1">
                                                 <li>
                                                     <a href="#" class="btn btn-icon search-toggle toggle-search"
                                                         data-target="search"><em class="icon ni ni-search"></em></a>
-                                                </li><!-- li -->
-                                                <li class="btn-toolbar-sep"></li><!-- li -->
+                                                </li>
+                                                <li class="btn-toolbar-sep"></li>
                                                 <li>
                                                     <div class="toggle-wrap">
                                                         <a href="#" class="btn btn-icon btn-trigger toggle"
@@ -51,8 +51,7 @@
                                                                     <a href="#" class="btn btn-icon btn-trigger toggle"
                                                                         data-target="cardTools"><em
                                                                             class="icon ni ni-arrow-left"></em></a>
-                                                                </li><!-- li -->
-                                                                <!-- li -->
+                                                                </li>
                                                                 <li>
                                                                     <div class="dropdown">
                                                                         <a href="#"
@@ -71,15 +70,15 @@
                                                                                         onclick="sortBy('asc')">ASC</a></li>
                                                                             </ul>
                                                                         </div>
-                                                                    </div><!-- .dropdown -->
-                                                                </li><!-- li -->
-                                                            </ul><!-- .btn-toolbar -->
-                                                        </div><!-- .toggle-content -->
-                                                    </div><!-- .toggle-wrap -->
-                                                </li><!-- li -->
-                                            </ul><!-- .btn-toolbar -->
-                                        </div><!-- .card-tools -->
-                                    </div><!-- .card-title-group -->
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <div class="card-search search-wrap" data-search="search">
                                         <div class="card-body">
                                             <div class="search-content">
@@ -92,7 +91,7 @@
                                                         class="icon ni ni-search"></em></button>
                                             </div>
                                         </div>
-                                    </div><!-- .card-search -->
+                                    </div>
                                 </div>
                                 {{-- Loader --}}
                                 <div class="loader card-inner p-0">
@@ -107,11 +106,9 @@
                                     @include('admin.layanan.fetch')
                                     <input type="hidden" name="page" value="1">
                                 </div>
-                                <!-- .card-inner -->
                             </div>
-                            <!-- .card-inner-group -->
-                        </div><!-- .card -->
-                    </div><!-- .nk-block -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

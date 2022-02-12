@@ -15,10 +15,16 @@
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('backend/css/dashlite.css?ver=2.9.1') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('backend/css/theme.css?ver=2.9.1') }}">
+<<<<<<< HEAD
      {{-- Theme --}}
      <link rel="stylesheet" href="{{ asset('backend/css/skins/theme-green.css') }}">
      @stack('css')
  
+=======
+
+    {{-- Theme --}}
+    <link rel="stylesheet" href="{{ asset('backend/css/skins/theme-green.css') }}">
+>>>>>>> a0eeaf3e3d9e3a47c8f7d9355eb2fdf480c232bd
 </head>
 
 <body class="nk-body bg-white npc-default pg-auth">

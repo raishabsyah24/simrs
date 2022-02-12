@@ -2,16 +2,40 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\Interfaces\DashboardInterface;
 
 class DashboardController extends Controller
 {
+    private $dashboardRepository;
+
+    public function __construct(DashboardInterface $dashboardRepository)
+    {
+        $this->dashboardRepository = $dashboardRepository;
+    }
+
     public function index()
     {
         $title = 'Dashboard';
+
+        $total_pasien_rajal_hari_ini = formatAngka($this->dashboardRepository->totalPasienRajalHariIni());
+
+        $total_pasien_rajal_bpjs_hari_ini = formatAngka($this->dashboardRepository->totalPasienRajalBpjsHariIni());
+
+        $total_pasien_rajal_umum_hari_ini = formatAngka($this->dashboardRepository->totalPasienRajalUmumHariIni());
+
+        $total_pasien_rajal_asuransi_hari_ini = formatAngka($this->dashboardRepository->totalPasienRajalAsuransiHariIni());
+
+        $total = [
+            ['Total Pasien Rawat Jalan Hari Ini', $total_pasien_rajal_hari_ini],
+            ['Pasien BPJS Rawat Jalan Hari Ini', $total_pasien_rajal_bpjs_hari_ini],
+            ['Pasien Umum Rawat Jalan Hari Ini', $total_pasien_rajal_umum_hari_ini],
+            ['Pasien Asuransi Rawat Jalan Hari Ini', $total_pasien_rajal_asuransi_hari_ini]
+        ];
         return view('admin.dashboard.index', compact(
-            'title'
+            'title',
+            'total'
         ));
     }
 }

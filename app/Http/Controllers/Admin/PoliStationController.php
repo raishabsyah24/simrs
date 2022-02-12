@@ -82,6 +82,7 @@ class PoliStationController extends Controller
     public function periksa(Pemeriksaan $pemeriksaan)
     {
         $posisi_pasien_rajal = PosisiPasienRajal::where('pemeriksaan_id', $pemeriksaan->id)->first();
+<<<<<<< HEAD
         if ($posisi_pasien_rajal->status == 'proses periksa poli') {
             // Insert posisi pasien saat ini
             $posisi_pasien_rajal->update([
@@ -95,6 +96,21 @@ class PoliStationController extends Controller
                 'status' => 'selesai'
             ]);
         }
+=======
+       if ($posisi_pasien_rajal->status == 'proses periksa poli'){
+           // Insert posisi pasien saat ini
+           $posisi_pasien_rajal->update([
+               'status' => 'periksa poli'
+           ]);
+           $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+               'posisi_pasien_rajal_id' => $posisi_pasien_rajal->id,
+               'aktifitas' => 'Pasien diperiksa di poli station',
+               'waktu' => now(),
+               'keterangan' => 'checkin',
+               'status' => 'selesai'
+           ]);
+       }
+>>>>>>> a0eeaf3e3d9e3a47c8f7d9355eb2fdf480c232bd
     }
 
     public function update(PeriksaPoliStation $periksaPoliStation, PeriksaPoliStationRequest $request)
@@ -107,7 +123,11 @@ class PoliStationController extends Controller
 
             // Update posisi pasien
             $posisi_pasien_rajal = PosisiPasienRajal::findOrFail($this->posisiPasienRajal($periksaPoliStation->id));
+<<<<<<< HEAD
             if ($posisi_pasien_rajal->status == 'periksa poli') {
+=======
+            if ($posisi_pasien_rajal->status == 'periksa poli'){
+>>>>>>> a0eeaf3e3d9e3a47c8f7d9355eb2fdf480c232bd
                 $posisi_pasien_rajal->update([
                     'status' => 'proses periksa dokter'
                 ]);

@@ -12,6 +12,6 @@ class Layanan extends Model
     protected $table = 'layanan';
 
     protected $fillable = [
-        'kode', 'nama', 'tarif', 'keterangan'
+        'kode', 'nama', 'tarif', 'keterangan', 'parent_id'
     ];
 }
