@@ -31,6 +31,8 @@
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
                     </li>
+
+                    @role('pendaftaran|super_admin')
                     <li class="nk-menu-item has-sub {{ activeClass('dashboard.antrian-poli.jantung') }} {{ activeClass('dashboard.antrian-poli.anak') }}">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-view-list-fill"></em>
@@ -52,7 +54,7 @@
                             </li>
                         </ul>
                     </li>
-                    @role('pendaftaran|super_admin')
+)
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
@@ -140,12 +142,10 @@
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon"><em class="icon ni ni-share-fill"></em></span>
-                                <span class="nk-menu-text">Master</span>
+                                <span class="nk-menu-text"></span>
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
-                                    <a href="html/project-card.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Kategori Obat</span></a>
                                     <a href="{{ route('data') }}" class="nk-menu-link"><span
                                         class="nk-menu-text">Data Obat</span></a>
                                 </li>
@@ -174,12 +174,12 @@
                                             class="nk-menu-text">Order Bpjs</span></a>
                                 </li>
                                 <li class="nk-menu-item">
-                                    <a href="html/orders-regular.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pasien Umum</span></a>
+                                    <a href="{{ route('data.umum') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Order Umum</span></a>
                                 </li>
                                 <li class="nk-menu-item">
                                     <a href="html/orders-sales.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pasien Asuransi</span></a>
+                                            class="nk-menu-text">Order Asuransi</span></a>
                                 </li>
                             </ul>
                         </li>

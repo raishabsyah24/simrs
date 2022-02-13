@@ -12,21 +12,12 @@ interface DokterInterface
 
     public function identitasPasien(int $pasien_id);
 
-<<<<<<< HEAD
-    public function semuaDokter();
-
-    public function searchObat(string $nama_obat, int $periksa_dokter_id);
-
-    public function obatPasien(int $periksa_dokter_id);
-
-=======
     public function searchObat(string $nama_obat, int $periksa_dokter_id = null);
 
     public function obatPasien(int $periksa_dokter_id);
 
     public function semuaDokter();
 
->>>>>>> a0eeaf3e3d9e3a47c8f7d9355eb2fdf480c232bd
     public function searchDiagnosa(string $nama_diagnosa, int $periksa_dokter_id = null);
 
     public function diagnosaPasien(int $periksa_dokter_id);

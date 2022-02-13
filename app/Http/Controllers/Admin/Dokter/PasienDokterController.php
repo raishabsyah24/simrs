@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin\Dokter;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\DokterInterface;
-
 use App\Http\Requests\Admin\PeriksaPasienRajalRequest;
 use App\Models\{
     Diagnosa,
@@ -28,7 +28,6 @@ use App\Models\{
     Kasir,
     KasirDetail
 };
-// use Illuminate\Support\Facades\Auth;
 // use App\Models\{
 //     Poli,
 //     Layanan,

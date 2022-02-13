@@ -51,7 +51,6 @@ class AntrianBpjsController extends Controller
     function _fetchData(Request $request)
     {
         if ($request->ajax()) {
-            // $p = $request->get('pasien_id');
             $q = $request->get('query');
             $badge = $this->badge();
             $sortBy = $request->get('sortBy');

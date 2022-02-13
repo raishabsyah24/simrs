@@ -173,7 +173,7 @@
                 </ul>
             </div>
         </div>
-    @empty
+    {{-- @empty --}}
         <div class="nk-tb-item">
             <div class="nk-tb-col"></div>
             <div class="nk-tb-col"></div>
@@ -188,7 +188,6 @@
             <div class="nk-tb-col"></div>
             <div class="nk-tb-col"></div>
         </div>
-
     @endforelse
 </div>
 
