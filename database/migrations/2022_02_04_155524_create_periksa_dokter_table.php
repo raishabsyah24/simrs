@@ -18,17 +18,17 @@ class CreatePeriksaDokterTable extends Migration
             $table->unsignedBigInteger('pemeriksaan_detail_id');
             $table->unsignedBigInteger('periksa_poli_station_id')->nullable();
             $table->unsignedBigInteger('pasien_id');
-            $table->unsignedBigInteger('poli_id');
+            $table->unsignedBigInteger('dokter_id');
             $table->string('no_antrian_periksa')->nullable();
             $table->string('no_antrian_apotek')->nullable();
-            $table->date('tanggal');
+            $table->dateTime('tanggal');
             $table->longText('diagnosa')->nullable();
             $table->longText('keluhan')->nullable();
             $table->longText('subjektif')->nullable();
             $table->longText('objektif')->nullable();
             $table->longText('assesment')->nullable();
             $table->longText('plan')->nullable();
-            $table->longText('keterangan')->nullable();
+            $table->longText('informasi_tambahan')->nullable();
             $table->string('status_diperiksa')->default('belum diperiksa');
             $table->string('status_lanjutan')->nullable();
             $table->string('alasan_dirujuk')->nullable();
@@ -45,7 +45,7 @@ class CreatePeriksaDokterTable extends Migration
             $table->foreign('pasien_id')->references('id')->on('pasien')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->foreign('poli_id')->references('id')->on('poli')
+            $table->foreign('dokter_id')->references('id')->on('dokter')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });

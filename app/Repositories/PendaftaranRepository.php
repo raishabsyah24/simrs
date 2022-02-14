@@ -11,7 +11,7 @@ class PendaftaranRepository implements PendaftaranInterface
     {
         return DB::table('pemeriksaan as p')
             ->selectRaw('
-            p.id as pemeriksaan_id, p.kode as kode_pasien, p.no_rekam_medis, pasien.nama as nama_pasien, pasien.nik, pasien.tanggal_lahir, pasien.jenis_kelamin, poli.nama as tujuan, dokter.nama as nama_dokter, kp.nama as kategori_pasien, p.created_at , p.no_sep, pd.poli_id, p.tanggal
+            p.id as pemeriksaan_id, p.kode as kode_pasien, p.no_rekam_medis, pasien.nama as nama_pasien, pasien.nik, pasien.tanggal_lahir, pasien.jenis_kelamin, poli.nama as tujuan, kp.nama as kategori_pasien, p.created_at , p.no_sep, pd.poli_id, p.tanggal
 
         ')
             ->join('pasien', 'pasien.id', '=', 'p.pasien_id')
@@ -19,8 +19,8 @@ class PendaftaranRepository implements PendaftaranInterface
             ->leftJoin('faskes as f', 'f.id', '=', 'p.faskes_id')
             ->join('pemeriksaan_detail as pd', 'pd.pemeriksaan_id', '=', 'p.id')
             ->join('poli', 'poli.id', '=', 'pd.poli_id')
-            ->join('dokter', 'dokter.id', '=', 'pd.dokter_id')
             ->whereDate('p.tanggal', tanggalSekarang())
+            ->whereNull('p.deleted_at')
             ->orderByDesc('p.created_at');
     }
 

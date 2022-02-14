@@ -11,13 +11,13 @@ class DokterRepository implements DokterInterface
     {
         return DB::table('periksa_dokter as pd')
             ->selectRaw('
-            DISTINCT pd.id as periksa_dokter_id, pas.id as pasien_id,  poli.id as poli_id, d.id as dokter_id, pas.nama as nama_pasien, pas.jenis_kelamin, pd.status_diperiksa, pas.tanggal_lahir, pd.no_antrian_periksa,  d.nama as nama_dokter
+            pd.id as periksa_dokter_id, pas.id as pasien_id,  poli.id as poli_id, d.id as dokter_id, pas.nama as nama_pasien, pas.jenis_kelamin, pd.status_diperiksa, pas.tanggal_lahir, pd.no_antrian_periksa,  d.nama as nama_dokter
         ')
             ->join('pemeriksaan_detail as pede', 'pede.id', '=', 'pd.pemeriksaan_detail_id')
             ->join('pasien as pas', 'pas.id', '=', 'pd.pasien_id')
-            ->join('dokter as d', 'd.id', '=', 'pede.dokter_id')
+            ->join('dokter as d', 'd.id', '=', 'pd.dokter_id')
             ->join('poli', 'poli.id', '=', 'pede.poli_id')
-            ->join('dokter_poli as dp', 'dp.poli_id', '=', 'pd.poli_id')
+            ->join('dokter_poli as dp', 'dp.poli_id', '=', 'pede.poli_id')
             ->where('pede.poli_id', $poli_id)
             ->whereDate('pd.tanggal', now())
             ->orderBy('pd.no_antrian_periksa');
@@ -36,16 +36,16 @@ class DokterRepository implements DokterInterface
             ->first();
     }
 
-    public function rekamMedisPasienPeriksa(int $periksa_dokter_id)
+    public function rekamMedisPasienPeriksa(int $pasien_id)
     {
         return DB::table('periksa_dokter as pd')
             ->selectRaw('
-            rmp.tanggal as tanggal_periksa, rmp.tujuan as poli, rmp.dokter, rmp.subjektif, rmp.objektif, rmp.assesment, rmp.plan, rmp.keterangan 
+            rmp.tanggal as tanggal_periksa, rmp.tujuan as poli, rmp.dokter, rmp.subjektif, rmp.objektif, rmp.assesment, rmp.plan, rmp.keterangan
         ')
             ->join('pasien as p', 'p.id', '=', 'pd.pasien_id')
             ->join('rekam_medis as rm', 'rm.pasien_id', '=', 'pd.pasien_id')
             ->join('rekam_medis_pasien as rmp', 'rmp.rekam_medis_id', '=', 'rm.id')
-            ->where('pd.id', $periksa_dokter_id)
+            ->where('p.id', $pasien_id)
             ->get();
     }
 
@@ -54,13 +54,12 @@ class DokterRepository implements DokterInterface
         return DB::table('pasien as p')
             ->selectRaw('
             p.nama as nama_pasien, p.tanggal_lahir, p.jenis_kelamin, p.alamat, p.no_hp,
-            kp.nama as kategori_pasien, rm.kode as no_rekam_medis, p.golongan_darah, pem.id as pemeriksaan_id
+            kp.nama as kategori_pasien, pem.no_rekam_medis, p.golongan_darah, pem.id as pemeriksaan_id
         ')
             ->join('periksa_dokter as pd', 'pd.pasien_id', 'p.id')
             ->join('pemeriksaan_detail as pede', 'pede.id', 'pd.pemeriksaan_detail_id')
             ->join('pemeriksaan as pem', 'pem.id', 'pede.pemeriksaan_id')
             ->join('kategori_pasien as kp', 'kp.id', 'pem.kategori_pasien')
-            ->join('rekam_medis as rm', 'rm.pasien_id', 'p.id')
             ->where('p.id', $pasien_id)
             ->first();
     }
@@ -73,8 +72,8 @@ class DokterRepository implements DokterInterface
         ')
             ->join('obat_apotek as oa', 'oa.obat_id', '=', 'o.id')
             ->when($nama_obat ?? false, function ($query) use ($nama_obat) {
-                return $query->where('o.nama_paten', 'like', '%' . $nama_obat . '%')
-                    ->orWhere('o.nama_generik', 'like', '%' . $nama_obat . '%');
+                return $query->where('o.nama_paten','LIKE', "%{$nama_obat}%")
+                    ->orWhere('o.nama_generik','LIKE', "%{$nama_obat}%");
             })
             ->where('oa.stok', '>=', 'oa.minimal_stok')
             ->get();
@@ -151,14 +150,14 @@ class DokterRepository implements DokterInterface
             ->get();
     }
 
-    public function periksaPoliStation($periksa_poli_station_id)
+    public function periksaPoliStation($periksa_dokter_id)
     {
         return DB::table('periksa_poli_station as pps')
             ->selectRaw('
             pps.tb, pps.bb, pps.td, pps.su, pps.bmi
         ')
             ->join('periksa_dokter as pd', 'pd.periksa_poli_station_id', '=', 'pps.id')
-            ->where('pps.id', $periksa_poli_station_id)
+            ->where('pd.id', $periksa_dokter_id)
             ->first();
     }
 
@@ -166,10 +165,10 @@ class DokterRepository implements DokterInterface
     {
         return DB::table('posisi_pasien_rajal AS ppr')
             ->selectRaw('
-                ppr.id
+                ppr.id as posisi_pasien_rajal_id, pe.id as pemeriksaan_id
             ')
             ->join('pemeriksaan AS pe', 'pe.id', '=', 'ppr.pemeriksaan_id')
-            ->where('ppr.pemeriksaan_id', $pemeriksaan_id)
+            ->where('pe.id', $pemeriksaan_id)
             ->first();
     }
 }

@@ -18,8 +18,6 @@ class CreatePemeriksaanDetailTable extends Migration
             $table->unsignedBigInteger('pemeriksaan_id');
             $table->unsignedBigInteger('poli_id');
             $table->unsignedBigInteger('layanan_id');
-            $table->unsignedBigInteger('dokter_id')->nullable();
-            $table->bigInteger('tagihan_layanan')->default(0);
             $table->string('status')->default('belum selesai');
             $table->timestamps();
             $table->softDeletes();
@@ -33,10 +31,7 @@ class CreatePemeriksaanDetailTable extends Migration
             $table->foreign('layanan_id')->references('id')->on('layanan')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->foreign('dokter_id')->references('id')->on('dokter')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-        });
+    });
     }
 
     /**

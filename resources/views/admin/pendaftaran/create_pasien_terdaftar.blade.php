@@ -169,35 +169,18 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Layanan <span
-                                                            class="text-danger">*</span>
+                                                    <label class="form-label">Tujuan <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="form-control-wrap ">
-                                                        <select data-search="on" class="form-select select2 dokter-poli"
-                                                            style="position:absolute;" name="layanan_id"
-                                                            data-placeholder="Pilih layanan pasien">
+                                                        <select class="form-select select2 dokter-poli"
+                                                                style="position:absolute;" data-search="on" name="layanan_id"
+                                                                data-placeholder="Pilih layanan pasien">
                                                             <option label="Pilih data" disabled selected value=""></option>
                                                             @foreach ($layanan as $item)
                                                                 <option value="{{ $item->id }}">
-                                                                    {{ $item->nama }}
+                                                                    {{ $item->keterangan }}
                                                                 </option>
                                                             @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Tujuan <span
-                                                            class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="form-control-wrap ">
-                                                        <select class="form-select select2" style="position:absolute;"
-                                                            name="tujuan">
-                                                            <option label="Pilih data" disabled selected value=""></option>
-                                                            <option value="periksa">Periksa Dokter / Konsultasi</option>
-                                                            <option value="lab">Lab</option>
-                                                            <option value="radiologi">Radiologi</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -206,8 +189,8 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Informasi Tambahan</label>
                                                     <div class="form-control-wrap">
-                                                        <textarea class="form-control form-control-sm" name="keterangan"
-                                                            required autocomplete="off"></textarea>
+                                                        <textarea class="form-control form-control-sm" name="informasi_tambahan"
+                                                                  required autocomplete="off"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,7 +212,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!-- .components-preview -->
+                    </div>
                 </div>
             </div>
         </div>

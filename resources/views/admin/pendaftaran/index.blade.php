@@ -112,9 +112,7 @@
                                                             </li>
                                                             @foreach ($poli as $item)
                                                                 <li>
-                                                                    <a data-id="{{ $item->id }}" href="#"
-                                                                        onclick="filterPoli(`{{ $item->nama }}`)"><input
-                                                                            type="hidden" name="poli" />
+                                                                    <a data-id="{{ $item->id }}" href="#" onclick="filterPoli(`{{ $item->nama }}`)"><input type="hidden" name="poli" />
                                                                         <span class="text-uppercase">
                                                                             {{ $item->nama }}
                                                                         </span>
@@ -124,6 +122,11 @@
                                                         </ul>
                                                     </div>
                                                 </div>
+                                            </li>
+                                            <li class="nk-block-tools-opt">
+                                                <a href="{{ route('pendaftaran.create') }}"
+                                                   class="btn btn-primary d-md-inline-flex"><em
+                                                        class="icon ni ni-plus"></em><span>Tambah</span></a>
                                             </li>
                                         </ul>
                                     </div>

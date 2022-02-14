@@ -12,6 +12,6 @@ class PemeriksaanDetail extends Model
     protected $table = 'pemeriksaan_detail';
 
     protected $fillable = [
-        'pemeriksaan_id', 'poli_id', 'layanan_id', 'tagihan_layanan', 'status', 'dokter_id'
+        'pemeriksaan_id', 'poli_id', 'layanan_id', 'status'
     ];
 }

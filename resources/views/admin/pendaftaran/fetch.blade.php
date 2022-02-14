@@ -6,7 +6,6 @@
             <div class="nk-tb-col"><span class="sub-text">Kategori</span></div>
             <div class="nk-tb-col"><span class="sub-text">Tanggal Lahir</span></div>
             <div class="nk-tb-col"><span class="sub-text">Tujuan Poli</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Tenaga Medis</span></div>
             <div class="nk-tb-col"><span class="sub-text">Waktu Daftar</span></div>
             <div class="nk-tb-col"><span class="sub-text">Rencana Periksa</span></div>
             <div class="nk-tb-col"><span class="sub-text"><em class="icon ni ni-setting-fill"></em></span>
@@ -57,16 +56,12 @@
                 <div class="nk-tb-col tb-col-md">
                     <span class="text-capitalize tb-lead">{!! $item->tujuan !!}</span>
                 </div>
-                <div class="nk-tb-col">
-                    <span class="tb-lead text-capitalize">{!! $item->nama_dokter !!}</span>
-                </div>
                 <div class="nk-tb-col tb-col-md">
                     <span class="tb-lead">{!! tanggalJam($item->created_at) !!}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
                     <span class="tb-lead">{!! tanggal($item->tanggal) !!}</span>
                 </div>
-
                 <div class="nk-tb-col nk-tb-col-tools">
                     <ul class="nk-tb-actions gx-1">
                         <li class="nk-tb-action-hidden">
@@ -111,7 +106,6 @@
                 <div class="nk-tb-col">
                     <h4 class="text-center">Data tidak ada</h4>
                 </div>
-                <div class="nk-tb-col"></div>
                 <div class="nk-tb-col"></div>
                 <div class="nk-tb-col"></div>
                 <div class="nk-tb-col"></div>

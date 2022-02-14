@@ -17,6 +17,7 @@ class CreatePeriksaRadiologiTable extends Migration
             $table->id();
             $table->unsignedBigInteger('pemeriksaan_detail_id');
             $table->unsignedBigInteger('periksa_dokter_id')->nullable();
+            $table->unsignedBigInteger('dokter_id')->nullable();
             $table->unsignedBigInteger('pasien_id');
             $table->date('tanggal');
             $table->longText('keterangan')->nullable();
@@ -31,6 +32,9 @@ class CreatePeriksaRadiologiTable extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreign('pasien_id')->references('id')->on('pasien')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreign('dokter_id')->references('id')->on('dokter')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });
