@@ -78,10 +78,15 @@ class AntrianBpjsController extends Controller
     {
         $pasien = DB::table('pemeriksaan as pi')
             ->selectRaw('
-                    pi.id as pemeriksaan_id, cr.id as kasir_id
+                    pi.id as pemeriksaan_id, cr.id as kasir_id, ps.nama as nama_pasien, ps.tanggal_lahir,
+                    ps.jenis_kelamin, ps.golongan_darah, pi.no_rekam_medis,
+                    dk.nama as nama_dokter
             ')
-            ->join('kasir as cr', 'cr.pemeriksaan_id', '=', 'cr.id')
             ->join('pasien as ps', 'pi.pasien_id', '=', 'ps.id')
+            ->join('kasir as cr', 'cr.pemeriksaan_id', '=', 'cr.id')
+            ->leftJoin('dokter as dk', 'dk.id', '=', 'dk.id')
+            ->rightJoin('dokter_poli as dp', 'dp.dokter_id', 'dk.id')
+            ->where('ps.id', '=', $pasien_bpjs)
             ->first();
         // dd($pasien);
         $title = 'Detail Pasien';
