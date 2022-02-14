@@ -15,6 +15,7 @@ class CreateLayananTable extends Migration
     {
         Schema::create('layanan', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('parent_id')->default(0);
             $table->string('kode')->unique();
             $table->string('nama');
             $table->bigInteger('tarif');

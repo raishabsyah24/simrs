@@ -22,9 +22,11 @@ class CreateDokterTable extends Migration
             $table->string('no_str')->unique()->nullable();
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
+            $table->date('tanggal_bergabung')->nullable();
+            $table->date('tanggal_non_aktif')->nullable();
             $table->string('jenis_kelamin');
-            $table->string('no_hp');
-            $table->string('email');
+            $table->string('no_hp')->nullable();
+            $table->string('email')->nullable();
             $table->string('foto')->nullable();
             $table->text('alamat');
             $table->string('status')->default('aktif');

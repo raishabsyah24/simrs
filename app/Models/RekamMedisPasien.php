@@ -12,6 +12,6 @@ class RekamMedisPasien extends Model
     protected $table = 'rekam_medis_pasien';
 
     protected $fillable = [
-        'rekam_medis_id', 'tujuan', 'dokter', 'tanggal', 'subjektif', 'objektif', 'assesment', 'plan', 'keterangan'
+        'rekam_medis_id', 'tujuan', 'dokter', 'tanggal', 'subjektif', 'objektif', 'assesment', 'plan', 'keterangan', 'keluhan', 'diagnosa', 'tindakan'
     ];
 }

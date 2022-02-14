@@ -30,8 +30,12 @@
                                                     data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <ul class="link-list-opt no-bdr">
-                                                        <li><a href="#"><span>Tambah User</span></a></li>
-                                                        <li><a href="#"><span>Import User</span></a></li>
+                                                        <li>
+                                                            <a href="#" onclick="modalAddObat()">
+                                                                <span>Tambah Obat</span>
+                                                            </a>
+                                                        </li>
+                                                        <li><a href="#"><span>Export ke PDF</span></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -131,6 +135,7 @@
         </div>
     </div>
 </div>
+@include('admin.apotek.data_obat.partials._modal_blade')
 @endsection
 
 @push('js')
@@ -173,5 +178,9 @@
             $('.fetch-data').addClass('d-none');
             fetchData(page, query);
         })
+
+        function modalAddObat () {
+            $('.modal-obat').modal('show');
+        }
     </script>
 @endpush

@@ -1,9 +1,5 @@
 @extends('layouts.admin.master', ['title' => $title])
 
-@push('css')
-
-@endpush
-
 @section('admin-content')
     <div class="nk-content ">
         <div class="container-fluid">
@@ -98,6 +94,41 @@
                                                     </div>
                                                 </div>
                                                 {{-- End Informasi pasien --}}
+
+                                                {{-- Hasil periksa poli station --}}
+                                                @if ($periksa_poli_station->bb)
+                                                    <div class="nk-divider divider md"></div>
+                                                    <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                        <h5 class="title">Hasil Periksa Poli Station</h5>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-12">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Tinggi Badan</th>
+                                                                            <th>Berat Badan</th>
+                                                                            <th>Tekanan Darah</th>
+                                                                            <th>Suhu</th>
+                                                                            <th>BMI</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>{{ $periksa_poli_station->tb }}</td>
+                                                                            <td>{{ $periksa_poli_station->bb }}</td>
+                                                                            <td>{{ $periksa_poli_station->td }}</td>
+                                                                            <td>{{ $periksa_poli_station->su }}</td>
+                                                                            <td>{{ $periksa_poli_station->bmi }}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                {{-- Hasil periksa poli station --}}
 
                                                 {{-- Form Pemeriksaan --}}
                                                 <div class="nk-divider divider md"></div>
@@ -199,6 +230,64 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Diagnosa (ICD 10)<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="form-control-wrap">
+                                                                        <input
+                                                                            onkeyup="searchDiagnosa(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-diagnosa') }}`,this)"
+                                                                            type="text" class="form-control"
+                                                                            name="diagnosa" autocomplete="off" />
+                                                                    </div>
+                                                                    <div class="dropdown-diagnosa"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 table-diagnosa d-none">
+                                                                <h5>Diagnosa</h5>
+                                                                <table class="table table-hover">
+                                                                    <thead class="table-dark">
+                                                                        <tr>
+                                                                            <th>Kode</th>
+                                                                            <th>Diagnosa</th>
+                                                                            <th align="text-left">Bagian</th>
+                                                                            <th class="text-center">Hapus</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="data-diagnosa">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="form-label">Tindakan (ICD 9)<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="form-control-wrap">
+                                                                        <input
+                                                                            onkeyup="searchTindakan(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-tindakan') }}`,this)"
+                                                                            type="text" class="form-control"
+                                                                            name="tindakan" autocomplete="off" />
+                                                                    </div>
+                                                                    <div class="dropdown-tindakan"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 table-tindakan d-none">
+                                                                <h5>Tindakan</h5>
+                                                                <table class="table table-hover">
+                                                                    <thead class="table-dark">
+                                                                        <tr>
+                                                                            <th>Kode</th>
+                                                                            <th>Tindakan</th>
+                                                                            <th align="text-left">Bagian</th>
+                                                                            <th class="text-center">Hapus</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="data-tindakan">
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Status Lanjutan<span
                                                                             class="text-danger">*</span></label>
@@ -259,7 +348,7 @@
                                                         </div>
                                                         <div class="mt-3">
                                                             <table class="table table-hover">
-                                                                <thead>
+                                                                <thead class="table-success">
                                                                     <tr>
                                                                         <th>No</th>
                                                                         <th>Nama Obat</th>
@@ -297,8 +386,8 @@
                                             <div class="tab-pane" id="tabItem2">
                                                 {{-- Table RM --}}
                                                 <div class="nk-block nk-block-lg">
-                                                    <table class="table">
-                                                        <thead class="thead-dark">
+                                                    <table class="table table-hover">
+                                                        <thead class="table-success">
                                                             <tr>
                                                                 <th scope="col">No</th>
                                                                 <th scope="col">Tanggal Kunjungan</th>
@@ -345,13 +434,13 @@
             </div>
         </div>
     </div>
-    </div>
 
 @endsection
 
 @push('js')
     <script>
-        reloadTable();
+        // Obat
+        reloadTableObat();
 
         async function searchObat(id, url, attr) {
             if ($('.dropdown-obat').hasClass('d-none')) {
@@ -395,13 +484,13 @@
                         $.get(url)
                             .done(output => {
                                 $('table .data-obat').html(output);
-                                reloadTable();
+                                reloadTableObat();
                             })
                     }
                 })
         }
 
-        function reloadTable() {
+        function reloadTableObat() {
             setTimeout(() => {
                 $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
                     .done(response => {
@@ -411,6 +500,9 @@
                             alertError('Limit bos');
                         }
                         $('table .data-obat').html(response.output);
+                    })
+                    .fail(error => {
+                        alertError();
                     })
             }, 600);
         }
@@ -435,7 +527,7 @@
                         alertError('Pasien bpjs sudah mencapai limit obat',
                             'Silahkan kurangi jumlah obat atau kurangi obat pasien');
                     }
-                    reloadTable();
+                    reloadTableObat();
                 })
         }
 
@@ -484,6 +576,13 @@
                     modalTerimakasih(response.message);
                     pindahHalaman(response.url, 3000);
                 })
+                .fail(errors => {
+                    if (errors.status === 422) {
+                        loopErrors(errors.responseJSON.errors);
+                        return;
+                    }
+                    alertError();
+                })
         }
 
         function signaSatu(url, attr, obat_pasien_periksa_rajal_id) {
@@ -499,7 +598,7 @@
                     },
                 })
                 .done(response => {
-                    reloadTable();
+                    reloadTableObat();
                 })
         }
 
@@ -516,7 +615,179 @@
                     },
                 })
                 .done(response => {
-                    reloadTable();
+                    reloadTableObat();
+                })
+        }
+
+        // Diagnosa
+        reloadTableDiagnosa();
+
+        function reloadTableDiagnosa() {
+            setTimeout(() => {
+                $.get(`/dokter/diagnosa-pasien/{{ $periksa_dokter_id }}`)
+                    .done(response => {
+                        $('.dropdown-diagnosa').addClass('d-none');
+                        $('.table-diagnosa').removeClass('d-none');
+                        $('table .data-diagnosa').html(response.output);
+                    })
+                    .fail(error => {
+                        alertError();
+                    })
+            }, 600);
+        }
+
+        function searchDiagnosa(id, url, attr) {
+            let diagnosa = $(attr).val();
+            if ($('.dropdown-diagnosa').hasClass('d-none')) {
+                $('.dropdown-diagnosa').removeClass('d-none');
+            }
+            $.get(url, {
+                    diagnosa: diagnosa,
+                    periksa_dokter_id: id
+                })
+                .done(output => {
+                    if (output != '') {
+                        $('.dropdown-diagnosa').html(output);
+                    }
+                })
+        }
+
+        function pilihDiagnosa(diagnosa_id, periksa_dokter_id, url) {
+            event.preventDefault();
+            $.post({
+                    url: url,
+                    type: 'post',
+                    data: {
+                        diagnosa_id: diagnosa_id,
+                        periksa_dokter_id: periksa_dokter_id
+                    }
+                })
+                .done(response => {
+                    let status = response.status;
+                    $('[name=diagnosa]').val('')
+                    alertSuccess(response.message);
+                    let url = response.url;
+                    $.get(url)
+                        .done(output => {
+                            $('.dropdown-diagnosa').addClass('d-none');
+                            $('.table-diagnosa').removeClass('d-none');
+                            $('table .data-diagnosa').html(output);
+                            reloadTableDiagnosa();
+                        })
+                })
+        }
+
+        function hapusDiagnosa(url, id, periksa_dokter_id) {
+            event.preventDefault();
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "DELETE"
+                    },
+                })
+                .done(response => {
+                    alertSuccess('Hapus diagnosa pasien berhasil')
+                    reloadTableDiagnosa();
+                })
+        }
+
+        function diagnosaBagian(url, attr) {
+            let bagian = $(attr).val();
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        bagian: bagian
+                    },
+                })
+                .done(response => {
+                    console.log(response);
+                })
+        }
+
+        // Tindakan
+        reloadTableTindakan();
+
+        function reloadTableTindakan() {
+            setTimeout(() => {
+                $.get(`/dokter/tindakan-pasien/{{ $periksa_dokter_id }}`)
+                    .done(response => {
+                        $('.dropdown-tindakan').addClass('d-none');
+                        $('.table-tindakan').removeClass('d-none');
+                        $('table .data-tindakan').html(response.output);
+                    })
+                    .fail(error => {
+                        alertError();
+                    })
+            }, 600);
+        }
+
+        function searchTindakan(id, url, attr) {
+            let tindakan = $(attr).val();
+            if ($('.dropdown-tindakan').hasClass('d-none')) {
+                $('.dropdown-tindakan').removeClass('d-none');
+            }
+            $.get(url, {
+                    tindakan: tindakan,
+                    periksa_dokter_id: id
+                })
+                .done(output => {
+                    if (output != '') {
+                        $('.dropdown-tindakan').html(output);
+                    }
+                })
+        }
+
+        function pilihTindakan(tindakan_id, periksa_dokter_id, url) {
+            event.preventDefault();
+            $.post({
+                    url: url,
+                    type: 'post',
+                    data: {
+                        tindakan_id: tindakan_id,
+                        periksa_dokter_id: periksa_dokter_id
+                    }
+                })
+                .done(response => {
+                    let status = response.status;
+                    $('[name=tindakan]').val('')
+                    alertSuccess(response.message);
+                    let url = response.url;
+                    $.get(url)
+                        .done(output => {
+                            $('.dropdown-tindakan').addClass('d-none');
+                            $('.table-tindakan').removeClass('d-none');
+                            $('table .data-tindakan').html(output);
+                            reloadTableTindakan();
+                        })
+                })
+        }
+
+        function hapusTindakan(url, id, periksa_dokter_id) {
+            event.preventDefault();
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "DELETE"
+                    },
+                })
+                .done(response => {
+                    alertSuccess('Hapus tindakan pasien berhasil')
+                    reloadTableTindakan();
+                })
+        }
+
+        function tindakanBagian(url, attr) {
+            let bagian = $(attr).val();
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        bagian: bagian
+                    },
+                })
+                .done(response => {
+                    console.log(response);
                 })
         }
     </script>

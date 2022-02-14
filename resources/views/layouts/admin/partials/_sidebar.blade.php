@@ -21,9 +21,13 @@
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
-                    <li class="nk-menu-item {{ activeClass('dashboard.index') }}">
+                    {{--Dashboard pasien--}}
+                    <li
+                        class="nk-menu-item {{ activeClass('dashboard.index') }}}">
                         <a href="{{ route('dashboard.index') }}" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-dashboard-fill"></em>
+                                </span>
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
                     </li>
@@ -451,6 +455,30 @@
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item -->
+
+                    @role('pendaftaran|super_admin')
+                    <li class="nk-menu-item has-sub {{ activeClass('dashboard.antrian-poli.jantung') }} {{ activeClass('dashboard.antrian-poli.anak') }}">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-view-list-fill"></em>
+                            </span>
+                            <span class="nk-menu-text">Antrian Poli</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item {{ activeClass('dashboard.antrian-poli.jantung') }}">
+                                <a href="{{ route('dashboard.antrian-poli.jantung') }}" class="nk-menu-link">
+                                    <span
+                                        class="nk-menu-text">Antrian Poli Jantung</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item {{ activeClass('dashboard.antrian-poli.anak') }}">
+                                <a href="{{ route('dashboard.antrian-poli.anak') }}" class="nk-menu-link">
+                                    <span
+                                        class="nk-menu-text">Antrian Poli Anak</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+)
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
@@ -489,7 +517,7 @@
                     @endrole
 
                     <!-- Poli Station -->
-                    @role('poli_station')
+                    @role('poli_station|super_admin')
                         <li class="nk-menu-item {{ activeClass('poli-station.index') }}">
                             <a href="{{ route('poli-station.index') }}" class="nk-menu-link">
                         <!-- Managemen User -->
@@ -635,13 +663,31 @@
                     @role('apotek|super_admin')
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-share-fill"></em></span>
-                                <span class="nk-menu-text">Master</span>
+                                <span class="nk-menu-icon"><em class="icon ni ni-repeat"></em></span>
+                                <span class="nk-menu-text">Apotek</span>
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
-                                    <a href="html/project-card.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Kategori Obat</span></a>
+                                    <a href="{{ route('data.antrian.bpjs') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Order Bpjs</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ route('data.umum') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Order Umum</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="html/orders-sales.html" class="nk-menu-link"><span
+                                            class="nk-menu-text">Order Asuransi</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-share-fill"></em></span>
+                                <span class="nk-menu-text">Database</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
                                     <a href="{{ route('data') }}" class="nk-menu-link"><span
                                         class="nk-menu-text">Data Obat</span></a>
                                 </li>
@@ -659,26 +705,7 @@
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li>
-                        <li class="nk-menu-item has-sub">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-repeat"></em></span>
-                                <span class="nk-menu-text">Apotek</span>
-                            </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('data.antrian.bpjs') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Bpjs</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="html/orders-regular.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pasien Umum</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="html/orders-sales.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pasien Asuransi</span></a>
-                                </li>
-                            </ul>
-                        </li>
+                      
                     @endrole
 
                     @role('lab|super_admin')

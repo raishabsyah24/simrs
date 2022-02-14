@@ -138,6 +138,7 @@
                                             <div class="user-account-info py-0">
                                                 <h6 class="overline-title-alt">Status Menerima Obat</h6>
                                                 <div class="user-balance">
+                                                    
                                                 </div>
                                             </div>
                                         </div><!-- .card-inner -->

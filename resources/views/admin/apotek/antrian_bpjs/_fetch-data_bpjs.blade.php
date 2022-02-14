@@ -59,6 +59,7 @@
             </div>
             <div class="nk-tb-col tb-col-md">
                 <span class="tb-amount badge badge-dim badge-{{ $badge->random() }}" >
+                    {{ $item->status_pembayaran ?? '' }}
                 </span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
@@ -70,14 +71,14 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
                                     <li>
-                                        <a href="{{ route('apotek.proses-pasien', $item->id) }}">
+                                        <a href="{{ route('apotek.proses-pasien', $item->pemeriksaan_id) }}">
                                             <em class="icon ni ni-edit-fill"></em>
                                             <span>Proses</span>
                                         </a>
                                     </li>
                                     
                                     <li>
-                                        <a href="{{ route('apotek.pasien-bpjs', $item->id) }}">
+                                        <a href="{{ route('apotek.pasien-bpjs', $item->pemeriksaan_id) }}">
                                             <em class="icon ni ni-eye"></em>
                                             <span>Detail</span>
                                         </a>

@@ -11,6 +11,8 @@ class DokterPoli extends Model
 
     protected $table = 'dokter_poli';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'dokter_id', 'poli_id',
     ];

@@ -71,7 +71,7 @@
                                         srcset="{{ asset('backend/images/slides/promo-a2x.png 2x') }}" alt="">
                                 </div>
                                 <div class="nk-feature-content py-4 p-sm-5">
-                                    <h4>Dashlite</h4>
+                                    <h4>Medich</h4>
                                     <p>You can start to create your products easily with its user-friendly
                                         design & most completed responsive layout.</p>
                                 </div>
@@ -84,7 +84,7 @@
                                         srcset="{{ asset('backend/images/slides/promo-b2x.png 2x') }}" alt="">
                                 </div>
                                 <div class="nk-feature-content py-4 p-sm-5">
-                                    <h4>Dashlite</h4>
+                                    <h4>Medich</h4>
                                     <p>You can start to create your products easily with its user-friendly
                                         design & most completed responsive layout.</p>
                                 </div>
@@ -97,7 +97,7 @@
                                         srcset="{{ asset('backend/images/slides/promo-c2x.png 2x') }}" alt="">
                                 </div>
                                 <div class="nk-feature-content py-4 p-sm-5">
-                                    <h4>Dashlite</h4>
+                                    <h4>Medich</h4>
                                     <p>You can start to create your products easily with its user-friendly
                                         design & most completed responsive layout.</p>
                                 </div>

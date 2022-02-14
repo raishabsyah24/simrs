@@ -1,136 +1,60 @@
 @extends('layouts.admin.master', ['title' => $title])
 
 @section('admin-content')
-<div class="nk-content ">
-    <div class="container-fluid">
-        <nav>
-            <ul class="breadcrumb breadcrumb-arrow">
-                <li class="breadcrumb-item active">List User</li>
-            </ul>
-        </nav>
-        <div class="nk-content-inner">
-            <div class="nk-content-body">
-                <div class="nk-block-head nk-block-head-sm">
-                    <div class="nk-block-between">
-                        <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">{!! $title !!}</h3>
-                            <div class="nk-block-des text-soft">
-                                <p>Total User {{ formatAngka($total) }}</p>
+    <div class="nk-content ">
+        <div class="container-fluid">
+            <div class="nk-content-inner">
+                <div class="nk-content-body">
+                    <div class="nk-block-head nk-block-head-sm">
+                        <div class="nk-block-head nk-block-head-lg wide-sm">
+                            <div class="nk-block-head-content">
+                                <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
                             </div>
-                        </div><!-- .nk-block-head-content -->
-                        <div class="nk-block-head-content">
-                            <div class="toggle-wrap nk-block-tools-toggle">
-                                <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1"
-                                    data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
-                                <div class="toggle-expand-content" data-content="pageMenu">
-                                    <ul class="nk-block-tools g-3">
-                                        <li class="nk-block-tools-opt">
-                                            <div class="drodown">
-                                                <a href="#" class="dropdown-toggle btn btn-icon btn-primary"
-                                                    data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li><a href="{{ route('user.create') }}"><span>Tambah User</span></a></li>
-                                                        <li><a href="#"><span>Import User</span></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div><!-- .toggle-wrap -->
-                        </div><!-- .nk-block-head-content -->
-                    </div><!-- .nk-block-between -->
-                </div><!-- .nk-block-head -->
-                <div class="nk-block">
-                    <div class="card card-stretch">
-                        <div class="card-inner-group">
-                            <div class="card-inner position-relative card-tools-toggle">
-                                <div class="card-title-group">
-                                    <div class="card-tools">
-                                    </div><!-- .card-tools -->
-                                    <div class="card-tools mr-n1">
-                                        <ul class="btn-toolbar gx-1">
-                                            <li>
-                                                <a href="#" class="btn btn-icon search-toggle toggle-search"
-                                                    data-target="search"><em class="icon ni ni-search"></em></a>
-                                            </li><!-- li -->
-                                            <li class="btn-toolbar-sep"></li><!-- li -->
-                                            <li>
-                                                <div class="toggle-wrap">
-                                                    <a href="#" class="btn btn-icon btn-trigger toggle"
-                                                        data-target="cardTools"><em
-                                                            class="icon ni ni-menu-right"></em></a>
-                                                    <div class="toggle-content" data-content="cardTools">
-                                                        <ul class="btn-toolbar gx-1">
-                                                            <li class="toggle-close">
-                                                                <a href="#" class="btn btn-icon btn-trigger toggle"
-                                                                    data-target="cardTools"><em
-                                                                        class="icon ni ni-arrow-left"></em></a>
-                                                            </li><!-- li -->
-                                                            <!-- li -->
-                                                            <li>
-                                                                <div class="dropdown">
-                                                                    <a href="#"
-                                                                        class="btn btn-trigger btn-icon dropdown-toggle"
-                                                                        data-toggle="dropdown">
-                                                                        <em class="icon ni ni-setting"></em>
-                                                                    </a>
-                                                                    <div
-                                                                        class="dropdown-menu dropdown-menu-xs dropdown-menu-right">
-                                                                        <ul class="link-check">
-                                                                            <li><span>Order</span></li>
-                                                                            <li><a href="#"
-                                                                                    onclick="sortBy('desc')">DESC</a>
-                                                                            </li>
-                                                                            <li><a href="#"
-                                                                                    onclick="sortBy('asc')">ASC</a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div><!-- .dropdown -->
-                                                            </li><!-- li -->
-                                                        </ul><!-- .btn-toolbar -->
-                                                    </div><!-- .toggle-content -->
-                                                </div><!-- .toggle-wrap -->
-                                            </li><!-- li -->
-                                        </ul><!-- .btn-toolbar -->
-                                    </div><!-- .card-tools -->
-                                </div><!-- .card-title-group -->
-                                <div class="card-search search-wrap" data-search="search">
-                                    <div class="card-body">
-                                        <div class="search-content">
-                                            <a href="#" class="search-back btn btn-icon toggle-search"
-                                                data-target="search"><em class="icon ni ni-arrow-left"></em></a>
-                                            <input type="text" name="query" onkeyup="search(this)"
-                                                class="form-control border-transparent form-focus-none"
-                                                placeholder="Cari data">
-                                            <button class="search-submit btn btn-icon"><em
-                                                    class="icon ni ni-search"></em></button>
-                                        </div>
-                                    </div>
-                                </div><!-- .card-search -->
-                            </div>
-                            <!-- .card-inner data -->
-                            <div class="loader card-inner p-0">
-                                <div class="d-flex justify-content-center my-5">
-                                    <div class="spinner-grow text-secondary" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-inner p-0 fetch-data d-none">
-                                @include('admin.user._fetch_user')
-                                <input type="hidden" name="page" value="1">
-                            </div>
-                            <!-- .card-inner -->
                         </div>
-                        <!-- .card-inner-group -->
-                    </div><!-- .card -->
-                </div><!-- .nk-block -->
+                        <div class="nk-block-between mt-4">
+                            <div class="nk-block-head-content"></div>
+                            <div class="nk-block-head-content">
+                                <div class="toggle-wrap nk-block-tools-toggle">
+                                    <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1"
+                                        data-target="more-options"><em class="icon ni ni-more-v"></em></a>
+                                    <div class="toggle-expand-content" data-content="more-options">
+                                        <ul class="nk-block-tools g-3">
+                                            <li>
+                                                <div class="form-control-wrap">
+                                                    <div class="form-icon form-icon-right">
+                                                        <em class="icon ni ni-search"></em>
+                                                    </div>
+                                                    <input onkeyup="search(this)" type="text" name="query"
+                                                        autocomplete="off" class="form-control"
+                                                        placeholder="Cari data . . ." />
+                                                </div>
+                                            </li>
+                                            <li class="nk-block-tools-opt">
+                                                <a href="{{ route('user.create') }}"
+                                                    class="btn btn-primary d-md-inline-flex"><em
+                                                        class="icon ni ni-plus"></em><span>Tambah</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="loader card-inner p-0">
+                        <div class="d-flex justify-content-center my-5">
+                            <div class="spinner-grow text-secondary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nk-block fetch-data d-none">
+                        @include('admin.user.fetch')
+                        <input type="hidden" name="page" value="1" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 @push('js')
@@ -147,6 +71,10 @@
                     $('.fetch-data').removeClass('d-none');
                     $('.fetch-data').html(data)
                 })
+                .fail((errors) => {
+                    alertError();
+                    return;
+                });
         }
 
         function search(el) {
@@ -173,5 +101,97 @@
             $('.fetch-data').addClass('d-none');
             fetchData(page, query);
         })
+
+        function updateStatus(url) {
+            event.preventDefault();
+
+            Swal.fire({
+                title: "Apakah anda yakin mengubah status user ini?",
+                text: "",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, Ubah!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post({
+                            url: url,
+                            data: {
+                                _method: "PUT",
+                            },
+                        })
+                        .done(response => {
+                            alertSuccess(response.message);
+                            pindahHalaman(response.url, 2000)
+                        })
+                        .fail((errors) => {
+                            alertError(errors.responseJSON.message);
+                            return;
+                        });
+                }
+            });
+        }
+
+        function resetPassword(url) {
+            event.preventDefault();
+
+            Swal.fire({
+                title: "Apakah anda yakin mereset password user ini?",
+                text: "Password user akan tereset menjadi 'firdaus'",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, Reset!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post({
+                            url: url,
+                            data: {
+                                _method: "PUT",
+                            },
+                        })
+                        .done(response => {
+                            alertSuccess(response.message);
+                        })
+                        .fail((errors) => {
+                            alertError();
+                            return;
+                        });
+                }
+            });
+        }
+
+        function hapusUser(url) {
+            event.preventDefault();
+            Swal.fire({
+                title: "Apakah anda yakin menghapus data ini?",
+                text: "Data yang sudah dihapus tidak dapat dikembalikan lagi!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, Hapus!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post({
+                            url: url,
+                            data: {
+                                _method: "DELETE",
+                            },
+                        })
+                        .done(response => {
+                            alertSuccess(response.message);
+                            pindahHalaman(response.url, 1500);
+
+                        })
+                        .fail(errors => {
+                            alertError(errors.responseJSON.message);
+                            return;
+                        });
+                }
+            });
+        }
     </script>
 @endpush

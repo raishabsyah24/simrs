@@ -65,7 +65,7 @@ function activity(string $aktifitas)
     ]);
 }
 
-function formatAngka($angka, $rp = false)
+function formatAngka(int $angka, bool $rp = false)
 {
     if ($rp === true) {
         return 'Rp. ' . number_format($angka, 0, ',', '.');
@@ -97,6 +97,16 @@ function tanggal($tanggal)
 function tanggalJam($tanggal)
 {
     return Carbon::parse($tanggal)->format('d M Y H:i:s');
+}
+
+function tanggalDate($tanggal)
+{
+    return Carbon::parse($tanggal)->format('d M Y');
+}
+
+function jam($jam)
+{
+    return Carbon::parse($jam)->format('H:i');
 }
 
 function replaceRole($role)
@@ -136,9 +146,27 @@ function kodeRekamMedis()
     return kode('rekam_medis', 'kode', '15', 'RMP' . $date);
 }
 
-function noUrutPasienPeriksa($poli_id)
+function noUrutPasienPeriksa($tanggal, $poli_id, $dokter_id)
 {
-    $prefix = date('d') . $poli_id;
-    return $kode = kode('periksa_dokter', 'no_antrian_periksa', '8', $prefix);
+    $length_poli = strlen($poli_id);
+    $length_dokter = strlen($dokter_id);
+    if ($length_poli == 1) {
+        $poli_id = '0' . $poli_id;
+    }
+    if ($length_dokter == 1) {
+        $dokter_id = '0' . $dokter_id;
+    }
+    $prefix = $tanggal . $poli_id . $dokter_id;
+    return $kode = kode('periksa_dokter', 'no_antrian_periksa', '10', $prefix);
     // return substr($kode, 4);
+}
+
+function jumlahWaktuPasien($waktu_awal, $waktu_selesai)
+{
+    $waktu_awal = Carbon::parse($waktu_awal);
+    $waktu_selesai = Carbon::parse($waktu_selesai);
+
+    $jumlah = date_diff($waktu_awal, $waktu_selesai);
+
+    return "{$jumlah->d} hari, {$jumlah->h} jam, {$jumlah->i} menit, {$jumlah->s} detik";
 }
