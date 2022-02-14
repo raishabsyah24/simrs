@@ -23,7 +23,6 @@ class CreatePeriksaRadiologiTable extends Migration
             $table->longText('keterangan')->nullable();
             $table->string('status_diperiksa')->default('belum diperiksa');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('periksa_dokter_id')->references('id')->on('periksa_dokter')
                 ->cascadeOnUpdate()

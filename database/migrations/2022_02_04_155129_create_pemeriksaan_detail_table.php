@@ -20,7 +20,6 @@ class CreatePemeriksaanDetailTable extends Migration
             $table->unsignedBigInteger('layanan_id');
             $table->string('status')->default('belum selesai');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('pemeriksaan_id')->references('id')->on('pemeriksaan')
                 ->cascadeOnUpdate()

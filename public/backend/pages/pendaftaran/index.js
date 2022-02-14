@@ -66,3 +66,8 @@ function filterPoli(poli) {
         kategori = $("input[name=kategori]").val();
     fetchData(page, query, "desc", kategori, poli);
 }
+
+function hapusPasien(url) {
+    event.preventDefault();
+    confirmDelete(url);
+}

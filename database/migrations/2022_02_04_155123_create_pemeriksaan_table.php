@@ -25,7 +25,6 @@ class CreatePemeriksaanTable extends Migration
             $table->date('tanggal');
             $table->string('status')->default('belum selesai');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('faskes_id')->references('id')->on('faskes')
                 ->cascadeOnUpdate()

@@ -34,7 +34,6 @@ class CreatePeriksaDokterTable extends Migration
             $table->string('alasan_dirujuk')->nullable();
             $table->date('jadwal_kontrol')->nullable();
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('pemeriksaan_detail_id')->references('id')->on('pemeriksaan_detail')
                 ->cascadeOnUpdate()

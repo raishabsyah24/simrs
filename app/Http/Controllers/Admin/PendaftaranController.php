@@ -83,7 +83,6 @@ class PendaftaranController extends Controller
                         ->orWhere('pasien.nik', 'like', '%' . $q . '%')
                         ->orWhere('kp.nama', 'like', '%' . $q . '%')
                         ->orWhere('p.created_at', 'like', '%' . $q . '%')
-                        ->orWhere('dokter.nama', 'like', '%' . $q . '%')
                         ->orWhere('poli.nama', 'like', '%' . $q . '%');
                 })
                 ->when($kategori ?? false, function ($query) use ($kategori) {
@@ -409,29 +408,14 @@ class PendaftaranController extends Controller
     }
     public function destroy(Pemeriksaan $pemeriksaan)
     {
-        $pemeriksaan_id = $pemeriksaan->id;
-        $pemeriksaan_detail = PemeriksaanDetail::where('pemeriksaan_id', $pemeriksaan_id)->get();
-
+        $pemeriksaan_detail = DB::table('pemeriksaan_detail')
+            ->where('pemeriksaan_id', $pemeriksaan->id)
+            ->delete();
         $pemeriksaan->delete();
-        foreach ($pemeriksaan_detail as $item) {
-            $periksa_dokter = PeriksaDokter::where('pemeriksaan_detail_id', $item->id)->first();
-            $periksa_lab = PeriksaLab::where('pemeriksaan_detail_id', $item->id)->first();
-            $periksa_radiologi = PeriksaRadiologi::where('pemeriksaan_detail_id', $item->id)->first();
-
-            if ($periksa_radiologi) {
-                $periksa_radiologi->delete();
-            }
-            if ($periksa_lab) {
-                $periksa_lab->delete();
-            }
-            if ($periksa_dokter) {
-                $periksa_dokter->delete();
-            }
-            $item->delete();
-        }
 
         return response()->json([
-            'message' => 'Data berhasil dihapus'
+            'message' => 'Data berhasil dihapus',
+            'url' => route('pendaftaran.index')
         ], 200);
     }
 }

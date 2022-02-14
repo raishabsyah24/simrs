@@ -153,11 +153,5 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('backend/pages/pendaftaran.js') }}"></script>
-    <script>
-        function hapusPasien(url) {
-            event.preventDefault();
-            confirmDelete(url);
-        }
-    </script>
+    <script src="{{ asset('backend/pages/pendaftaran/index.js') }}"></script>
 @endpush

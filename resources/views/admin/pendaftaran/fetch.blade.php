@@ -82,14 +82,15 @@
                                                 <span>Lihat Posisi Pasien</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="#"><em class="icon ni ni-edit-fill"></em><span>Ubah</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                onclick="hapusPasien(`{{ route('pendaftaran.destroy', $item->pemeriksaan_id) }}`)"><em
-                                                    class="icon ni ni-trash"></em><span>Hapus</span></a>
-                                        </li>
+                                        @role('super_admin|pendaftaran')
+                                        @if($item->status_diperiksa == 'belum diperiksa')
+                                            <li>
+                                                <a href="#" onclick="hapusPasien(`{{ route('pendaftaran.destroy', $item->pemeriksaan_id) }}`)">
+                                                    <em class="icon ni ni-trash"></em><span>Hapus</span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @endrole
                                     </ul>
                                 </div>
                             </div>
@@ -111,7 +112,6 @@
                 <div class="nk-tb-col"></div>
                 <div class="nk-tb-col"></div>
             </div>
-
         @endforelse
     </div>
 

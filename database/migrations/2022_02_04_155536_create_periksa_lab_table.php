@@ -23,7 +23,6 @@ class CreatePeriksaLabTable extends Migration
             $table->string('status_diperiksa')->default('belum diperiksa');
             $table->longText('keterangan')->nullable();
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('periksa_dokter_id')->references('id')->on('periksa_dokter')
                 ->cascadeOnUpdate()
