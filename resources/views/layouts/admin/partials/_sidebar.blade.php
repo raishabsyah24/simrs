@@ -141,8 +141,28 @@
                     @role('apotek|super_admin')
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-repeat"></em></span>
+                                <span class="nk-menu-text">Apotek</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ route('data.antrian.bpjs') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Order Bpjs</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ route('data.umum') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Order Umum</span></a>
+                                </li>
+                                <li class="nk-menu-item">
+                                    <a href="html/orders-sales.html" class="nk-menu-link"><span
+                                            class="nk-menu-text">Order Asuransi</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon"><em class="icon ni ni-share-fill"></em></span>
-                                <span class="nk-menu-text"></span>
+                                <span class="nk-menu-text">Database</span>
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
@@ -163,26 +183,7 @@
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li>
-                        <li class="nk-menu-item has-sub">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-repeat"></em></span>
-                                <span class="nk-menu-text">Apotek</span>
-                            </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('data.antrian.bpjs') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Bpjs</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('data.umum') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Umum</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="html/orders-sales.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Asuransi</span></a>
-                                </li>
-                            </ul>
-                        </li>
+                      
                     @endrole
 
                     @role('lab|super_admin')

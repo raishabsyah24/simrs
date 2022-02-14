@@ -33,11 +33,11 @@ class AntrianBpjsController extends Controller
     {
         $data = $this->apotekRepository->antrianApotekBpjs()->paginate($this->perPage);
         // return $data;
-        $title = 'Antrian Bpjs';
+        $kategori = $this->kategoriPasien();
         $total = $this->apotekRepository->antrianApotekBpjs()->count();
+        $title = 'Antrian Bpjs';
         $per_page = $this->perPage;
         $badge = $this->badge();
-        $kategori = $this->kategoriPasien();
         return view('admin.apotek.antrian_bpjs._daftar-antrian', compact(
             'title',
             'data',
@@ -77,7 +77,10 @@ class AntrianBpjsController extends Controller
     public function detailPasienBpjs($pasien_bpjs)
     {
         $pasien = DB::table('pemeriksaan as pi')
-            ->selectRaw('pi.id as pemeriksaan_id')
+            ->selectRaw('
+                    pi.id as pemeriksaan_id, cr.id as kasir_id
+            ')
+            ->join('kasir as cr', 'cr.pemeriksaan_id', '=', 'cr.id')
             ->join('pasien as ps', 'pi.pasien_id', '=', 'ps.id')
             ->first();
         // dd($pasien);
