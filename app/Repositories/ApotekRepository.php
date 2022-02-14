@@ -13,7 +13,7 @@ class ApotekRepository implements ApotekInterface
             ->selectRaw('
             DISTINCT pa.id as pemeriksaan_id, pn.nama as nama_pasien, pn.tanggal_lahir, kp.nama as kategori_pasien, 
                pa.no_rekam_medis, pl.spesialis, dr.nama as nama_dokter, pd.status_diperiksa,
-               ks.id as kasir_id, ks.status as status_pembayaran
+               ks.id as kasir_id, ks.status as status_pembayaran, pd.id as periksa_dokter_id, pa.status
             ')
             ->join('pasien as pn', 'pn.id', '=', 'pa.pasien_id')
             ->join('kasir as ks', 'ks.pemeriksaan_id', '=', 'ks.id')
@@ -47,10 +47,14 @@ class ApotekRepository implements ApotekInterface
     public function obatApotek()
     {
         return DB::table('obat_pasien_periksa_rajal as op')
-            ->selectRaw('op.id, harga_jual as price_sale, harga_obat as price
+            ->selectRaw('
+                      DISTINCT op.id, harga_jual as price_sale, harga_obat as price,
+                        ob.nama_generik, op.jumlah
             ')
             ->join('obat_apotek as ap', 'ap.id', '=', 'op.obat_apotek_id')
-            ->get();
+            ->leftJoin('obat as ob', 'ap.obat_id', '=', 'ob.id')
+            ->where('ob.id', '=', 1)
+            ->first();
     }
 
     public function pasienApotek(int $periksa_dokter_id)

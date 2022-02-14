@@ -78,23 +78,39 @@ class AntrianBpjsController extends Controller
     {
         $pasien = DB::table('pemeriksaan as pi')
             ->selectRaw('
-                    pi.id as pemeriksaan_id, cr.id as kasir_id, ps.nama as nama_pasien, ps.tanggal_lahir,
+                   DISTINCT pi.id as pemeriksaan_id, cr.id as kasir_id, ps.nama as nama_pasien, ps.tanggal_lahir,
                     ps.jenis_kelamin, ps.golongan_darah, pi.no_rekam_medis,
-                    dk.nama as nama_dokter
-            ')
+                    dk.nama as nama_dokter, pl.spesialis, pi.tanggal as tanggal_pemeriksaan
+        ')
             ->join('pasien as ps', 'pi.pasien_id', '=', 'ps.id')
             ->join('kasir as cr', 'cr.pemeriksaan_id', '=', 'cr.id')
             ->leftJoin('dokter as dk', 'dk.id', '=', 'dk.id')
             ->rightJoin('dokter_poli as dp', 'dp.dokter_id', 'dk.id')
+            ->rightJoin('poli as pl', 'dp.dokter_id', '=', 'pl.id')
             ->where('ps.id', '=', $pasien_bpjs)
             ->first();
-        // dd($pasien);
+
+        // $obats = Obat::find($pasien_bpjs);
+
+        $obat = DB::table('obat_pasien_periksa_rajal as ob')
+            ->selectRaw('
+                   DISTINCT ob.id as obat_pasien_rajal_id, o.nama_generik, ob.jumlah, ob.signa1, ob.signa2,
+                   ob.harga_obat, ob.subtotal
+                ')
+            ->join('obat_apotek as ot', 'ot.id', '=', 'ob.obat_apotek_id')
+            ->join('obat as o', 'o.id', '=', 'ot.obat_id')
+            ->join('periksa_dokter as pd', 'pd.id', '=', 'ob.periksa_dokter_id')
+            ->join('pasien as pe', 'pe.id', '=', 'pd.pasien_id')
+            ->where('pd.id', '=', $pasien_bpjs)
+            ->get();
+        // return $obat;
         $title = 'Detail Pasien';
         $head  = 'Informasi Pasien';
         return view('admin.apotek.antrian_bpjs._pasien-bpjs', compact(
             'title',
             'head',
-            'pasien'
+            'pasien',
+            'obat'
         ));
     }
 
@@ -158,7 +174,7 @@ class AntrianBpjsController extends Controller
 
                 // Update ke table pemeriksaan
                 $pemeriksaan->update([
-                    'status' => 'Lunas'
+                    'status' => 'selesai'
                 ]);
 
                 // Cari id pemeriksaan detail
@@ -167,12 +183,13 @@ class AntrianBpjsController extends Controller
 
                 // Update ke table pemeriksaan detail
                 $pemeriksaan_detail->update([
-                    'status' => 'Lunas'
+                    'status' => 'selesai'
                 ]);
             }
         );
         return response()->json([
-            'message' => 'Status berhasil di ubah!'
+            'message' => 'Status berhasil di ubah!',
+            'url'   => route('data.antrian.bpjs')
         ], 200);
     }
 }

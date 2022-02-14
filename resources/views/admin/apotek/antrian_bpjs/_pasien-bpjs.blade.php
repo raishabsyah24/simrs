@@ -9,7 +9,9 @@
                     <div class="nk-block-between g-3">
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">
-                                Pasien / <strong class="text-primary small">Abu Bin Ishtiyak</strong>
+                                Pasien / <strong class="text-primary small">
+                                    {{ $pasien->nama_pasien }}
+                                </strong>
                             </h3>
                             <div class="nk-block-des text-soft">
                                 <ul class="list-inline">
@@ -94,14 +96,14 @@
                                             </div>
                                             <div class="profile-ud-item">
                                                 <div class="profile-ud wider">
-                                                    <span class="profile-ud-label"></span>
-                                                    <span class="profile-ud-value">Tujuan Poli</span>
+                                                    <span class="profile-ud-label">Tujuan Poli</span>
+                                                    <span class="profile-ud-value">{{ $pasien->spesialis }}</span>
                                                 </div>
                                             </div>
                                             <div class="profile-ud-item">
                                                 <div class="profile-ud wider">
                                                     <span class="profile-ud-label">Tanggal Periksa</span>
-                                                    <span class="profile-ud-value">United State</span>
+                                                    <span class="profile-ud-value">{{ $pasien->tanggal_pemeriksaan }}</span>
                                                 </div>
                                             </div>
                                         </div><!-- .profile-ud-list -->
@@ -116,16 +118,34 @@
                                               <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Nama Obat</th>
+                                                <th >Signa</th>
                                                 <th scope="col">Jumlah</th>
                                                 <th scope="col">Harga</th>
+                                                <th scope="col" class="d-flex justify-content-end">Subtotal</th>
                                               </tr>
                                             </thead>
                                             <tbody>
+                                             @forelse($obat as $item)
                                               <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
+                                                <th scope="row">{{ $loop->iteration }}</th>
+                                                <td>{{ $item->nama_generik }}</td>
+                                                <td>{{ $item->signa1 }} x {{ $item->signa2 }}</td>
+                                                <td>{{ $item->jumlah }}</td>
+                                                <td>Rp. {{ formatAngka($item->harga_obat) }}</td>
+                                                <td class="text-right">Rp. {{ formatAngka($item->subtotal) }}</td>
+                                              </tr>
+                                              @empty
+                                              <tr>
+                                                  <td class="text-center" colspan="8">
+                                                      <h6>Belum ada
+                                                          riwayat</h6>
+                                                  </td>
+                                              </tr>
+                                              @endforelse
+                                              <tr>
+                                                  <td colspan="3"></td>
+                                                  <td><h5>Total</h5></td>
+                                                  <td colspan="2" class="text-right">{{ formatAngka($obat->sum('subtotal'), true) }}</td>
                                               </tr>
                                             </tbody>
                                           </table>
