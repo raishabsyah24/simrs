@@ -12,6 +12,6 @@ class Pemeriksaan extends Model
     protected $table = 'pemeriksaan';
 
     protected $fillable = [
-        'kode', 'no_sep', 'no_bpjs', 'faskes_id', 'pasien_id', 'kategori_pasien', 'tanggal', 'total_tagihan_layanan', 'total_tagihan_obat', 'status', 'no_rekam_medis'
+        'kode', 'no_sep', 'no_bpjs', 'faskes_id', 'pasien_id', 'kategori_pasien', 'tanggal', 'status', 'no_rekam_medis'
     ];
 }

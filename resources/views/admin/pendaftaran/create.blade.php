@@ -305,8 +305,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Layanan <span
-                                                            class="text-danger">*</span>
+                                                    <label class="form-label">Tujuan <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="form-control-wrap ">
                                                         <select class="form-select select2 dokter-poli"
@@ -315,25 +314,9 @@
                                                             <option label="Pilih data" disabled selected value=""></option>
                                                             @foreach ($layanan as $item)
                                                                 <option value="{{ $item->id }}">
-                                                                    {{ $item->nama }}
+                                                                    {{ $item->keterangan }}
                                                                 </option>
                                                             @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Tujuan <span
-                                                            class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="form-control-wrap ">
-                                                        <select class="form-select select2" style="position:absolute;"
-                                                            name="tujuan">
-                                                            <option label="Pilih data" disabled selected value=""></option>
-                                                            <option value="periksa">Periksa Dokter / Konsultasi</option>
-                                                            <option value="lab">Laboratorium</option>
-                                                            <option value="radiologi">Radiologi</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -342,7 +325,7 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Informasi Tambahan</label>
                                                     <div class="form-control-wrap">
-                                                        <textarea class="form-control form-control-sm" name="keterangan"
+                                                        <textarea class="form-control form-control-sm" name="informasi_tambahan"
                                                             required autocomplete="off"></textarea>
                                                     </div>
                                                 </div>
@@ -365,7 +348,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!-- .components-preview -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -373,74 +356,5 @@
 @endsection
 
 @push('js')
-    {{-- <script src="{{ asset('backend/pages/pendaftaran.js') }}"></script> --}}
-    <script>
-        function pilihPoli(url, attr) {
-            let poli = parseInt($(attr).val());
-            $('[name=dokter_id] .dokter-id').remove();
-            $.get(url, {
-                    poli_id: poli
-                })
-                .done(response => {
-                    let data = response.data;
-                    data.forEach(function(item) {
-                        $('[name=dokter_id]').append(
-                            `<option class="dokter-id" value="${item.id}">${item.nama_dokter}</option>`
-                        )
-                    })
-                })
-                .fail(error => {
-                    alertError()
-                })
-        }
-
-        function kategoriPasienDaftar(attr) {
-            let bpjs = parseInt($(attr).val());
-            if (bpjs === 1) {
-                $('.bpjs').removeClass('d-none')
-            } else {
-                $('.bpjs').addClass('d-none')
-            }
-        }
-
-        function submitForm(originalForm) {
-            event.preventDefault();
-            $(originalForm).find('.form-control').removeClass('error');
-            $(originalForm).find('.form-control').removeClass('select2-hidden-accessible');
-            $(".invalid").remove();
-            $.post({
-                    url: $(originalForm).attr('action'),
-                    data: new FormData(originalForm),
-                    beforeSend: function() {
-                        $(originalForm).find('.tombol-simpan').attr('disabled', true);
-                        $(originalForm).find('.text-simpan').text('Menyimpan . . .');
-                        $(originalForm).find('.loading-simpan').removeClass('d-none');
-                    },
-                    dataType: 'json',
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    complete: function() {
-                        $(originalForm).find('.loading-simpan').addClass('d-none');
-                        $(originalForm).find('.text-simpan').text('Simpan');
-                        $(originalForm).find('.tombol-simpan').attr('disabled', false);
-
-                    }
-                })
-                .done(response => {
-                    $(originalForm).find('.tombol-simpan').attr('disabled', true);
-                    alertSuccess(response.message);
-                    pindahHalaman(response.url, 1500);
-                })
-                .fail(errors => {
-                    if (errors.status === 422) {
-                        loopErrors(errors.responseJSON.errors);
-
-                        return;
-                    }
-                    alertError();
-
-                })
-        }
-    </script>
+     <script src="{{ asset('backend/pages/pendaftaran/create.js') }}"></script>
 @endpush

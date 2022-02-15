@@ -23,11 +23,8 @@ class CreatePemeriksaanTable extends Migration
             $table->unsignedBigInteger('pasien_id');
             $table->unsignedBigInteger('kategori_pasien');
             $table->date('tanggal');
-            $table->bigInteger('total_tagihan_layanan')->default(0);
-            $table->bigInteger('total_tagihan_obat')->default(0);
             $table->string('status')->default('belum selesai');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('faskes_id')->references('id')->on('faskes')
                 ->cascadeOnUpdate()

@@ -67,7 +67,8 @@ class Controller extends BaseController
     public function layanan()
     {
         return DB::table('layanan')
-            ->select(['id', 'nama'])
+            ->select(['id', 'nama','keterangan'])
+            ->where('parent_id',0)
             ->get();
     }
 
