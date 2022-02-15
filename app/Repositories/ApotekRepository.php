@@ -19,9 +19,9 @@ class ApotekRepository implements ApotekInterface
             ->join('kasir as ks', 'ks.pemeriksaan_id', '=', 'ks.id')
             ->join('pemeriksaan_detail as pm', 'pm.pemeriksaan_id', '=', 'pa.id')
             ->join('periksa_dokter as pd', 'pd.id', '=', 'pd.pemeriksaan_detail_id')
-            ->join('poli as pl', 'pl.id', '=', 'pd.poli_id')
+            ->join('poli as pl', 'pl.id', '=', 'pm.poli_id')
             ->join('kategori_pasien as kp', 'kp.id', '=', 'pa.kategori_pasien')
-            ->join('dokter as dr', 'dr.id', '=', 'pm.dokter_id')
+            ->join('dokter as dr', 'dr.id', '=', 'pd.dokter_id')
             ->where('kp.id', '=', 1)
             ->where('ks.status', '=', 'belum bayar');
         // ->paginate(12);

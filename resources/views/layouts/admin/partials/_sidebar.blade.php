@@ -33,7 +33,8 @@
                     </li>
 
                     @role('pendaftaran|super_admin')
-                    <li class="nk-menu-item has-sub {{ activeClass('dashboard.antrian-poli.jantung') }} {{ activeClass('dashboard.antrian-poli.anak') }}">
+                    <li class="nk-menu-item has-sub {{ activeClass('dashboard.antrian-poli.jantung') }} 
+                    {{ activeClass('dashboard.antrian-poli.anak') }}">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-view-list-fill"></em>
                             </span>
@@ -54,7 +55,7 @@
                             </li>
                         </ul>
                     </li>
-)
+
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
@@ -183,7 +184,6 @@
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li>
-                      
                     @endrole
 
                     @role('lab|super_admin')
