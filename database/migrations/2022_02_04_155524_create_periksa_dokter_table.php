@@ -30,6 +30,7 @@ class CreatePeriksaDokterTable extends Migration
             $table->longText('plan')->nullable();
             $table->longText('informasi_tambahan')->nullable();
             $table->string('status_diperiksa')->default('belum diperiksa');
+            $table->string('status')->default('belum selesai');
             $table->string('status_lanjutan')->nullable();
             $table->string('alasan_dirujuk')->nullable();
             $table->date('jadwal_kontrol')->nullable();

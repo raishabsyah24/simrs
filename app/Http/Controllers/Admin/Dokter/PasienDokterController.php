@@ -468,35 +468,35 @@ class PasienDokterController extends Controller
                     'tanggal' => now()
                 ]);
 
-                $kasir = Kasir::create([
-                    'pemeriksaan_id' => $pemeriksaan->id,
-                    'status' => 'belum bayar'
-                ]);
+                // $kasir = Kasir::create([
+                //     'pemeriksaan_id' => $pemeriksaan->id,
+                //     'status' => 'belum bayar'
+                // ]);
 
-                $kasir_detail = KasirDetail::create([
-                    'kasir_id' => $kasir->id,
-                    'jenis_tagihan' => 'periksa dokter',
-                    'tanggal_layanan' => now(),
-                    'subtotal' =>  $pemeriksaan_detail->tagihan_layanan
-                ]);
+                // $kasir_detail = KasirDetail::create([
+                //     'kasir_id' => $kasir->id,
+                //     'jenis_tagihan' => 'periksa dokter',
+                //     'tanggal_layanan' => now(),
+                //     'subtotal' =>  $pemeriksaan_detail->tagihan_layanan
+                // ]);
 
-                $kasir_detail = KasirDetail::create([
-                    'kasir_id' => $kasir->id,
-                    'jenis_tagihan' => 'obat pasien',
-                    'tanggal_layanan' => now(),
-                    'subtotal' =>  $obat_pasien_periksa->sum('subtotal')
-                ]);
+                // $kasir_detail = KasirDetail::create([
+                //     'kasir_id' => $kasir->id,
+                //     'jenis_tagihan' => 'obat pasien',
+                //     'tanggal_layanan' => now(),
+                //     'subtotal' =>  $obat_pasien_periksa->sum('subtotal')
+                // ]);
 
-                $total_kasir = KasirDetail::where('kasir_id', $kasir->id)->get();
+                // $total_kasir = KasirDetail::where('kasir_id', $kasir->id)->get();
 
-                $kasir_total = Kasir::find($kasir->id);
+                // $kasir_total = Kasir::find($kasir->id);
 
-                $kasir_total->update([
-                    'total_tagihan' => $total_kasir->sum('subtotal'),
-                    'diskon' => 0,
-                    'pajak' => 0,
-                    'grand_total' => $total_kasir->sum('subtotal')
-                ]);
+                // $kasir_total->update([
+                //     'total_tagihan' => $total_kasir->sum('subtotal'),
+                //     'diskon' => 0,
+                //     'pajak' => 0,
+                //     'grand_total' => $total_kasir->sum('subtotal')
+                // ]);
                 $pasien = Pasien::find($periksaDokter->pasien_id);
                 //              Update activity user / dokter
                 $pasien = Pasien::select(['id', 'nama'])
