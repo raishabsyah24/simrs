@@ -499,7 +499,7 @@ class UserSeeder extends Seeder
             Profile::create([
                 'user_id' => $dapur->id
             ]);
-            $role = 'melati';
+            $role = 'dapur';
             $permission = 'full_permission';
             $dapur->assignRole([$role]);
             $dapur->givePermissionTo([$permission]);
@@ -522,7 +522,7 @@ class UserSeeder extends Seeder
             Profile::create([
                 'user_id' => $laundry->id
             ]);
-            $role = 'melati';
+            $role = 'laundry';
             $permission = 'full_permission';
             $laundry->assignRole([$role]);
             $laundry->givePermissionTo([$permission]);
@@ -568,7 +568,7 @@ class UserSeeder extends Seeder
             Profile::create([
                 'user_id' => $gudangfarmasi->id
             ]);
-            $role = 'cssd';
+            $role = 'gudangfarmasi';
             $permission = 'full_permission';
             $gudangfarmasi->assignRole([$role]);
             $gudangfarmasi->givePermissionTo([$permission]);
@@ -591,7 +591,7 @@ class UserSeeder extends Seeder
             Profile::create([
                 'user_id' => $gudangatk->id
             ]);
-            $role = 'cssd';
+            $role = 'gudangatk';
             $permission = 'full_permission';
             $gudangatk->assignRole([$role]);
             $gudangatk->givePermissionTo([$permission]);

@@ -4,8 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\User\ActivityLogController;
 use App\Http\Controllers\Admin\Apotek\{ObatController, OrderController, AntrianBpjsController, AntrianUmumController, Select2Controller};
 use App\Http\Controllers\Admin\Dokter\PasienListController;
-use App\Http\Controllers\Admin\Apotek\{ObatController, OrderController, AntrianBpjsController, AntrianUmumController, Select2Controller,};
-use App\Http\Controllers\Admin\Dokter\{PasienDokterController, DokterController};
 use App\Http\Controllers\Admin\{
     DashboardController,
     LayananController,
@@ -17,14 +15,10 @@ use App\Http\Controllers\Admin\{
     TenagaMedisController,
     AntrianController,
     RekammedisController,
-    GudangFarmasiController
+    GudangFarmasiController,
+    PoliStationController
 };
 use App\Http\Controllers\Admin\Dokter\{PasienDokterController, DokterController};
-    RekammedisController,
-    PoliStationController,
-    PosisiPasienController,
-    AntrianPoliController
-};
 use App\Http\Controllers\Auth\UserDetailController;
 
 
@@ -47,8 +41,6 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
     Route::get('/profil-saya', [UserDetailController::class, 'show'])->name('user.profile');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('dashboard.index');
 
     Route::get('/antrian-pasien/poli-jantung', [AntrianPoliController::class, 'antrianPoliJantung'])
         ->name('dashboard.antrian-poli.jantung');
@@ -182,7 +174,6 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|pendaftar
     // Posisi pasien
     Route::get('/pendaftaran/{id}/posisi-pasien', [PosisiPasienController::class, 'rajal'])
         ->name('posisi-pasien.rajal');
-});
 
 // Role dokter
 Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () {
@@ -451,18 +442,6 @@ Route::group(['middleware' => ['auth', 'role:gudangfarmasi|super_admin']], funct
         ->name('gudang.permintaan_bhp');
 });
 
-// Route::group(['middleware' => ['auth', 'role:atk|super_admin']], function () {
-
-
-//     Route::get('/gudang-migrasi', [GudangFarmasiController::class, 'migrasi'])
-//         ->name('gudang.migrasi');
-//     Route::get('/gudang-permintaanbhp', [GudangFarmasiController::class, 'permintaan_bhp'])
-//         ->name('gudang.permintaanbhp');
-//     Route::get('/gudang-penyimpanan', [GudangFarmasiController::class, 'migrasi'])
-//         ->name('gudang.penyimpanan');
-//     Route::get('/gudang-po', [GudangFarmasiController::class, 'perencanaan'])
-//         ->name('gudang.po');
-// });
 
 Route::get('/pasien-list', [PasienController::class, 'data_pasien'])->name('list.pasien');
 Route::post('/pasien-store', [PasienController::class, 'store'])->name('store.pasien');

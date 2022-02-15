@@ -19,7 +19,7 @@ class KasirController extends Controller
     public function index()
     {
         $data = $this->kasirRepository->kasir();
-        return $data;
+        // return $data;
         return view('admin.kasir.index', compact(
             'data'
         ));
