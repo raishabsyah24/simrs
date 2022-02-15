@@ -90,8 +90,6 @@ class AntrianBpjsController extends Controller
             ->where('ps.id', '=', $pasien_bpjs)
             ->first();
 
-        // $obats = Obat::find($pasien_bpjs);
-
         $obat = DB::table('obat_pasien_periksa_rajal as ob')
             ->selectRaw('
                    DISTINCT ob.id as obat_pasien_rajal_id, o.nama_generik, ob.jumlah, ob.signa1, ob.signa2,
@@ -116,61 +114,54 @@ class AntrianBpjsController extends Controller
 
     public function obatApotek($approve_pasien)
     {
-        // $pasien = DB::table('pemeriksaan as pd')
-        //     ->selectRaw('
-        //     DISTINCT pd.id as pemeriksaan_id, pn.id as pasien_id, pn.nama as nama_pasien, pn.email, pn.tempat_lahir,
-        //     pn.tanggal_lahir, pn.jenis_kelamin, pn.golongan_darah, pn.alamat, pd.no_rekam_medis,
-        //     pd.status as status_menerima, pk.no_antrian_apotek, pk.tanggal as tanggal_periksa,
-        //     pl.spesialis, dr.nama as nama_dokter, kp.nama as kategori_pasien
-        // ')
-        //     ->join('pasien as pn', 'pn.id', '=', 'pd.pasien_id')
-        //     ->join('pemeriksaan_detail as pm', 'pm.pemeriksaan_id', '=', 'pd.id')
-        //     ->join('periksa_dokter as pk', 'pk.id', '=', 'pm.dokter_id')
-        //     ->join('dokter as dr', 'dr.id', '=', 'pm.dokter_id')
-        //     ->join('poli as pl', 'pl.id', '=', 'pm.poli_id')
-        //     ->join('kategori_pasien as kp', 'kp.id', '=', 'pd.kategori_pasien')
-        //     ->where('pd.id', '=', $approve_pasien)
-        //     ->first();
-        $pasien = DB::table('pemeriksaan as pd')
-            ->selectRaw('pd.id as pemeriksaan_id')
+        $pasien = DB::table('pemeriksaan as pi')
+            ->selectRaw('
+            DISTINCT pi.id as pemeriksaan_id, cr.id as kasir_id, ps.nama as nama_pasien, ps.tanggal_lahir,
+                 ps.jenis_kelamin, ps.golongan_darah, pi.no_rekam_medis,dk.nama as nama_dokter, pl.spesialis,
+                 pi.tanggal as tanggal_pemeriksaan, pi.status
+            ')
+            ->join('pasien as ps', 'pi.pasien_id', '=', 'ps.id')
+            ->join('kasir as cr', 'cr.pemeriksaan_id', '=', 'cr.id')
+            ->leftJoin('dokter as dk', 'dk.id', '=', 'dk.id')
+            ->rightJoin('dokter_poli as dp', 'dp.dokter_id', 'dk.id')
+            ->rightJoin('poli as pl', 'dp.dokter_id', '=', 'pl.id')
+            ->where('ps.id', '=', $approve_pasien)
+            ->first();
+
+        $obat = DB::table('obat_pasien_periksa_rajal as ob')
+            ->selectRaw('
+                   DISTINCT ob.id as obat_pasien_rajal_id, o.nama_generik, ob.jumlah, ob.signa1, ob.signa2,
+                   ob.harga_obat, ob.subtotal
+                ')
+            ->join('obat_apotek as ot', 'ot.id', '=', 'ob.obat_apotek_id')
+            ->join('obat as o', 'o.id', '=', 'ot.obat_id')
+            ->join('periksa_dokter as pd', 'pd.id', '=', 'ob.periksa_dokter_id')
+            ->join('pasien as pe', 'pe.id', '=', 'pd.pasien_id')
             ->where('pd.id', '=', $approve_pasien)
             ->get();
-        // return  $pasien;
 
-        $data = DB::table('pemeriksaan as pd')
-            ->selectRaw('
-                 DISTINCT pd.id as pemeriksaan_id, oa.nama_generik
-            ')
-            ->leftJoin('obat_pasien_periksa_rajal as or', 'or.id', '=', 'or.id')
-            ->leftJoin('obat_apotek as op', 'op.id', '=', 'or.obat_apotek_id')
-            ->leftJoin('obat as oa', 'oa.id', '=', 'op.obat_id')
-            ->rightJoin('periksa_dokter as pe', 'pe.id', '=', 'or.periksa_dokter_id')
-            ->get();
-        $badge = $this->badge();
+        // return $pasien;
+
         return view('admin.apotek.antrian_bpjs._proses_pasien', compact(
-            'data',
             'pasien',
-            'badge'
+            'obat'
         ));
     }
 
     public function prosesPasienBpjs(Request $request, $pemeriksaan_id)
     {
+
         $attr = $request->all();
         $tipe = $request->pasien_id;
 
         DB::transaction(
             function () use ($attr, $pemeriksaan_id) {
                 $pemeriksaan = Pemeriksaan::find($pemeriksaan_id);
-
                 $pemeriksaan_detail = PemeriksaanDetail::find($pemeriksaan_id);
                 $pasien = Pasien::find($pemeriksaan->pasien_id);
-                // dd($pasien);
 
                 // Cari id pemeriksaan
-                $pemeriksaan_id = Pemeriksaan::where('id', '=', $pemeriksaan_id)
-                    // ->orWhere('pasien_id', '=', $pasien)
-                    ->first();
+                $pemeriksaan_id = Pemeriksaan::where('id', '=', $pemeriksaan_id)->first();
 
                 // Update ke table pemeriksaan
                 $pemeriksaan->update([
@@ -189,7 +180,7 @@ class AntrianBpjsController extends Controller
         );
         return response()->json([
             'message' => 'Status berhasil di ubah!',
-            'url'   => route('data.antrian.bpjs')
+            'url'     => route('data.antrian.bpjs')
         ], 200);
     }
 }

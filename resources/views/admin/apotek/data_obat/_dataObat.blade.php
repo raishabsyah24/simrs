@@ -189,5 +189,15 @@
         function modalAddObat () {
             $('.modal-obat').modal('show');
         }
+
+        function minus(){
+            event.preventDefault();
+            console.log('ok');
+        }
+
+        function plus(){
+            event.preventDefault();
+            console.log('ok');
+        }
     </script>
 @endpush

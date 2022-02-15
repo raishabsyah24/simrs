@@ -1,11 +1,6 @@
 @extends('layouts.admin.master')
 
 @push('css')
-    <style>
-        .title__description {
-            text-align: justify!important;
-        }
-    </style>
 @endpush
 
 @section('admin-content')
@@ -16,18 +11,27 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between g-3">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Proses Obat Pasien</h3>
+                            <h3 class="nk-block-title page-title">
+                                Pasien / <strong class="text-primary small">
+                                    {{ $pasien->nama_pasien }}
+                                </strong>
+                            </h3>
+                            <div class="nk-block-des text-soft">
+                                <ul class="list-inline">
+                                    <li>No. Antrian Apotek: <span class="text-base">UD003054</span></li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="nk-block-head-content">
-                            <a href="{{ url('apotek/bpjs') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em>
+                            <a href="{{ url('apotek/bpjs') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex">
+                                <em class="icon ni ni-arrow-left"></em>
                                 <span>Kembali</span>
                             </a>
-                            <a href="#" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                         </div>
                     </div>
                 </div><!-- .nk-block-head -->
                 <div class="nk-block">
-                    <div class="card">
+                    <div class="card card-bordered">
                         <div class="card-aside-wrap">
                             <div class="card-content">
                                 <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
@@ -40,130 +44,122 @@
                                 </ul><!-- .nav-tabs -->
                                 <div class="card-inner">
                                     <div class="nk-block">
+                                        <div class="nk-block-head">
+                                            <h5 class="title">Informasi Pasien</h5>
+                                        </div><!-- .nk-block-head -->
                                         <div class="profile-ud-list">
                                             <div class="profile-ud-item">
                                                 <div class="profile-ud wider">
                                                     <span class="profile-ud-label">Nama</span>
-                                                    <span class="profile-ud-value text-capitalize title__description">
-                                                        {{-- {{ $pasien->nama_pasien }} --}}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="profile-ud-item">
-                                                <div class="profile-ud wider">
-                                                    <span class="profile-ud-label">Nomor Rekam Medis</span>
-                                                    <span
-                                                        class="profile-ud-value text-capitalize title__description">
-                                                        {{-- {{ $pasien->no_rekam_medis }} --}}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="profile-ud-item">
-                                                <div class="profile-ud wider">
-                                                    <span class="profile-ud-label">Umur</span>
-                                                    <span
-                                                        class="profile-ud-value title__description">
-                                                        {{-- {{ usia($pasien->tanggal_lahir) }} --}}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="profile-ud-item">
-                                                <div class="profile-ud wider">
-                                                    <span class="profile-ud-label">Kategori </span>
-                                                    <span
-                                                        class="profile-ud-value text-capitalize title__description">
-                                                        {{-- {{ $pasien->kategori_pasien }} --}}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="profile-ud-item">
-                                                <div class="profile-ud wider">
-                                                    <span class="profile-ud-label">Tanggal Lahir</span>
-                                                    <span
-                                                        class="profile-ud-value title__description">
-                                                        {{-- {{ $pasien->tanggal_lahir }} --}}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="profile-ud-item">
-                                                <div class="profile-ud wider">
-                                                    <span class="profile-ud-label">Diagnosa</span>
-                                                    <span
-                                                        class="profile-ud-value"></span>
+                                                    <span class="profile-ud-value">{{ $pasien->nama_pasien }}</span>
                                                 </div>
                                             </div>
                                             <div class="profile-ud-item">
                                                 <div class="profile-ud wider">
                                                     <span class="profile-ud-label">Alamat</span>
-                                                    <span
-                                                        class="profile-ud-value title__description">
-                                                        {{-- {{ $pasien->alamat }} --}}
-                                                    </span>
+                                                    <span class="profile-ud-value"></span>
                                                 </div>
                                             </div>
                                             <div class="profile-ud-item">
                                                 <div class="profile-ud wider">
-                                                    <span class="profile-ud-label">Tindakan</span>
-                                                    <span
-                                                        class="profile-ud-value">
-                                                        
-                                                    </span>
+                                                    <span class="profile-ud-label">Umur</span>
+                                                    <span class="profile-ud-value">{{ usia($pasien->tanggal_lahir) }}</span>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-
+                                            <div class="profile-ud-item">
+                                                <div class="profile-ud wider">
+                                                    <span class="profile-ud-label">Nomor Rekam Medis</span>
+                                                    <span class="profile-ud-value">IO</span>
+                                                </div>
+                                            </div>
+                                            <div class="profile-ud-item">
+                                                <div class="profile-ud wider">
+                                                    <span class="profile-ud-label">Tanggal Lahir</span>
+                                                    <span class="profile-ud-value">{{ $pasien->tanggal_lahir }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="profile-ud-item">
+                                                <div class="profile-ud wider">
+                                                    <span class="profile-ud-label">Kategori Pasien</span>
+                                                    <span class="profile-ud-value">IO</span>
+                                                </div>
+                                            </div>
+                                        </div><!-- .profile-ud-list -->
+                                    </div><!-- .nk-block -->
+                                    <div class="nk-block">
+                                        <div class="nk-block-head nk-block-head-line">
+                                            <h6 class="title overline-title text-base">Informasi Lainnya</h6>
+                                        </div><!-- .nk-block-head -->
+                                        <div class="profile-ud-list">
+                                            <div class="profile-ud-item">
+                                                <div class="profile-ud wider">
+                                                    <span class="profile-ud-label">Nama Dokter</span>
+                                                    <span class="profile-ud-value">{{ $pasien->nama_dokter }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="profile-ud-item">
+                                                <div class="profile-ud wider">
+                                                    <span class="profile-ud-label">Tujuan Poli</span>
+                                                    <span class="profile-ud-value">{{ $pasien->spesialis }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="profile-ud-item">
+                                                <div class="profile-ud wider">
+                                                    <span class="profile-ud-label">Tanggal Periksa</span>
+                                                    <span class="profile-ud-value">{{ tanggalJam($pasien->tanggal_pemeriksaan) }}</span>
+                                                </div>
+                                            </div>
+                                        </div><!-- .profile-ud-list -->
+                                    </div><!-- .nk-block -->
                                     <div class="nk-divider divider md"></div>
                                     <div class="nk-block">
                                         <div class="nk-block-head nk-block-head-sm nk-block-between">
-                                            <h5 class="title">Admin Note</h5>
+                                            <h5 class="title">Detail Obat Pasien</h5>
                                         </div><!-- .nk-block-head -->
-                                        <div class="nk-block nk-block-lg">
-                                            {{-- Table detail obat --}}
-                                            <table class="table">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th scope="col">No</th>
-                                                        <th scope="col">Tanggal Periksa</th>
-                                                        <th scope="col">Nama Obat</th>
-                                                        <th scope="col">Jumlah</th>
-                                                        <th scope="col">Harga Obat</th>
-                                                        <th scope="col">Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {{-- @forelse ($data as $item) --}}
-                                                        <tr>
-                                                            <th scope="row"></th>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>
-                                                                <span class="badge-dim badge-{{ $badge->random() }}">
-                                                                    {{-- {{ $item->status_menerima ?? '' }} --}}
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                        {{-- @empty --}}
-                                                        <tr>
-                                                            <td class="text-center" colspan="8">
-                                                                <h6>Belum ada
-                                                                    riwayat</h6>
-                                                            </td>
-                                                        </tr>
-                                                </tbody>
-                                                {{-- @endforelse --}}
-                                            </table>
-                                            <div class="form-group mt-1">
-                                                <div class="col-lg-12 offset-col-md-5 d-flex justify-content-center">
-                                                    <button type="button" class="btn btn-success" 
-                                                    onclick="approvePasien('{{ route('apotek.pasien-bpjs-update', $pasien->id) }}')">Konfirmasi
-                                                    </button>
-                                                </div>
+                                        <table class="table table-hover">
+                                            <thead class="bg-dark text-white">
+                                              <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Nama Obat</th>
+                                                <th >Signa</th>
+                                                <th scope="col">Jumlah</th>
+                                                <th scope="col">Harga</th>
+                                                <th scope="col" class="d-flex justify-content-end">Subtotal</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                             @forelse($obat as $item)
+                                              <tr>
+                                                <th scope="row">{{ $loop->iteration }}</th>
+                                                <td>{{ $item->nama_generik }}</td>
+                                                <td>{{ $item->signa1 }} x {{ $item->signa2 }}</td>
+                                                <td>{{ $item->jumlah }}</td>
+                                                <td>Rp. {{ formatAngka($item->harga_obat) }}</td>
+                                                <td class="text-right">Rp. {{ formatAngka($item->subtotal) }}</td>
+                                              </tr>
+                                              @empty
+                                              <tr>
+                                                  <td class="text-center" colspan="8">
+                                                      <h6>Belum ada
+                                                          riwayat</h6>
+                                                  </td>
+                                              </tr>
+                                              @endforelse
+                                              <tr>
+                                                  <td colspan="3"></td>
+                                                  <td><h5>Total</h5></td>
+                                                  <td colspan="2" class="text-right">{{ formatAngka($obat->sum('subtotal'), true) }}</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                          @if($pasien->status == 'belum selesai')
+                                          <div class="col-md-7 offset-lg-5">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-outline-success" onclick="approvePasien('{{ route('apotek.pasien-bpjs-update', $pasien->pemeriksaan_id) }}')">
+                                                    Konfirmasi</button>
                                             </div>
-                                            {{-- End detail obat --}}
                                         </div>
+                                        @endif
                                     </div><!-- .nk-block -->
                                 </div><!-- .card-inner -->
                             </div><!-- .card-content -->
@@ -175,6 +171,7 @@
     </div>
 </div>
 @endsection
+
 
 @push('js')
     <script>
@@ -192,6 +189,7 @@
                 })
                 .done(response => {
                     alertSuccess(response.message);
+                    pindahHalaman(response.url, 3000)
                     // setInterval(() => {
                     //     window.location.reload();
                     // }, 5000);

@@ -59,7 +59,7 @@
             </div>
             <div class="nk-tb-col tb-col-md">
                 <span class="tb-amount badge badge-dim badge-{{ $badge->random() }}" >
-                    {{ $item->status_pembayaran ?? '' }}
+                    {{ $item->status ?? '' }}
                 </span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
@@ -70,10 +70,9 @@
                                     class="icon ni ni-more-h"></em></a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
-                                    @if($item->status == 'belum selesai')
+                                @if($item->status == 'belum selesai')
                                     <li>
-                                        <a href="#" type="button" 
-                                        onclick="approvePasien('{{ route('apotek.pasien-bpjs-update', $item->pemeriksaan_id) }}')">
+                                        <a href="{{ route('apotek.proses-pasien', $item->pemeriksaan_id) }}">
                                         <em class="icon ni ni-edit-fill"></em>
                                         <span>Proses</span>
                                     </a>
@@ -126,28 +125,3 @@
     </div>
 </div>
 @endif
-
-@push('js')
-    <script>
-        // Fungsi update status pasien
-        function approvePasien(url, pemeriksaan_id) {
-            console.log(url);
-            event.preventDefault();
-            $.post({
-                    url: url,
-                    type: 'POST',
-                    data: {
-                        pemeriksaan : pemeriksaan_id
-
-                    },
-                })
-                .done(response => {
-                    alertSuccess(response.message);
-                    pindahHalaman(response.url, 3000)
-                    // setInterval(() => {
-                    //     window.location.reload();
-                    // }, 5000);
-                })
-        }
-    </script>
-@endpush
