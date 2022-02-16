@@ -5,16 +5,16 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\{
     AntrianPoliRepository,
+    KasirRepository,
     LayananRepository,
     PasienRepository,
     PendaftaranRepository,
     DokterRepository,
     ApotekRepository,
-    KasirRepository,
     PosisiPasienRepository,
     DashboardRepository,
     UserRepository,
-    PoliStationRepository
+    PoliStationRepository,
 };
 use App\Repositories\Interfaces\{
     AntrianPoliInterface,
@@ -82,6 +82,10 @@ class AdminRepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             AntrianPoliInterface::class,
             AntrianPoliRepository::class
+        );
+        $this->app->bind(
+            KasirInterface::class,
+            KasirRepository::class
         );
     }
 

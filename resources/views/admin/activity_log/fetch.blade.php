@@ -49,7 +49,7 @@
 
 
  <!-- .pagination -->
- @if ($data->count() > 0)
+ @if ($data->count() > $data->perPage())
      <div class="card">
          <div class="card-inner">
              <div class="nk-block-between-md g-3">

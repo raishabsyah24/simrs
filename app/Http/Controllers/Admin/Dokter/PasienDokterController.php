@@ -44,11 +44,12 @@ class PasienDokterController extends Controller
     // Data pasien hari ini berdasarkan login dokter spesialis
     public function index()
     {
-        $dokter_id = Auth::user()->dokter->id;
-        if (!$dokter_id) {
-            return redirect()->abort(403);
+        $user_id = Auth::id();
+        $user_dokter = Dokter::select('id')->where('user_id', $user_id)->first();
+        if (!$user_dokter) {
+            return abort(403);
         }
-        $dokter = $this->dokterRepository->dokterSpesialis($dokter_id);
+        $dokter = $this->dokterRepository->dokterSpesialis($user_dokter->id);
         $data = $this->dokterRepository->daftarPasienDokterSpesialis($dokter->poli_id)
             ->paginate($this->perPage);
         $title = 'Daftar Pasien';
@@ -407,7 +408,7 @@ class PasienDokterController extends Controller
                         ->first();
 
                     //                 Query kasir untuk mendapatkan id transaksi di pendaftaran
-                    $kasir = Kasir::select(['id', 'pemeriksaan_id', 'total_tagihan', 'grand_total', 'status'])
+                    $kasir = Kasir::select(['id', 'pemeriksaan_id', 'total_tagihan', 'status'])
                         ->where('pemeriksaan_id', $pemeriksaan_detail->pemeriksaan_id)
                         ->first();
 
@@ -432,13 +433,12 @@ class PasienDokterController extends Controller
                         ->where('kasir_id', $kasir->id)
                         ->get();
                     $total_tagihan = $tagihan_pasien->sum('subtotal');
-                    $grand_total = $total_tagihan + $kasir->grand_total;
 
                     //                  Update total tagihan dan grand total pasien
                     $kasir->update([
                         'total_tagihan' => $total_tagihan,
-                        'grand_total' => $grand_total,
-                        'status' => 'belum dibayar'
+                        'status_pembayaran' => 'belum dibayar',
+                        'status' => 'belum dilayani',
                     ]);
                 }
 

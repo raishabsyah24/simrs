@@ -25,8 +25,8 @@ class CreateKasirTable extends Migration
             $table->bigInteger('pajak')->default(0)->nullable();
             $table->string('metode_pembayaran')->nullable();
             $table->bigInteger('deposit_akhir')->nullable();
-            $table->bigInteger('grand_total')->default(0)->nullable();
-            $table->string('status')->default('belum bayar');
+            $table->string('status')->nullable()->default('belum dilayanani');
+            $table->string('status_pembayaran')->nullable()->default('belum dibayar');
             $table->timestamps();
             $table->softDeletes();
 

@@ -41,7 +41,6 @@ class PendaftaranController extends Controller
 
     public function index()
     {
-
         $data = $this->pendaftaranRepository->pasienHariIni()
             ->paginate($this->perPage);
         $title = 'Pendaftaran';
@@ -408,14 +407,25 @@ class PendaftaranController extends Controller
     }
     public function destroy(Pemeriksaan $pemeriksaan)
     {
-        $pemeriksaan_detail = DB::table('pemeriksaan_detail')
-            ->where('pemeriksaan_id', $pemeriksaan->id)
-            ->delete();
-        $pemeriksaan->delete();
+
+        DB::transaction(function ()use($pemeriksaan){
+            activity("menghapus pemeriksaan pasien {$this->namaPasien($pemeriksaan->pasien_id)}");
+
+            $pemeriksaan_detail = DB::table('pemeriksaan_detail')
+                ->where('pemeriksaan_id', $pemeriksaan->id)
+                ->delete();
+            $pemeriksaan->delete();
+        });
 
         return response()->json([
             'message' => 'Data berhasil dihapus',
             'url' => route('pendaftaran.index')
         ], 200);
+    }
+
+    public function namaPasien(int $pasien_id)
+    {
+        $pasien = Pasien::select(['id','nama'])->whereId($pasien_id)->first();
+        return $pasien->nama;
     }
 }

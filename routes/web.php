@@ -241,9 +241,14 @@ Route::group(['middleware' => ['auth', 'role:rekam_medis|super_admin']], functio
 });
 
 Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
-
     Route::get('/kasir', [KasirController::class, 'index'])
         ->name('kasir.index');
+    Route::get('/kasir/fetch-data', [KasirController::class, 'fetch'])
+        ->name('kasir.fetch');
+    Route::get('/kasir/{kasir}', [KasirController::class, 'show'])
+        ->name('kasir.show');
+    Route::put('/kasir/{kasir}/update-tagihan', [KasirController::class, 'updateTagihan'])
+        ->name('kasir.updateTagihan');
 });
 
 Route::group(['middleware' => ['auth', 'role: lab|super_admin']], function () {

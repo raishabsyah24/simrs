@@ -23,7 +23,7 @@ class Kasir extends Model
         'admin',
         'metode_pembayaran',
         'deposit_akhir',
-        'grand_total',
         'status',
+        'status_pembayaran',
     ];
 }
