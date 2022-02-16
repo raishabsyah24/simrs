@@ -195,9 +195,9 @@ Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () 
     Route::get('/apotek/fetch-data', [AntrianBpjsController::class, '_fetchData'])->name('data.antrian');
     Route::get('/apotek/detail/pasien/{id}', [AntrianBpjsController::class, 'detailPasienBpjs'])
         ->name('apotek.pasien-bpjs');
-    Route::get('/apotek/proses/data/{id}', [AntrianBpjsController::class, 'obatApotek'])
+    Route::get('/apotek/proses/data/{pemeriksaan_id}/update/{periksa_dokter_id}', [AntrianBpjsController::class, 'obatApotek'])
         ->name('apotek.proses-pasien');
-    Route::post('/apotek/proses/pasien/{id}/update/', [AntrianBpjsController::class, 'prosesPasienBpjs'])
+    Route::post('/apotek/proses/pasien/{id}/update', [AntrianBpjsController::class, 'prosesPasienBpjs'])
         ->name('apotek.pasien-bpjs-update');
 
     // Daftar antrian umum

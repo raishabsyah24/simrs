@@ -172,25 +172,5 @@
             $('.fetch-data').addClass('d-none');
             fetchData(page, query);
         })
-
-        // Fungsi update status pasien
-        function approvePasien(url, pemeriksaan_id) {
-            event.preventDefault();
-            console.log(url);
-            $.post({
-                    url: url,
-                    type: 'POST',
-                    data: {
-                        pemeriksaan : pemeriksaan_id
-
-                    },
-                })
-                .done(response => {
-                    alertSuccess(response.message);
-                    setInterval(() => {
-                        window.location.reload();
-                    }, 5000);
-                })
-        }
     </script>
 @endpush

@@ -148,14 +148,17 @@
                                               <tr>
                                                   <td colspan="3"></td>
                                                   <td><h5>Total</h5></td>
-                                                  <td colspan="2" class="text-right">{{ formatAngka($obat->sum('subtotal'), true) }}</td>
+                                                  <td colspan="2" class="text-right">
+                                                      {{ formatAngka($obat->sum('subtotal'), true) }}
+                                                    </td>
                                               </tr>
                                             </tbody>
                                           </table>
                                           @if($pasien->status == 'belum selesai')
                                           <div class="col-md-7 offset-lg-5">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-outline-success" onclick="approvePasien('{{ route('apotek.pasien-bpjs-update', $pasien->pemeriksaan_id) }}')">
+                                                <button type="submit" class="btn btn-outline-success" onclick="approvePasien(`{{ route('apotek.pasien-bpjs-update', $pasien->pemeriksaan_id) }}`,
+                                                 `{{ $pasien->pemeriksaan_id }}`, `{{ $periksa_dokter_id }}`)">
                                                     Konfirmasi</button>
                                             </div>
                                         </div>
@@ -176,23 +179,19 @@
 @push('js')
     <script>
         // Fungsi update status pasien
-        function approvePasien(url, pemeriksaan_id) {
-            console.log(url);
+        function approvePasien(url, pemeriksaan_id, periksa_dokter_id) {
+            console.log(url, pemeriksaan_id);
             event.preventDefault();
             $.post({
                     url: url,
-                    type: 'POST',
                     data: {
-                        pemeriksaan : pemeriksaan_id
-
+                        pemeriksaan_id : pemeriksaan_id,
+                        periksa_dokter_id : periksa_dokter_id
                     },
                 })
                 .done(response => {
-                    alertSuccess(response.message);
-                    pindahHalaman(response.url, 3000)
-                    // setInterval(() => {
-                    //     window.location.reload();
-                    // }, 5000);
+                    // alertSuccess(response.message);
+                    // pindahHalaman(response.url, 3000)
                 })
         }
     </script>

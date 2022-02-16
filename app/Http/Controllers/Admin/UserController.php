@@ -25,18 +25,10 @@ class UserController extends Controller
 
     public function index()
     {
-<<<<<<< HEAD
-        $data = DB::table('users')
-            ->selectRaw('id,name, username, email, status, created_at')
-            ->orderByDesc('created_at')
-            ->paginate(12);
-        $title = 'Managemen User';
-=======
         $data = $this->userRepository->all()
             ->orderBy('u.created_at', 'desc')
             ->paginate($this->perPage);
         $title = 'User';
->>>>>>> a0eeaf3e3d9e3a47c8f7d9355eb2fdf480c232bd
         $total = User::count();
         $badge = $this->badge();
         return view('admin.user.index', compact(

@@ -72,7 +72,7 @@
                                 <ul class="link-list-opt no-bdr">
                                 @if($item->status == 'belum selesai')
                                     <li>
-                                        <a href="{{ route('apotek.proses-pasien', $item->pemeriksaan_id) }}">
+                                        <a href="{{ route('apotek.proses-pasien', [$item->pemeriksaan_id, $item->periksa_dokter_id]) }}">
                                         <em class="icon ni ni-edit-fill"></em>
                                         <span>Proses</span>
                                     </a>

@@ -24,7 +24,8 @@ class AntrianUmumController extends Controller
 
     public function umum()
     {
-        $data = $this->apotekRepository->antrianApotekUmum()->paginate($this->perPage);
+        $data = $this->apotekRepository->antrianApotekUmum();
+        return $data;
         $total = $this->apotekRepository->antrianApotekUmum()->count();
         $title = 'Antrian Umum';
         $perPage = $this->perPage;
@@ -41,7 +42,6 @@ class AntrianUmumController extends Controller
     function _fetchUmum(Request $request)
     {
         if ($request->ajax()) {
-            // $p = $request->get('pasien_id');
             $q = $request->get('query');
             $badge = $this->badge();
             $sortBy = $request->get('sortBy');
@@ -54,7 +54,7 @@ class AntrianUmumController extends Controller
                         ->orWhere('pl.spesialis', 'like', '%' . $q . '%')
                         ->orWhere('pd.dokter_id', 'like', '%' . $q . '%');
                 })
-                ->orderBy('pa.created_at', $sortBy)
+                ->orderBy('created_at', $sortBy)
                 ->paginate($this->perPage);
             return view('admin.apotek.antrian_umum._fetch-umum', compact(
                 'data',
