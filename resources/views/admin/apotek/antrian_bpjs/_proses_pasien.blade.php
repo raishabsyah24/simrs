@@ -154,7 +154,7 @@
                                               </tr>
                                             </tbody>
                                           </table>
-                                          @if($pasien->status == 'belum selesai')
+                                          @if($pasien->status_pemeriksaan == 'belum selesai')
                                           <div class="col-md-7 offset-lg-5">
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-outline-success" onclick="approvePasien(`{{ route('apotek.pasien-bpjs-update', $pasien->pemeriksaan_id) }}`,

@@ -24,8 +24,8 @@ class AntrianUmumController extends Controller
 
     public function umum()
     {
-        $data = $this->apotekRepository->antrianApotekUmum();
-        return $data;
+        $data = $this->apotekRepository->antrianApotekUmum()->paginate($this->perPage);
+        // return $data;
         $total = $this->apotekRepository->antrianApotekUmum()->count();
         $title = 'Antrian Umum';
         $perPage = $this->perPage;
@@ -67,27 +67,25 @@ class AntrianUmumController extends Controller
 
     public function detailPasienUmum($pasien_umum)
     {
-        $pasien = DB::table('pemeriksaan as pd')
-            ->selectRaw(
-                'DISTINCT pn.id, pd.no_rekam_medis, pn.nama as nama_pasien, pn.email, pn.jenis_kelamin, pn.tempat_lahir, 
-                      pn.tanggal_lahir, pn.golongan_darah, pn.alamat, pd.status as status_pemeriksaan, pk.no_antrian_apotek, pk.tanggal as tanggal_periksa, pk.status_diperiksa, pl.spesialis, dr.nama as nama_dokter, kp.nama as kategori_pasien
-                     '
-            )
-            ->join('pasien as pn', 'pn.id', '=', 'pd.pasien_id')
-            ->join('pemeriksaan_detail as pm', 'pm.pemeriksaan_id', 'pm.id')
-            ->join('periksa_dokter as pk', 'pk.id', '=', 'pm.dokter_id')
-            ->join('poli as pl', 'pm.pemeriksaan_id', '=', 'pl.id')
-            ->join('dokter as dr', 'pm.dokter_id', '=', 'dr.id')
-            ->join('kategori_pasien as kp', 'kp.id', '=', 'pd.kategori_pasien')
-            ->where('pd.id', '=', $pasien_umum)
-            ->first();
-        // return $pasien;
+        // $pasien = DB::table('pemeriksaan as pd')
+        //     ->selectRaw(
+        //         'DISTINCT pn.id, pd.no_rekam_medis, pn.nama as nama_pasien, pn.email, pn.jenis_kelamin, pn.tempat_lahir, 
+        //               pn.tanggal_lahir, pn.golongan_darah, pn.alamat, pd.status as status_pemeriksaan, pk.no_antrian_apotek, pk.tanggal as tanggal_periksa, pk.status_diperiksa, pl.spesialis, dr.nama as nama_dokter, kp.nama as kategori_pasien
+        //              '
+        //     )
+        //     ->join('pasien as pn', 'pn.id', '=', 'pd.pasien_id')
+        //     ->join('pemeriksaan_detail as pm', 'pm.pemeriksaan_id', 'pm.id')
+        //     ->join('periksa_dokter as pk', 'pk.id', '=', 'pm.dokter_id')
+        //     ->join('poli as pl', 'pm.pemeriksaan_id', '=', 'pl.id')
+        //     ->join('dokter as dr', 'pm.dokter_id', '=', 'dr.id')
+        //     ->join('kategori_pasien as kp', 'kp.id', '=', 'pd.kategori_pasien')
+        //     ->where('pd.id', '=', $pasien_umum)
+        //     ->first();
+        // // return $pasien;
         $title = 'Detail Pasien';
-        $head  = 'Informasi Pasien';
+        // $head  = 'Informasi Pasien';
         return view('admin.apotek.antrian_umum._pasien-umum', compact(
-            'title',
-            'head',
-            'pasien'
+            'title'
         ));
     }
 }

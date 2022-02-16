@@ -114,7 +114,7 @@ class AntrianBpjsController extends Controller
             ->selectRaw('
             DISTINCT pi.id as pemeriksaan_id, cr.id as kasir_id, ps.nama as nama_pasien, ps.tanggal_lahir,
                  ps.jenis_kelamin, ps.golongan_darah, pi.no_rekam_medis,dk.nama as nama_dokter, pl.spesialis,
-                 pi.tanggal as tanggal_pemeriksaan, pi.status
+                 pi.tanggal as tanggal_pemeriksaan, pi.status as status_pemeriksaan
             ')
             ->join('pasien as ps', 'pi.pasien_id', '=', 'ps.id')
             ->join('kasir as cr', 'cr.pemeriksaan_id', '=', 'cr.id')
