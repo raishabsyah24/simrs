@@ -121,26 +121,15 @@
 
                     <!-- KASIR -->
                     @role('kasir|super_admin')
-                        <li class="nk-menu-item">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-sign-mxn"></em></span>
-                                <span class="nk-menu-text">Kasir</span>
-                            </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('kasir.bpjs') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pembayaran BPJS</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('kasir.umum') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pembayaran Umum/Asuransi</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('kasir.otc') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pembayaran OTC</span></a>
-                                </li>
-                            </ul>
-                        </li>
+                    <li
+                        class="nk-menu-item {{ activeClass('kasir.index') }}">
+                        <a href="{{ route('kasir.index') }}" class="nk-menu-link">
+                                <span class="nk-menu-icon">
+                                    <em class="icon ni ni-sign-mxn"></em>
+                                </span>
+                            <span class="nk-menu-text">Kasir</span>
+                        </a>
+                    </li>
                     @endrole
 
                     <!-- APOTEK -->
