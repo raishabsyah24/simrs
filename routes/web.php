@@ -210,7 +210,9 @@ Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
     Route::get('/kasir/{kasir}', [KasirController::class, 'show'])
         ->name('kasir.show');
     Route::put('/kasir/{kasir}/update-tagihan', [KasirController::class, 'updateTagihan'])
-        ->name('kasir.updateTagihan');
+        ->name('kasir.update-tagihan');
+    Route::put('/kasir/{kasir}/update-status', [KasirController::class, 'updateStatus'])
+        ->name('kasir.update-status');
 });
 
 Route::group(['middleware' => ['auth', 'role: lab|super_admin']], function () {

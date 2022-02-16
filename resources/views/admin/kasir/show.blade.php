@@ -2,7 +2,7 @@
 
 @section('admin-content')
     <div id="url-kasir" data-url="{{ route('kasir.show', $kasir->id) }}" class="d-none"></div>
-    <div class="nk-content">
+    <div class="nk-content mt-5">
         <div class="container-fluid">
             <div class="nk-content-inner">
                 <div class="nk-content-body">
@@ -143,7 +143,7 @@
                                             <span class="input-group-text" id="basic-addon1">%</span>
                                         </div>
                                         <input name="diskon" type="number" class="form-control form-control-lg">
-                                    <button onclick="setDiskon(`{{ route('kasir.updateTagihan', $kasir->id) }}`, this)" data-toggle="tooltip" data-placement="top" title="Simpan Diskon" class="ml-2 btn-sm btn btn-success"><em class="icon ni ni-check-thick"></em>
+                                    <button onclick="setDiskon(`{{ route('kasir.update-tagihan', $kasir->id) }}`, this)" data-toggle="tooltip" data-placement="top" title="Simpan Diskon" class="ml-2 btn-sm btn btn-success"><em class="icon ni ni-check-thick"></em>
                                     </button>
                                     </div>
 
@@ -185,13 +185,19 @@
                                 <p class="fs-15px"></p>
                             </div>
                             <div class="nk-tb-col tb-col-md">
-                                <p class="fs-15px">Grand Total</p>
+                                <h5 class="fs-15px">Grand Total</h5>
                             </div>
                             <div class="nk-tb-col tb-col-md">
-                                <p class="text-right pr-3 fs-18px ff-mono grand-total"></p>
+                                <h4 class="text-right pr-3 fs-18px ff-mono grand-total"></h4>
                             </div>
                         </div>
 {{--                        End Grand Total--}}
+                    </div>
+
+                    <div class="row d-flex text-center justify-content-center">
+                        <div class="col-md-4">
+                            <button onclick="submitForm(`{{ route('kasir.update-status', $kasir->id) }}`, `{{ $identitas_pasien->kategori_pasien_id }}`)" class="btn btn-lg btn-success">Simpan <em class="ml-1 icon ni ni-check-round-cut"></em></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -208,8 +214,8 @@
         async function getGrandTotal(){
             await $.get(urlKasir)
                 .done(response => {
-                    let grandTotal = response.grand_total;
-                    $('.grand-total').text(grandTotal);
+                    let total = response.total;
+                    $('.grand-total').text(total);
                 })
         }
 
@@ -227,6 +233,7 @@
                 getGrandTotal();
                 $(attr).addClass('d-none')
                 $('input[name=diskon]').attr('disabled', true);
+                alertSuccess(response.message);
             })
             .fail(errors => {
                 if (errors.status === 422) {
@@ -237,5 +244,21 @@
             })
         }
 
+        function submitForm(url, kategori_pasien){
+            event.preventDefault();
+            $.post({
+                url : url,
+                data : {
+                    _method : 'put',
+                    kategori_pasien : kategori_pasien
+                }
+            })
+                .done(response => {
+                    console.log(response)
+                })
+                .fail(errors => {
+                    alertError();
+                })
+        }
     </script>
 @endpush

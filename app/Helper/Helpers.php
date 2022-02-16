@@ -2,10 +2,10 @@
 
 use App\Models\ActivityLog;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Auth;
-
 
 function usia($tanggal_lahir)
 {
@@ -168,4 +168,20 @@ function jumlahWaktuPasien($waktu_awal, $waktu_selesai){
     $jumlah = date_diff($waktu_awal, $waktu_selesai);
 
     return "{$jumlah->d} hari, {$jumlah->h} jam, {$jumlah->i} menit, {$jumlah->s} detik";
+}
+
+function totalTagihan(int $kasir_id)
+{
+    $kasir = DB::table('kasir')
+        ->selectRaw('
+            id, total_tagihan, diskon, pajak
+            ')
+        ->where('id', $kasir_id)
+        ->first();
+
+    $diskon = ($kasir->diskon / 100) * $kasir->total_tagihan;
+    $pajak = ($kasir->pajak / 100) * $kasir->total_tagihan;
+    $total_tagihan = $kasir->total_tagihan;
+    $total = ($total_tagihan - $diskon) + $pajak;
+    return $total;
 }
