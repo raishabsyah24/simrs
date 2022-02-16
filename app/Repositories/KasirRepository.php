@@ -78,4 +78,19 @@ class KasirRepository implements KasirInterface
             ->where('oppr.periksa_dokter_id', $kasir->periksa_dokter_id)
             ->get();
     }
+
+    public function posisiPasien(int $kasir_id)
+    {
+        $kasir = DB::table('kasir as k')
+            ->select('pemeriksaan_id')
+            ->where('k.pemeriksaan_id', $kasir_id)
+            ->first();
+
+        return DB::table('posisi_pasien_rajal as ppr')
+            ->selectRaw('
+                id as posisi_pasien_rajal_id, pemeriksaan_id, status
+            ')
+            ->where('pemeriksaan_id', $kasir->pemeriksaan_id)
+            ->first();
+    }
 }

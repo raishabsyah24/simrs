@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kasir;
+use App\Models\PosisiDetailPasienRajal;
+use App\Models\PosisiPasienRajal;
 use App\Repositories\Interfaces\KasirInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,7 +82,7 @@ class KasirController extends Controller
             ->render();
     }
 
-    public function show(Kasir $kasir)
+    public function proses(Kasir $kasir)
     {
         if(request()->ajax()){
             $total = $this->totalTagihan($kasir->id);
@@ -88,12 +90,30 @@ class KasirController extends Controller
                 'total' => formatAngka($total, true),
             ], 200);
         }
-        $title = "Detail Transaksi";
+
+        $posisi_pasien = $this->kasirRepository->posisiPasien($kasir->id);
+        if($posisi_pasien->status == 'proses kasir'){
+            $posisi = PosisiPasienRajal::findOrFail($posisi_pasien->posisi_pasien_rajal_id);
+            $posisi->update([
+                'status' => 'proses transaksi'
+            ]);
+
+            $user = auth()->user()->name;
+            $aktifitas = "Pasien sedang diproses di kasir oleh {$user}";
+            $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+                'posisi_pasien_rajal_id' => $posisi->id,
+                'aktifitas' => $aktifitas,
+                'waktu' => now(),
+                'keterangan' => 'checkin',
+                'status' => 'proses'
+            ]);
+        }
+        $title = "Proses Transaksi";
         $identitas_pasien = $this->kasirRepository->identitasPasien($kasir->id);
         $layanan = $this->kasirRepository->daftarLayanan($kasir->id);
         $obat_pasien_rajal = $this->kasirRepository->obatPasienRajal($kasir->id);
 
-        return view('admin.kasir.show', compact(
+        return view('admin.kasir.proses', compact(
             'identitas_pasien',
             'layanan',
             'obat_pasien_rajal',
@@ -130,11 +150,56 @@ class KasirController extends Controller
                 $kasir->status_pembayaran = 'lunas';
             }
             $kasir->update();
+
+            $posisi_pasien = $this->kasirRepository->posisiPasien($kasir->id);
+            if($posisi_pasien->status == 'proses transaksi'){
+                $posisi = PosisiPasienRajal::findOrFail($posisi_pasien->posisi_pasien_rajal_id);
+                $posisi->update([
+                    'status' => 'proses obat'
+                ]);
+
+                $posisi_detail_pasien_rajal_last = PosisiDetailPasienRajal::where('posisi_pasien_rajal_id', $posisi->id)->latest('waktu');
+                $posisi_detail_pasien_rajal_last->update(['status' => 'selesai']);
+
+                $user = auth()->user()->name;
+                $aktifitas = "Pasien selesai diproses di kasir oleh {$user}";
+                $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+                    'posisi_pasien_rajal_id' => $posisi->id,
+                    'aktifitas' => $aktifitas,
+                    'waktu' => now(),
+                    'keterangan' => 'checkout',
+                    'status' => 'selesai'
+                ]);
+            }
+
         });
 
         return response()->json([
-            'message' => 'Transaksi berhasil dilakukan'
+            'message' => 'Transaksi berhasil dilakukan',
+            'url' => route('kasir.index')
         ], 200);
 
+    }
+
+    public function show(Kasir $kasir)
+    {
+        if(request()->ajax()){
+            $total = $this->totalTagihan($kasir->id);
+            return response()->json([
+                'total' => formatAngka($total, true),
+            ], 200);
+        }
+        $title = "Detail Transaksi";
+        $identitas_pasien = $this->kasirRepository->identitasPasien($kasir->id);
+        $layanan = $this->kasirRepository->daftarLayanan($kasir->id);
+        $obat_pasien_rajal = $this->kasirRepository->obatPasienRajal($kasir->id);
+
+        return view('admin.kasir.show', compact(
+            'identitas_pasien',
+            'layanan',
+            'obat_pasien_rajal',
+            'title',
+            'kasir'
+        ));
     }
 }
