@@ -76,6 +76,12 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
                                     <li>
+                                        <a href="{{ route('kasir.proses', $item->kasir_id) }}">
+                                            <em class="icon ni ni-piority-fill"></em>
+                                            <span>Proses</span>
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('kasir.show', $item->kasir_id) }}">
                                             <em class="icon ni ni-eye"></em>
                                             <span>Lihat Detail</span>

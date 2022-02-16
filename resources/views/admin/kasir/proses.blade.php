@@ -1,7 +1,7 @@
 @extends('layouts.admin.master', ['title' => $title])
 
 @section('admin-content')
-    <div id="url-kasir" data-url="{{ route('kasir.show', $kasir->id) }}" class="d-none"></div>
+    <div id="url-kasir" data-url="{{ route('kasir.proses', $kasir->id) }}" class="d-none"></div>
     <div class="nk-content mt-5">
         <div class="container-fluid">
             <div class="nk-content-inner">
@@ -9,6 +9,10 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
+                                <div class="nk-block-head-sub">
+                                    <a class="back-to" href="{{ route('kasir.index') }}"><em
+                                            class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
+                                </div>
                                 <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
                             </div>
                         </div>
@@ -194,8 +198,8 @@
 {{--                        End Grand Total--}}
                     </div>
 
-                    <div class="row d-flex text-center justify-content-center">
-                        <div class="col-md-4">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-3">
                             <button onclick="submitForm(`{{ route('kasir.update-status', $kasir->id) }}`, `{{ $identitas_pasien->kategori_pasien_id }}`)" class="btn btn-lg btn-success">Simpan <em class="ml-1 icon ni ni-check-round-cut"></em></button>
                         </div>
                     </div>
@@ -254,7 +258,8 @@
                 }
             })
                 .done(response => {
-                    console.log(response)
+                    alertSuccess(response.message);
+                    pindahHalaman(response.url, 2000);
                 })
                 .fail(errors => {
                     alertError();

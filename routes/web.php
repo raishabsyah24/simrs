@@ -247,6 +247,8 @@ Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
         ->name('kasir.fetch');
     Route::get('/kasir/{kasir}', [KasirController::class, 'show'])
         ->name('kasir.show');
+    Route::get('/kasir/{kasir}/proses', [KasirController::class, 'proses'])
+        ->name('kasir.proses');
     Route::put('/kasir/{kasir}/update-tagihan', [KasirController::class, 'updateTagihan'])
         ->name('kasir.update-tagihan');
     Route::put('/kasir/{kasir}/update-status', [KasirController::class, 'updateStatus'])
