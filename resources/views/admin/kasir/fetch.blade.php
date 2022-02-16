@@ -49,7 +49,7 @@
                 </span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="text-capitalize tb-lead">{!! formatAngka($item->grand_total, true) !!}</span>
+                <span class="text-capitalize tb-lead">{{ formatAngka(totalTagihan($item->kasir_id), true) }}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
                 <span class="text-uppercase badge badge-dim @if($item->status_pembayaran == 'lunas') badge-success @elseif($item->status_pembayaran == 'piutang') badge-warning @else badge-danger @endif">

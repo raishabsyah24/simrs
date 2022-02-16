@@ -83,11 +83,9 @@ class KasirController extends Controller
     public function show(Kasir $kasir)
     {
         if (request()->ajax()) {
-            $diskon = ($kasir->diskon / 100) * $kasir->grand_total;
-            $pajak = ($kasir->pajak / 100) * $kasir->grand_total;
-            $total = ($kasir->total_tagihan - $diskon) + $pajak;
+            $total = $this->totalTagihan($kasir->id);
             return response()->json([
-                'grand_total' => formatAngka($total, true),
+                'total' => formatAngka($total, true),
             ], 200);
         }
         $title = "Detail Transaksi";
@@ -106,15 +104,36 @@ class KasirController extends Controller
 
     public function updateTagihan(Kasir $kasir, Request $request)
     {
-        $attr = $request->validate([
+        $request->validate([
             'diskon' => 'numeric|max:100',
             'pajak' => 'numeric|max:100',
         ]);
+        $diskon = $request->diskon;
 
-        if ($attr) {
-            $kasir->update([
-                'diskon' => $request->diskon,
-            ]);
-        }
+        $kasir->update([
+            'diskon' => $request->diskon,
+        ]);
+
+        return response()->json([
+            'message' => 'Update diskon berhasil'
+        ]);
+    }
+
+    public function updateStatus(Kasir $kasir, Request $request)
+    {
+        $attr = $request->all();
+        DB::transaction(function () use ($attr, $kasir) {
+            $kasir->status = 'sudah dilayani';
+            if ($attr['kategori_pasien'] == $this->pasienBpjs) {
+                $kasir->status_pembayaran = 'piutang';
+            } else {
+                $kasir->status_pembayaran = 'lunas';
+            }
+            $kasir->update();
+        });
+
+        return response()->json([
+            'message' => 'Transaksi berhasil dilakukan'
+        ], 200);
     }
 }
