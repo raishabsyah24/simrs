@@ -55,6 +55,7 @@ class Controller extends BaseController
     {
         return DB::table('faskes')
             ->select(['id', 'nama'])
+            ->limit(5)
             ->get();
     }
 

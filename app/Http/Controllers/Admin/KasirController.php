@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Diagnosa;
+use App\Models\Faskes;
 use App\Models\Kasir;
 use App\Models\PosisiDetailPasienRajal;
 use App\Models\PosisiPasienRajal;
@@ -266,10 +267,18 @@ class KasirController extends Controller
     public function printInvoice(Kasir $kasir)
     {
         $title = 'Invoice';
-        $data = Diagnosa::all();
+        $data = Faskes::limit(20000)->get();
         return view('admin.kasir.pdf.invoice', compact(
             'title',
             'data'
+        ));
+    }
+
+    public function laporan()
+    {
+        $title = 'Laporan Kasir';
+        return view('admin.laporan.kasir.index', compact(
+            'title'
         ));
     }
 }

@@ -213,6 +213,8 @@ Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
         ->name('kasir.proses');
     Route::get('/kasir/{kasir}/print-invoice', [KasirController::class, 'printInvoice'])
         ->name('kasir.print-invoice');
+    Route::get('/kasir/laporan', [KasirController::class, 'laporan'])
+        ->name('kasir.laporan');
     Route::put('/kasir/{kasir}/update-tagihan', [KasirController::class, 'updateTagihan'])
         ->name('kasir.update-tagihan');
     Route::put('/kasir/{kasir}/update-status', [KasirController::class, 'updateStatus'])

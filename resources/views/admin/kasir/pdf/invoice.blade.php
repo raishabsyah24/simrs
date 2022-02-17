@@ -56,7 +56,7 @@
                             <tr>
                                 <td>{{ $item->kode }}</td>
                                 <td>{{ $item->nama }}</td>
-                                <td>{{ $item->kode }}</td>
+                                <td>{{ $item->alamat }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->kode }}</td>
                             </tr>
@@ -72,6 +72,9 @@
     function printPromot() {
         window.print();
     }
+    // window.print();
+    window.onfocus=function(){ window.close();}
+
 </script>
 </body>
 

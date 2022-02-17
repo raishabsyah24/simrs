@@ -121,14 +121,24 @@
 
                     <!-- KASIR -->
                     @role('kasir|super_admin')
-                    <li
-                        class="nk-menu-item {{ activeClass('kasir.index') }}">
-                        <a href="{{ route('kasir.index') }}" class="nk-menu-link">
+
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
                                     <em class="icon ni ni-sign-idr"></em>
                                 </span>
                             <span class="nk-menu-text">Kasir</span>
                         </a>
+                        <ul class="nk-menu-sub ">
+                            <li class="nk-menu-item {{ activeClass('kasir.index') }}">
+                                <a href="{{ route('kasir.index') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Transaksi</span></a>
+                            </li>
+                            <li class="nk-menu-item {{ activeClass('kasir.laporan') }}">
+                                <a href="{{ route('kasir.laporan') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Laporan Transaksi Kasir</span></a>
+                            </li>
+                        </ul>
                     </li>
                     @endrole
 
@@ -200,7 +210,6 @@
                                 </li>
                             </ul>
                         </li>
-
                     @endrole
 
                     @role('super_admin')
