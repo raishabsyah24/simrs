@@ -64,7 +64,7 @@
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
                     <li class="nk-tb-action-hidden">
-                        <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
+                        <a href="{{route('kasir.print-invoice', $item->kasir_id)}}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
                            title="Print">
                             <em class="icon ni ni-printer-fill"></em>
                         </a>
@@ -75,16 +75,24 @@
                                     class="icon ni ni-more-h"></em></a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
+                                    @if($item->status == 'belum dilayani')
+                                        <li>
+                                            <a href="{{ route('kasir.proses', $item->kasir_id) }}">
+                                                <em class="icon ni ni-piority-fill"></em>
+                                                <span>Proses</span>
+                                            </a>
+                                        </li>
+                                    @endif
                                     <li>
-                                        <a href="{{ route('kasir.proses', $item->kasir_id) }}">
-                                            <em class="icon ni ni-piority-fill"></em>
-                                            <span>Proses</span>
+                                        <a href="{{ route('kasir.detail', $item->kasir_id) }}">
+                                            <em class="icon ni ni-eye"></em>
+                                            <span>Lihat Detail</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('kasir.show', $item->kasir_id) }}">
-                                            <em class="icon ni ni-eye"></em>
-                                            <span>Lihat Detail</span>
+                                        <a href="#">
+                                            <em class="icon ni ni-plus-sm"></em>
+                                            <span>Tambah Deposit</span>
                                         </a>
                                     </li>
                                 </ul>

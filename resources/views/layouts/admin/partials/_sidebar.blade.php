@@ -128,7 +128,7 @@
                         class="nk-menu-item {{ activeClass('kasir.index') }}">
                         <a href="{{ route('kasir.index') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon">
-                                    <em class="icon ni ni-sign-mxn"></em>
+                                    <em class="icon ni ni-sign-idr"></em>
                                 </span>
                             <span class="nk-menu-text">Kasir</span>
                         </a>

@@ -252,14 +252,18 @@ Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
         ->name('kasir.index');
     Route::get('/kasir/fetch-data', [KasirController::class, 'fetch'])
         ->name('kasir.fetch');
-    Route::get('/kasir/{kasir}', [KasirController::class, 'show'])
-        ->name('kasir.show');
+    Route::get('/kasir/{kasir}/detail', [KasirController::class, 'detail'])
+        ->name('kasir.detail');
     Route::get('/kasir/{kasir}/proses', [KasirController::class, 'proses'])
         ->name('kasir.proses');
+    Route::get('/kasir/{kasir}/print-invoice', [KasirController::class, 'printInvoice'])
+        ->name('kasir.print-invoice');
     Route::put('/kasir/{kasir}/update-tagihan', [KasirController::class, 'updateTagihan'])
         ->name('kasir.update-tagihan');
     Route::put('/kasir/{kasir}/update-status', [KasirController::class, 'updateStatus'])
         ->name('kasir.update-status');
+    Route::put('/kasir/{kasir}/tambah-deposit', [KasirController::class, 'tambahDeposit'])
+        ->name('kasir.tambah-deposit');
 });
 
 Route::group(['middleware' => ['auth', 'role: lab|super_admin']], function () {

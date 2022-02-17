@@ -217,21 +217,31 @@ class AntrianBpjsController extends Controller
     {
         $query = $this->apotekRepository->pasienBpjs($pemeriksaan_id);
         $drug  = $this->apotekRepository->obatBpjs($pemeriksaan_id);
+        // return $query;
+        return view('admin.apotek.antrian_bpjs.pdf.hasil', compact(
+            'query',
+            'drug'
+        ));
 
-        // Cek jika ada file pdf sebelumnya
-        if ($query(['pemeriksaan_id'])->filename_pdf) {
-            $path = public_path('swab/') . $query(['pemeriksaan_id'])->filename_pdf;
+        // // Cek jika ada file pdf sebelumnya
+        // if ($query(['pemeriksaan_id'])->filename_pdf) {
+        //     $path = public_path('swab/') . $query(['pemeriksaan_id'])->filename_pdf;
 
-            // Hapus file pdf
-            File::delete($path);
-        }
+        //     // Hapus file pdf
+        //     File::delete($path);
+        // }
 
-        // Set filename pdf baru
-        $data['filename'] = str_replace(' ', '', $query(['pemeriksaan_id'])->nama) . '_' . time() . uniqid() . '.pdf';
+        // // Set filename pdf baru
+        // $data['filename'] = str_replace(' ', '', $query(['pemeriksaan_id'])->nama) . '_' . time() . uniqid() . '.pdf';
 
-        // create pdf file baru
-        $pdf = \PDF::loadView('admin.apotek.antrian_bpjs.pdf.hasil', compact('query'));
-        $path = public_path('swab/') . $data['filename'];
-        $pdf->save($path);
+        // // create pdf file baru
+        // $pdf = \PDF::loadView('admin.apotek.antrian_bpjs.pdf.hasil', compact('query'));
+        // $path = public_path('swab/') . $data['filename'];
+        // $pdf->save($path);
+    }
+
+    public function print()
+    {
+        // 
     }
 }

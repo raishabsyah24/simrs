@@ -63,6 +63,5 @@ function submitForm(originalForm) {
                 return;
             }
             alertError();
-
         })
 }
