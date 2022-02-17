@@ -22,9 +22,11 @@ class Kasir extends Model
         'diskon',
         'admin',
         'metode_pembayaran',
-        'deposit_akhir',
+        'sisa_deposit',
         'status',
         'status_pembayaran',
+        'sisa',
+        'dibayar'
     ];
 
 }

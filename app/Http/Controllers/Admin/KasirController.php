@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Diagnosa;
 use App\Models\Kasir;
 use App\Models\PosisiDetailPasienRajal;
 use App\Models\PosisiPasienRajal;
@@ -87,7 +88,9 @@ class KasirController extends Controller
         if(request()->ajax()){
             $total = $this->totalTagihan($kasir->id);
             return response()->json([
+                'totalAngka' => $total,
                 'total' => formatAngka($total, true),
+                'deposit_awal' => formatAngka($kasir->deposit_awal, true),
             ], 200);
         }
 
@@ -124,32 +127,56 @@ class KasirController extends Controller
 
     public function updateTagihan(Kasir $kasir, Request $request)
     {
-        $request->validate([
-            'diskon' => 'numeric|max:100',
-            'pajak' => 'numeric|max:100',
-        ]);
-        $diskon = $request->diskon;
 
-        $kasir->update([
-            'diskon' => $request->diskon,
+        $attr = $request->validate([
+            'diskon' => 'numeric|max:100|nullable',
+            'pajak' => 'numeric|max:100|nullable',
         ]);
+//        dd($attr);
+        $diskon = $request->diskon;
+        $pajak = $request->pajak;
+
+            if($diskon != null){
+                $kasir->update([
+                    'diskon' => $diskon,
+                ]);
+            }else{
+                $kasir->update([
+                    'diskon' => 0,
+                ]);
+            }
+            if($pajak != null){
+                $kasir->update([
+                    'pajak' => $pajak,
+                ]);
+            }else{
+                $kasir->update([
+                    'pajak' => 0,
+                ]);
+            }
 
         return response()->json([
-           'message' => 'Update diskon berhasil'
+           'message' => 'Update berhasil'
         ]);
     }
 
     public function updateStatus(Kasir $kasir, Request $request)
     {
-        $attr = $request->all();
+
+        $request->validate([
+            'metode_pembayaran' => 'required',
+            'status_pembayaran' => 'required',
+            'dibayar' => 'required|numeric',
+        ]);
+        $attr = $request->only([
+            'metode_pembayaran','status_pembayaran','dibayar'
+        ]);
+        $attr['status'] = 'sudah dilayani';
+        $attr['tanggal_pembayaran'] = now();
+        $attr['admin'] = auth()->id();
         DB::transaction(function () use ($attr, $kasir){
-            $kasir->status = 'sudah dilayani';
-            if($attr['kategori_pasien'] == $this->pasienBpjs){
-                $kasir->status_pembayaran = 'piutang';
-            }else{
-                $kasir->status_pembayaran = 'lunas';
-            }
-            $kasir->update();
+
+            $kasir->update($attr);
 
             $posisi_pasien = $this->kasirRepository->posisiPasien($kasir->id);
             if($posisi_pasien->status == 'proses transaksi'){
@@ -200,6 +227,49 @@ class KasirController extends Controller
             'obat_pasien_rajal',
             'title',
             'kasir'
+        ));
+    }
+
+    public function tambahDeposit(Kasir $kasir, Request $request)
+    {
+        $attr = $request->validate([
+           'deposit_awal' => 'required|numeric|min:1'
+        ]);
+
+        $kasir->deposit_awal = $kasir->deposit_awal + $attr['deposit_awal'];
+        if(!$kasir->tanggal_deposit){
+            $kasir->tanggal_deposit = now();
+        }
+        $kasir->update();
+
+        return response()->json([
+            'message' => 'Deposit pasien berhasil ditambahkan'
+        ], 200);
+    }
+
+    public function detail(Kasir $kasir)
+    {
+        $title = "Detail Transaksi";
+        $identitas_pasien = $this->kasirRepository->identitasPasien($kasir->id);
+        $layanan = $this->kasirRepository->daftarLayanan($kasir->id);
+        $obat_pasien_rajal = $this->kasirRepository->obatPasienRajal($kasir->id);
+
+        return view('admin.kasir.detail', compact(
+            'identitas_pasien',
+            'layanan',
+            'obat_pasien_rajal',
+            'title',
+            'kasir'
+        ));
+    }
+
+    public function printInvoice(Kasir $kasir)
+    {
+        $title = 'Invoice';
+        $data = Diagnosa::all();
+        return view('admin.kasir.pdf.invoice', compact(
+            'title',
+            'data'
         ));
     }
 }

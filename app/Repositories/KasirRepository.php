@@ -31,7 +31,7 @@ class KasirRepository implements KasirInterface
             ->selectRaw('
                 p.nama as nama_pasien, p.jenis_kelamin, p.nik, p.alamat,
                 p.no_hp, p.tanggal_lahir, kp.nama as kategori_pasien, pe.no_rekam_medis,
-                pe.created_at as tanggal_pendaftaran, pe.kategori_pasien as kategori_pasien_id
+                pe.created_at as tanggal_pendaftaran, pe.kategori_pasien as kategori_pasien_id, k.deposit_awal, k.tanggal_deposit
             ')
             ->join('pemeriksaan_detail as pd','pd.pemeriksaan_id','=','pe.id')
             ->join('kasir as k','k.pemeriksaan_id','=','pe.id')
