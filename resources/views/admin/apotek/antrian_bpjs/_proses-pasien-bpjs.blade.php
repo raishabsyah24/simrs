@@ -190,8 +190,8 @@
                     },
                 })
                 .done(response => {
-                    // alertSuccess(response.message);
-                    // pindahHalaman(response.url, 3000)
+                    alertSuccess(response.message);
+                    pindahHalaman(response.url, 3000)
                 })
         }
     </script>

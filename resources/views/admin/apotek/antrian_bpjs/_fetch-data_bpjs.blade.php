@@ -58,14 +58,14 @@
                 <span class="tb-amount">{{ $item->kategori_pasien }}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="tb-amount badge badge-dim badge-{{ $item->status_pemeriksaan == 'selesai' ? 'success' : 'danger' }}" >
+                <span class="text-uppercase badge badge-dim badge-{{ $item->status_pemeriksaan == 'selesai' ? 'success' : 'danger' }}" >
                     {{ $item->status_pemeriksaan }}
                 </span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
                     <li class="nk-tb-action-hidden">
-                        <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
+                        <a href="{{ route('apotek.preview-hasil', [$item->pemeriksaan_id, $item->periksa_dokter_id]) }}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
                             title="Print">
                             <em class="icon ni ni-printer-fill"></em>
                         </a>
