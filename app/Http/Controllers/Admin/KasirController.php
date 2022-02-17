@@ -11,7 +11,8 @@ use App\Repositories\Interfaces\KasirInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Nasution\Terbilang;
+use App\Exports\KasirExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -303,6 +304,9 @@ class KasirController extends Controller
                 'attr',
                 'grand_total'
             ));
+        }
+        if($attr['ekstensi'] == 'excel' ){
+            return Excel::download(new KasirExport($data), 'kasir.xlsx');
         }
     }
 }

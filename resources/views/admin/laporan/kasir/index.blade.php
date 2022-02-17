@@ -6,17 +6,12 @@
                 <div class="nk-content-body">
                     <div class="components-preview wide-md mx-auto">
                         <div class="nk-block-head nk-block-head-lg wide-sm">
-                            <div class="nk-block-head-content">
-                                <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em class="icon ni ni-arrow-left"></em><span>Components</span></a></div>
-                                <h2 class="nk-block-title fw-normal">Form Layouts</h2>
+                            <div class="nk-block-head-content"> <h2 class="nk-block-title fw-normal">Ekspor Laporan Kasir</h2>
                             </div>
                         </div>
                         <div class="nk-block nk-block-lg">
-                            <div class="card">
+                            <div class="card shadow">
                                 <div class="card-inner">
-                                    <div class="card-head">
-                                        <h5 class="card-title">Customer Info S2</h5>
-                                    </div>
                                     <form target="_blank" action="{{route('kasir.laporan.ekspor')}}" method="post">
                                         @csrf
                                         <div class="row g-4">
