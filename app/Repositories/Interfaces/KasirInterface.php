@@ -13,4 +13,6 @@ interface KasirInterface
     public function obatPasienRajal(int $kasir_id);
 
     public function posisiPasien(int $kasir_id);
+
+    public function laporan($tanggal_awal, $tanggal_akhir);
 }

@@ -4,41 +4,65 @@
         <div class="container-fluid">
             <div class="nk-content-inner">
                 <div class="nk-content-body">
-                    <div class="nk-block-head nk-block-head-sm">
-                        <div class="nk-block-between">
+                    <div class="components-preview wide-md mx-auto">
+                        <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">{!! $title !!}</h3>
+                                <div class="nk-block-head-sub"><a class="back-to" href="html/components.html"><em class="icon ni ni-arrow-left"></em><span>Components</span></a></div>
+                                <h2 class="nk-block-title fw-normal">Form Layouts</h2>
                             </div>
                         </div>
-                        {{-- Filter date --}}
-                        <p class="mt-3">Filter berdasarkan tanggal</p>
-                        <div class="nk-block-between">
-                            <div class="nk-block-head-content">
-                                <form>
-                                    <div class="form-group d-flex float-right">
-                                        <div class="form-control-wrap">
-                                            <div class="form-icon form-icon-left">
-                                                <em class="icon ni ni-calendar"></em>
-                                            </div>
-                                            <input placeholder="Dari" type="text" name="dari"
-                                                   class="form-control date-picker" data-date-format="yyyy-mm-dd">
-                                        </div>
-                                        <p class="mx-2 mt-1">Sampai</p>
-                                        <div class="form-control-wrap">
-                                            <div class="form-icon form-icon-left">
-                                                <em class="icon ni ni-calendar"></em>
-                                            </div>
-                                            <input placeholder="Sampai" name="sampai" type="text"
-                                                   class="form-control date-picker" data-date-format="yyyy-mm-dd">
-                                        </div>
-                                        <ul class="nk-block-tools ml-2 mb-3">
-                                            <li class="nk-block-tools-opt">
-                                                <button onclick="filterDate(this.form)" type="submit"
-                                                        class="btn btn-dim btn-outline-dark"><em
-                                                        class="icon ni ni-filter-fill"></em>Filter</button>
-                                        </ul>
+                        <div class="nk-block nk-block-lg">
+                            <div class="card">
+                                <div class="card-inner">
+                                    <div class="card-head">
+                                        <h5 class="card-title">Customer Info S2</h5>
                                     </div>
-                                </form>
+                                    <form target="_blank" action="{{route('kasir.laporan.ekspor')}}" method="post">
+                                        @csrf
+                                        <div class="row g-4">
+                                            <div class="col-lg-5">
+                                                <div class="form-group">
+                                                    <label class="form-label">Dari Tanggal</label>
+                                                    <div class="form-control-wrap">
+                                                        <input autocomplete="off"  type="text" data-date-format="yyyy-mm-dd" class="form-control date-picker form-control-lg" name="dari">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <div class="form-group">
+                                                    <label class="form-label">Sampai Tanggal</label>
+                                                    <div class="form-control-wrap">
+                                                        <input autocomplete="off" type="text" data-date-format="yyyy-mm-dd" class="form-control date-picker form-control-lg" name="sampai">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="form-group">
+                                                    <label class="form-label">Jenis File</label>
+                                                    <div class="form-control-wrap">
+                                                        <select class="bg-success form-control form-control-lg"
+                                                                style="position:absolute;" name="ekstensi"
+                                                                data-placeholder="Pilih ekstensi">
+                                                            <option value="pdf">PDF</option>
+                                                            <option value="excel">EXCEL</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 offset-lg-5">
+                                                <div class="form-group">
+                                                    <button type="submit" onclick="submitForm(this.form)"
+                                                            class="tombol-simpan btn btn-lg btn-primary">
+                                                        <span class="text-simpan">Ekspor Data</span>
+                                                        <span
+                                                            class="loading-simpan d-none ml-2 spinner-border spinner-border-sm"
+                                                            role="status" aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

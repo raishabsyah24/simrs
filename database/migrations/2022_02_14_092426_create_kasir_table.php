@@ -15,9 +15,10 @@ class CreateKasirTable extends Migration
     {
         Schema::create('kasir', function (Blueprint $table) {
             $table->id();
+            $table->string('kode')->unique()->nullable();
             $table->unsignedBigInteger('pemeriksaan_id');
             $table->unsignedBigInteger('admin')->nullable();
-            $table->bigInteger('deposit_awal')->nullable();
+            $table->bigInteger('deposit_awal')->default(0)->nullable();
             $table->dateTime('tanggal_pembayaran')->nullable();
             $table->dateTime('tanggal_deposit')->nullable();
             $table->bigInteger('total_tagihan')->nullable();

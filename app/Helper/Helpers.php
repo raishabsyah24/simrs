@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Auth;
+use Nasution\Terbilang;
+
+function terbilangRupiah($angka){
+    $terbilang = new Terbilang();
+    return $terbilang->convert($angka) . ' Rupiah';
+}
 
 function usia($tanggal_lahir)
 {
@@ -144,6 +150,12 @@ function kodeRekamMedis()
 {
     $date = date('myd');
     return kode('rekam_medis', 'kode', '15', 'RMP' . $date);
+}
+
+function kodePembayaran()
+{
+    $date = date('dmy');
+    return kode('kasir', 'kode', '13', 'RSF' . $date);
 }
 
 function noUrutPasienPeriksa($tanggal, $poli_id, $dokter_id)

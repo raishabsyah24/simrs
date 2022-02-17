@@ -64,8 +64,8 @@
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
                     <li class="nk-tb-action-hidden">
-                        <a href="{{route('kasir.print-invoice', $item->kasir_id)}}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
-                           title="Print">
+                        <a target="_blank" href="{{route('kasir.print-invoice', $item->kasir_id)}}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
+                           title="Print Kwitansi">
                             <em class="icon ni ni-printer-fill"></em>
                         </a>
                     </li>
