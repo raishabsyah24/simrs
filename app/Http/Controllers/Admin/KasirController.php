@@ -316,7 +316,7 @@ class KasirController extends Controller
         $data['sampai'] = $attr['sampai'];
         $data['grand_total'] = 0;
         foreach ($data['data'] as $total) {
-            $data['grand_total'] += (int)totalTagihan($total->kasir_id);
+            $data['grand_total'] += totalTagihan($total->kasir_id);
         }
 
         if ($attr['ekstensi'] == 'pdf') {
