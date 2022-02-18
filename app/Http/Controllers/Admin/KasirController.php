@@ -129,12 +129,11 @@ class KasirController extends Controller
 
     public function updateTagihan(Kasir $kasir, Request $request)
     {
-
         $attr = $request->validate([
             'diskon' => 'numeric|max:100|nullable',
             'pajak' => 'numeric|max:100|nullable',
         ]);
-        //        dd($attr);
+
         $diskon = $request->diskon;
         $pajak = $request->pajak;
 
@@ -265,10 +264,17 @@ class KasirController extends Controller
     public function printInvoice(Kasir $kasir)
     {
         $title = 'Invoice';
-        $data = Faskes::limit(20)->get();
+        $identitas_pasien = $this->kasirRepository->identitasPasien($kasir->id);
+        $layanan = $this->kasirRepository->daftarLayanan($kasir->id);
+        $obat_pasien_rajal = $this->kasirRepository->obatPasienRajal($kasir->id);
+        $total = $this->totalTagihan($kasir->id);
         return view('admin.kasir.pdf.invoice', compact(
             'title',
-            'data'
+            'obat_pasien_rajal',
+            'layanan',
+            'identitas_pasien',
+            'total',
+            'kasir'
         ));
     }
 

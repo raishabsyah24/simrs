@@ -1,81 +1,114 @@
-<!DOCTYPE html>
-<html lang="zxx" class="js">
+@extends('layouts.print.master', ['title' => $title])
 
-<head>
-    <meta charset="utf-8">
-    <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}">
-    <!-- Page Title  -->
-    <title>{{ $title ?? '' }}</title>
-    <!-- StyleSheets  -->
-    <link rel="stylesheet" href="{{ asset('backend/css/dashlite.css?ver=2.9.1') }}">
-    <link id="skin-default" rel="stylesheet" href="{{ asset('backend/css/theme.css?ver=2.9.1') }}">
+@push('css')
+@endpush
 
-</head>
-
-<body class="bg-white" onload="printPromot()">
-<div class="nk-block">
-    <div class="invoice invoice-print">
-        <div class="invoice-wrap">
-            <div class="invoice-brand text-center">
-                <img src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="">
-            </div>
-            <div class="invoice-head">
-                <div class="invoice-contact">
-                    <span class="overline-title">Invoice To</span>
-                    <div class="invoice-contact-info">
-                        <h4 class="title">Gregory Anderson</h4>
-                        <ul class="list-plain">
-                            <li><em class="icon ni ni-map-pin-fill fs-18px"></em><span>House #65, 4328 Marion Street<br>Newbury, VT 05051</span></li>
-                            <li><em class="icon ni ni-call-fill fs-14px"></em><span>+012 8764 556</span></li>
-                        </ul>
+@section('print-content')
+    <div class="nk-block">
+        <div class="invoice invoice-print">
+            <div class="invoice-wrap">
+                <div class="invoice-brand text-center">
+                    <img src="{{ asset('backend/images/logo-rs.jpeg') }}">
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <h4 class="title">{!! $identitas_pasien->nama_pasien !!}</h4>
+                        <table>
+                            <tr>
+                                <td>Nomor Handphone</td>
+                                <td>:</td>
+                                <td>{!! $identitas_pasien->no_hp !!}</td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td>:</td>
+                                <td>{!! $identitas_pasien->alamat !!}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-4"></div>
+                    <div class="col-4 mt-4">
+                        <table>
+                            <tr>
+                                <td>Nomor Pembayaran</td>
+                                <td>:</td>
+                                <td>{!! $identitas_pasien->kode !!}</td>
+                            </tr>
+                            <tr>
+                                <td>Tanggal Pembayaran</td>
+                                <td>:</td>
+                                <td>{!! $identitas_pasien->tanggal_pembayaran ? tanggalJam($identitas_pasien->tanggal_pembayaran) : '' !!}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-                <div class="invoice-desc">
-                    <h3 class="title">Invoice</h3>
-                    <ul class="list-plain">
-                        <li class="invoice-id"><span>Invoice ID</span>:<span>66K5W3</span></li>
-                        <li class="invoice-date"><span>Date</span>:<span>26 Jan, 2020</span></li>
-                    </ul>
+                <div class="invoice-bills mt-5">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Layanan</th>
+                                    <th>Tanggal Layanan</th>
+                                    <th>Tagihan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($layanan as $item)
+                                    <tr>
+                                        <td>{!! $loop->iteration !!}</td>
+                                        <td>
+                                            {!! $item->jenis_tagihan !!}
+                                            @if ($item->jenis_tagihan == 'Obat-obatan')
+                                                @foreach ($obat_pasien_rajal as $obat)
+                                                    <p>* {{ $obat->nama_generik }}</p>
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        <td>{!! tanggalJam($item->tanggal_layanan) !!}</td>
+                                        <td>{!! formatAngka($item->subtotal, true) !!}</td>
+                                    </tr>
+                                @empty
+                                @endforelse
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td colspan="1">Subtotal</td>
+                                    <td>{!! formatAngka($layanan->sum('subtotal'), true) !!}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td colspan="1">Diskon</td>
+                                    <td>{!! $kasir->diskon !!} %</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td colspan="1">Pajak</td>
+                                    <td>{!! $kasir->pajak !!} %</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td colspan="1">Grand Total</td>
+                                    <td>{!! formatAngka($total, true) !!}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
-            </div><!-- .invoice-head -->
-            <div class="invoice-bills">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th class="w-150px">Item ID</th>
-                            <th class="w-60">Description</th>
-                            <th>Price</th>
-                            <th>Qty</th>
-                            <th>Amount</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($data as $item)
-                            <tr>
-                                <td>{{ $item->kode }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->alamat }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->kode }}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div><!-- .invoice-bills -->
-        </div><!-- .invoice-wrap -->
-    </div><!-- .invoice -->
-</div><!-- .nk-block -->
-<script>
-    function printPromot() {
-        window.print();
-    }
-    // window.print();
-    window.onfocus=function(){ window.close();}
+            </div>
+        </div>
+    </div>
+@endsection
 
-</script>
-</body>
-
-</html>
+@push('js')
+    <script>
+        function printPromot() {
+            window.print();
+        }
+        // window.print();
+        window.onfocus = function() {
+            window.close();
+        }
+    </script>
+@endpush
