@@ -239,9 +239,4 @@ class AntrianBpjsController extends Controller
         // $path = public_path('swab/') . $data['filename'];
         // $pdf->save($path);
     }
-
-    public function print()
-    {
-        // 
-    }
 }

@@ -12,105 +12,140 @@
     <link rel="stylesheet" href="{{ asset('backend/css/dashlite.css?ver=2.9.1') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('backend/css/theme.css?ver=2.9.1') }}">
 </head>
+    <style>
+        .medich__contact {
+            margin: 0 0 0 20px;
+        }
+        
+        .admin__note  {
+            box-shadow: none!important;
+            border: 0!important;
+        }
 
-<body class="bg-white" onload="printPromot()">
-    
-    <div class="nk-block">
-        <div class="invoice invoice-print">
-            <div class="invoice-wrap">
-                <div class="invoice-brand text-center">
-                    <img src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="">
-                </div>
-                <div class="invoice-head">
-                    <div class="invoice-contact">
-                        <span class="overline-title">Invoice To</span>
-                        <div class="invoice-contact-info">
-                            <h4 class="title">Gregory Anderson</h4>
-                            <ul class="list-plain">
-                                <li><em class="icon ni ni-map-pin-fill fs-18px"></em><span>House #65, 4328 Marion Street<br>Newbury, VT 05051</span></li>
-                                <li><em class="icon ni ni-call-fill fs-14px"></em><span>+012 8764 556</span></li>
-                            </ul>
+        .description {
+            cursor: default;
+        }
+        .dragula-container > *:not(:last-child) {margin-bottom: 0.75rem;}
+    </style>
+<body class="bg-grey" onload="printPromot()"> 
+    <div class="nk-content">
+        <div class="container">
+            <div class="nk-content-inner">
+                <div class="nk-content-body">
+                    <div class="invoice-brand">
+                        <img {{ asset('backend/images/logo.png') }}"
+                        srcset="{{ asset('backend/images/logo2x.png 2x') }}" alt="logo">
+                        <div class="invoice-contact medich__contact">
+                            <div class="invoice-contact-info mt-3">
+                                <ul class="list-plain">
+                                    <li><em class="icon ni ni-map-pin-fill fs-18px"></em>
+                                        <span>House #65, 4328 Marion Street<br>Newbury, VT 05051</span></li>
+                                    <li><em class="icon ni ni-call-fill fs-14px"></em>
+                                        <span>+012 8764 556</span></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="invoice-desc">
-                        <h3 class="title">Invoice</h3>
-                        <ul class="list-plain">
-                            <li class="invoice-id"><span>Invoice ID</span>:<span>66K5W3</span></li>
-                            <li class="invoice-date"><span>Date</span>:<span>26 Jan, 2020</span></li>
-                        </ul>
+                    <div class="nk-block">
+                        <div class="card">
+                            <div class="card-aside-wrap">
+                                <div class="card-content">
+                                    <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#"><em class="icon ni ni-user-circle"></em><span>Personal</span></a>
+                                        </li>
+                                    </ul><!-- .nav-tabs -->
+                                    <div class="card-inner">
+                                        <div class="nk-block">
+                                            <div class="nk-block-head">
+                                                <h5 class="title">Informasi Pasien</h5>
+                                            </div><!-- .nk-block-head -->
+                                            <div class="profile-ud-list">
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Nama Pasien</span>
+                                                        <span class="profile-ud-value">Mr.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Berat Badan</span>
+                                                        <span class="profile-ud-value">Abu Bin Ishtiyak</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Tanggal Lahir</span>
+                                                        <span class="profile-ud-value">10 Aug, 1980</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Tanggal </span>
+                                                        <span class="profile-ud-value">10 Aug, 1980</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Umur</span>
+                                                        <span class="profile-ud-value">IO</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Nomor Rekam Medis</span>
+                                                        <span class="profile-ud-value">01713040400</span>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .profile-ud-list -->
+                                        </div><!-- .nk-block -->
+                                        <div class="nk-block">
+                                            <div class="nk-block-head nk-block-head-line">
+                                                <h6 class="title overline-title text-base">Informasi Lainnya</h6>
+                                            </div><!-- .nk-block-head -->
+                                            <div class="profile-ud-list">
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Nama Dokter</span>
+                                                        <span class="profile-ud-value">08-16-2018 09:04PM</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Tanggal Periksa</span>
+                                                        <span class="profile-ud-value">United State</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Tujuan Poli</span>
+                                                        <span class="profile-ud-value">United State</span>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .profile-ud-list -->
+                                        </div><!-- .nk-block -->
+                                        <div class="nk-divider divider md"></div>
+                                        <div class="nk-block">
+                                            <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                <h5 class="title">Catatan Tambahan</h5>
+                                            </div><!-- .nk-block-head -->
+                                            <div class="dragula-container card card-bordered p-4 h-100 admin__note">
+                                                <div class="p-3 bg-white border border-light round-lg description">You can move these elements between these two containers.</div>
+                                                <div class="p-3 bg-white border border-light round-lg description">Moving them anywhere else isn't quite possible.</div>
+                                                <div class="p-3 bg-white border border-light round-lg description">Anything can be moved around.</div>
+                                                <div class="p-3 bg-white border border-light round-lg description">More interactive use cases lie ahead.</div>
+                                              </div>
+                                            </div><!-- .bq-note -->
+                                        </div><!-- .nk-block -->
+                                    </div><!-- .card-inner -->
+                                </div><!-- .card-content -->
+                            </div><!-- .card-aside-wrap -->
+                        </div><!-- .card -->
                     </div>
-                </div><!-- .invoice-head -->
-                <div class="invoice-bills">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="w-150px">Item ID</th>
-                                    <th class="w-60">Description</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                    <th>Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>24108054</td>
-                                    <td>Dashlite - Conceptual App Dashboard - Regular License</td>
-                                    <td>$40.00</td>
-                                    <td>5</td>
-                                    <td>$200.00</td>
-                                </tr>
-                                <tr>
-                                    <td>24108054</td>
-                                    <td>6 months premium support</td>
-                                    <td>$25.00</td>
-                                    <td>1</td>
-                                    <td>$25.00</td>
-                                </tr>
-                                <tr>
-                                    <td>23604094</td>
-                                    <td>Invest Management Dashboard - Regular License</td>
-                                    <td>$131.25</td>
-                                    <td>1</td>
-                                    <td>$131.25</td>
-                                </tr>
-                                <tr>
-                                    <td>23604094</td>
-                                    <td>6 months premium support</td>
-                                    <td>$78.75</td>
-                                    <td>1</td>
-                                    <td>$78.75</td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Subtotal</td>
-                                    <td>$435.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Processing fee</td>
-                                    <td>$10.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">TAX</td>
-                                    <td>$43.50</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="2">Grand Total</td>
-                                    <td>$478.50</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div><!-- .invoice-bills -->
-            </div><!-- .invoice-wrap -->
-        </div><!-- .invoice -->
-    </div><!-- .nk-block -->
-    
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         function printPromot() {
             window.print();

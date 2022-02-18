@@ -201,7 +201,8 @@ Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () 
         ->name('apotek.pasien-bpjs-update');
 
     // Print pasien bpjs 
-    Route::get('/apotek/preview/{pemeriksaan_id}/pdf/{periksa_dokter_id}', [AntrianBpjsController::class, 'previewPDF'])->name('apotek.preview-hasil');
+    Route::get('/apotek/preview/{pemeriksaan_id}/pdf/{periksa_dokter_id}', [AntrianBpjsController::class, 'previewPDF'])
+        ->name('apotek.preview-hasil');
 
     // Daftar antrian umum
     Route::get('/apotek/data-umum', [AntrianUmumController::class, 'umum'])->name('data.umum');

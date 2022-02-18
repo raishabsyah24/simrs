@@ -17,7 +17,7 @@ class CreateKasirTable extends Migration
             $table->id();
             $table->unsignedBigInteger('pemeriksaan_id');
             $table->unsignedBigInteger('admin')->nullable();
-            $table->bigInteger('deposit_awal')->nullable();
+            $table->bigInteger('deposit_awal')->default(0)->nullable();
             $table->dateTime('tanggal_pembayaran')->nullable();
             $table->dateTime('tanggal_deposit')->nullable();
             $table->bigInteger('total_tagihan')->nullable();
