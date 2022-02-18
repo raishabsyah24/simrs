@@ -100,8 +100,20 @@
                                                 </div>
                                                 <div class="profile-ud-item">
                                                     <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Ruangan </span>
+                                                        <span class="profile-ud-value">10 Aug, 1980</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
                                                         <span class="profile-ud-label">Nomor Rekam Medis</span>
                                                         <span class="profile-ud-value">{{ $query->no_rekam_medis }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Riwayat Alergi Obat </span>
+                                                        <span class="profile-ud-value">10 Aug, 1980</span>
                                                     </div>
                                                 </div>
                                             </div><!-- .profile-ud-list -->
@@ -132,41 +144,49 @@
                                             </div><!-- .profile-ud-list -->
                                         </div><!-- .nk-block -->
                                         <div class="nk-divider divider md"></div>
-                                        < class="nk-block">
+                                        <div class="nk-block">
                                             <div class="nk-block-head nk-block-head-sm nk-block-between">
                                                 <h5 class="title">Catatan Tambahan</h5>
                                             </div><!-- .nk-block-head -->
-                                           
                                                 <table class="table table-tranx">
                                                     <thead>
                                                         <tr class="tb-tnx-head">
-                                                            <th class="tb-tnx-id"><span class="">#</span></th>
+                                                            <th class="tb-tnx-id">
+                                                                <span class="">#</span>
+                                                            </th>
                                                             <th class="tb-tnx-info">
                                                                 <span class="tb-tnx-desc d-none d-sm-inline-block">
-                                                                    <span>Bill For</span>
-                                                                </span>
-                                                                <span class="tb-tnx-date d-md-inline-block d-none">
-                                                                    <span class="d-md-none">Date</span>
-                                                                    <span class="d-none d-md-block">
-                                                                        <span>Issue Date</span>
-                                                                        <span>Due Date</span>
-                                                                    </span>
+                                                                    <span>nama obat</span>
                                                                 </span>
                                                             </th>
                                                             <th class="tb-tnx-amount is-alt">
-                                                                <span class="tb-tnx-total">Total</span>
-                                                                <span class="tb-tnx-status d-none d-md-inline-block">Status</span>
-                                                            </th>
-                                                            <th class="tb-tnx-action">
-                                                                <span>&nbsp;</span>
+                                                                <th>Signa</th>
                                                             </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                  
+                                                        @forelse ($drug as $item)
+                                                        <tr class="tb-tnx-item">
+                                                            <td class="tb-tnx-id">
+                                                                <span>{{ $loop->iteration }}</span>
+                                                            </td>
+                                                            <td class="tb-tnx-info">
+                                                                <div class="tb-tnx-desc">
+                                                                    <span class="title">{{ $item->nama_generik }}</span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @empty
+                                                        <tr>
+                                                            <td class="text-center" colspan="8">
+                                                                <h6>Belum ada
+                                                                    riwayat</h6>
+                                                            </td>
+                                                        </tr>
+                                                        @endforelse
                                                     </tbody>
                                                 </table>
-                                            
+                                           
                                             </div><!-- .bq-note -->
                                         </div><!-- .nk-block -->
                                     </div><!-- .card-inner -->
