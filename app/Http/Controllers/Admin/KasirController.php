@@ -14,16 +14,14 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\KasirExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-
-
 class KasirController extends Controller
 {
+    public $perPage = 10;
     public $kasirRepository;
     public function __construct(KasirInterface $kasirRepository)
     {
         $this->kasirRepository = $kasirRepository;
     }
-    public $perPage = 10;
 
     public function index()
     {
@@ -277,31 +275,54 @@ class KasirController extends Controller
     public function laporan()
     {
         $title = 'Laporan Kasir';
+        $kategori_pasien = $this->kategoriPasien();
         return view('admin.laporan.kasir.index', compact(
-            'title'
+            'title',
+            'kategori_pasien'
         ));
     }
 
     public function ekspor(Request $request)
     {
         $attr = $request->validate([
-            'dari' => 'required|date',
-            'sampai' => 'required|date',
+            'dari' => [
+                'required',
+                'date',
+                'date_format:Y-m-d',
+                'before:sampai'
+            ],
+            'sampai' => [
+                'required',
+                'date',
+                'date_format:Y-m-d',
+                'after:dari'
+            ],
             'ekstensi' => 'required',
+            'kategori_pasien' => 'nullable'
         ]);
         $tanggal_awal = Carbon::parse($attr['dari'])->startOfDay();
         $tanggal_akhir = Carbon::parse($attr['sampai'])->endOfDay();
-        $data = $this->kasirRepository->laporan($tanggal_awal, $tanggal_akhir);
-        $grand_total = 0;
-        foreach ($data as $total) {
-            $grand_total += totalTagihan($total->kasir_id);
+        $kategori_pasien = $attr['kategori_pasien'];
+
+        $data['data'] = $this->kasirRepository->laporan($tanggal_awal, $tanggal_akhir)
+            ->when($kategori_pasien ?? false, function ($query) use ($kategori_pasien) {
+                if ($kategori_pasien == 'semua') {
+                    return false;
+                }
+                return $query->where('kp.id', $kategori_pasien);
+            })
+            ->get();
+        $data['dari'] = $attr['dari'];
+        $data['sampai'] = $attr['sampai'];
+        $data['grand_total'] = 0;
+        foreach ($data['data'] as $total) {
+            $data['grand_total'] += (int)totalTagihan($total->kasir_id);
         }
 
         if ($attr['ekstensi'] == 'pdf') {
             return view('admin.laporan.kasir.pdf', compact(
                 'data',
-                'attr',
-                'grand_total'
+                'attr'
             ));
         }
         if ($attr['ekstensi'] == 'excel') {

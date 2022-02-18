@@ -8,7 +8,8 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Auth;
 use Nasution\Terbilang;
 
-function terbilangRupiah($angka){
+function terbilangRupiah($angka)
+{
     $terbilang = new Terbilang();
     return $terbilang->convert($angka) . ' Rupiah';
 }
