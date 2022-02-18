@@ -8,7 +8,8 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Auth;
 use Nasution\Terbilang;
 
-function terbilangRupiah($angka){
+function terbilangRupiah($angka)
+{
     $terbilang = new Terbilang();
     return $terbilang->convert($angka) . ' Rupiah';
 }
@@ -162,18 +163,19 @@ function noUrutPasienPeriksa($tanggal, $poli_id, $dokter_id)
 {
     $length_poli = strlen($poli_id);
     $length_dokter = strlen($dokter_id);
-    if($length_poli == 1){
-        $poli_id = '0'.$poli_id;
+    if ($length_poli == 1) {
+        $poli_id = '0' . $poli_id;
     }
-    if($length_dokter == 1){
-        $dokter_id = '0'.$dokter_id;
+    if ($length_dokter == 1) {
+        $dokter_id = '0' . $dokter_id;
     }
     $prefix = $tanggal . $poli_id . $dokter_id;
     return $kode = kode('periksa_dokter', 'no_antrian_periksa', '10', $prefix);
     // return substr($kode, 4);
 }
 
-function jumlahWaktuPasien($waktu_awal, $waktu_selesai){
+function jumlahWaktuPasien($waktu_awal, $waktu_selesai)
+{
     $waktu_awal = Carbon::parse($waktu_awal);
     $waktu_selesai = Carbon::parse($waktu_selesai);
 
