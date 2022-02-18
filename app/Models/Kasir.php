@@ -13,6 +13,7 @@ class Kasir extends Model
     protected $table = 'kasir';
 
     protected $fillable = [
+        'kode',
         'pemeriksaan_id',
         'deposit_awal',
         'tanggal_pembayaran',

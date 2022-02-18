@@ -71,7 +71,7 @@ class MasterSeeder extends Seeder
         }
 
         // Faskes
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             DB::table('faskes')->insert([
                 'kode' => $faker->nik(),
                 'nama' => $faker->company,

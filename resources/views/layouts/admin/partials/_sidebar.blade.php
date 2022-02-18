@@ -31,31 +31,7 @@
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
                     </li>
-
                     @role('pendaftaran|super_admin')
-                    <li class="nk-menu-item has-sub {{ activeClass('dashboard.antrian-poli.jantung') }} 
-                    {{ activeClass('dashboard.antrian-poli.anak') }}">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-view-list-fill"></em>
-                            </span>
-                            <span class="nk-menu-text">Antrian Poli</span>
-                        </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item {{ activeClass('dashboard.antrian-poli.jantung') }}">
-                                <a href="{{ route('dashboard.antrian-poli.jantung') }}" class="nk-menu-link">
-                                    <span
-                                        class="nk-menu-text">Antrian Poli Jantung</span>
-                                </a>
-                            </li>
-                            <li class="nk-menu-item {{ activeClass('dashboard.antrian-poli.anak') }}">
-                                <a href="{{ route('dashboard.antrian-poli.anak') }}" class="nk-menu-link">
-                                    <span
-                                        class="nk-menu-text">Antrian Poli Anak</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
                         <li class="nk-menu-item has-sub">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
@@ -79,7 +55,6 @@
                             </ul>
                         </li>
                     @endrole
-
                     <!-- DOKTER -->
                     @role('dokter|super_admin')
                         <li
@@ -124,14 +99,23 @@
 
                     <!-- KASIR -->
                     @role('kasir|super_admin')
-                    <li
-                        class="nk-menu-item {{ activeClass('kasir.index') }}">
-                        <a href="{{ route('kasir.index') }}" class="nk-menu-link">
+                    <li class="nk-menu-item has-sub">
+                        <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
                                     <em class="icon ni ni-sign-idr"></em>
                                 </span>
                             <span class="nk-menu-text">Kasir</span>
                         </a>
+                        <ul class="nk-menu-sub ">
+                            <li class="nk-menu-item {{ activeClass('kasir.index') }}">
+                                <a href="{{ route('kasir.index') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Transaksi</span></a>
+                            </li>
+                            <li class="nk-menu-item {{ activeClass('kasir.laporan') }}">
+                                <a href="{{ route('kasir.laporan') }}" class="nk-menu-link"><span
+                                        class="nk-menu-text">Laporan Transaksi Kasir</span></a>
+                            </li>
+                        </ul>
                     </li>
                     @endrole
 
@@ -203,8 +187,28 @@
                             </ul>
                         </li>
                     @endrole
-
-                    @role('super_admin')
+                    @role('super_admin|admin')
+                        <li class="nk-menu-item has-sub {{ activeClass('dashboard.antrian-poli.jantung') }} {{ activeClass('dashboard.antrian-poli.anak') }}">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-view-list-fill"></em>
+                                </span>
+                                <span class="nk-menu-text">Antrian Poli</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item {{ activeClass('dashboard.antrian-poli.jantung') }}">
+                                    <a href="{{ route('dashboard.antrian-poli.jantung') }}" class="nk-menu-link">
+                                        <span
+                                            class="nk-menu-text">Antrian Poli Jantung</span>
+                                    </a>
+                                </li>
+                                <li class="nk-menu-item {{ activeClass('dashboard.antrian-poli.anak') }}">
+                                    <a href="{{ route('dashboard.antrian-poli.anak') }}" class="nk-menu-link">
+                                        <span
+                                            class="nk-menu-text">Antrian Poli Anak</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nk-menu-item {{ activeClass('layanan.index') }}">
                             <a href="{{ route('layanan.index') }}" class="nk-menu-link">
                                 <span class="nk-menu-icon">

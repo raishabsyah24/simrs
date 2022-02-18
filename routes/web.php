@@ -50,36 +50,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 // Role super admin
-Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|pendaftaran']], function () {
-
-    // Layanan
-    Route::post('/layanan/data', [LayananController::class, 'data'])
-        ->name('layanan.data');
-    Route::get('/layanan', [LayananController::class, 'index'])
-        ->name('layanan.index');
-    Route::get('/layanan/fetch-data', [LayananController::class, 'fetchData'])
-        ->name('layanan.fetchData');
-    Route::post('/layanan', [LayananController::class, 'store'])
-        ->name('layanan.store');
-
-    // dokter
-    Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
-    Route::get('/dokter/fetch-data', [DokterController::class, 'fetchData'])->name('dokter.fetchData');
-    Route::get('/dokter/create', [DokterController::class, 'create'])->name('dokter.create');
-    Route::get('/dokter/{dokter}/edit', [DokterController::class, 'edit'])->name('dokter.edit');
-    Route::get('/dokter/{dokter}/ganti-jadwal-praktek', [DokterController::class, 'gantiJadwal'])->name('dokter.ganti-jadwal-praktek');
-    Route::put('/dokter/{dokter}/ganti-jadwal-praktek', [DokterController::class, 'updateJadwal'])->name('dokter.update-jadwal-praktek');
-    Route::post('/dokter', [DokterController::class, 'store'])->name('dokter.store');
-    Route::put('/dokter/{dokter}', [DokterController::class, 'update'])->name('dokter.update');
-    Route::delete('/dokter/{dokter}/delete', [DokterController::class, 'delete'])->name('dokter.delete');
-
-    // History user
-    Route::get('/aktifitas-user', [ActivityLogController::class, 'index'])
-        ->name('aktifitas-user.index');
-    Route::get('/aktifitas-user/fetch-data', [ActivityLogController::class, 'fetchData'])
-        ->name('aktifitas-user.fetchData');
-
-
+Route::group(['middleware' => ['auth', 'role:super_admin|pendaftaran']], function () {
     // Pendaftaran
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])
         ->name('pendaftaran.index');
@@ -95,8 +66,6 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|pendaftar
         ->name('pendaftaran.search-pasien');
     Route::get('/pendaftaran/change-pasien', [PendaftaranController::class, 'changePasien'])
         ->name('pendaftaran.change-pasien');
-    Route::get('/messanger', [PendaftaranController::class, 'messanger'])
-        ->name('pendaftaran.messanger');
     Route::post('/pendaftaran', [PendaftaranController::class, 'store'])
         ->name('pendaftaran.store');
     Route::post('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'storePasienSudahPernahDaftar'])
@@ -106,26 +75,6 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|pendaftar
 
     Route::delete('/pendaftaran/pasien/{pemeriksaan}/delete', [PendaftaranController::class, 'destroy'])
         ->name('pendaftaran.destroy');
-
-    Route::get('/user', [UserController::class, 'index'])
-        ->name('user.index');
-    Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
-        ->name('user.fetchData');
-    Route::get('/user/create', [UserController::class, 'create'])
-        ->name('user.create');
-    Route::get('/user/{user}/edit', [UserController::class, 'edit'])
-        ->name('user.edit');
-    Route::post('/user/store', [UserController::class, 'store'])
-        ->name('user.store');
-    Route::put('/user/{user}/update-status', [UserController::class, 'updateStatus'])
-        ->name('user.update-status');
-    Route::put('/user/{user}/reset-password', [UserController::class, 'resetPassword'])
-        ->name('user.reset-password');
-    Route::put('/user/{user}/update', [UserController::class, 'update'])
-        ->name('user.update');
-    Route::delete('/user/{user}/delete', [UserController::class, 'delete'])
-        ->name('user.delete');
-
 
     // Posisi pasien
     Route::get('/pendaftaran/{id}/posisi-pasien', [PosisiPasienController::class, 'rajal'])
@@ -238,16 +187,7 @@ Route::group(['middleware' => ['auth', 'role:poli_station|super_admin']], functi
         ->name('poli-station.update');
 });
 
-// Role rekam medis
-Route::group(['middleware' => ['auth', 'role:rekam_medis|super_admin']], function () {
-    Route::get('/rekam_medis', [RekammedisController::class, 'rekam_medis'])
-        ->name('rm.rekammedis');
-    Route::get('/retensi', [RekammedisController::class, 'retensi'])
-        ->name('rm.retensi');
-    Route::get('/migrasi', [RekammedisController::class, 'migrasi_retensi'])
-        ->name('rm.migrasi');
-});
-
+// Kasir
 Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
     Route::get('/kasir', [KasirController::class, 'index'])
         ->name('kasir.index');
@@ -259,26 +199,23 @@ Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
         ->name('kasir.proses');
     Route::get('/kasir/{kasir}/print-invoice', [KasirController::class, 'printInvoice'])
         ->name('kasir.print-invoice');
+    Route::get('/kasir/laporan', [KasirController::class, 'laporan'])
+        ->name('kasir.laporan');
     Route::put('/kasir/{kasir}/update-tagihan', [KasirController::class, 'updateTagihan'])
         ->name('kasir.update-tagihan');
     Route::put('/kasir/{kasir}/update-status', [KasirController::class, 'updateStatus'])
         ->name('kasir.update-status');
     Route::put('/kasir/{kasir}/tambah-deposit', [KasirController::class, 'tambahDeposit'])
         ->name('kasir.tambah-deposit');
+    Route::post('/kasir/laporan/ekspor', [KasirController::class, 'ekspor'])
+        ->name('kasir.laporan.ekspor');
 });
 
 Route::group(['middleware' => ['auth', 'role: lab|super_admin']], function () {
-
-
     Route::get('/otclab', [LabController::class, 'lab_otc'])
         ->name('lab.otc');
     Route::get('/umumlab', [LabController::class, 'lab_umum'])
         ->name('lab.umum');
-
-    Route::get('/aktifitas-user', [ActivityLogController::class, 'index'])
-        ->name('aktifitas-user.index');
-    Route::get('/aktifitas-user/fetch-data', [ActivityLogController::class, 'fetchData'])
-        ->name('aktifitas-user.fetchData');
 });
 
 Route::group(['middleware' => ['auth', 'role:pendaftaran|super_admin']], function () {
@@ -303,7 +240,6 @@ Route::group(['middleware' => ['auth', 'role:pendaftaran|super_admin']], functio
 });
 
 Route::group(['middleware' => ['auth', 'role:radiologi|super_admin']], function () {
-
     Route::get('/otcradio', [RadiologiController::class, 'radiologi_otc'])
         ->name('order.radiologi-otc');
     Route::get('/umumradio', [RadiologiController::class, 'radiologi_umum'])
@@ -315,18 +251,38 @@ Route::group(['middleware' => ['auth', 'role:radiologi|super_admin']], function 
 });
 
 
-Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () {
-
-    Route::get('/layanan', [LayananController::class, 'index'])
-        ->name('layanan.index');
-    Route::get('/layanan/fetch-data', [LayananController::class, 'fetchData'])
-        ->name('layanan.fetchData');
-    Route::post('/layanan', [LayananController::class, 'store'])
-        ->name('layanan.store');
-});
-
 Route::group(['middleware' => ['auth', 'role:admin|super_admin']], function () {
 
+    // dokter
+    Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
+    Route::get('/dokter/fetch-data', [DokterController::class, 'fetchData'])->name('dokter.fetchData');
+    Route::get('/dokter/create', [DokterController::class, 'create'])->name('dokter.create');
+    Route::get('/dokter/{dokter}/edit', [DokterController::class, 'edit'])->name('dokter.edit');
+    Route::get('/dokter/{dokter}/ganti-jadwal-praktek', [DokterController::class, 'gantiJadwal'])->name('dokter.ganti-jadwal-praktek');
+    Route::put('/dokter/{dokter}/ganti-jadwal-praktek', [DokterController::class, 'updateJadwal'])->name('dokter.update-jadwal-praktek');
+    Route::post('/dokter', [DokterController::class, 'store'])->name('dokter.store');
+    Route::put('/dokter/{dokter}', [DokterController::class, 'update'])->name('dokter.update');
+    Route::delete('/dokter/{dokter}/delete', [DokterController::class, 'delete'])->name('dokter.delete');
+
+    Route::get('/user', [UserController::class, 'index'])
+        ->name('user.index');
+    Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
+        ->name('user.fetchData');
+    Route::get('/user/create', [UserController::class, 'create'])
+        ->name('user.create');
+    Route::get('/user/{user}/edit', [UserController::class, 'edit'])
+        ->name('user.edit');
+    Route::post('/user/store', [UserController::class, 'store'])
+        ->name('user.store');
+    Route::put('/user/{user}/update-status', [UserController::class, 'updateStatus'])
+        ->name('user.update-status');
+    Route::put('/user/{user}/reset-password', [UserController::class, 'resetPassword'])
+        ->name('user.reset-password');
+    Route::put('/user/{user}/update', [UserController::class, 'update'])
+        ->name('user.update');
+    Route::delete('/user/{user}/delete', [UserController::class, 'delete'])
+        ->name('user.delete');
+
     Route::post('/layanan/data', [LayananController::class, 'data'])
         ->name('layanan.data');
     Route::get('/layanan', [LayananController::class, 'index'])
@@ -336,24 +292,10 @@ Route::group(['middleware' => ['auth', 'role:admin|super_admin']], function () {
     Route::post('/layanan', [LayananController::class, 'store'])
         ->name('layanan.store');
 
-    Route::get('/user/medis', [TenagaMedisController::class, 'dataMedis'])
-        ->name('data.medis');
-    Route::get('/user/medis/create', [TenagaMedisController::class, 'createMedis'])
-        ->name('data.create-medis');
-    Route::post('/user/medis/store', [TenagaMedisController::class, 'storeMedis'])
-        ->name('data.store-medis');
-});
-
-Route::group(['middleware' => ['auth', 'role:poli|super_admin']], function () {
-
-    Route::post('/layanan/data', [LayananController::class, 'data'])
-        ->name('layanan.data');
-    Route::get('/layanan', [LayananController::class, 'index'])
-        ->name('layanan.index');
-    Route::get('/layanan/fetch-data', [LayananController::class, 'fetchData'])
-        ->name('layanan.fetchData');
-    Route::post('/layanan', [LayananController::class, 'store'])
-        ->name('layanan.store');
+    Route::get('/aktifitas-user', [ActivityLogController::class, 'index'])
+        ->name('aktifitas-user.index');
+    Route::get('/aktifitas-user/fetch-data', [ActivityLogController::class, 'fetchData'])
+        ->name('aktifitas-user.fetchData');
 });
 
 require __DIR__ . '/auth.php';

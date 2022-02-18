@@ -12,7 +12,7 @@
                     @csrf
                     @method('put')
                     <div class="form-group">
-                        <label class="form-label">Deposit Awal <span class="text-danger">*</span></label>
+                        <label class="form-label">Deposit<span class="text-danger">*</span></label>
                         <div class="form-control-wrap">
                             <input type="number" class="form-control-lg form-control" name="deposit_awal">
                         </div>

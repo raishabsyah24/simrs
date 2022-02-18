@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Diagnosa;
+use App\Models\Faskes;
 use App\Models\Kasir;
 use App\Models\PosisiDetailPasienRajal;
 use App\Models\PosisiPasienRajal;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Repositories\Interfaces\KasirInterface;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Exports\KasirExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 class KasirController extends Controller
 {
@@ -162,7 +166,6 @@ class KasirController extends Controller
 
     public function updateStatus(Kasir $kasir, Request $request)
     {
-
         $request->validate([
             'metode_pembayaran' => 'required',
             'status_pembayaran' => 'required',
@@ -174,8 +177,8 @@ class KasirController extends Controller
         $attr['status'] = 'sudah dilayani';
         $attr['tanggal_pembayaran'] = now();
         $attr['admin'] = auth()->id();
+        $attr['kode'] = kodePembayaran();
         DB::transaction(function () use ($attr, $kasir) {
-
             $kasir->update($attr);
 
             $posisi_pasien = $this->kasirRepository->posisiPasien($kasir->id);
@@ -264,10 +267,45 @@ class KasirController extends Controller
     public function printInvoice(Kasir $kasir)
     {
         $title = 'Invoice';
-        $data = Diagnosa::all();
+        $data = Faskes::limit(20)->get();
         return view('admin.kasir.pdf.invoice', compact(
             'title',
             'data'
         ));
+    }
+
+    public function laporan()
+    {
+        $title = 'Laporan Kasir';
+        return view('admin.laporan.kasir.index', compact(
+            'title'
+        ));
+    }
+
+    public function ekspor(Request $request)
+    {
+        $attr = $request->validate([
+            'dari' => 'required|date',
+            'sampai' => 'required|date',
+            'ekstensi' => 'required',
+        ]);
+        $tanggal_awal = Carbon::parse($attr['dari'])->startOfDay();
+        $tanggal_akhir = Carbon::parse($attr['sampai'])->endOfDay();
+        $data = $this->kasirRepository->laporan($tanggal_awal, $tanggal_akhir);
+        $grand_total = 0;
+        foreach ($data as $total) {
+            $grand_total += totalTagihan($total->kasir_id);
+        }
+
+        if ($attr['ekstensi'] == 'pdf') {
+            return view('admin.laporan.kasir.pdf', compact(
+                'data',
+                'attr',
+                'grand_total'
+            ));
+        }
+        if ($attr['ekstensi'] == 'excel') {
+            return Excel::download(new KasirExport($data), 'kasir.xlsx');
+        }
     }
 }

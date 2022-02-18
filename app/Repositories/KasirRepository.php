@@ -93,4 +93,21 @@ class KasirRepository implements KasirInterface
             ->where('pemeriksaan_id', $kasir->pemeriksaan_id)
             ->first();
     }
+
+    public function laporan($tanggal_awal, $tanggal_akhir)
+    {
+        return DB::table('kasir as k')
+            ->selectRaw('
+                p.nama as nama_pasien, k.tanggal_pembayaran, kp.nama as kategori_pasien, u.name as admin,
+                k.total_tagihan, k.diskon, k.pajak, k.id as kasir_id
+            ')
+            ->join('pemeriksaan as pe','pe.id','=','k.pemeriksaan_id')
+            ->join('pasien as p','p.id','=','pe.pasien_id')
+            ->join('kategori_pasien as kp','kp.id','=','pe.kategori_pasien')
+            ->join('users as u','u.id','=','k.admin')
+            ->whereBetween('k.tanggal_pembayaran',[$tanggal_awal, $tanggal_akhir])
+            ->where('k.status','sudah dilayani')
+            ->where('k.status_pembayaran', '!=','belum dibayar')
+            ->get();
+    }
 }
