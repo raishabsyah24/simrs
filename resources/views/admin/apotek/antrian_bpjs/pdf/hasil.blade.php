@@ -148,35 +148,36 @@
                                             <div class="nk-block-head nk-block-head-sm nk-block-between">
                                                 <h5 class="title">Catatan Tambahan</h5>
                                             </div><!-- .nk-block-head -->
-                                                <table class="table table-tranx">
-                                                    <thead>
-                                                        <tr class="tb-tnx-head">
-                                                            <th class="tb-tnx-id">
-                                                                <span class="">#</span>
-                                                            </th>
-                                                            <th class="tb-tnx-info">
-                                                                <span class="tb-tnx-desc d-none d-sm-inline-block">
-                                                                    <span>nama obat</span>
+                                            <table class="table table-tranx">
+                                                <thead>
+                                                    <tr class="tb-tnx-head">
+                                                        <th class="tb-tnx-id"><span class="">#</span></th>
+                                                        <th class="tb-tnx-info">
+                                                            <span class="tb-tnx-desc d-none d-sm-inline-block">
+                                                                <span>Bill For</span>
+                                                            </span>
+                                                            <span class="tb-tnx-date d-md-inline-block d-none">
+                                                                <span class="d-md-none">Date</span>
+                                                                <span class="d-none d-md-block">
+                                                                    <span>Issue Date</span>
+                                                                    <span>Due Date</span>
                                                                 </span>
-                                                            </th>
-                                                            <th class="tb-tnx-amount is-alt">
-                                                                <th>Signa</th>
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @forelse ($drug as $item)
-                                                        <tr class="tb-tnx-item">
-                                                            <td class="tb-tnx-id">
-                                                                <span>{{ $loop->iteration }}</span>
-                                                            </td>
-                                                            <td class="tb-tnx-info">
-                                                                <div class="tb-tnx-desc">
-                                                                    <span class="title">{{ $item->nama_generik }}</span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        @empty
+                                                            </span>
+                                                        </th>
+                                                        <th class="tb-tnx-amount">
+                                                            <span class="tb-tnx-total">Total</span>
+                                                            <span class="tb-tnx-status d-none d-md-inline-block">Status</span>
+                                                        </th>
+                                                     </tr>
+                                                 </thead>
+                                                <tbody>
+                                                    @forelse ($drug as $item)
+                                                    <tr class="tb-tnx-item">
+                                                        <td class="tb-tnx-id">
+                                                            <span>{{ $loop->iteration }}</span>
+                                                        </td>
+                                                    </tr>
+                                                    @empty
                                                         <tr>
                                                             <td class="text-center" colspan="8">
                                                                 <h6>Belum ada
@@ -184,8 +185,8 @@
                                                             </td>
                                                         </tr>
                                                         @endforelse
-                                                    </tbody>
-                                                </table>
+                                                </tbody>
+                                            </table>
                                            
                                             </div><!-- .bq-note -->
                                         </div><!-- .nk-block -->
