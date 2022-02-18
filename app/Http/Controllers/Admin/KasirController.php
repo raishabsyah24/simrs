@@ -14,15 +14,14 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\KasirExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-
-
 class KasirController extends Controller
 {
+    public $perPage = 10;
     public $kasirRepository;
-    public function __construct(KasirInterface $kasirRepository){
+    public function __construct(KasirInterface $kasirRepository)
+    {
         $this->kasirRepository = $kasirRepository;
     }
-    public $perPage = 10;
 
     public function index()
     {
@@ -48,7 +47,7 @@ class KasirController extends Controller
         $status = $request->get('status');
         $badge = $this->badge();
         $data = $this->kasirRepository->kasir()
-            ->when($q ?? false, function ($query) use ($q){
+            ->when($q ?? false, function ($query) use ($q) {
                 return $query->where('p.nama', 'like', "%{$q}%")
                     ->orWhere('p.no_hp', 'like', "%{$q}%")
                     ->orWhere('p.tanggal_lahir', 'like', "%{$q}%")
@@ -72,7 +71,7 @@ class KasirController extends Controller
             ->when($status && $kategori ?? false, function ($query) use ($status, $kategori) {
                 if ($status == 'semua') {
                     return false;
-                }else if ($kategori == 'semua') {
+                } else if ($kategori == 'semua') {
                     return false;
                 }
                 return $query->where('k.status', $status)
@@ -81,14 +80,14 @@ class KasirController extends Controller
             ->paginate($this->perPage);
         return view(
             'admin.kasir.fetch',
-            compact('data','badge')
+            compact('data', 'badge')
         )
             ->render();
     }
 
     public function proses(Kasir $kasir)
     {
-        if(request()->ajax()){
+        if (request()->ajax()) {
             $total = $this->totalTagihan($kasir->id);
             return response()->json([
                 'totalAngka' => $total,
@@ -98,7 +97,7 @@ class KasirController extends Controller
         }
 
         $posisi_pasien = $this->kasirRepository->posisiPasien($kasir->id);
-        if($posisi_pasien->status == 'proses kasir'){
+        if ($posisi_pasien->status == 'proses kasir') {
             $posisi = PosisiPasienRajal::findOrFail($posisi_pasien->posisi_pasien_rajal_id);
             $posisi->update([
                 'status' => 'proses transaksi'
@@ -135,31 +134,31 @@ class KasirController extends Controller
             'diskon' => 'numeric|max:100|nullable',
             'pajak' => 'numeric|max:100|nullable',
         ]);
-//        dd($attr);
+        //        dd($attr);
         $diskon = $request->diskon;
         $pajak = $request->pajak;
 
-            if($diskon != null){
-                $kasir->update([
-                    'diskon' => $diskon,
-                ]);
-            }else{
-                $kasir->update([
-                    'diskon' => 0,
-                ]);
-            }
-            if($pajak != null){
-                $kasir->update([
-                    'pajak' => $pajak,
-                ]);
-            }else{
-                $kasir->update([
-                    'pajak' => 0,
-                ]);
-            }
+        if ($diskon != null) {
+            $kasir->update([
+                'diskon' => $diskon,
+            ]);
+        } else {
+            $kasir->update([
+                'diskon' => 0,
+            ]);
+        }
+        if ($pajak != null) {
+            $kasir->update([
+                'pajak' => $pajak,
+            ]);
+        } else {
+            $kasir->update([
+                'pajak' => 0,
+            ]);
+        }
 
         return response()->json([
-           'message' => 'Update berhasil'
+            'message' => 'Update berhasil'
         ]);
     }
 
@@ -171,17 +170,17 @@ class KasirController extends Controller
             'dibayar' => 'required|numeric',
         ]);
         $attr = $request->only([
-            'metode_pembayaran','status_pembayaran','dibayar'
+            'metode_pembayaran', 'status_pembayaran', 'dibayar'
         ]);
         $attr['status'] = 'sudah dilayani';
         $attr['tanggal_pembayaran'] = now();
         $attr['admin'] = auth()->id();
         $attr['kode'] = kodePembayaran();
-        DB::transaction(function () use ($attr, $kasir){
+        DB::transaction(function () use ($attr, $kasir) {
             $kasir->update($attr);
 
             $posisi_pasien = $this->kasirRepository->posisiPasien($kasir->id);
-            if($posisi_pasien->status == 'proses transaksi'){
+            if ($posisi_pasien->status == 'proses transaksi') {
                 $posisi = PosisiPasienRajal::findOrFail($posisi_pasien->posisi_pasien_rajal_id);
                 $posisi->update([
                     'status' => 'proses obat'
@@ -200,19 +199,17 @@ class KasirController extends Controller
                     'status' => 'selesai'
                 ]);
             }
-
         });
 
         return response()->json([
             'message' => 'Transaksi berhasil dilakukan',
             'url' => route('kasir.index')
         ], 200);
-
     }
 
     public function show(Kasir $kasir)
     {
-        if(request()->ajax()){
+        if (request()->ajax()) {
             $total = $this->totalTagihan($kasir->id);
             return response()->json([
                 'total' => formatAngka($total, true),
@@ -235,11 +232,11 @@ class KasirController extends Controller
     public function tambahDeposit(Kasir $kasir, Request $request)
     {
         $attr = $request->validate([
-           'deposit_awal' => 'required|numeric|min:1'
+            'deposit_awal' => 'required|numeric|min:1'
         ]);
 
         $kasir->deposit_awal = $kasir->deposit_awal + $attr['deposit_awal'];
-        if(!$kasir->tanggal_deposit){
+        if (!$kasir->tanggal_deposit) {
             $kasir->tanggal_deposit = now();
         }
         $kasir->update();
@@ -278,34 +275,57 @@ class KasirController extends Controller
     public function laporan()
     {
         $title = 'Laporan Kasir';
+        $kategori_pasien = $this->kategoriPasien();
         return view('admin.laporan.kasir.index', compact(
-            'title'
+            'title',
+            'kategori_pasien'
         ));
     }
 
     public function ekspor(Request $request)
     {
         $attr = $request->validate([
-            'dari' => 'required|date',
-            'sampai' => 'required|date',
+            'dari' => [
+                'required',
+                'date',
+                'date_format:Y-m-d',
+                'before:sampai'
+            ],
+            'sampai' => [
+                'required',
+                'date',
+                'date_format:Y-m-d',
+                'after:dari'
+            ],
             'ekstensi' => 'required',
+            'kategori_pasien' => 'nullable'
         ]);
         $tanggal_awal = Carbon::parse($attr['dari'])->startOfDay();
         $tanggal_akhir = Carbon::parse($attr['sampai'])->endOfDay();
-        $data = $this->kasirRepository->laporan($tanggal_awal, $tanggal_akhir);
-        $grand_total = 0;
-        foreach ($data as $total){
-            $grand_total += totalTagihan($total->kasir_id);
+        $kategori_pasien = $attr['kategori_pasien'];
+
+        $data['data'] = $this->kasirRepository->laporan($tanggal_awal, $tanggal_akhir)
+            ->when($kategori_pasien ?? false, function ($query) use ($kategori_pasien) {
+                if ($kategori_pasien == 'semua') {
+                    return false;
+                }
+                return $query->where('kp.id', $kategori_pasien);
+            })
+            ->get();
+        $data['dari'] = $attr['dari'];
+        $data['sampai'] = $attr['sampai'];
+        $data['grand_total'] = 0;
+        foreach ($data['data'] as $total) {
+            $data['grand_total'] += totalTagihan($total->kasir_id);
         }
 
-        if($attr['ekstensi'] == 'pdf' ){
+        if ($attr['ekstensi'] == 'pdf') {
             return view('admin.laporan.kasir.pdf', compact(
                 'data',
-                'attr',
-                'grand_total'
+                'attr'
             ));
         }
-        if($attr['ekstensi'] == 'excel' ){
+        if ($attr['ekstensi'] == 'excel') {
             return Excel::download(new KasirExport($data), 'kasir.xlsx');
         }
     }
