@@ -58,7 +58,7 @@
                 <span class="tb-amount">{{ $item->kategori_pasien }}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="text-uppercase badge badge-dim badge-{{ $item->status_pemeriksaan ? 'success' : 'danger' }}" >
+                <span class="text-uppercase badge badge-dim badge-{{ $item->status_pemeriksaan == 'selesai' ? 'success' : 'danger'}}" >
                     {{ $item->status_pemeriksaan }}</span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
@@ -79,7 +79,7 @@
                                     <li>
                                         <a href="{{ route('apotek.pasien-umum',
                                         [$item->pemeriksaan_id, $item->periksa_dokter_id]) }}">
-                                            <em class="icon ni ni-edit-fill"></em>
+                                            <em class="icon ni ni-update"></em>
                                             <span>Proses</span>
                                         </a>
                                     </li>

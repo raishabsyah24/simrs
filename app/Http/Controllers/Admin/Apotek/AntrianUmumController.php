@@ -70,7 +70,6 @@ class AntrianUmumController extends Controller
     public function detailPasienUmum($pasien_umum)
     {
         $title = 'Detail Pasien';
-        // $head  = 'Informasi Pasien';
         return view('admin.apotek.antrian_umum._pasien-umum', compact(
             'title'
         ));
@@ -159,7 +158,7 @@ class AntrianUmumController extends Controller
                     ]);
 
                     $user = auth()->user()->name;
-                    $aktifitas = "Pasien telah selesai di apotek oleh {$user}";
+                    $aktifitas = "Pasien sudah selesai diproses di apotek oleh {$user}";
                     $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
                         'posisi_pasien_rajal_id' => $posisi_pasien->id,
                         'aktifitas' => $aktifitas,

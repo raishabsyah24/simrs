@@ -14,7 +14,7 @@
 </head>
     <style>
         .medich__contact {
-            margin: 0 0 0 20px;
+            margin: 0 0 15px 20px;
         }
         
         .admin__note  {
@@ -25,6 +25,11 @@
         .description {
             cursor: default;
         }
+
+        .firdaus-brands {
+            text-align: center;
+            align-items: center;
+        }
         .dragula-container > *:not(:last-child) {margin-bottom: 0.75rem;}
     </style>
 <body class="bg-grey" onload="printPromot()"> 
@@ -32,18 +37,17 @@
         <div class="container">
             <div class="nk-content-inner">
                 <div class="nk-content-body">
-                    <div class="invoice-brand">
-                        <img {{ asset('backend/images/logo.png') }}"
-                        srcset="{{ asset('backend/images/logo2x.png 2x') }}" alt="logo">
-                        <div class="invoice-contact medich__contact">
-                            <div class="invoice-contact-info mt-3">
-                                <ul class="list-plain">
-                                    <li><em class="icon ni ni-map-pin-fill fs-18px"></em>
-                                        <span>House #65, 4328 Marion Street<br>Newbury, VT 05051</span></li>
-                                    <li><em class="icon ni ni-call-fill fs-14px"></em>
-                                        <span>+012 8764 556</span></li>
-                                </ul>
-                            </div>
+                    <div class="invoice-brand firdaus-brands">
+                        <img src="/backend/images/logo-rs.jpeg">
+                    </div>
+                    <div class="invoice-contact medich__contact">
+                        <div class="invoice-contact-info mt-3">
+                            <ul class="list-plain">
+                                <li><em class="icon ni ni-map-pin-fill fs-18px"></em>
+                                    <span>House #65, 4328 Marion Street<br>Newbury, VT 05051</span></li>
+                                <li><em class="icon ni ni-call-fill fs-14px"></em>
+                                    <span>+012 8764 556</span></li>
+                            </ul>
                         </div>
                     </div>
                     <div class="nk-block">
@@ -52,7 +56,10 @@
                                 <div class="card-content">
                                     <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
                                         <li class="nav-item">
-                                            <a class="nav-link active" href="#"><em class="icon ni ni-user-circle"></em><span>Personal</span></a>
+                                            <a class="nav-link active" href="#">
+                                                <em class="icon ni ni-user-circle"></em>
+                                                <span>Personal</span>
+                                            </a>
                                         </li>
                                     </ul><!-- .nav-tabs -->
                                     <div class="card-inner">
@@ -64,7 +71,7 @@
                                                 <div class="profile-ud-item">
                                                     <div class="profile-ud wider">
                                                         <span class="profile-ud-label">Nama Pasien</span>
-                                                        <span class="profile-ud-value">Mr.</span>
+                                                        <span class="profile-ud-value">{{ $query->nama_pasien }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="profile-ud-item">
@@ -76,7 +83,7 @@
                                                 <div class="profile-ud-item">
                                                     <div class="profile-ud wider">
                                                         <span class="profile-ud-label">Tanggal Lahir</span>
-                                                        <span class="profile-ud-value">10 Aug, 1980</span>
+                                                        <span class="profile-ud-value">{{ $query->tanggal_lahir }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="profile-ud-item">
@@ -88,13 +95,13 @@
                                                 <div class="profile-ud-item">
                                                     <div class="profile-ud wider">
                                                         <span class="profile-ud-label">Umur</span>
-                                                        <span class="profile-ud-value">IO</span>
+                                                        <span class="profile-ud-value">{{ usia($query->tanggal_lahir) }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="profile-ud-item">
                                                     <div class="profile-ud wider">
                                                         <span class="profile-ud-label">Nomor Rekam Medis</span>
-                                                        <span class="profile-ud-value">01713040400</span>
+                                                        <span class="profile-ud-value">{{ $query->no_rekam_medis }}</span>
                                                     </div>
                                                 </div>
                                             </div><!-- .profile-ud-list -->
@@ -107,34 +114,59 @@
                                                 <div class="profile-ud-item">
                                                     <div class="profile-ud wider">
                                                         <span class="profile-ud-label">Nama Dokter</span>
-                                                        <span class="profile-ud-value">08-16-2018 09:04PM</span>
+                                                        <span class="profile-ud-value">{{ $query->nama_dokter }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="profile-ud-item">
                                                     <div class="profile-ud wider">
                                                         <span class="profile-ud-label">Tanggal Periksa</span>
-                                                        <span class="profile-ud-value">United State</span>
+                                                        <span class="profile-ud-value">{{ $query->tanggal_pemeriksaan }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="profile-ud-item">
                                                     <div class="profile-ud wider">
                                                         <span class="profile-ud-label">Tujuan Poli</span>
-                                                        <span class="profile-ud-value">United State</span>
+                                                        <span class="profile-ud-value">{{ $query->spesialis }}</span>
                                                     </div>
                                                 </div>
                                             </div><!-- .profile-ud-list -->
                                         </div><!-- .nk-block -->
                                         <div class="nk-divider divider md"></div>
-                                        <div class="nk-block">
+                                        < class="nk-block">
                                             <div class="nk-block-head nk-block-head-sm nk-block-between">
                                                 <h5 class="title">Catatan Tambahan</h5>
                                             </div><!-- .nk-block-head -->
-                                            <div class="dragula-container card card-bordered p-4 h-100 admin__note">
-                                                <div class="p-3 bg-white border border-light round-lg description">You can move these elements between these two containers.</div>
-                                                <div class="p-3 bg-white border border-light round-lg description">Moving them anywhere else isn't quite possible.</div>
-                                                <div class="p-3 bg-white border border-light round-lg description">Anything can be moved around.</div>
-                                                <div class="p-3 bg-white border border-light round-lg description">More interactive use cases lie ahead.</div>
-                                              </div>
+                                           
+                                                <table class="table table-tranx">
+                                                    <thead>
+                                                        <tr class="tb-tnx-head">
+                                                            <th class="tb-tnx-id"><span class="">#</span></th>
+                                                            <th class="tb-tnx-info">
+                                                                <span class="tb-tnx-desc d-none d-sm-inline-block">
+                                                                    <span>Bill For</span>
+                                                                </span>
+                                                                <span class="tb-tnx-date d-md-inline-block d-none">
+                                                                    <span class="d-md-none">Date</span>
+                                                                    <span class="d-none d-md-block">
+                                                                        <span>Issue Date</span>
+                                                                        <span>Due Date</span>
+                                                                    </span>
+                                                                </span>
+                                                            </th>
+                                                            <th class="tb-tnx-amount is-alt">
+                                                                <span class="tb-tnx-total">Total</span>
+                                                                <span class="tb-tnx-status d-none d-md-inline-block">Status</span>
+                                                            </th>
+                                                            <th class="tb-tnx-action">
+                                                                <span>&nbsp;</span>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                  
+                                                    </tbody>
+                                                </table>
+                                            
                                             </div><!-- .bq-note -->
                                         </div><!-- .nk-block -->
                                     </div><!-- .card-inner -->

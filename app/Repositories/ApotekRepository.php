@@ -49,6 +49,8 @@ class ApotekRepository implements ApotekInterface
             ->where('pd.status', 'selesai')
             ->where('po.status_diperiksa', 'sudah diperiksa')
             ->where('kt.nama', 'umum')
+            ->where('ka.status', 'sudah dilayani')
+            ->where('ka.status', '!=', 'lunas')
             ->whereDate('pe.tanggal', tanggalSekarang())
             ->orderBy('pe.created_at', 'asc');
     }
@@ -140,7 +142,7 @@ class ApotekRepository implements ApotekInterface
             ->join('dokter as dk', 'dk.id', '=', 'dk.id')
             ->join('dokter_poli as dp', 'dp.dokter_id', 'dk.id')
             ->join('poli as pl', 'dp.dokter_id', '=', 'pl.id')
-            ->where('ps.id', '=', $pemeriksaan_id)
+            ->where('pi.id', '=', $pemeriksaan_id)
             ->first();
     }
 }
