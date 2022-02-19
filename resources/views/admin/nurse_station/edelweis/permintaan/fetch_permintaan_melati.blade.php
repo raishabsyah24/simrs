@@ -1,15 +1,14 @@
 <div class="nk-tb-list is-separate mb-3">
         <div class="nk-tb-item nk-tb-head">
             <div class="nk-tb-col"><span class="sub-text">No</span></div>
-            <div class="nk-tb-col"><span class="sub-text">No PO</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Nama PO</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Tanggal PO</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Perusahaan Tujuan</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Tanggal diterima PO</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Penerimaan PO</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Status PO</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Keterangan</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Disetujui</span></div>
+            <div class="nk-tb-col"><span class="sub-text">No Permintaan</span></div>
+            <div class="nk-tb-col"><span class="sub-text">Nama Unit</span></div>
+            <div class="nk-tb-col"><span class="sub-text">Tanggal Permintaan</span></div>
+            <div class="nk-tb-col"><span class="sub-text">Jenis Permintaan</span></div>
+            <div class="nk-tb-col"><span class="sub-text">Item Permintaan</span></div>
+            <div class="nk-tb-col"><span class="sub-text">Jumlah</span></div>
+            <div class="nk-tb-col"><span class="sub-text">Stok Lama</span></div>
+        
             <div class="nk-tb-col"><span class="sub-text"><em class="icon ni ni-setting-fill"></em></span>
             </div>
 
@@ -20,31 +19,25 @@
                     <span>{{ $loop->iteration }}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span>{{ $item->no_po }}</span>
+                    <span>{{ $item->no_permintaan }}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span>{{ $item->nama_po }}</span>
+                    <span>{{ $item->nama_unit }}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span>{{ $item->tanggal_po }}</span>
+                    <span>{{ $item->tanggal_permintaan }}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span>{{ $item->perusahaan_tujuan }}</span>
+                    <span>{{ $item->jenis_permintaan }}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span>{{ $item->tanggal_po }}</span>
+                    <span>{{ $item->item_permintaan }}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span>{{ $item->penerimaan_po }}</span>
+                    <span>{{ $item->jumlah }}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span>{{ $item->status_po }}</span>
-                </div>
-                <div class="nk-tb-col tb-col-md">
-                    <span>{{ $item->keterangan }}</span>
-                </div>
-                <div class="nk-tb-col tb-col-md">
-                    <span>{{ $item->disetujui }}</span>
+                    <span>{{ $item->stok_lama }}</span>
                 </div>
                 
 

@@ -293,18 +293,32 @@
                                 <span class="nk-menu-text">MELATI</span>
                             </a>
                             <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                            <a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Pasien</span></a>
+                                            <ul class="nk-menu-sub">
+                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 201</span></a></li>
+                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 202</span></a></li>
+                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 203</span></a></li>
+                                            </ul><!-- .nk-menu-sub -->
+                                        </li>
                                 <li class="nk-menu-item">
-                                    <a href="{{route('rm.rekammedis')}}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Rekam Medis</span></a>
-                                    <a href="{{route('rm.retensi')}}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Retensi</span></a>
-                                    <a href="{{route('rm.migrasi')}}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Migrasi Data Lama</span></a>
+                                            <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Stok Penyimpanan</span></a>
+                                            <ul class="nk-menu-sub">
+                                                <li class="nk-menu-item"><a href="html/components/forms/form-summernote.html" class="nk-menu-link"><span class="nk-menu-text">BHP</span></a></li>
+                                                <li class="nk-menu-item"><a href="html/components/forms/form-quill.html" class="nk-menu-link"><span class="nk-menu-text">OBAT</span></a></li>
+                                                <li class="nk-menu-item"><a href="html/components/forms/form-tinymce.html" class="nk-menu-link"><span class="nk-menu-text">ATK</span></a></li>
+                                            </ul><!-- .nk-menu-sub -->
+                                        </li>
+                                        <li class="nk-menu-item">
+                                    <a href="{{route('ns.permintaan')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Permintaan</span></a>
                                 </li>
+                                        
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item --> 
                         @endrole
-
+                        
+                        
                         <!-- KENANGA -->
                         @role('kenanga|super_admin')
                         <li class="nk-menu-item has-sub">
@@ -518,6 +532,8 @@
                                             class="nk-menu-text">PO</span></a>
                                     <a href="{{route('gudang.penyimpanan')}}" class="nk-menu-link"><span
                                             class="nk-menu-text">Penyimpanan</span></a>
+                                    <a href="{{route('gudang.permintaan')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Permintaan</span></a>
                                     <a href="{{route('gudang.migrasi')}}" class="nk-menu-link"><span
                                             class="nk-menu-text">Migrasi</span></a>
                                     <a href="{{route('gudang.migrasi')}}" class="nk-menu-link"><span
@@ -540,8 +556,12 @@
                                             class="nk-menu-text">PO</span></a>
                                     <a href="{{route('gudang.penyimpanan')}}" class="nk-menu-link"><span
                                             class="nk-menu-text">Penyimpanan</span></a>
+                                    <a href="{{route('gudang.permintaan')}}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Permintaan</span></a>
                                     <a href="{{route('gudang.migrasi')}}" class="nk-menu-link"><span
                                             class="nk-menu-text">Migrasi</span></a>
+                                    <a href="{{route('gudang.migrasi')}}" class="nk-menu-link"><span
+                                                class="nk-menu-text">Stock Of Opname (SO)</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li><!-- .nk-menu-item --> 

@@ -64,10 +64,10 @@
      </div>
  </div>
 
- @if ($data->count() > 0)
+ @if ($data ?? ''->count() > 0)
      <div class="nk-block-between-md mt-5 justify-content-center d-flex">
          <div class="g">
-             {{ $data->links('components.pagination') }}
+             {{ $data ?? ''->links('components.pagination') }}
          </div>
      </div>
  @endif

@@ -71,7 +71,7 @@
                                                         class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white"
                                                         data-toggle="dropdown" aria-expanded="false">Filter Berdasarkan
                                                         Kategori</a>
-                                                    <div class="dropdown-menu dropdown-menu-right" style="">
+                                                    <div class="dropdown-menu dropdown-menu-right">
                                                         <ul class="link-list-opt no-bdr">
                                                             <li>
                                                                 <a href="" onclick="filterKategori(`semua`)">
@@ -101,7 +101,7 @@
                                                         class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white"
                                                         data-toggle="dropdown" aria-expanded="false">Filter Berdasarkan
                                                         Poli</a>
-                                                    <div class="dropdown-menu dropdown-menu-right" style="">
+                                                    <div class="dropdown-menu dropdown-menu-right" >
                                                         <ul class="link-list-opt no-bdr">
                                                             <li>
                                                                 <a href="" onclick="filterPoli(`semua`)">

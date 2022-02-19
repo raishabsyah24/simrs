@@ -2,14 +2,17 @@
 
 namespace App\Repositories\Interfaces;
 
+use PhpParser\Builder\Function_;
+use PhpParser\Node\Expr\FuncCall;
+
 interface GudangFarmasiInterface
 {
 
-    public function migrasi();
-    public function penyimpanan();
-    public function penerimaan_po();
+    public function input_po();
     public function perencanaan_po();
-    public function permintaan_po();
-    public function permintaan_bhp();
+    public Function searchObat(string $nama_obat);
+    public function perencanaan_permintaan();
+    public function input_permintaan();
+
     
 }

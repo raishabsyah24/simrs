@@ -1,12 +1,13 @@
 <div class="nk-tb-list is-separate mb-3">
         <div class="nk-tb-item nk-tb-head">
+            <div class="nk-tb-col"><span class="sub-text">No</span></div>
             <div class="nk-tb-col"><span class="sub-text">No PO</span></div>
             <div class="nk-tb-col"><span class="sub-text">Nama PO</span></div>
             <div class="nk-tb-col"><span class="sub-text">Tanggal PO</span></div>
+            <div class="nk-tb-col"><span class="sub-text">Perusahaan Tujuan</span></div>
             <div class="nk-tb-col"><span class="sub-text">Tanggal diterima PO</span></div>
             <div class="nk-tb-col"><span class="sub-text">Penerimaan PO</span></div>
             <div class="nk-tb-col"><span class="sub-text">Status PO</span></div>
-            <div class="nk-tb-col"><span class="sub-text"></span></div>
             <div class="nk-tb-col"><span class="sub-text">Keterangan</span></div>
             <div class="nk-tb-col"><span class="sub-text">Disetujui</span></div>
             <div class="nk-tb-col"><span class="sub-text"><em class="icon ni ni-setting-fill"></em></span>
@@ -16,48 +17,34 @@
         @forelse ($data ?? '' as $item)
             <div class="nk-tb-item">
                 <div class="nk-tb-col tb-col-md">
-                    <span>{{ $data ?? ''->count() * ($data ?? ''->currentPage() - 1) + $loop->iteration }}</span>
+                    <span>{{ $loop->iteration }}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span class="badge badge-dim badge-{{ $badge->random() }}">
-                        {!! $item->no_rekam_medis !!}
-                    </span>
-                </div>
-                <div class="nk-tb-col">
-                    <a href="">
-                        <div class="user-card">
-                            <div class="user-avatar bg-primary">
-                                <span class="text-uppercase">
-                                    {{ $item->jenis_kelamin == 'laki-laki' ? 'Tn' : 'Ny' }}
-                                </span>
-                            </div>
-                            <div class="user-info">
-                                <span class="tb-lead">{!! $item->nama_pasien !!}
-                                    <span class="dot dot-success d-md-none ml-1"></span>
-                                </span>
-                                <span>{!! $item->nik ?? '' !!}</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="nk-tb-col">
-                    <div class="user-card">
-                        <div class="user-info">
-                            <span class="tb-lead text-capitalize">{!! $item->kategori_pasien !!}
-                                <span class="dot dot-success d-md-none ml-1"></span>
-                            </span>
-                            <span>{!! $item->nik ?? '' !!}</span>
-                        </div>
-                    </div>
+                    <span>{{ $item->no_po }}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
-                    <span class="tb-lead">
-                        {!! tanggal($item->tanggal_lahir) !!}
-                    </span>
+                    <span>{{ $item->nama_po }}</span>
                 </div>
-                
-                <div class="nk-tb-col">
-                    <span class="tb-lead text-capitalize">{!! $item->nama_dokter !!}</span>
+                <div class="nk-tb-col tb-col-md">
+                    <span>{{ $item->tanggal_po }}</span>
+                </div>
+                <div class="nk-tb-col tb-col-md">
+                    <span>{{ $item->perusahaan_tujuan }}</span>
+                </div>
+                <div class="nk-tb-col tb-col-md">
+                    <span>{{ $item->tanggal_po }}</span>
+                </div>
+                <div class="nk-tb-col tb-col-md">
+                    <span>{{ $item->penerimaan_po }}</span>
+                </div>
+                <div class="nk-tb-col tb-col-md">
+                    <span>{{ $item->status_po }}</span>
+                </div>
+                <div class="nk-tb-col tb-col-md">
+                    <span>{{ $item->keterangan }}</span>
+                </div>
+                <div class="nk-tb-col tb-col-md">
+                    <span>{{ $item->disetujui }}</span>
                 </div>
                 
 

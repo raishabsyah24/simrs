@@ -16,7 +16,8 @@ use App\Repositories\{
     PosisiPasienRepository,
     DashboardRepository,
     UserRepository,
-    PoliStationRepository
+    PoliStationRepository,
+    MelatiRepository
 };
 use App\Repositories\Interfaces\{
     AntrianPoliInterface,
@@ -31,7 +32,8 @@ use App\Repositories\Interfaces\{
     PosisiPasienInterface,
     DashboardInterface,
     UserInterface,
-    PoliStationInterface
+    PoliStationInterface,
+    MelatiInterface
 };
 
 class AdminRepositoryServiceProvider extends ServiceProvider
@@ -91,6 +93,10 @@ class AdminRepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             PosisiPasienInterface::class,
             PosisiPasienRepository::class
+        );
+        $this->app->bind(
+            MelatiInterface::class,
+            MelatiRepository::class
         );
        
     }

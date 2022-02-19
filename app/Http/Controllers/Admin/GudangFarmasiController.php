@@ -3,67 +3,60 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\GudangFarmasi;
+use App\Models\GudangPermintaan;
 use Illuminate\Http\Request;
-use App\Models\Obat;
 use App\Repositories\Interfaces\GudangFarmasiInterface;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use App\Models\Poli;
-use App\Models\Dokter;
-use App\Models\Pasien;
-use App\Models\Layanan;
-use App\Models\PeriksaLab;
-use App\Models\RekamMedis;
-use App\Models\Pemeriksaan;
-use App\Models\PeriksaDokter;
-use App\Models\PeriksaRadiologi;
-use App\Models\RekamMedisPasien;
-use App\Models\PemeriksaanDetail;
-use App\Repositories\Interfaces\PendaftaranInterface;
-use App\Http\Requests\Admin\PendaftaranPasienBaruRequest;
-use App\Http\Requests\Admin\PendaftaranPasienLamaRequest;
+
 
 class GudangFarmasiController extends Controller
 
 {
         public $perPage = 10;
     
-        private $pendaftaranRepository;
+        private $gudangFarmasiRepository;
     
-        public function __construct(PendaftaranInterface $pendaftaranRepository)
+        public function __construct(GudangFarmasiInterface $gudangFarmasiRepository)
         {
-            $this->pendaftaranRepository = $pendaftaranRepository;
+            $this->gudangFarmasiRepository = $gudangFarmasiRepository;
         }
     
-        public function q()
+
+        public function input_po(Request $request)
         {
-            return $this->pendaftaranRepository->pasienHariIni()->get();
+            // dd($request->all());
+            $po = new GudangFarmasi();
+            $po->no_po = $request->no_po;
+            $po->tanggal_po = $request->tanggal_po;
+            $po->nama_po = $request->nama_po;
+            $po->perusahaan_tujuan = $request->perusahaan_tujuan;
+            $po->pembuat_po = $request->pembuat_po;
+            $po->kode_barang = $request->kode_barang;
+            $po->jumlah_barang = $request->jumlah_barang;
+            $po->keterangan = $request->keterangan;
+            $po->tanggal_diterima = $request->tanggal_diterima;
+            $po->penerimaan_po = "jamet Kudasai";
+            $po->status_po = "Proses";
+            $po->disetujui = $request->disetujui;
+            // dd($request->all());
+            $po->save();
+            return back();
         }
     
-        public function perencanaan_po()
+        public function perencanaan_po(Request $request)
         {
-    
-            $data = $this->pendaftaranRepository->pasienHariIni()
+            
+            $data = $this->gudangFarmasiRepository->perencanaan_po()
                 ->paginate($this->perPage);
-            $title = 'Pendaftaran';
+            $title = 'Gudang';
             $badge = $this->badge();
-            $kategori_pasien = $this->kategoriPasien();
-            $poli = $this->poli();
             $per_page = $this->perPage;
-            $total = [
-                ['Total Pasien Hari Ini', $this->pendaftaranRepository->pasienHariIni()->count()],
-                ['BPJS', $this->pendaftaranRepository->totalPasienBpjs()],
-                ['Umum', $this->pendaftaranRepository->totalPasienUmum()],
-                ['Asuransi', $this->pendaftaranRepository->totalPasienAsuransi()],
-            ];
+            // return $data;
             return view('admin.gudang.po.perencanaan_po', compact(
                 'title',
                 'data',
-                'total',
-                'badge',
-                'kategori_pasien',
-                'poli',
-                'per_page'
             ));
         }
 
@@ -71,72 +64,77 @@ class GudangFarmasiController extends Controller
         public function penyimpanan()
         {
     
-            $data = $this->pendaftaranRepository->pasienHariIni()
+            $data = $this->gudangFarmasiRepository->perencanaan_po()
                 ->paginate($this->perPage);
-            $title = 'Pendaftaran';
+            $title = 'Gudang';
             $badge = $this->badge();
-            $kategori_pasien = $this->kategoriPasien();
-            $poli = $this->poli();
             $per_page = $this->perPage;
-            $total = [
-                ['Total Pasien Hari Ini', $this->pendaftaranRepository->pasienHariIni()->count()],
-                ['BPJS', $this->pendaftaranRepository->totalPasienBpjs()],
-                ['Umum', $this->pendaftaranRepository->totalPasienUmum()],
-                ['Asuransi', $this->pendaftaranRepository->totalPasienAsuransi()],
-            ];
+            // return $data;
             return view('admin.gudang.penyimpanan', compact(
                 'title',
                 'data',
-                'total',
-                'badge',
-                'kategori_pasien',
-                'poli',
-                'per_page'
             ));
         }
 
 
-    public function migrasi()
-    {
-        $title = 'Migrasi data obat Gudang Farmasi';
-
-       
-        return view('admin.gudang.migrasi', compact(
-            'title'
-        ));
-    }
+        public function perencanaan_permintaan(Request $request)
+        {
+            // $melati_permintaan = DB::table('melati_permintaan as mp')
+            // ->selectRaw('mp.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
+            // ->orderByDesc('mp.created_at')->paginate($this->perPage);
     
+            // $data = DB::table('gudang_permintaan as gp')
+            // ->selectRaw('gp.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
+            // ->orderByDesc('gp.created_at')->paginate($this->perPage);
+            // return $melati_permintaan;
+            
+            $data = $this->gudangFarmasiRepository->perencanaan_permintaan()
+                ->paginate($this->perPage);
+            $title = 'Gudang';
+            $badge = $this->badge();
+            $per_page = $this->perPage;
+            // return $data;
+            return view('admin.gudang.permintaan.perencanaan_permintaan', compact(
+                'title',
+                'data',
+            ));
+        }
 
-    public function penerimaan_po()
+        public function input_permintaan(Request $request)
+        {
+            dd($request->all());
+            $gudang_permintaan = new GudangPermintaan();
+            $gudang_permintaan->no_permintaan  = $request->no_permintaan;
+            $gudang_permintaan->nama_unit = $request->nama_unit;
+            $gudang_permintaan->tanggal_permintaan = now();
+            $gudang_permintaan->jenis_permintaan = "BHP";
+            $gudang_permintaan->item_permintaan = $request->item_permintaan;
+            $gudang_permintaan->jumlah = $request->jumlah;
+            $gudang_permintaan->stok_lama = "20";
+
+            // dd($request->all());
+            $gudang_permintaan->save();
+            return back();
+        }
+
+
+    public function po_obat(Request $request)
     {
-        $title = 'penerimaan data obat Gudang Farmasi';
+        $obat = $request->get('obat');
+        $data = $this->gudangFarmasiRepository->searchObat($obat);
 
-       
-        return view('admin.gudang.penerimaan_po', compact(
-            'title'
-        ));
+        $output = '<div class="dropdown-menu d-block position-relative">';
+        foreach ($data as $item) {
+            $output .= '
+                <a href="#" class="item dropdown-item">
+                ' . $item->nama_generik . ' ( ' . $item->nama_paten . ' )' . ' </a>
+                ';
+        }
+        $output .= '</div>';
+        echo $output;
     }
 
-    public function permintaan_po()
-    {
-        $title = 'permintaan data obat Gudang Farmasi';
-
-       
-        return view('admin.gudang.po.pemintaan_po', compact(
-            'title'
-        ));
-    }
-
-    public function permintaan_bhp()
-    {
-        $title = 'permintaan data obat Gudang Farmasi';
-
-       
-        return view('admin.gudang.permintaan_bhp', compact(
-            'title'
-        ));
-    }
-
+    
     function fetchData(Request $request)
     {
         if ($request->ajax()) {

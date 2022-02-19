@@ -12,10 +12,10 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">GUDANG FARMASI</h3>
+                                <h3 class="nk-block-title page-title">MELATI</h3>
                             </div>
                         </div>
-                        <h3 class="nk-block-title page-title">PO</h3>
+                        <h3 class="nk-block-title page-title">Permintaan</h3>
                         {{-- Filter date --}}
                         <p class="mt-3">Filter berdasarkan tanggal</p>
                         <div class="nk-block-between">
@@ -55,7 +55,7 @@
                                         </ul>
                                         <div class="card-body">
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                               Buat PO
+                                               Buat Permintaan
                                             </button>
                                         </div>
                                         
@@ -83,14 +83,14 @@
     
                  {{-- Table --}}
                 <div class="nk-block fetch-data d-none">
-                        @include('admin.gudang.po.fetch_po')
+                        @include('admin.nurse_station.melati.permintaan.fetch_permintaan_melati')
                         <input type="hidden" name="page" value="1" />
                 </div>
             </div>
         </div>
     </div>
 </div>
-@includeIf('admin.gudang.po._modal')
+@includeIf('admin.nurse_station.melati.permintaan._modal')
 @endsection
 
 @push('js')

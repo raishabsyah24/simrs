@@ -36,16 +36,32 @@ class ObatSeeder extends Seeder
             ]);
         }
 
-        for ($i = 1; $i <= 10; $i++) {
+        
+        $kategori_obat = [
+            ['Obat Generik', 'aktif'],
+            ['Obat Umum', 'aktif'],
+            ['Obat Adiktif', 'aktif'],
+            ['Obat Penenang', 'aktif'],
+            ['Obat Murah', 'aktif'],
+            ['Obat BPJS', 'aktif'],
+            ['Obat Psikotropika dan Adiktif', 'aktif'],
+            ['Obat Sakti', 'aktif'],
+            ['Obat Mata', 'aktif'],
+            ['Obat Psikotropika', 'aktif'],
+        ];
+
+        foreach ($kategori_obat as $item) {
             KategoriObat::create([
-                'nama' => 'kategori obat' . $faker->name,
-                'status' => 'aktif'
+                'nama' => $item[0],
+                'status' => $item[1],
             ]);
         }
 
+
+
         for ($i = 1; $i <= 10; $i++) {
             Obat::create([
-                'kategori_obat' => rand(1, 10),
+                'kategori_obat' => rand(1, 5),
                 'kode' => uniqid(),
                 'nama_paten' => 'nama paten obat' . $faker->lastName,
                 'nama_generik' => 'nama generik obat' . $faker->lastName,

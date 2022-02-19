@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\User\ActivityLogController;
 use App\Http\Controllers\Admin\Apotek\{ObatController, OrderController, AntrianBpjsController, AntrianUmumController, Select2Controller};
 use App\Http\Controllers\Admin\Dokter\PasienListController;
+use App\Http\Controllers\Admin\Nurse_Station\MelatiController;
 use App\Http\Controllers\Admin\{
     DashboardController,
     LayananController,
@@ -16,7 +17,8 @@ use App\Http\Controllers\Admin\{
     AntrianController,
     RekammedisController,
     GudangFarmasiController,
-    PoliStationController
+    PoliStationController,
+    PosisiPasienController
 };
 use App\Http\Controllers\Admin\Dokter\{PasienDokterController, DokterController};
 use App\Http\Controllers\Auth\UserDetailController;
@@ -440,7 +442,38 @@ Route::group(['middleware' => ['auth', 'role:gudangfarmasi|super_admin']], funct
         ->name('gudang.po');
     Route::get('/gudang-permintaan-bhp', [GudangFarmasiController::class, 'permintaan_bhp'])
         ->name('gudang.permintaan_bhp');
+    Route::post('/input-po', [GudangFarmasiController::class, 'input_po'])
+        ->name('gudang.input_po');
+    Route::get('/gudang-po/obat', [GudangFarmasiController::class, 'po_obat'])
+        ->name('gudang.po-obat');
+    // Permintaan
+    Route::post('/gudang/input-permintaan', [GudangFarmasiController::class, 'input_permintaan'])
+        ->name('gudang.permintaan-input');
+    Route::get('/gudang-permintaan/ns', [GudangFarmasiController::class, 'permintaan_ns'])
+        ->name('gudang.po-obat');
+    Route::get('/gudang-permintaan', [GudangFarmasiController::class, 'perencanaan_permintaan'])
+        ->name('gudang.permintaan');
+
 });
+
+
+Route::group(['middleware' => ['auth', 'role:melati|super_admin']], function () {
+
+    
+    Route::get('/melati/melati-pasien', [MelatiController::class, 'index'])
+        ->name('melati.daftar-pasien');
+    Route::get('/ns/{id}/posisi-pasien', [MelatiController::class, 'rajal'])
+        ->name('nurse_station.posisi');
+        Route::post('/gudang/input-permintaan', [GudangFarmasiController::class, 'input_permintaan'])
+        ->name('gudang.permintaan-input');
+    Route::post('/ns/input-permintaan', [MelatiController::class, 'input_permintaan'])
+        ->name('ns.permintaan-input');
+   
+    Route::get('/ns-permintaan', [MelatiController::class, 'perencanaan_permintaan'])
+        ->name('ns.permintaan');
+    
+});
+
 
 
 Route::get('/pasien-list', [PasienController::class, 'data_pasien'])->name('list.pasien');
