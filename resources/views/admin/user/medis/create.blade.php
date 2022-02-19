@@ -60,7 +60,7 @@
                                                         <div class="form-control-wrap ">
                                                             <div class="form-control-select">
                                                                 <select class="form-control" name="spesialis" >
-                                                                    <option value="" disabled selected>
+                                                                    <option disabled selected>
                                                                         Pilih spesialis ...</option>
                                                                         @foreach ($poli as $item)
                                                                     <option value="{{ $item->id }}">{{ $item->nama }}

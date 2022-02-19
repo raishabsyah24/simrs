@@ -186,4 +186,32 @@ class UserController extends Controller
         ]);
         // });
     }
+
+    public function editUser($id)
+    {
+        $title = 'Ubah user';
+        $user = User::find($id);
+        $roles = Role::select('name')->get();
+        $permissions = Permission::select('name')->get();
+        return view('admin.user.edit', compact(
+            'title',
+            'user',
+            'roles',
+            'permissions'
+        ));
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        $request_user = $request->all();
+        $user->update($request_user);
+        $role = $request->role;
+        $permissions = $request->permissions;
+        $user->syncRoles($role);
+        $user->syncPermissions($permissions);
+
+        return back();
+    }
 }

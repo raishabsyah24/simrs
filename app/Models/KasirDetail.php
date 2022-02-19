@@ -18,5 +18,4 @@ class KasirDetail extends Model
         'subtotal',
         'tanggal_layanan'
     ];
-
 }

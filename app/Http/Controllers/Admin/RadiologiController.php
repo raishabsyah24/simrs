@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Layanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 
 class RadiologiController extends Controller
@@ -73,17 +74,22 @@ class RadiologiController extends Controller
 
     public function radiologi_umum()
     {
-        $data = DB::table('periksa_radiologi')
-            ->selectRaw('id, pemeriksaan_detail_id, periksa_dokter_id, dokter_id, pasien_id, tanggal, status_diperiksa, created_at  ')
-            ->orderByDesc('created_at')
+        $data = DB::table('pemeriksaan as pem')
+            ->selectRaw('pem.no_rekam_medis ,p.nama as nama_pasien ,p.jenis_kelamin, p.tempat_lahir, p.tanggal_lahir, p.agama, kp.nama as kategori_pasien, p.nik, d.nama as nama_dokter')
+            ->join('pasien as p','p.id','=','pem.pasien_id')
+            ->join('kategori_pasien as kp','kp.id','=','pem.kategori_pasien')
+            ->join('pemeriksaan_detail as pd','pd.pemeriksaan_id','=','pem.id')
+            ->join('dokter as d','d.id','=','pd.dokter_id')
+            ->orderByDesc('pem.created_at')
             ->paginate($this->perPage);
+            // return $data;
         $title = 'Aktifitas User';
         $badge = $this->badge();
-        // $total = Layanan::count();
+        $total = Layanan::count();
         return view('admin.radiologi.umumradio', compact(
             'title',
             'data',
-            // 'total',
+            'total',
             'badge'
         ));
     }

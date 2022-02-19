@@ -11,7 +11,7 @@ use Nasution\Terbilang;
 function terbilangRupiah($angka)
 {
     $terbilang = new Terbilang();
-    return $terbilang->convert($angka) . ' Rupiah';
+    return $terbilang->convert((int)$angka) . ' Rupiah';
 }
 
 function usia($tanggal_lahir)
@@ -19,7 +19,7 @@ function usia($tanggal_lahir)
     $birthDate = new DateTime($tanggal_lahir);
     $today = Carbon::today();
     if ($birthDate > $today) {
-        exit("0 tahun 0 bulan 0 hari");
+        return false;
     }
     $y = $today->diff($birthDate)->y;
     $m = $today->diff($birthDate)->m;

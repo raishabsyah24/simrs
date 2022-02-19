@@ -29,5 +29,4 @@ class Kasir extends Model
         'sisa',
         'dibayar'
     ];
-
 }

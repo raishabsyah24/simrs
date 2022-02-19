@@ -3,25 +3,22 @@
         <div class="nk-tb-col">
             <h6>No</h6>
         </div>
-        <div class="nk-tb-col">
-            <h6>RM Pasien</h6>
+        <div class="nk-tb-col tb-col-lg">
+            <h6>Kode</h6>
+        </div>
+        <div class="nk-tb-col tb-col-mb">
+            <h6>Nama Paten</h6>
+        </div>
+        <div class="nk-tb-col tb-col-md">
+            <h6>Nama Generik</h6>
         </div>
         <div class="nk-tb-col">
-            <h6>Nama Pasien</h6>
+            <h6>Komposisi</h6>
         </div>
         <div class="nk-tb-col">
-            <h6>Tanggal Lahir</h6>
+            <h6>Status</h6>
         </div>
-        <div class="nk-tb-col">
-            <h6>Poli</h6>
-        </div>
-        <div class="nk-tb-col">
-            <h6>Tenaga Medis</h6>
-        </div>
-        <div class="nk-tb-col">
-            <h6>Kategori</h6>
-        </div>
-        <div class="nk-tb-col">
+        <div class="nk-tb-col tb-col-lg">
             <h6>Aksi</h6>
         </div>
     </div>
@@ -40,16 +37,16 @@
                 </div>
             </div>
             <div class="nk-tb-col tb-col-mb">
-                <span class="tb-amount"></span>
+                <span class="tb-amount">{!! $item->nama_paten !!}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="tb-amount"></span>
+                <span class="tb-amount">{!! $item->nama_generik !!}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="tb-amount"></span>
+                <span class="tb-amount">{!! $item->komposisi    !!}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="tb-amount badge badge-dim badge-{{ $badge->random() }}" ></span>
+                <span class="tb-amount badge badge-dim badge-{{ $badge->random() }}" >{{ $item->status ?? '' }}</span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
@@ -97,8 +94,9 @@
         </div>
     @endforelse
     <!-- end tbody -->
-
 </div>
+
+@if($data->count() > 0)
 <div class="card-inner">
     <div class="nk-block-between-md g-3">
         <div class="g">
@@ -106,3 +104,4 @@
         </div>
     </div>
 </div>
+@endif

@@ -23,8 +23,6 @@ class OrderController extends Controller
 
     public function storeObat(Request $request)
     {
-
-
         $satuan = $request->jenis_satuan;
         $satuan = Satuan::find($satuan);
 
@@ -38,7 +36,7 @@ class OrderController extends Controller
 
         ]);
 
-        // Instert ke table apotek
+        // Insert ke table apotek
         $query = ObatApotek::create([
             'obat_id' => $obat->id,
             'stok' => $request->stok,

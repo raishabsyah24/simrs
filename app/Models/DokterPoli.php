@@ -9,9 +9,9 @@ class DokterPoli extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $table = 'dokter_poli';
+
+    public $timestamps = false;
 
     protected $fillable = [
         'dokter_id', 'poli_id',

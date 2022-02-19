@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin\Dokter;
 
 use Illuminate\Http\Request;
-use App\Models\{Diagnosa,
+use App\Models\{
+    Diagnosa,
     DiagnosaPasienRajal,
     Dokter,
     Kasir,
@@ -20,7 +21,8 @@ use App\Models\{Diagnosa,
     PemeriksaanDetail,
     PosisiDetailPasienRajal,
     PosisiPasienRajal,
-    TindakanPasienRajal};
+    TindakanPasienRajal
+};
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -95,13 +97,13 @@ class PasienDokterController extends Controller
             ]);
 
             $user_id = Auth::id();
-            $dokter = Dokter::select(['id','nama'])->where('user_id', $user_id)->first();
+            $dokter = Dokter::select(['id', 'nama'])->where('user_id', $user_id)->first();
 
-//           uery mendapatkan nama poli
-            $pemeriksaan_detail = PemeriksaanDetail::select(['id','poli_id'])
+            //           uery mendapatkan nama poli
+            $pemeriksaan_detail = PemeriksaanDetail::select(['id', 'poli_id'])
                 ->where('id', $periksa_dokter->pemeriksaan_detail_id)
                 ->first();
-            $poli = Poli::select(['id','nama'])
+            $poli = Poli::select(['id', 'nama'])
                 ->where('id', $pemeriksaan_detail->poli_id)
                 ->first();
 
@@ -130,12 +132,13 @@ class PasienDokterController extends Controller
     public function searchObat(Request $request)
     {
         $obat = $request->get('obat');
+        // dd($obat);
         $periksa_dokter_id = $request->get('periksa_dokter_id');
         $data = $this->dokterRepository->searchObat($obat, $periksa_dokter_id);
 
         $output = '<div class="dropdown-menu d-block position-relative">';
         foreach ($data as $item) {
-            if($item->stok >= $item->minimal_stok) {
+            if ($item->stok >= $item->minimal_stok) {
                 $output .= '
                 <a href="#" class="item dropdown-item"
                 onclick="pilihObat(`' . $item->id . '`,`' . $periksa_dokter_id . '`,`' . route('dokter.change-obat') . '`)">' . $item->nama_generik . ' ( ' . $item->nama_paten . ' )' . ' </a>
@@ -376,14 +379,14 @@ class PasienDokterController extends Controller
         DB::transaction(
             function () use ($attr, $periksaDokter) {
 
-//              query pemeriksaan detail untuk mendapatkan layanan pasien
-                $pemeriksaan_detail = PemeriksaanDetail::select(['id','pemeriksaan_id','status','poli_id','layanan_id'])
-                    ->where('id',$periksaDokter->pemeriksaan_detail_id)
+                //              query pemeriksaan detail untuk mendapatkan layanan pasien
+                $pemeriksaan_detail = PemeriksaanDetail::select(['id', 'pemeriksaan_id', 'status', 'poli_id', 'layanan_id'])
+                    ->where('id', $periksaDokter->pemeriksaan_detail_id)
                     ->first();
 
-//              query pemeriksaan untuk mendapatkan pemeriksaan id
+                //              query pemeriksaan untuk mendapatkan pemeriksaan id
                 $pemeriksaan = Pemeriksaan::select('id')
-                    ->where('id',$pemeriksaan_detail->pemeriksaan_id)
+                    ->where('id', $pemeriksaan_detail->pemeriksaan_id)
                     ->first();
 
                 // Update status layanan di table pemeriksaan detail
@@ -392,24 +395,24 @@ class PasienDokterController extends Controller
                 ]);
 
                 // Hitung total tagihan obat
-                $obat_pasien_periksa = ObatPasienRajal::select(['id', 'periksa_dokter_id','subtotal'])
+                $obat_pasien_periksa = ObatPasienRajal::select(['id', 'periksa_dokter_id', 'subtotal'])
                     ->where('periksa_dokter_id', $periksaDokter->id)
                     ->get();
                 $tagihan_obat = $obat_pasien_periksa->sum('subtotal');
 
-//                Cek status pasien diperiksa
-                if($periksaDokter->status_diperiksa == 'belum diperiksa'){
-//                    Query layanan untuk mendapatkan tarif layanan pasien
-                    $layanan = Layanan::select(['id','tarif'])
-                    ->where('id',$pemeriksaan_detail->layanan_id)
-                    ->first();
+                //                Cek status pasien diperiksa
+                if ($periksaDokter->status_diperiksa == 'belum diperiksa') {
+                    //                    Query layanan untuk mendapatkan tarif layanan pasien
+                    $layanan = Layanan::select(['id', 'tarif'])
+                        ->where('id', $pemeriksaan_detail->layanan_id)
+                        ->first();
 
-//                 Query kasir untuk mendapatkan id transaksi di pendaftaran
-                    $kasir = Kasir::select(['id','pemeriksaan_id','total_tagihan','status'])
+                    //                 Query kasir untuk mendapatkan id transaksi di pendaftaran
+                    $kasir = Kasir::select(['id', 'pemeriksaan_id', 'total_tagihan', 'status'])
                         ->where('pemeriksaan_id', $pemeriksaan_detail->pemeriksaan_id)
                         ->first();
 
-//                Insert ke table kasir detail tagihan pemeriksaan dokter
+                    //                Insert ke table kasir detail tagihan pemeriksaan dokter
                     KasirDetail::create([
                         'kasir_id' => $kasir->id,
                         'jenis_tagihan' => 'Periksa dan konsultasi dokter',
@@ -417,7 +420,7 @@ class PasienDokterController extends Controller
                         'tanggal_layanan' => now()
                     ]);
 
-//                  Insert ke table kasir detail tagihan obat pasien
+                    //                  Insert ke table kasir detail tagihan obat pasien
                     KasirDetail::create([
                         'kasir_id' => $kasir->id,
                         'jenis_tagihan' => 'Obat-obatan',
@@ -425,32 +428,33 @@ class PasienDokterController extends Controller
                         'tanggal_layanan' => now()
                     ]);
 
-//                  Query total tagihan dan grand total pasien
-                    $tagihan_pasien = KasirDetail::select(['kasir_id','subtotal'])
+                    //                  Query total tagihan dan grand total pasien
+                    $tagihan_pasien = KasirDetail::select(['kasir_id', 'subtotal'])
                         ->where('kasir_id', $kasir->id)
                         ->get();
                     $total_tagihan = $tagihan_pasien->sum('subtotal');
 
-//                  Update total tagihan dan grand total pasien
+                    //                  Update total tagihan dan grand total pasien
                     $kasir->update([
-                        'total_tagihan' =>$total_tagihan,
+                        'total_tagihan' => $total_tagihan,
                         'status_pembayaran' => 'belum dibayar',
                         'status' => 'belum dilayani',
                     ]);
                 }
 
-//              Update periksa dokter
+                //              Update periksa dokter
                 $periksaDokter->update($attr);
 
                 // Cek rekam medis pasien
-                $rm = RekamMedis::select(['id','pasien_id'])
+                $rm = RekamMedis::select(['id', 'pasien_id'])
                     ->where('pasien_id', $periksaDokter->pasien_id)
                     ->first();
-                $poli = Poli::select(['id','nama'])
-                    ->where('id',$pemeriksaan_detail->poli_id)
+                $poli = Poli::select(['id', 'nama'])
+                    ->where('id', $pemeriksaan_detail->poli_id)
                     ->first();
                 $nama_dokter = Auth::user()->dokter->nama;
 
+                // dd($rm);
                 // Insert rekam medis pasien
                 $rekam_medis_pasien = RekamMedisPasien::create([
                     'rekam_medis_id' => $rm->id,
@@ -464,21 +468,51 @@ class PasienDokterController extends Controller
                     'tanggal' => now()
                 ]);
 
-//              Update activity user / dokter
-                $pasien = Pasien::select(['id','nama'])
-                    ->where('id',$periksaDokter->pasien_id)
+                // $kasir = Kasir::create([
+                //     'pemeriksaan_id' => $pemeriksaan->id,
+                //     'status' => 'belum bayar'
+                // ]);
+
+                // $kasir_detail = KasirDetail::create([
+                //     'kasir_id' => $kasir->id,
+                //     'jenis_tagihan' => 'periksa dokter',
+                //     'tanggal_layanan' => now(),
+                //     'subtotal' =>  $pemeriksaan_detail->tagihan_layanan
+                // ]);
+
+                // $kasir_detail = KasirDetail::create([
+                //     'kasir_id' => $kasir->id,
+                //     'jenis_tagihan' => 'obat pasien',
+                //     'tanggal_layanan' => now(),
+                //     'subtotal' =>  $obat_pasien_periksa->sum('subtotal')
+                // ]);
+
+                // $total_kasir = KasirDetail::where('kasir_id', $kasir->id)->get();
+
+                // $kasir_total = Kasir::find($kasir->id);
+
+                // $kasir_total->update([
+                //     'total_tagihan' => $total_kasir->sum('subtotal'),
+                //     'diskon' => 0,
+                //     'pajak' => 0,
+                //     'grand_total' => $total_kasir->sum('subtotal')
+                // ]);
+                $pasien = Pasien::find($periksaDokter->pasien_id);
+                //              Update activity user / dokter
+                $pasien = Pasien::select(['id', 'nama'])
+                    ->where('id', $periksaDokter->pasien_id)
                     ->first();
                 $nama_pasien = $pasien->nama;
                 $nama_poli = $poli->nama;
                 activity('melakukan pemeriksaan pasien ' . $nama_pasien . ' di poli ' . $nama_poli);
 
                 // Update posisi pasien
-                $posisi_pasien_rajal = PosisiPasienRajal::select(['id','pemeriksaan_id','status'])
+                $posisi_pasien_rajal = PosisiPasienRajal::select(['id', 'pemeriksaan_id', 'status'])
                     ->where('pemeriksaan_id', $pemeriksaan->id)
                     ->first();
-                if($posisi_pasien_rajal->status == 'periksa dokter'){
+                if ($posisi_pasien_rajal->status == 'periksa dokter') {
                     $posisi_pasien_rajal->update([
-                       'status' => 'proses kasir'
+                        'status' => 'proses kasir'
                     ]);
 
                     $posisi_detail_pasien_rajal_last = PosisiDetailPasienRajal::where('posisi_pasien_rajal_id', $posisi_pasien_rajal->id)->latest('waktu');
