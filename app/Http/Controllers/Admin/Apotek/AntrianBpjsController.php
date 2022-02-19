@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Apotek;
 
 use PDF;
+use Carbon\Carbon;
 use App\Models\Obat;
 use App\Models\Pasien;
 use App\Models\ObatApotek;
@@ -55,14 +56,29 @@ class AntrianBpjsController extends Controller
     function _fetchData(Request $request)
     {
         if ($request->ajax()) {
+            $dari = $request->get('dari');
+            $sampai = $request->get('sampai');
             $q = $request->get('query');
-            $badge = $this->badge();
             $sortBy = $request->get('sortBy');
+            $badge = $this->badge();
             $data = $this->apotekRepository->antrianApotekBpjs()
                 ->when($q ?? false, function ($query) use ($q) {
                     return $query->where('pe.id', 'like', '%' . $q . '%')
                         ->orWhere('pe.no_rekam_medis', 'like', '%' . $q . '%')
                         ->orWhere('p.nama', 'like', '%' . $q . '%');
+                })
+                ->when(!empty($dari) && !empty($sampai) ?? false, function ($query) use ($dari, $sampai) {
+                    $dari = Carbon::parse($dari)->startOfDay();
+                    $sampai = Carbon::parse($sampai)->endOfDay();
+                    return $query->whereBetween('pe.created_at', [$dari, $sampai]);
+                })
+                ->when(!empty($dari) && !empty($sampai && $q) ?? false, function ($query) use ($q, $dari, $sampai) {
+                    $dari = Carbon::parse($dari)->startOfDay();
+                    $sampai = Carbon::parse($sampai)->endOfDay();
+                    return $query->where('pe.id', 'like', '%' . $q . '%')
+                        ->orWhere('pe.no_rekam_medis', 'like', '%' . $q . '%')
+                        ->orWhere('p.nama', 'like', '%' . $q . '%')
+                        ->whereBetween('pe.created_at', [$dari, $sampai]);
                 })
                 ->orderBy('pe.created_at', $sortBy)
                 ->paginate($this->perPage);

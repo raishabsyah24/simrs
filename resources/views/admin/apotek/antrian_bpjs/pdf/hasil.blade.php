@@ -30,7 +30,7 @@
             text-align: center;
             align-items: center;
         }
-        .dragula-container > *:not(:last-child) {margin-bottom: 0.75rem;}
+        
     </style>
 <body class="bg-grey" onload="printPromot()"> 
     <div class="nk-content">
@@ -44,9 +44,9 @@
                         <div class="invoice-contact-info mt-3">
                             <ul class="list-plain">
                                 <li><em class="icon ni ni-map-pin-fill fs-18px"></em>
-                                    <span>House #65, 4328 Marion Street<br>Newbury, VT 05051</span></li>
+                                    <span>Jl.Siak Blok J5/14, Kel. Sukapura, <br> Cilincing, Jakarta Utara, DKI Jakarta</span></li>
                                 <li><em class="icon ni ni-call-fill fs-14px"></em>
-                                    <span>+012 8764 556</span></li>
+                                    <span>(021) 4407322</span></li>
                             </ul>
                         </div>
                     </div>
@@ -55,12 +55,12 @@
                             <div class="card-aside-wrap">
                                 <div class="card-content">
                                     <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a class="nav-link active" href="#">
                                                 <em class="icon ni ni-user-circle"></em>
-                                                <span>Personal</span>
+                                                <span></span>
                                             </a>
-                                        </li>
+                                        </li> --}}
                                     </ul><!-- .nav-tabs -->
                                     <div class="card-inner">
                                         <div class="nk-block">
@@ -151,22 +151,23 @@
                                             <table class="table table-tranx">
                                                 <thead>
                                                     <tr class="tb-tnx-head">
-                                                        <th class="tb-tnx-id"><span class="">#</span></th>
+                                                        <th class="tb-tnx-id">
+                                                            <span class="">#</span>
+                                                        </th>
                                                         <th class="tb-tnx-info">
                                                             <span class="tb-tnx-desc d-none d-sm-inline-block">
-                                                                <span>Bill For</span>
+                                                                <span>Nama Obat</span>
                                                             </span>
                                                             <span class="tb-tnx-date d-md-inline-block d-none">
-                                                                <span class="d-md-none">Date</span>
                                                                 <span class="d-none d-md-block">
-                                                                    <span>Issue Date</span>
-                                                                    <span>Due Date</span>
+                                                                    <span>Signa</span>
+                                                                    <span>Jumlah</span>
                                                                 </span>
                                                             </span>
                                                         </th>
                                                         <th class="tb-tnx-amount">
-                                                            <span class="tb-tnx-total">Total</span>
-                                                            <span class="tb-tnx-status d-none d-md-inline-block">Status</span>
+                                                            <span class="tb-tnx-total">Harga</span>
+                                                            <span class="tb-tnx-status d-none d-md-inline-block">Subtotal</span>
                                                         </th>
                                                      </tr>
                                                  </thead>
@@ -176,6 +177,33 @@
                                                         <td class="tb-tnx-id">
                                                             <span>{{ $loop->iteration }}</span>
                                                         </td>
+                                                        <td class="tb-tnx-info">
+                                                            <div class="tb-tnx-desc">
+                                                                <span class="title">
+                                                                    {{ $item->nama_generik }}
+                                                                </span>
+                                                            </div>
+                                                            <div class="tb-tnx-date">
+                                                                <span class="date">
+                                                                    {{ $item->signa1 }} x {{ $item->signa2 }}
+                                                                </span>
+                                                                <span class="date">
+                                                                    {{ $item->jumlah }}
+                                                                </span>
+                                                            </div>
+                                                            <td class="tb-tnx-amount">
+                                                                <div class="tb-tnx-total">
+                                                                    <span class="amount">
+                                                                        Rp. {{ formatAngka($item->harga_obat) }}
+                                                                    </span>
+                                                                </div>
+                                                                <div class="tb-tnx-status">
+                                                                    <span class="badge badge-dot badge-success">
+                                                                       Rp. {{ formatAngka($item->subtotal) }}
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                        </td>
                                                     </tr>
                                                     @empty
                                                         <tr>
@@ -184,12 +212,44 @@
                                                                     riwayat</h6>
                                                             </td>
                                                         </tr>
-                                                        @endforelse
+                                                    @endforelse
                                                 </tbody>
                                             </table>
-                                           
                                             </div><!-- .bq-note -->
                                         </div><!-- .nk-block -->
+                                        <div class="nk-block">
+                                            <div class="container">
+                                                <div class="nk-content-inner">
+                                                    <div class="nk-content-body">
+                                                        <div class="row justify-content-center">
+                                                            <h4 class="nk-block-title fw-normal">
+                                                                Perubahan Resep
+                                                            </h4>
+                                                        </div>
+                                                        <div class="row my-4 justify-content-center">
+                                                            <div class="col-md-12">
+                                                                <table class="table table-bordered text-center">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>Tertulis</th>
+                                                                        <th>Menjadi</th>
+                                                                        <th>Petugas Farmasi</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr style="height: 125px">
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div><!-- .card-inner -->
                                 </div><!-- .card-content -->
                             </div><!-- .card-aside-wrap -->

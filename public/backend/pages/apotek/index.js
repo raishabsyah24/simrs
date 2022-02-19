@@ -3,8 +3,9 @@ $(document).ready(function() {
     $('.loader').addClass('d-none');
 })
 
-async function fetchData(page = '', query = '', sortBy = 'desc') {
-    await $.get(`/apotek/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}`)
+async function fetchData(page = '', query = '', sortBy = 'desc', dari = "",
+sampai = "") {
+    await $.get(`/apotek/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}&dari=${dari}&sampai=${sampai}`)
         .done(data => {
             $('.loader').addClass('d-none');
             $('.fetch-data').removeClass('d-none');
@@ -14,29 +15,32 @@ async function fetchData(page = '', query = '', sortBy = 'desc') {
 
 function search(el) {
     let query = $(el).val(),
-        page = $('input[name=page]').val();
-    $('.loader').removeClass('d-none');
-    $('.fetch-data').addClass('d-none');
-    fetchData(page, query);
+        page = $("input[name=page]").val(),
+        dari = $("input[name=dari]").val(),
+        sampai = $("input[name=sampai]").val();
+    $(".loader").removeClass("d-none");
+    $(".fetch-data").addClass("d-none");
+    fetchData(page, query, "desc", dari, sampai);
 }
 
 function sortBy(sortBy) {
-    let page = $('input[name=page]').val(),
-        query = $('input[name=query]').val();
-    $('.loader').removeClass('d-none');
-    $('.fetch-data').addClass('d-none');
+    let page = $("input[name=page]").val(),
+        query = $("input[name=query]").val();
+    $(".loader").removeClass("d-none");
+    $(".fetch-data").addClass("d-none");
     fetchData(page, query, sortBy);
 }
 
-$(document).on('click', '.pagination a', function(e) {
+$(document).on("click", ".pagination a", function (e) {
     e.preventDefault();
-    let page = $(this).attr('href').split('page=')[1],
-        query = $('input[name=query]').val();
-    $('.loader').removeClass('d-none');
-    $('.fetch-data').addClass('d-none');
-    fetchData(page, query);
-    
-})
+    let page = $(this).attr("href").split("page=")[1],
+        dari = $("input[name=dari]").val(),
+        sampai = $("input[name=sampai]").val(),
+        query = $("input[name=query]").val();
+    $(".loader").removeClass("d-none");
+    $(".fetch-data").addClass("d-none");
+    fetchData(page, query, "desc", dari, sampai);
+});
 
 function filterDate(originalForm) {
     event.preventDefault();
