@@ -31,7 +31,7 @@
             <th>Tagihan</th>
             <th>Diskon %</th>
             <th>Pajak %</th>
-            <th>Grand Total</th>
+            <th>SubTotal</th>
         </tr>
     </thead>
     <tbody>
@@ -64,10 +64,10 @@
             </tr>
         @endforelse
         <tr>
-            <td colspan="8" class="text-right">
+            <td colspan="9" class="text-right">
                 <h5>Grand Total</h5>
             </td>
-            <td colspan="2">
+            <td colspan="1">
                 <h5>{!! formatAngka($data['grand_total'], true) !!}</h5>
             </td>
         </tr>

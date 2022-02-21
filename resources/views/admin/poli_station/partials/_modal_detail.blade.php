@@ -19,7 +19,7 @@
                         <ul class="pricing-features">
                             <li><span class="w-50">Tinggi Badan</span> : <span class="ml-auto tb"></span>
                             </li>
-                            <li><span class="w-50">Berat Bada</span> : <span class="ml-auto bb"></span>
+                            <li><span class="w-50">Berat Badan</span> : <span class="ml-auto bb"></span>
                             </li>
                             <li><span class="w-50">Tekanan Darah</span> : <span class="ml-auto td"></span>
                             </li>

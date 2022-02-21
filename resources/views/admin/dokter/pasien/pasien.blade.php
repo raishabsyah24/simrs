@@ -8,10 +8,13 @@
                     <div class="nk-block-head nk-block-head-lg wide-sm">
                         <div class="nk-block-head-content">
                             <div class="nk-block-head-sub">
-                                <a class="back-to" href="{{ route('dokter.daftar-pasien') }}"><em
+                                <a href="{{ route('dokter.daftar-pasien') }}"
+                                    class="btn btn-outline-dark d-none d-sm-inline-flex"><em
                                         class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
                             </div>
-                            <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
+                            <div class="fw-normal">
+                                <h2>{{ $title }}</h2>
+                            </div>
                         </div>
                     </div>
                     <div class="nk-block nk-block-lg">
@@ -143,7 +146,8 @@
                                                         <div class="row g-gs">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Keluhan Pasien<span class="text-danger">*</span></label>
+                                                                    <label class="form-label">Keluhan Pasien<span
+                                                                            class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <textarea class="form-control form-control-sm"
                                                                             name="keluhan" autocomplete="off"></textarea>
@@ -152,7 +156,8 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Subjektif<span class="text-danger">*</span></label>
+                                                                    <label class="form-label">Subjektif<span
+                                                                            class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <textarea class="form-control form-control-sm"
                                                                             name="subjektif" autocomplete="off"></textarea>
@@ -161,7 +166,8 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Objektif<span class="text-danger">*</span></label>
+                                                                    <label class="form-label">Objektif<span
+                                                                            class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <textarea class="form-control form-control-sm"
                                                                             name="objektif" autocomplete="off"></textarea>
@@ -170,7 +176,8 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Assesment<span class="text-danger">*</span></label>
+                                                                    <label class="form-label">Assesment<span
+                                                                            class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <textarea class="form-control form-control-sm"
                                                                             name="assesment" autocomplete="off"></textarea>
@@ -184,23 +191,40 @@
                                                                     <div class="form-control-wrap">
                                                                         <ul class="custom-control-group">
                                                                             <li>
-                                                                                <div class="custom-control custom-radio custom-control-pro no-control">
-                                                                                    <input type="radio" value="lab" class="custom-control-input"
+                                                                                <div
+                                                                                    class="custom-control custom-radio custom-control-pro no-control">
+                                                                                    <input type="radio" value="lab"
+                                                                                        class="custom-control-input"
                                                                                         name="plan" id="lab">
-                                                                                    <label for="lab" class="custom-control-label"><i class="fas fa-vials mr-1"></i>Cek Laboratorium</label>
+                                                                                    <label for="lab"
+                                                                                        class="custom-control-label"><i
+                                                                                            class="fas fa-vials mr-1"></i>Cek
+                                                                                        Laboratorium</label>
                                                                                 </div>
                                                                             </li>
                                                                             <li>
-                                                                                <div class="custom-control custom-radio custom-control-pro no-control">
-                                                                                    <input type="radio" class="custom-control-input" name="plan" value="radiologi" id="radiologi" autocomplete="off">
-                                                                                    <label for="radiologi" class="custom-control-label"><i class="fas fa-radiation mr-1"></i>
+                                                                                <div
+                                                                                    class="custom-control custom-radio custom-control-pro no-control">
+                                                                                    <input type="radio"
+                                                                                        class="custom-control-input"
+                                                                                        name="plan" value="radiologi"
+                                                                                        id="radiologi" autocomplete="off">
+                                                                                    <label for="radiologi"
+                                                                                        class="custom-control-label"><i
+                                                                                            class="fas fa-radiation mr-1"></i>
                                                                                         Cek Radiologi</label>
                                                                                 </div>
                                                                             </li>
                                                                             <li>
-                                                                                <div class="custom-control custom-radio custom-control-pro no-control">
-                                                                                    <input disabled type="radio" class="custom-control-input" name="plan" value="perempuan" id="terapi" autocomplete="off">
-                                                                                    <label for="terapi" class="custom-control-label"><i class="fas fa-female mr-1"></i>
+                                                                                <div
+                                                                                    class="custom-control custom-radio custom-control-pro no-control">
+                                                                                    <input disabled type="radio"
+                                                                                        class="custom-control-input"
+                                                                                        name="plan" value="perempuan"
+                                                                                        id="terapi" autocomplete="off">
+                                                                                    <label for="terapi"
+                                                                                        class="custom-control-label"><i
+                                                                                            class="fas fa-female mr-1"></i>
                                                                                         Cek Terapi</label>
                                                                                 </div>
                                                                             </li>
@@ -212,9 +236,11 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Diagnosa (ICD 10)<span class="text-danger">*</span></label>
+                                                                    <label class="form-label">Diagnosa (ICD 10)<span
+                                                                            class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
-                                                                        <input onkeyup="searchDiagnosa(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-diagnosa') }}`,this)"
+                                                                        <input
+                                                                            onkeyup="searchDiagnosa(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-diagnosa') }}`,this)"
                                                                             type="text" class="form-control"
                                                                             name="diagnosa" autocomplete="off" />
                                                                     </div>
@@ -238,9 +264,11 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Tindakan (ICD 9)<span class="text-danger">*</span></label>
+                                                                    <label class="form-label">Tindakan (ICD 9)<span
+                                                                            class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
-                                                                        <input onkeyup="searchTindakan(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-tindakan') }}`,this)"
+                                                                        <input
+                                                                            onkeyup="searchTindakan(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-tindakan') }}`,this)"
                                                                             type="text" class="form-control"
                                                                             name="tindakan" autocomplete="off" />
                                                                     </div>
@@ -264,13 +292,19 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Status Lanjutan<span class="text-danger">*</span></label>
+                                                                    <label class="form-label">Status Lanjutan<span
+                                                                            class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap ">
                                                                         <select class="form-select select2"
-                                                                            style="position:absolute;" name="status_lanjutan" data-placeholder="Pilih data">
+                                                                            style="position:absolute;"
+                                                                            name="status_lanjutan"
+                                                                            data-placeholder="Pilih data">
                                                                             <option label="Pilih data" disabled selected
                                                                                 value=""></option>
-                                                                            <option value="dirujuk">Dirujuk</option>
+                                                                            <option value="dirujuk internal">Dirujuk
+                                                                                Internal</option>
+                                                                            <option value="dirujuk eksternal">Dirujuk
+                                                                                Eksternal</option>
                                                                             <option value="selesai">Selesai</option>
                                                                         </select>
                                                                     </div>
@@ -305,7 +339,8 @@
                                                         <div class="row g-gs">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Masukan nama obat<span class="text-danger">*</span></label>
+                                                                    <label class="form-label">Masukan nama obat<span
+                                                                            class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <input
                                                                             onkeyup="searchObat(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-obat') }}`,this)"
@@ -324,7 +359,8 @@
                                                                         <th>No</th>
                                                                         <th>Nama Obat</th>
                                                                         <th class="text-left">Jumlah</th>
-                                                                        <th colspan="3" scope="colgroup" class="text-center">Signa</th>
+                                                                        <th colspan="3" scope="colgroup"
+                                                                            class="text-center">Signa</th>
                                                                         <th class="text-center">Harga Obat</th>
                                                                         <th>Subtotal</th>
                                                                         <th class="text-center">Opsi</th>
