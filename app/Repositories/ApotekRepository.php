@@ -97,23 +97,6 @@ class ApotekRepository implements ApotekInterface
             ->get();
     }
 
-    public function pasienBpjs(int $pemeriksaan_id)
-    {
-        return  DB::table('pemeriksaan as pi')
-            ->selectRaw('
-        DISTINCT pi.id as pemeriksaan_id, cr.id as kasir_id, ps.nama as nama_pasien, ps.tanggal_lahir,
-             ps.jenis_kelamin, ps.golongan_darah, pi.no_rekam_medis,dk.nama as nama_dokter, pl.spesialis,
-             pi.tanggal as tanggal_pemeriksaan, pi.status as status_pemeriksaan
-        ')
-            ->join('pasien as ps', 'pi.pasien_id', '=', 'ps.id')
-            ->join('kasir as cr', 'cr.pemeriksaan_id', '=', 'cr.id')
-            ->join('dokter as dk', 'dk.id', '=', 'dk.id')
-            ->join('dokter_poli as dp', 'dp.dokter_id', 'dk.id')
-            ->join('poli as pl', 'dp.dokter_id', '=', 'pl.id')
-            ->where('ps.id', '=', $pemeriksaan_id)
-            ->first();
-    }
-
     public function obatUmum(int $pemeriksaan_id)
     {
         return DB::table('obat_pasien_periksa_rajal as ob')
@@ -129,20 +112,21 @@ class ApotekRepository implements ApotekInterface
             ->get();
     }
 
-    public function pasienUmum(int $pemeriksaan_id)
+    public function identitasPasien(int $periksa_dokter_id)
     {
-        return  DB::table('pemeriksaan as pi')
+        return DB::table('periksa_dokter as po')
             ->selectRaw('
-            DISTINCT pi.id as pemeriksaan_id, cr.id as kasir_id, ps.nama as nama_pasien, ps.tanggal_lahir,
-                ps.jenis_kelamin, ps.golongan_darah, pi.no_rekam_medis,dk.nama as nama_dokter, pl.spesialis,
-                pi.tanggal as tanggal_pemeriksaan, pi.status as status_pemeriksaan
-    ')
-            ->join('pasien as ps', 'pi.pasien_id', '=', 'ps.id')
-            ->join('kasir as cr', 'cr.pemeriksaan_id', '=', 'cr.id')
-            ->join('dokter as dk', 'dk.id', '=', 'dk.id')
-            ->join('dokter_poli as dp', 'dp.dokter_id', 'dk.id')
-            ->join('poli as pl', 'dp.dokter_id', '=', 'pl.id')
-            ->where('pi.id', '=', $pemeriksaan_id)
+            DISTINCT po.id as periksa_dokter_id, ps.nama as nama_pasien, ps.tanggal_lahir, ps.alamat, 
+                        pm.no_rekam_medis, do.nama as nama_dokter, pl.nama as spesialis, kt.nama as kategori_pasien,
+                        pm.id as pemeriksaan_id,pm.tanggal as tanggal_pemeriksaan, pm.status as status_pemeriksaan
+                ')
+            ->join('pemeriksaan_detail as pd', 'pd.id', '=', 'po.pemeriksaan_detail_id')
+            ->join('pemeriksaan as pm', 'pm.id', '=', 'pd.pemeriksaan_id')
+            ->join('pasien as ps', 'ps.id', '=', 'po.pasien_id')
+            ->join('dokter as do', 'do.id', '=', 'po.dokter_id')
+            ->join('poli as pl', 'pl.id', '=', 'pd.poli_id')
+            ->join('kategori_pasien as kt', 'kt.id', '=', 'pm.kategori_pasien')
+            ->where('po.id', $periksa_dokter_id)
             ->first();
     }
 }

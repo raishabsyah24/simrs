@@ -55,12 +55,12 @@
                             <div class="card-aside-wrap">
                                 <div class="card-content">
                                     <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a class="nav-link active" href="#">
                                                 <em class="icon ni ni-user-circle"></em>
                                                 <span></span>
                                             </a>
-                                        </li>
+                                        </li> --}}
                                     </ul><!-- .nav-tabs -->
                                     <div class="card-inner">
                                         <div class="nk-block">

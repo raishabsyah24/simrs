@@ -16,7 +16,9 @@
                 <div class="nk-block-head nk-block-head-sm">
                     <div class="nk-block-between g-3">
                         <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Users / <strong class="text-primary small">Abu Bin Ishtiyak</strong></h3>
+                            <h3 class="nk-block-title page-title">Users / 
+                                <strong class="text-primary small">Abu Bin Ishtiyak</strong>
+                            </h3>
                             <div class="nk-block-des text-soft">
                                 <ul class="list-inline">
                                     <li>User ID: <span class="text-base">UD003054</span></li>
@@ -26,7 +28,9 @@
                         </div>
                         <div class="nk-block-head-content">
                             <a href="html/user-list-regular.html" class="btn btn-outline-light bg-white d-none d-sm-inline-flex">
-                                <em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                <em class="icon ni ni-arrow-left"></em>
+                                <span>Kembali</span>
+                            </a>
                         </div>
                     </div>
                 </div><!-- .nk-block-head -->
@@ -36,15 +40,18 @@
                             <div class="card-content">
                                 <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#"><em class="icon ni ni-user-circle"></em><span>Personal</span></a>
+                                        <a class="nav-link active" href="#">
+                                            <em class="icon ni ni-user-circle"></em>
+                                            <span>Personal</span>
+                                        </a>
                                     </li>
                                     <li class="nav-item nav-item-trigger d-xxl-none">
-                                        <a href="#" class="toggle btn btn-icon btn-trigger" id="edu">
+                                        <a href="#" class="toggle btn btn-icon btn-trigger">
                                             <em class="icon ni ni-arrow-down-round"></em>
                                         </a>
                                     </li>
                                 </ul><!-- .nav-tabs -->
-                                <div class="card-inner active" id="data">
+                                <div class="card-inner">
                                     <div class="nk-block">
                                         <div class="nk-block-head">
                                             <h5 class="title">Personal Information</h5>
@@ -141,22 +148,10 @@
                                     </thead>
                                     <tbody>
                                       <tr>
-                                        <th scope="row">1</th>
+                                        <th rowspan="4">1</th>
                                         <td>Mark</td>
                                         <td>Otto</td>
                                         <td>@mdo</td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
                                       </tr>
                                     </tbody>
                                   </table>
@@ -171,17 +166,4 @@
 @endsection
 
 @push('js')
-<script>
-    $(document).ready(function() {
-       $("#edu").click(function(e) {
-           e.preventDefault();
-            console.log('edu masuk');
-            if($("#data").hasClass('active')) {
-                $("#data").hide('slow').removeClass('active');
-            }else {
-                $("#data").show(1000).addClass('actives');
-            }
-       }) 
-    });
-</script>
 @endpush

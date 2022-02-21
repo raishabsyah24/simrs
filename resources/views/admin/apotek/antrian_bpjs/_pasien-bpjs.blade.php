@@ -123,37 +123,49 @@
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Nama</span>
-                                                                <span class="profile-ud-value">{{ $pasien->nama_pasien }}</span>
+                                                                <span class="profile-ud-value">
+                                                                    {{ $pasien->nama_pasien }}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Alamat</span>
-                                                                <span class="profile-ud-value"></span>
+                                                                <span class="profile-ud-value">
+                                                                    {{ $pasien->alamat }}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Umur</span>
-                                                                <span class="profile-ud-value">{{ usia($pasien->tanggal_lahir) }}</span>
+                                                                <span class="profile-ud-value">
+                                                                    {{ usia($pasien->tanggal_lahir) }}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Nomor Rekam Medis</span>
-                                                                <span class="profile-ud-value">IO</span>
+                                                                <span class="profile-ud-value">
+                                                                    {{ $pasien->no_rekam_medis }}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Tanggal Lahir</span>
-                                                                <span class="profile-ud-value">{{ $pasien->tanggal_lahir }}</span>
+                                                                <span class="profile-ud-value">
+                                                                    {{ $pasien->tanggal_lahir }}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Kategori Pasien</span>
-                                                                <span class="profile-ud-value">IO</span>
+                                                                <span class="profile-ud-value">
+                                                                    {{ $pasien->kategori_pasien }}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div><!-- .profile-ud-list -->
@@ -178,7 +190,9 @@
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Tanggal Periksa</span>
-                                                                <span class="profile-ud-value">{{ $pasien->tanggal_pemeriksaan }}</span>
+                                                                <span class="profile-ud-value">
+                                                                    {{ $pasien->tanggal_pemeriksaan }}
+                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div><!-- .profile-ud-list -->

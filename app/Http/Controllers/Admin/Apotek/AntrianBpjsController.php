@@ -93,18 +93,19 @@ class AntrianBpjsController extends Controller
 
     public function detailPasienBpjs($pasien_bpjs)
     {
-        $pasien = DB::table('pemeriksaan as pi')
+        $pasien = DB::table('periksa_dokter as po')
             ->selectRaw('
-                   DISTINCT pi.id as pemeriksaan_id, cr.id as kasir_id, ps.nama as nama_pasien, ps.tanggal_lahir,
-                    ps.jenis_kelamin, ps.golongan_darah, pi.no_rekam_medis,
-                    dk.nama as nama_dokter, pl.spesialis, pi.tanggal as tanggal_pemeriksaan
-        ')
-            ->join('pasien as ps', 'pi.pasien_id', '=', 'ps.id')
-            ->join('kasir as cr', 'cr.pemeriksaan_id', '=', 'cr.id')
-            ->join('dokter as dk', 'dk.id', '=', 'dk.id')
-            ->join('dokter_poli as dp', 'dp.dokter_id', 'dk.id')
-            ->join('poli as pl', 'dp.dokter_id', '=', 'pl.id')
-            ->where('ps.id', '=', $pasien_bpjs)
+                        po.id as periksa_dokter_id, ps.nama as nama_pasien, ps.tanggal_lahir, ps.alamat, 
+                        pm.no_rekam_medis, do.nama as nama_dokter, pl.nama as spesialis, kt.nama as kategori_pasien,
+                        pm.id as pemeriksaan_id,pm.tanggal as tanggal_pemeriksaan, pm.status as status_pemeriksaan
+                    ')
+            ->join('pemeriksaan_detail as pd', 'pd.id', '=', 'po.pemeriksaan_detail_id')
+            ->join('pemeriksaan as pm', 'pm.id', '=', 'pd.pemeriksaan_id')
+            ->join('pasien as ps', 'ps.id', '=', 'po.pasien_id')
+            ->join('dokter as do', 'do.id', '=', 'po.dokter_id')
+            ->join('poli as pl', 'pl.id', '=', 'pd.poli_id')
+            ->join('kategori_pasien as kt', 'kt.id', '=', 'pm.kategori_pasien')
+            ->where('po.id', $pasien_bpjs)
             ->first();
 
         $obat = DB::table('obat_pasien_periksa_rajal as ob')
@@ -118,7 +119,6 @@ class AntrianBpjsController extends Controller
             ->join('pasien as pe', 'pe.id', '=', 'pd.pasien_id')
             ->where('pd.id', '=', $pasien_bpjs)
             ->get();
-        // return $obat;
         $title = 'Detail Pasien';
         $head  = 'Informasi Pasien';
         return view('admin.apotek.antrian_bpjs._pasien-bpjs', compact(
@@ -132,7 +132,7 @@ class AntrianBpjsController extends Controller
     public function obatApotek($pemeriksaan_id, $periksa_dokter_id)
     {
         // Pemeriksaan pasien bpjs
-        $pasien = $this->apotekRepository->pasienBpjs($pemeriksaan_id);
+        $pasien = $this->apotekRepository->identitasPasien($periksa_dokter_id);
 
         // Obat pasien bpjs
         $obat = $this->apotekRepository->obatBpjs($pemeriksaan_id);
@@ -231,7 +231,7 @@ class AntrianBpjsController extends Controller
 
     public function previewPDF($pemeriksaan_id, $periksa_dokter_id)
     {
-        $query = $this->apotekRepository->pasienBpjs($pemeriksaan_id);
+        $query = $this->apotekRepository->identitasPasien($periksa_dokter_id);
         $drug  = $this->apotekRepository->obatBpjs($pemeriksaan_id);
         // return $query;
         return view('admin.apotek.antrian_bpjs.pdf.hasil', compact(

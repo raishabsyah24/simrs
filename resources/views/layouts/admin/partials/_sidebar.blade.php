@@ -139,6 +139,11 @@
                                     <a href="html/orders-sales.html" class="nk-menu-link"><span
                                             class="nk-menu-text">Order Asuransi</span></a>
                                 </li>
+                                <li class="nk-menu-item">
+                                    <a href="{{ route('apotek.laporan') }}" class="nk-menu-link">
+                                        <span class="nk-menu-text">Laporan Riwayat Obat Pasien</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nk-menu-item has-sub">
