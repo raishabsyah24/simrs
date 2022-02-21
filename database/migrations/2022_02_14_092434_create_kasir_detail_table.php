@@ -20,6 +20,12 @@ class CreateKasirDetailTable extends Migration
             $table->bigInteger('subtotal');
             $table->dateTime('tanggal_layanan');
             $table->timestamps();
+            $table->softDeletes();
+
+
+            $table->foreign('kasir_id')->references('id')->on('kasir')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

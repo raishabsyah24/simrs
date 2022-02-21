@@ -2,17 +2,24 @@
 
 use App\Models\ActivityLog;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Auth;
+use Nasution\Terbilang;
 
+function terbilangRupiah($angka)
+{
+    $terbilang = new Terbilang();
+    return $terbilang->convert((int)$angka) . ' Rupiah';
+}
 
 function usia($tanggal_lahir)
 {
     $birthDate = new DateTime($tanggal_lahir);
     $today = Carbon::today();
     if ($birthDate > $today) {
-        exit("0 tahun 0 bulan 0 hari");
+        return false;
     }
     $y = $today->diff($birthDate)->y;
     $m = $today->diff($birthDate)->m;
@@ -146,6 +153,12 @@ function kodeRekamMedis()
     return kode('rekam_medis', 'kode', '15', 'RMP' . $date);
 }
 
+function kodePembayaran()
+{
+    $date = date('dmy');
+    return kode('kasir', 'kode', '13', 'RSF' . $date);
+}
+
 function noUrutPasienPeriksa($tanggal, $poli_id, $dokter_id)
 {
     $length_poli = strlen($poli_id);
@@ -169,4 +182,20 @@ function jumlahWaktuPasien($waktu_awal, $waktu_selesai)
     $jumlah = date_diff($waktu_awal, $waktu_selesai);
 
     return "{$jumlah->d} hari, {$jumlah->h} jam, {$jumlah->i} menit, {$jumlah->s} detik";
+}
+
+function totalTagihan(int $kasir_id)
+{
+    $kasir = DB::table('kasir')
+        ->selectRaw('
+            id, total_tagihan, diskon, pajak
+            ')
+        ->where('id', $kasir_id)
+        ->first();
+
+    $diskon = ($kasir->diskon / 100) * $kasir->total_tagihan;
+    $pajak = ($kasir->pajak / 100) * $kasir->total_tagihan;
+    $total_tagihan = $kasir->total_tagihan;
+    $total = ($total_tagihan - $diskon) + $pajak;
+    return $total;
 }

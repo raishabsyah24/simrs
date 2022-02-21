@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\KategoriPasien;
+use App\Models\Layanan;
 use App\Models\Poli;
 use Faker\Factory as Faker;
 use Illuminate\Support\Str;
@@ -21,14 +22,18 @@ class MasterSeeder extends Seeder
         $faker = Faker::create('id_ID');
 
         // Layanan
-        for ($i = 1; $i <= 20; $i++) {
-            DB::table('layanan')->insert([
-                'kode' => uniqid(),
-                'nama' => $faker->name,
-                'tarif' => rand(1, 100000),
-                'keterangan' => $faker->sentence(10),
-                'created_at' => now(),
-                'updated_at' => now()
+        $layanan = [
+            [0, 'LRS001','periksa dokter', 100000,'Periksa dan konsultasi dokter'],
+            [0, 'LRS002','periksa laboratorium', 0,'Periksa laboratorium'],
+            [0, 'LRS003','periksa radiologi',0 ,'Periksa radiologi'],
+        ];
+        foreach ($layanan as $item) {
+            Layanan::create([
+                'parent_id' => $item[0],
+                'kode' => $item[1],
+                'nama' => $item[2],
+                'tarif' => $item[3],
+                'keterangan' => $item[4],
             ]);
         }
 
@@ -66,7 +71,7 @@ class MasterSeeder extends Seeder
         }
 
         // Faskes
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             DB::table('faskes')->insert([
                 'kode' => $faker->nik(),
                 'nama' => $faker->company,
@@ -89,7 +94,7 @@ class MasterSeeder extends Seeder
         // Tindakan
         for ($i = 1; $i <= 20; $i++) {
             DB::table('tindakan')->insert([
-                'kode' => $faker->randomElement(['A', 'B', 'C']) . $i,
+                'kode' => $faker->randomElement(['A', 'B', 'C']) .$i,
                 'nama' => 'tindakan ' . $i . ' ' . $faker->sentence(2),
                 'created_at' => now(),
                 'updated_at' => now(),

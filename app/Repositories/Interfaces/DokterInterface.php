@@ -8,7 +8,7 @@ interface DokterInterface
 
     public function dokterSpesialis(int $dokter_id);
 
-    public function rekamMedisPasienPeriksa(int $periksa_dokter_id);
+    public function rekamMedisPasienPeriksa(int $pasien_id);
 
     public function identitasPasien(int $pasien_id);
 

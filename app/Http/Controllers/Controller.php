@@ -15,6 +15,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public $pasienBpjs = 1;
     public function badge()
     {
         return $badge = collect([
@@ -54,6 +55,7 @@ class Controller extends BaseController
     {
         return DB::table('faskes')
             ->select(['id', 'nama'])
+            ->limit(5)
             ->get();
     }
 
@@ -67,7 +69,8 @@ class Controller extends BaseController
     public function layanan()
     {
         return DB::table('layanan')
-            ->select(['id', 'nama'])
+            ->select(['id', 'nama', 'keterangan'])
+            ->where('parent_id', 0)
             ->get();
     }
 
@@ -76,5 +79,21 @@ class Controller extends BaseController
         return DB::table('satuan')
             ->select('id', 'nama', 'jumlah')
             ->get();
+    }
+
+    public function totalTagihan(int $kasir_id)
+    {
+        $kasir = DB::table('kasir')
+            ->selectRaw('
+            id, total_tagihan, diskon, pajak
+            ')
+            ->where('id', $kasir_id)
+            ->first();
+
+        $diskon = ($kasir->diskon / 100) * $kasir->total_tagihan;
+        $pajak = ($kasir->pajak / 100) * $kasir->total_tagihan;
+        $total_tagihan = $kasir->total_tagihan;
+        $total = ($total_tagihan - $diskon) + $pajak;
+        return $total;
     }
 }

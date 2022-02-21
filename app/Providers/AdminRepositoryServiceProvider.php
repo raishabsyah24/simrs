@@ -5,12 +5,12 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\{
     AntrianPoliRepository,
+    KasirRepository,
     LayananRepository,
     PasienRepository,
     PendaftaranRepository,
     DokterRepository,
     ApotekRepository,
-    KasirRepository,
     AntrianRepository,
     GudangFarmasiRepository,
     PosisiPasienRepository,
@@ -99,6 +99,10 @@ class AdminRepositoryServiceProvider extends ServiceProvider
             MelatiRepository::class
         );
        
+        $this->app->bind(
+            KasirInterface::class,
+            KasirRepository::class
+        );
     }
 
     /**

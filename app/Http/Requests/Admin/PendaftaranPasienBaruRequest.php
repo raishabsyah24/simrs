@@ -43,7 +43,6 @@ class PendaftaranPasienBaruRequest extends FormRequest
                     'layanan_id' => 'required',
                     'faskes_id' => 'required',
                     'dokter_id' => 'required',
-                    'tujuan' => 'required',
                 ];
         } else {
             return [
@@ -60,7 +59,6 @@ class PendaftaranPasienBaruRequest extends FormRequest
                 'poli_id' => 'required',
                 'layanan_id' => 'required',
                 'dokter_id' => 'required',
-                'tujuan' => 'required',
             ];
         }
     }

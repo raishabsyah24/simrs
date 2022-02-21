@@ -23,6 +23,7 @@ class CreateObatPasienPeriksaRajalTable extends Migration
             $table->bigInteger('jumlah')->default(1);
             $table->bigInteger('harga_obat');
             $table->bigInteger('subtotal')->default(0);
+            $table->string('status')->nullable()->default('belum diterima');
             $table->timestamps();
 
             $table->foreign('periksa_dokter_id')->references('id')->on('periksa_dokter')

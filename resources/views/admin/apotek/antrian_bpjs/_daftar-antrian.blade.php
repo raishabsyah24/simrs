@@ -25,21 +25,48 @@
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <div class="drodown">
-                                                <a href="#" class="dropdown-toggle btn btn-icon btn-primary"
-                                                    data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li><a href="#"><span>Export PDF</span></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                            <a href="" class="btn btn-success">Export ke PDF</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div><!-- .toggle-wrap -->
                         </div><!-- .nk-block-head-content -->
                     </div><!-- .nk-block-between -->
+                    <div class="nk-block-between">
+                        <div class="nk-block-head-content">
+                              {{-- Filter date --}}
+                        <p class="mt-3">Filter berdasarkan tanggal</p>
+                        <div class="nk-block-between">
+                            <div class="nk-block-head-content">
+                                <form>
+                                    <div class="form-group d-flex float-right">
+                                        <div class="form-control-wrap">
+                                            <div class="form-icon form-icon-left">
+                                                <em class="icon ni ni-calendar"></em>
+                                            </div>
+                                            <input placeholder="Dari" type="text" name="dari"
+                                                class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                                        </div>
+                                        <p class="mx-2 mt-1">Sampai</p>
+                                        <div class="form-control-wrap">
+                                            <div class="form-icon form-icon-left">
+                                                <em class="icon ni ni-calendar"></em>
+                                            </div>
+                                            <input placeholder="Sampai" name="sampai" type="text"
+                                                class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                                        </div>
+                                        <ul class="nk-block-tools ml-2 mb-3">
+                                            <li class="nk-block-tools-opt">
+                                                <button onclick="filterDate(this.form)" type="submit"
+                                                    class="btn btn-dim btn-outline-dark"><em
+                                                        class="icon ni ni-filter-fill"></em>Filter</button>
+                                        </ul>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </div><!-- .nk-block-head -->
                 <div class="nk-block">
                     <div class="card card-stretch">
@@ -133,64 +160,5 @@
 @endsection
 
 @push('js')
-    <script>
-        $(document).ready(function() {
-            $('.fetch-data').removeClass('d-none');
-            $('.loader').addClass('d-none');
-        })
-
-        async function fetchData(page = '', query = '', sortBy = 'desc') {
-            await $.get(`/apotek/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}`)
-                .done(data => {
-                    $('.loader').addClass('d-none');
-                    $('.fetch-data').removeClass('d-none');
-                    $('.fetch-data').html(data)
-                })
-        }
-
-        function search(el) {
-            let query = $(el).val(),
-                page = $('input[name=page]').val();
-            $('.loader').removeClass('d-none');
-            $('.fetch-data').addClass('d-none');
-            fetchData(page, query);
-        }
-
-        function sortBy(sortBy) {
-            let page = $('input[name=page]').val(),
-                query = $('input[name=query]').val();
-            $('.loader').removeClass('d-none');
-            $('.fetch-data').addClass('d-none');
-            fetchData(page, query, sortBy);
-        }
-
-        $(document).on('click', '.pagination a', function(e) {
-            e.preventDefault();
-            let page = $(this).attr('href').split('page=')[1],
-                query = $('input[name=query]').val();
-            $('.loader').removeClass('d-none');
-            $('.fetch-data').addClass('d-none');
-            fetchData(page, query);
-        })
-
-        // Fungsi update status pasien
-        function approvePasien(url, pemeriksaan_id) {
-            event.preventDefault();
-            console.log(url);
-            $.post({
-                    url: url,
-                    type: 'POST',
-                    data: {
-                        pemeriksaan : pemeriksaan_id
-
-                    },
-                })
-                .done(response => {
-                    alertSuccess(response.message);
-                    setInterval(() => {
-                        window.location.reload();
-                    }, 5000);
-                })
-        }
-    </script>
+    <script src="/backend/pages/apotek/index.js"></script>
 @endpush
