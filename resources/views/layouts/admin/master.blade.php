@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/libs/fontawesome-icons.css') }}">
 
     {{-- Theme --}}
-    <link rel="stylesheet" href="{{ asset('backend/css/skins/theme-green.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/css/skins/theme-blue.css') }}">
     @stack('css')
 </head>
 
