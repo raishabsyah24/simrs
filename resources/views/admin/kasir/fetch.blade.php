@@ -18,30 +18,28 @@
                 <span>{{ $data->count() * ($data->currentPage() - 1) + $loop->iteration }}</span>
             </div>
             <div class="nk-tb-col">
-                <a href="">
-                    <div class="user-card">
-                        <div class="user-avatar bg-primary">
-                                <span class="text-uppercase">
-                                    {{ $item->jenis_kelamin == 'laki-laki' ? 'Tn' : 'Ny' }}
-                                </span>
-                        </div>
-                        <div class="user-info">
-                                <span class="tb-lead">{!! $item->nama_pasien !!}
-                                    <span class="dot dot-success d-md-none ml-1"></span>
-                                </span>
-                        </div>
+                <div class="user-card">
+                    <div class="user-avatar bg-primary">
+                        <span class="text-uppercase">
+                            {{ $item->jenis_kelamin == 'laki-laki' ? 'Tn' : 'Ny' }}
+                        </span>
                     </div>
-                </a>
+                    <div class="user-info">
+                        <span class="tb-lead">{!! $item->nama_pasien !!}
+                            <span class="dot dot-success d-md-none ml-1"></span>
+                        </span>
+                    </div>
+                </div>
             </div>
             <div class="nk-tb-col tb-col-md">
-                    <span class="tb-lead">
-                        {!! $item->no_hp !!}
-                    </span>
+                <span class="tb-lead">
+                    {!! $item->no_hp !!}
+                </span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                    <span class="tb-lead">
-                        {!! tanggal($item->tanggal_lahir) !!}
-                    </span>
+                <span class="tb-lead">
+                    {!! tanggal($item->tanggal_lahir) !!}
+                </span>
             </div>
             <div class="nk-tb-col">
                 <span class="text-uppercase tb-lead text-capitalize">{!! $item->kategori_pasien !!}
@@ -52,30 +50,35 @@
                 <span class="text-capitalize tb-lead">{{ formatAngka(totalTagihan($item->kasir_id), true) }}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="text-uppercase badge badge-dim @if($item->status_pembayaran == 'lunas') badge-success @elseif($item->status_pembayaran == 'piutang') badge-warning @else badge-danger @endif">
-                        {!! $item->status_pembayaran !!}
+                <span
+                    class="text-uppercase badge badge-dim @if ($item->status_pembayaran == 'lunas') badge-success @elseif($item->status_pembayaran == 'piutang') badge-warning @else badge-danger @endif">
+                    {!! $item->status_pembayaran !!}
                 </span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="text-uppercase badge badge-dim @if($item->status == 'sudah dilayani') badge-success @else badge-danger @endif">
-                        {!! $item->status !!}
+                <span
+                    class="text-uppercase badge badge-dim @if ($item->status == 'sudah dilayani') badge-success @else badge-danger @endif">
+                    {!! $item->status !!}
                 </span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
-                    <li class="nk-tb-action-hidden">
-                        <a target="_blank" href="{{route('kasir.print-invoice', $item->kasir_id)}}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
-                           title="Print Kwitansi">
-                            <em class="icon ni ni-printer-fill"></em>
-                        </a>
-                    </li>
+                    @if ($item->status == 'sudah dilayani')
+                        <li class="nk-tb-action-hidden">
+                            <a target="_blank" href="{{ route('kasir.print-invoice', $item->kasir_id) }}"
+                                class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
+                                title="Print Kwitansi">
+                                <em class="icon ni ni-printer-fill"></em>
+                            </a>
+                        </li>
+                    @endif
                     <li>
                         <div class="dropdown">
                             <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em
                                     class="icon ni ni-more-h"></em></a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
-                                    @if($item->status == 'belum dilayani')
+                                    @if ($item->status == 'belum dilayani')
                                         <li>
                                             <a href="{{ route('kasir.proses', $item->kasir_id) }}">
                                                 <em class="icon ni ni-piority-fill"></em>

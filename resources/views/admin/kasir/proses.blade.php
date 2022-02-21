@@ -240,6 +240,7 @@
                                             data-placeholder="Pilih metode pembayaran">
                                             <option label="Pilih data" disabled selected value=""></option>
                                             <option value="bpjs">BPJS</option>
+                                            <option value="asuransi">Asuransi</option>
                                             <option value="cash">Cash</option>
                                             <option value="deposit">Bayar Dengan Uang Deposit</option>
                                             <option value="transfer">Transfer</option>
@@ -268,7 +269,8 @@
                                             data-placeholder="Pilih status pembayaran">
                                             <option label="Pilih data" disabled selected value=""></option>
                                             <option value="lunas">Lunas</option>
-                                            <option value="piutang">Piutang ( BPJS )</option>
+                                            <option value="piutang bpjs">Piutang ( BPJS )</option>
+                                            <option value="piutang asuransi">Piutang ( Asuransi )</option>
                                             <option value="belum lunas">Belum Lunas</option>
                                         </select>
                                     </div>

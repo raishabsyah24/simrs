@@ -50,8 +50,7 @@ class ApotekRepository implements ApotekInterface
             ->where('kt.nama', 'umum')
             ->where('ka.status', 'sudah dilayani')
             ->where('ka.status', '!=', 'lunas')
-            ->whereDate('pe.tanggal', tanggalSekarang())
-            ->orderBy('pe.created_at', 'asc');
+            ->whereDate('pe.tanggal', tanggalSekarang());
     }
 
     public function obatApotek()
