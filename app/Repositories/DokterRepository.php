@@ -2,13 +2,22 @@
 
 namespace App\Repositories;
 
+use App\Models\Dokter;
+use App\Models\DokterPoli;
+use App\Models\Poli;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Interfaces\DokterInterface;
+use Auth;
 
 class DokterRepository implements DokterInterface
 {
-    public function daftarPasienDokterSpesialis(int $poli_id)
+    public $periksaDokter = 1;
+
+    public function daftarPasienDokterSpesialis(int $user_id)
     {
+        $dokter = Dokter::select(['id', 'user_id'])->where('user_id', $user_id)->first();
+        $dokter_poli = DokterPoli::where('dokter_id', $dokter->id)->first();
+        $poli = Poli::findOrFail($dokter_poli->poli_id);
         return DB::table('periksa_dokter as pd')
             ->selectRaw('
             pd.id as periksa_dokter_id, pas.id as pasien_id,  poli.id as poli_id, d.id as dokter_id, pas.nama as nama_pasien, pas.jenis_kelamin, pd.status_diperiksa, pas.tanggal_lahir, pd.no_antrian_periksa,  d.nama as nama_dokter
@@ -17,8 +26,8 @@ class DokterRepository implements DokterInterface
             ->join('pasien as pas', 'pas.id', '=', 'pd.pasien_id')
             ->join('dokter as d', 'd.id', '=', 'pd.dokter_id')
             ->join('poli', 'poli.id', '=', 'pede.poli_id')
-            ->join('dokter_poli as dp', 'dp.poli_id', '=', 'pede.poli_id')
-            ->where('pede.poli_id', $poli_id)
+            ->where('pede.layanan_id', $this->periksaDokter)
+            ->where('pede.poli_id', $poli->id)
             ->whereDate('pd.tanggal', now())
             ->orderBy('pd.no_antrian_periksa');
     }
@@ -72,8 +81,8 @@ class DokterRepository implements DokterInterface
         ')
             ->join('obat_apotek as oa', 'oa.obat_id', '=', 'o.id')
             ->when($nama_obat ?? false, function ($query) use ($nama_obat) {
-                return $query->where('o.nama_paten','LIKE', "%{$nama_obat}%")
-                    ->orWhere('o.nama_generik','LIKE', "%{$nama_obat}%");
+                return $query->where('o.nama_paten', 'LIKE', "%{$nama_obat}%")
+                    ->orWhere('o.nama_generik', 'LIKE', "%{$nama_obat}%");
             })
             ->where('oa.stok', '>=', 'oa.minimal_stok')
             ->get();

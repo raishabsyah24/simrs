@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="zxx" class="js">
-
-<head>
-    <meta charset="utf-8">
-    <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}">
-    <!-- Page Title  -->
-    <title>{{ $title ?? '' }}</title>
-    <!-- StyleSheets  -->
-    <link rel="stylesheet" href="{{ asset('backend/css/dashlite.css?ver=2.9.1') }}">
-    <link id="skin-default" rel="stylesheet" href="{{ asset('backend/css/theme.css?ver=2.9.1') }}">
-    <link rel="stylesheet" href="{{ asset('backend/css/skins/theme-green.css') }}">
+@extends('layouts.print.master', ['title' => $title])
+@push('css')
     <style>
         @page {
             size: 25cm 35.7cm;
@@ -19,9 +8,8 @@
         }
 
     </style>
-</head>
-
-<body class="bg-white" onload="printPromot()">
+@endpush
+@section('print-content')
     <div class="nk-block">
         <div class="invoice invoice-print">
             <div class="invoice-wrap">
@@ -60,6 +48,7 @@
                                     <th>Kategori</th>
                                     <th>Kasir</th>
                                     <th>Metode Pembayaran</th>
+                                    <th>Status Pembayaran</th>
                                     <th>Tanggal Pembayaran</th>
                                     <th>Tagihan</th>
                                     <th>Diskon %</th>
@@ -75,6 +64,7 @@
                                         <td>{!! $item->kategori_pasien !!}</td>
                                         <td>{!! $item->admin !!}</td>
                                         <td>{!! $item->metode_pembayaran !!}</td>
+                                        <td>{!! $item->status_pembayaran !!}</td>
                                         <td>{!! tanggalJam($item->tanggal_pembayaran) !!}</td>
                                         <td>{!! formatAngka($item->total_tagihan, true) !!} %</td>
                                         <td>{!! $item->diskon !!} %</td>
@@ -83,6 +73,7 @@
                                     </tr>
                                 @empty
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -98,7 +89,7 @@
                                     </tr>
                                 @endforelse
                                 <tr>
-                                    <td colspan="8" class="text-right">
+                                    <td colspan="9" class="text-right">
                                         <h5>Grand Total</h5>
                                     </td>
                                     <td colspan="2">
@@ -107,7 +98,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td colspan="10" class="text-right text-capitalize">
+                                    <td colspan="11" class="text-right text-capitalize">
                                         <h5>{!! terbilangRupiah($data['grand_total']) !!}</h5>
                                     </td>
                                 </tr>
@@ -118,6 +109,8 @@
             </div>
         </div>
     </div>
+@endsection
+@push('js')
     <script>
         function printPromot() {
             var css = '@page { size: landscape; }',
@@ -139,6 +132,4 @@
         }
         // window.onfocus=function(){ window.close();}
     </script>
-</body>
-
-</html>
+@endpush

@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Faskes;
-use App\Models\Kasir;
-use App\Models\PosisiDetailPasienRajal;
-use App\Models\PosisiPasienRajal;
+use App\Models\{PosisiDetailPasienRajal, Kasir, PosisiPasienRajal};
 use App\Repositories\Interfaces\KasirInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -129,12 +126,11 @@ class KasirController extends Controller
 
     public function updateTagihan(Kasir $kasir, Request $request)
     {
-
         $attr = $request->validate([
             'diskon' => 'numeric|max:100|nullable',
             'pajak' => 'numeric|max:100|nullable',
         ]);
-        //        dd($attr);
+
         $diskon = $request->diskon;
         $pajak = $request->pajak;
 
@@ -176,8 +172,16 @@ class KasirController extends Controller
         $attr['tanggal_pembayaran'] = now();
         $attr['admin'] = auth()->id();
         $attr['kode'] = kodePembayaran();
+
         DB::transaction(function () use ($attr, $kasir) {
             $kasir->update($attr);
+
+            $pemeriksaan = DB::table('pemeriksaan as p')
+                ->selectRaw('p.pasien_id')
+                ->whereId($kasir->pemeriksaan_id)
+                ->first();
+            // Aktivitas user
+            activity("memproses pasien {$this->namaPasien($pemeriksaan->pasien_id)} dikasir");
 
             $posisi_pasien = $this->kasirRepository->posisiPasien($kasir->id);
             if ($posisi_pasien->status == 'proses transaksi') {
@@ -265,10 +269,17 @@ class KasirController extends Controller
     public function printInvoice(Kasir $kasir)
     {
         $title = 'Invoice';
-        $data = Faskes::limit(20)->get();
+        $identitas_pasien = $this->kasirRepository->identitasPasien($kasir->id);
+        $layanan = $this->kasirRepository->daftarLayanan($kasir->id);
+        $obat_pasien_rajal = $this->kasirRepository->obatPasienRajal($kasir->id);
+        $total = $this->totalTagihan($kasir->id);
         return view('admin.kasir.pdf.invoice', compact(
             'title',
-            'data'
+            'obat_pasien_rajal',
+            'layanan',
+            'identitas_pasien',
+            'total',
+            'kasir'
         ));
     }
 
@@ -276,33 +287,43 @@ class KasirController extends Controller
     {
         $title = 'Laporan Kasir';
         $kategori_pasien = $this->kategoriPasien();
+        $metode_pembayaran = $this->metodePembayaran();
+        $status_pembayaran = $this->statusPembayaran();
         return view('admin.laporan.kasir.index', compact(
             'title',
-            'kategori_pasien'
+            'kategori_pasien',
+            'metode_pembayaran',
+            'status_pembayaran'
         ));
     }
 
     public function ekspor(Request $request)
     {
+        $title = 'Laporan';
         $attr = $request->validate([
             'dari' => [
                 'required',
                 'date',
                 'date_format:Y-m-d',
-                'before:sampai'
+                'before_or_equal:sampai',
             ],
             'sampai' => [
                 'required',
                 'date',
                 'date_format:Y-m-d',
-                'after:dari'
+                'after_or_equal:dari'
             ],
             'ekstensi' => 'required',
-            'kategori_pasien' => 'nullable'
+            'kategori_pasien' => 'required',
+            'metode_pembayaran' => 'required',
+            'status_pembayaran' => 'required',
         ]);
-        $tanggal_awal = Carbon::parse($attr['dari'])->startOfDay();
-        $tanggal_akhir = Carbon::parse($attr['sampai'])->endOfDay();
+
+        $tanggal_awal = Carbon::parse($request->dari)->startOfDay();
+        $tanggal_akhir = Carbon::parse($request->sampai)->endOfDay();
         $kategori_pasien = $attr['kategori_pasien'];
+        $metode_pembayaran = $attr['metode_pembayaran'];
+        $status_pembayaran = $attr['status_pembayaran'];
 
         $data['data'] = $this->kasirRepository->laporan($tanggal_awal, $tanggal_akhir)
             ->when($kategori_pasien ?? false, function ($query) use ($kategori_pasien) {
@@ -311,18 +332,31 @@ class KasirController extends Controller
                 }
                 return $query->where('kp.id', $kategori_pasien);
             })
+            ->when($metode_pembayaran ?? false, function ($query) use ($metode_pembayaran) {
+                if ($metode_pembayaran == 'semua') {
+                    return false;
+                }
+                return $query->where('k.metode_pembayaran', $metode_pembayaran);
+            })
+            ->when($status_pembayaran ?? false, function ($query) use ($status_pembayaran) {
+                if ($status_pembayaran == 'semua') {
+                    return false;
+                }
+                return $query->where('k.status_pembayaran', $status_pembayaran);
+            })
             ->get();
         $data['dari'] = $attr['dari'];
         $data['sampai'] = $attr['sampai'];
         $data['grand_total'] = 0;
         foreach ($data['data'] as $total) {
-            $data['grand_total'] += (int)totalTagihan($total->kasir_id);
+            $data['grand_total'] += totalTagihan($total->kasir_id);
         }
 
         if ($attr['ekstensi'] == 'pdf') {
             return view('admin.laporan.kasir.pdf', compact(
                 'data',
-                'attr'
+                'attr',
+                'title'
             ));
         }
         if ($attr['ekstensi'] == 'excel') {

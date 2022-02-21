@@ -11,7 +11,7 @@ use Nasution\Terbilang;
 function terbilangRupiah($angka)
 {
     $terbilang = new Terbilang();
-    return $terbilang->convert($angka) . ' Rupiah';
+    return $terbilang->convert((int)$angka) . ' Rupiah';
 }
 
 function usia($tanggal_lahir)

@@ -27,8 +27,7 @@ class ApotekRepository implements ApotekInterface
             ->where('pd.status', 'selesai')
             ->where('k.status', 'sudah dilayani')
             ->where('k.status_pembayaran', '!=', 'belum dibayar')
-            ->whereDate('pe.tanggal', tanggalSekarang())
-            ->orderBy('pe.created_at', 'asc');
+            ->whereDate('pe.tanggal', tanggalSekarang());
     }
 
     public function antrianApotekUmum()
@@ -51,8 +50,7 @@ class ApotekRepository implements ApotekInterface
             ->where('kt.nama', 'umum')
             ->where('ka.status', 'sudah dilayani')
             ->where('ka.status', '!=', 'lunas')
-            ->whereDate('pe.tanggal', tanggalSekarang())
-            ->orderBy('pe.created_at', 'asc');
+            ->whereDate('pe.tanggal', tanggalSekarang());
     }
 
     public function obatApotek()

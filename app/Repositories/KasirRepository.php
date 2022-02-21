@@ -31,7 +31,7 @@ class KasirRepository implements KasirInterface
             ->selectRaw('
                 p.nama as nama_pasien, p.jenis_kelamin, p.nik, p.alamat,
                 p.no_hp, p.tanggal_lahir, kp.nama as kategori_pasien, pe.no_rekam_medis,
-                pe.created_at as tanggal_pendaftaran, pe.kategori_pasien as kategori_pasien_id, k.deposit_awal, k.tanggal_deposit
+                pe.created_at as tanggal_pendaftaran, pe.kategori_pasien as kategori_pasien_id, k.deposit_awal, k.tanggal_deposit, k.kode, k.tanggal_pembayaran
             ')
             ->join('pemeriksaan_detail as pd', 'pd.pemeriksaan_id', '=', 'pe.id')
             ->join('kasir as k', 'k.pemeriksaan_id', '=', 'pe.id')
@@ -99,7 +99,7 @@ class KasirRepository implements KasirInterface
         return DB::table('kasir as k')
             ->selectRaw('
                 p.nama as nama_pasien, k.tanggal_pembayaran, kp.nama as kategori_pasien, u.name as admin,
-                k.total_tagihan, k.diskon, k.pajak, k.id as kasir_id, k.metode_pembayaran
+                k.total_tagihan, k.diskon, k.pajak, k.id as kasir_id, k.metode_pembayaran, k.status_pembayaran
             ')
             ->join('pemeriksaan as pe', 'pe.id', '=', 'k.pemeriksaan_id')
             ->join('pasien as p', 'p.id', '=', 'pe.pasien_id')
