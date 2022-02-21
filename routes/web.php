@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Apotek\{
     AntrianBpjsController,
     AntrianUmumController,
     Select2Controller,
+    LaporanController
 };
 use App\Http\Controllers\Admin\Dokter\{PasienDokterController, DokterController};
 use App\Http\Controllers\Admin\{
@@ -144,21 +145,23 @@ Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () 
     Route::get('/apotek/fetch-data', [AntrianBpjsController::class, '_fetchData'])->name('data.antrian');
     Route::get('/apotek/detail/pasien/{id}', [AntrianBpjsController::class, 'detailPasienBpjs'])
         ->name('apotek.pasien-bpjs');
-    Route::get('/apotek/proses/data/{pemeriksaan_id}/update/{periksa_dokter_id}', [AntrianBpjsController::class, 'obatApotek'])
+    Route::get('/apotek/proses/data/{pemeriksaan_id}/{periksa_dokter_id}', [AntrianBpjsController::class, 'obatApotek'])
         ->name('apotek.proses-pasien');
     Route::post('/apotek/proses/pasien/{id}/update', [AntrianBpjsController::class, 'prosesPasienBpjs'])
         ->name('apotek.pasien-bpjs-update');
 
-    // Print pasien bpjs 
+    // Laporan riwayat obat pasien
     Route::get('/apotek/preview/{pemeriksaan_id}/pdf/{periksa_dokter_id}', [AntrianBpjsController::class, 'previewPDF'])
         ->name('apotek.preview-hasil');
+    Route::get('/apotek/laporan', [LaporanController::class, 'laporanApotek'])
+        ->name('apotek.laporan');
 
     // Daftar antrian umum
     Route::get('/apotek/data-umum', [AntrianUmumController::class, 'umum'])->name('data.umum');
     Route::get('/apotek/fetch/umum', [AntrianUmumController::class, '_fetchUmum'])->name('fetch-umum');
     Route::get('/apotek/pasien/umum/{id}', [AntrianUmumController::class, 'detailPasienUmum'])
         ->name('pasien-umum');
-    Route::get('/apotek/proses/umum/{pemeriksaan_id}/update/{periksa_dokter_id}', [AntrianUmumController::class, 'pasienUmum'])
+    Route::get('/apotek/umum/{pemeriksaan_id}/proses/{periksa_dokter_id}', [AntrianUmumController::class, 'pasienUmum'])
         ->name('apotek.pasien-umum');
     Route::post('/apotek/proses/pasien/umum/{id}/update', [AntrianUmumController::class, 'prosesPasienUmum'])
         ->name('apotek.pasien-umum-update');

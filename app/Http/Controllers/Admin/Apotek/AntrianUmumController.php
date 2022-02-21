@@ -69,8 +69,24 @@ class AntrianUmumController extends Controller
 
     public function detailPasienUmum($pasien_umum)
     {
+        $pasien = DB::table('periksa_dokter as po')
+            ->selectRaw('
+                    po.id as periksa_dokter_id, ps.nama as nama_pasien, ps.tanggal_lahir, ps.alamat, 
+                    pm.no_rekam_medis, do.nama as nama_dokter, pl.nama as spesialis, kt.nama as kategori_pasien,
+                    pm.id as pemeriksaan_id,pm.tanggal as tanggal_pemeriksaan, pm.status as status_pemeriksaan
+                ')
+            ->join('pemeriksaan_detail as pd', 'pd.id', '=', 'po.pemeriksaan_detail_id')
+            ->join('pemeriksaan as pm', 'pm.id', '=', 'pd.pemeriksaan_id')
+            ->join('pasien as ps', 'ps.id', '=', 'po.pasien_id')
+            ->join('dokter as do', 'do.id', '=', 'po.dokter_id')
+            ->join('poli as pl', 'pl.id', '=', 'pd.poli_id')
+            ->join('kategori_pasien as kt', 'kt.id', '=', 'pm.kategori_pasien')
+            ->where('po.id', $pasien_umum)
+            ->first();
+        // return $pasien;
         $title = 'Detail Pasien';
         return view('admin.apotek.antrian_umum._pasien-umum', compact(
+            'pasien',
             'title'
         ));
     }
@@ -78,7 +94,7 @@ class AntrianUmumController extends Controller
     public function pasienUmum($pemeriksaan_id, $periksa_dokter_id)
     {
         // Pemeriksaan pasien umum
-        $res  = $this->apotekRepository->pasienUmum($pemeriksaan_id);
+        $res  = $this->apotekRepository->identitasPasien($periksa_dokter_id);
 
         // Obat pasien umum
         $obat = $this->apotekRepository->obatUmum($pemeriksaan_id);
