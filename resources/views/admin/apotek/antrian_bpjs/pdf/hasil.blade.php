@@ -234,10 +234,12 @@
                                                                         <th>Tertulis</th>
                                                                         <th>Menjadi</th>
                                                                         <th>Petugas Farmasi</th>
+                                                                        <th>Disetujui</th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                         <tr style="height: 125px">
+                                                                        <td></td>
                                                                         <td></td>
                                                                         <td></td>
                                                                         <td></td>
