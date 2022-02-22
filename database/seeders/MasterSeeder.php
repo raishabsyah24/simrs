@@ -23,9 +23,9 @@ class MasterSeeder extends Seeder
 
         // Layanan
         $layanan = [
-            [0, 'LRS001','periksa dokter', 100000,'Periksa dan konsultasi dokter'],
-            [0, 'LRS002','periksa laboratorium', 0,'Periksa laboratorium'],
-            [0, 'LRS003','periksa radiologi',0 ,'Periksa radiologi'],
+            [0, 'L00001', 'periksa dokter', 100000, 'Periksa dan konsultasi dokter'],
+            [0, 'L00002', 'periksa laboratorium', 0, 'Periksa laboratorium'],
+            [0, 'L00003', 'periksa radiologi', 0, 'Periksa radiologi'],
         ];
         foreach ($layanan as $item) {
             Layanan::create([
@@ -94,7 +94,7 @@ class MasterSeeder extends Seeder
         // Tindakan
         for ($i = 1; $i <= 20; $i++) {
             DB::table('tindakan')->insert([
-                'kode' => $faker->randomElement(['A', 'B', 'C']) .$i,
+                'kode' => $faker->randomElement(['A', 'B', 'C']) . $i,
                 'nama' => 'tindakan ' . $i . ' ' . $faker->sentence(2),
                 'created_at' => now(),
                 'updated_at' => now(),

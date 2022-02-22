@@ -37,8 +37,3 @@ $(document).on("click", ".pagination a", function (e) {
     $(".fetch-data").addClass("d-none");
     fetchData(page, query);
 });
-
-function addForm(url) {
-    $(".modal-form").modal("show");
-    $(".modal-title").text("Form Tambah Layanan");
-}

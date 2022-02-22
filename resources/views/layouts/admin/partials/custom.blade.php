@@ -129,15 +129,20 @@
     // Loop form
     function loopForm(originalForm) {
         for (field in originalForm) {
-            if ($(`[name=${field}]`).attr("type") != "file") {
-                if ($(`[name=${field}]`).hasClass("summernote")) {
-                    $(`[name=${field}]`).summernote("code", originalForm[field]);
+            if ($(`[name=${field}]`).attr('type') != 'file') {
+                if ($(`[name=${field}]`).hasClass('summernote')) {
+                    $(`[name=${field}]`).summernote('code', originalForm[field]);
+                } else if ($(`[name=${field}]`).attr('type') == 'radio') {
+                    $(`[name=${field}]`).filter(`[value="${originalForm[field]}"]`).prop('checked', true);
+                } else {
+                    $(`[name=${field}]`).val(originalForm[field]);
                 }
 
-                $(`[name=${field}]`).val(originalForm[field]);
-                $(`select`).trigger("change");
+                $('select').trigger('change');
             } else {
-                $(`.preview-${field}`).attr("src", originalForm[field]).show();
+                $(`.preview-${field}`)
+                    .attr('src', originalForm[field])
+                    .show();
             }
         }
     }

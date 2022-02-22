@@ -136,4 +136,14 @@ class Controller extends BaseController
         $poli = Poli::select(['id', 'nama'])->whereId($poli_id)->first();
         return $poli->nama;
     }
+
+
+    public function kategoriLayanan()
+    {
+        return DB::table('layanan')
+            ->select(['id', 'nama', 'parent_id'])
+            ->where('parent_id', 0)
+            ->whereNotIn('id', [1])
+            ->get();
+    }
 }

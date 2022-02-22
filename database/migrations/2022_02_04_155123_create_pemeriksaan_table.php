@@ -24,6 +24,7 @@ class CreatePemeriksaanTable extends Migration
             $table->unsignedBigInteger('kategori_pasien');
             $table->date('tanggal');
             $table->string('status')->default('belum selesai');
+            $table->string('pasien_sudah_membaca_dan_setuju_dengan_peraturan')->nullable();
             $table->timestamps();
 
             $table->foreign('faskes_id')->references('id')->on('faskes')

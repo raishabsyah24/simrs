@@ -31,7 +31,7 @@
                 </span>
             </div>
             <div class="nk-tb-col tb-col-mb">
-                <span class="tb-amount">{!! $item->nama !!}</span>
+                <span class="tb-amount text-capitalize">{!! $item->nama !!}</span>
             </div>
             <div class="nk-tb-col tb-col-lg">
                 <span class="tb-amount">{!! formatAngka($item->tarif, true) !!}</span>
@@ -41,24 +41,17 @@
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
-                    <li>
-                        <div class="drodown">
-                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em
-                                    class="icon ni ni-more-h"></em></a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <ul class="link-list-opt no-bdr">
-                                    <li>
-                                        <a href="#"><em class="icon ni ni-edit-fill"></em><span>Ubah</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><em class="icon ni ni-eye"></em><span>Detail</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><em class="icon ni ni-trash"></em><span>Hapus</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <li class="nk-tb-action-hidden">
+                        <a onclick="editForm(`{{ route('layanan.update', $item->id) }}`)"
+                            class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Ubah">
+                            <em class="icon ni ni-edit-fill"></em>
+                        </a>
+                    </li>
+                    <li class="nk-tb-action-hidden">
+                        <a onclick="editForm(`{{ route('layanan.delete', $item->id) }}`)"
+                            class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <em class="icon ni ni-trash"></em>
+                        </a>
                     </li>
                 </ul>
             </div>

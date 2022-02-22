@@ -171,7 +171,7 @@ class KasirController extends Controller
         $attr['status'] = 'sudah dilayani';
         $attr['tanggal_pembayaran'] = now();
         $attr['admin'] = auth()->id();
-        $attr['kode'] = kodePembayaran();
+        $attr['kode'] = kodePembayaranRajal();
 
         DB::transaction(function () use ($attr, $kasir) {
             $kasir->update($attr);

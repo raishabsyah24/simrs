@@ -283,12 +283,16 @@ Route::group(['middleware' => ['auth', 'role:admin|super_admin']], function () {
     Route::delete('/user/{user}/delete', [UserController::class, 'delete'])
         ->name('user.delete');
 
-    Route::post('/layanan/data', [LayananController::class, 'data'])
-        ->name('layanan.data');
     Route::get('/layanan', [LayananController::class, 'index'])
         ->name('layanan.index');
     Route::get('/layanan/fetch-data', [LayananController::class, 'fetchData'])
         ->name('layanan.fetchData');
+    Route::get('/layanan/{layanan}', [LayananController::class, 'show'])
+        ->name('layanan.show');
+    Route::put('/layanan/{layanan}', [LayananController::class, 'update'])
+        ->name('layanan.update');
+    Route::delete('/layanan/{layanan}/delete', [LayananController::class, 'delete'])
+        ->name('layanan.delete');
     Route::post('/layanan', [LayananController::class, 'store'])
         ->name('layanan.store');
 
