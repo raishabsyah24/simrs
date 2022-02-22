@@ -155,6 +155,8 @@ Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () 
         ->name('apotek.preview-hasil');
     Route::get('/apotek/laporan', [LaporanController::class, 'laporanApotek'])
         ->name('apotek.laporan');
+    Route::post('/apotek/laporan/ekspor', [LaporanController::class, 'ekspor'])
+        ->name('apotek.ekspor');
 
     // Daftar antrian umum
     Route::get('/apotek/data-umum', [AntrianUmumController::class, 'umum'])->name('data.umum');

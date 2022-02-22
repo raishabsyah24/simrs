@@ -10,7 +10,7 @@
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('backend/css/dashlite.css?ver=2.9.1') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('backend/css/theme.css?ver=2.9.1') }}">
-    <link rel="stylesheet" href="{{ asset('backend/css/skins/theme-green.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/css/skins/theme-blue.css') }}">
     @stack('css')
 </head>
 
