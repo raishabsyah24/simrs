@@ -134,15 +134,15 @@ class PendaftaranController extends Controller
     {
         $attr = $request->all();
         DB::transaction(function () use ($attr) {
-//          query dokter
+            //          query dokter
             $dokter = Dokter::find($attr['dokter_id']);
             $nama_dokter = $dokter->nama;
 
-//          query poli
+            //          query poli
             $poli = Poli::find($attr['poli_id']);
             $nama_poli = $poli->nama;
 
-//            Tanggal untuk antrian pasien
+            //            Tanggal untuk antrian pasien
             $tanggal = Carbon::parse($attr['tanggal'])->format('d');
 
             // Insert pasien
@@ -190,15 +190,18 @@ class PendaftaranController extends Controller
                 'status' => 'selesai'
             ]);
 
+            // Aktivitas user
+            activity("mendaftarkan pemeriksaan atas nama {$this->namaPasien($pasien->id)} ke poli {$this->namaPoli($attr['poli_id'])}");
+
             if ($attr['layanan_id'] == $this->layananPeriksaDokter) {
-//              Insert ke table periksa di poli station
+                //              Insert ke table periksa di poli station
                 $periksa_poli_station = PeriksaPoliStation::create([
                     'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                     'pasien_id' => $pasien->id,
                     'tanggal' => $attr['tanggal']
                 ]);
 
-//                Insert ke tabel pemeriksaan dokter
+                //                Insert ke tabel pemeriksaan dokter
                 $periksa_dokter = PeriksaDokter::create([
                     'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                     'periksa_poli_station_id' => $periksa_poli_station->id,
@@ -210,12 +213,12 @@ class PendaftaranController extends Controller
                     'status_diperiksa' => 'belum diperiksa'
                 ]);
 
-//                Insert ke table kasir
+                //                Insert ke table kasir
                 $kasir = Kasir::create([
                     'pemeriksaan_id' => $pemeriksaan->id,
                 ]);
             } elseif ($attr['layanan_id'] == $this->layananPeriksaLaboratorium) {
-//                Insert ke tabel pemeriksaan laboratorium
+                //                Insert ke tabel pemeriksaan laboratorium
                 $periksa_lab = PeriksaLab::create([
                     'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                     'pasien_id' => $pasien->id,
@@ -224,7 +227,7 @@ class PendaftaranController extends Controller
                     'status_diperiksa' => 'belum diperiksa'
                 ]);
             } elseif ($attr['layanan_id'] == $this->layananPeriksaRadiologi) {
-//                Insert ke tabel pemeriksaan radiologi
+                //                Insert ke tabel pemeriksaan radiologi
                 $periksa_radiologi = PeriksaRadiologi::create([
                     'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                     'pasien_id' => $pasien->id,
@@ -262,7 +265,7 @@ class PendaftaranController extends Controller
         $attr = $request->all();
         DB::transaction(
             function () use ($attr) {
-                $pasien = Pasien::find($attr['pasien']);
+                $pasien = Pasien::findOrFail($attr['pasien']);
                 $rekam_medis = RekamMedis::where('pasien_id', $pasien->id)
                     ->first();
                 $tanggal = Carbon::parse($attr['tanggal'])->format('d');
@@ -310,15 +313,18 @@ class PendaftaranController extends Controller
                     'status' => 'belum selesai',
                 ]);
 
+                // Aktivitas user
+                activity("mendaftarkan pemeriksaan atas nama {$this->namaPasien($pasien->id)} ke poli {$this->namaPoli($attr['poli_id'])}");
+
                 if ($attr['layanan_id'] == $this->layananPeriksaDokter) {
-//              Insert ke table periksa di poli station
+                    //              Insert ke table periksa di poli station
                     $periksa_poli_station = PeriksaPoliStation::create([
                         'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                         'pasien_id' => $pasien->id,
                         'tanggal' => $attr['tanggal']
                     ]);
 
-//                Insert ke tabel pemeriksaan dokter
+                    //                Insert ke tabel pemeriksaan dokter
                     $periksa_dokter = PeriksaDokter::create([
                         'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                         'periksa_poli_station_id' => $periksa_poli_station->id,
@@ -330,12 +336,12 @@ class PendaftaranController extends Controller
                         'status_diperiksa' => 'belum diperiksa'
                     ]);
 
-//                Insert ke table kasir
+                    //                Insert ke table kasir
                     $kasir = Kasir::create([
                         'pemeriksaan_id' => $pemeriksaan->id,
                     ]);
                 } elseif ($attr['layanan_id'] == $this->layananPeriksaLaboratorium) {
-//                Insert ke tabel pemeriksaan laboratorium
+                    //                Insert ke tabel pemeriksaan laboratorium
                     $periksa_lab = PeriksaLab::create([
                         'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                         'pasien_id' => $pasien->id,
@@ -348,7 +354,7 @@ class PendaftaranController extends Controller
                         'pemeriksaan_id' => $pemeriksaan->id,
                     ]);
                 } elseif ($attr['layanan_id'] == $this->layananPeriksaRadiologi) {
-//                Insert ke tabel pemeriksaan radiologi
+                    //                Insert ke tabel pemeriksaan radiologi
                     $periksa_radiologi = PeriksaRadiologi::create([
                         'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                         'pasien_id' => $pasien->id,
@@ -408,7 +414,7 @@ class PendaftaranController extends Controller
     public function destroy(Pemeriksaan $pemeriksaan)
     {
 
-        DB::transaction(function ()use($pemeriksaan){
+        DB::transaction(function () use ($pemeriksaan) {
             activity("menghapus pemeriksaan pasien {$this->namaPasien($pemeriksaan->pasien_id)}");
 
             $pemeriksaan_detail = DB::table('pemeriksaan_detail')
@@ -421,11 +427,5 @@ class PendaftaranController extends Controller
             'message' => 'Data berhasil dihapus',
             'url' => route('pendaftaran.index')
         ], 200);
-    }
-
-    public function namaPasien(int $pasien_id)
-    {
-        $pasien = Pasien::select(['id','nama'])->whereId($pasien_id)->first();
-        return $pasien->nama;
     }
 }

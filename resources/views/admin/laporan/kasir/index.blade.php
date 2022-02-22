@@ -62,6 +62,46 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group">
+                                                    <label class="form-label">Metode Pembayaran</label>
+                                                    <div class="form-control-wrap">
+                                                        <select class="form-control form-control-lg form-select select2"
+                                                            style="position:absolute;" name="metode_pembayaran"
+                                                            data-placeholder="Pilih Metode Pembayaran">
+                                                            @foreach ($metode_pembayaran as $item)
+                                                                <option value="{{ $item[0] }}">{{ $item[1] }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('metode_pembayaran')
+                                                            <div class="invalid text-danger">
+                                                                {!! $message !!}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">Status Pembayaran</label>
+                                                    <div class="form-control-wrap">
+                                                        <select class="form-control form-control-lg form-select select2"
+                                                            style="position:absolute;" name="status_pembayaran"
+                                                            data-placeholder="Pilih status pembayaran">
+                                                            @foreach ($status_pembayaran as $item)
+                                                                <option value="{{ $item[0] }}">{{ $item[1] }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('status_pembayaran')
+                                                            <div class="invalid text-danger">
+                                                                {!! $message !!}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
                                                     <label class="form-label">Jenis File</label>
                                                     <div class="form-control-wrap">
                                                         <select class="form-control form-control-lg form-select select2"

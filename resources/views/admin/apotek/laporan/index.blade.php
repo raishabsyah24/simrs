@@ -13,7 +13,7 @@
                         <div class="nk-block nk-block-lg">
                             <div class="card shadow">
                                 <div class="card-inner">
-                                    <form target="_blank" action="" method="post">
+                                    <form target="_blank" action="{{ route('apotek.ekspor') }}" method="post">
                                         @csrf
                                         <div class="row g-4">
                                             <div class="col-lg-4">
@@ -81,7 +81,7 @@
                                             </div>
                                             <div class="col-md-7 offset-lg-5">
                                                 <div class="form-group">
-                                                    <button type="submit" onclick="submitForm(this.form)"
+                                                    <button type="submit"
                                                         class="tombol-simpan btn btn-lg btn-primary">
                                                         <span class="text-simpan">Ekspor Data</span>
                                                         <span

@@ -27,8 +27,7 @@ class ApotekRepository implements ApotekInterface
             ->where('pd.status', 'selesai')
             ->where('k.status', 'sudah dilayani')
             ->where('k.status_pembayaran', '!=', 'belum dibayar')
-            ->whereDate('pe.tanggal', tanggalSekarang())
-            ->orderBy('pe.created_at', 'asc');
+            ->whereDate('pe.tanggal', tanggalSekarang());
     }
 
     public function antrianApotekUmum()
@@ -51,8 +50,7 @@ class ApotekRepository implements ApotekInterface
             ->where('kt.nama', 'umum')
             ->where('ka.status', 'sudah dilayani')
             ->where('ka.status', '!=', 'lunas')
-            ->whereDate('pe.tanggal', tanggalSekarang())
-            ->orderBy('pe.created_at', 'asc');
+            ->whereDate('pe.tanggal', tanggalSekarang());
     }
 
     public function obatApotek()
@@ -128,5 +126,23 @@ class ApotekRepository implements ApotekInterface
             ->join('kategori_pasien as kt', 'kt.id', '=', 'pm.kategori_pasien')
             ->where('po.id', $periksa_dokter_id)
             ->first();
+    }
+
+    public function laporan($tanggal_awal, $tanggal_akhir)
+    {
+        return DB::table('pemeriksaan as pe')
+            ->selectRaw('
+                  DISTINCT pe.id as pemeriksaan_id, ps.nama as nama_pasien, pe.tanggal,
+                  pe.no_rekam_medis, kt.nama as kategori_pasien, pl.spesialis, do.nama as nama_dokter
+            ')
+            ->join('pasien as ps', 'pe.pasien_id', '=', 'ps.id')
+            ->join('periksa_dokter as pdo', 'pdo.id', '=', 'pdo.id')
+            ->join('dokter as do', 'do.id', '=', 'pdo.dokter_id')
+            ->join('kategori_pasien as kt', 'pe.kategori_pasien', '=', 'kt.id')
+            ->join('poli as pl', 'pl.id', '=', 'pl.id')
+            ->join('kasir as k', 'k.pemeriksaan_id', '=', 'k.id')
+            ->whereBetween('pe.tanggal', [$tanggal_awal, $tanggal_akhir])
+            ->where('k.status', 'sudah dilayani')
+            ->where('k.status', '!=', 'belum dibayar');
     }
 }

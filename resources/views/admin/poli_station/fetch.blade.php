@@ -47,7 +47,7 @@
                     <span class="text-capitalize tb-lead">{!! $item->nama_poli !!}</span>
                 </div>
                 <div class="nk-tb-col">
-                    <span class="tb-lead text-capitalize">{!! $item->nama_dokter ?? ''  !!}</span>
+                    <span class="tb-lead text-capitalize">{!! $item->nama_dokter ?? '' !!}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
                     <span class="tb-lead">{!! tanggal($item->tanggal_periksa) !!}</span>
@@ -96,7 +96,6 @@
                 <div class="nk-tb-col"></div>
                 <div class="nk-tb-col"></div>
             </div>
-
         @endforelse
     </div>
 

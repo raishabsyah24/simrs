@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="zxx" class="js">
+@extends('layouts.print.master')
 
-<head>
-    <base href="../">
-    <meta charset="utf-8">
-    <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="./images/favicon.png">
-    <!-- Page Title  -->
-    <title>apotek</title>
-    <!-- StyleSheets  -->
-    <link rel="stylesheet" href="{{ asset('backend/css/dashlite.css?ver=2.9.1') }}">
-    <link id="skin-default" rel="stylesheet" href="{{ asset('backend/css/theme.css?ver=2.9.1') }}">
-</head>
+@push('css')
+@endpush
     <style>
         .medich__contact {
             margin: 0 0 15px 20px;
@@ -32,7 +22,7 @@
         }
         
     </style>
-<body class="bg-grey" onload="printPromot()"> 
+@section('print-content')
     <div class="nk-content">
         <div class="container">
             <div class="nk-content-inner">
@@ -55,12 +45,6 @@
                             <div class="card-aside-wrap">
                                 <div class="card-content">
                                     <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
-                                        {{-- <li class="nav-item">
-                                            <a class="nav-link active" href="#">
-                                                <em class="icon ni ni-user-circle"></em>
-                                                <span></span>
-                                            </a>
-                                        </li> --}}
                                     </ul><!-- .nav-tabs -->
                                     <div class="card-inner">
                                         <div class="nk-block">
@@ -165,9 +149,11 @@
                                                                 </span>
                                                             </span>
                                                         </th>
-                                                        <th class="tb-tnx-amount">
+                                                        <th class="tb-tnx-amount" colspan="3">
                                                             <span class="tb-tnx-total">Harga</span>
-                                                            <span class="tb-tnx-status d-none d-md-inline-block">Subtotal</span>
+                                                            <span class="tb-tnx-status d-none d-md-inline-block">
+                                                                Subtotal
+                                                            </span>
                                                         </th>
                                                      </tr>
                                                  </thead>
@@ -191,7 +177,7 @@
                                                                     {{ $item->jumlah }}
                                                                 </span>
                                                             </div>
-                                                            <td class="tb-tnx-amount">
+                                                            <td class="tb-tnx-amount" colspan="3">
                                                                 <div class="tb-tnx-total">
                                                                     <span class="amount">
                                                                         Rp. {{ formatAngka($item->harga_obat) }}
@@ -213,9 +199,18 @@
                                                             </td>
                                                         </tr>
                                                     @endforelse
+                                                    <tr>
+                                                        <td colspan="2"></td>
+                                                        <td>
+                                                            <h5>Total</h5>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{ formatAngka($drug->sum('subtotal'), true) }}
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
-                                            </div><!-- .bq-note -->
+                                         </div><!-- .bq-note -->
                                         </div><!-- .nk-block -->
                                         <div class="nk-block">
                                             <div class="container">
@@ -261,10 +256,12 @@
             </div>
         </div>
     </div>
+@endsection
+
+@push('js')
     <script>
         function printPromot() {
             window.print();
         }
     </script>
-</body>
-</html>
+@endpush

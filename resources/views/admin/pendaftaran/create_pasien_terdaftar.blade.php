@@ -7,10 +7,14 @@
                     <div class="components-preview">
                         <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
-                                <div class="nk-block-head-sub"><a class="back-to"
-                                        href="{{ route('pendaftaran.index') }}"><em
-                                            class="icon ni ni-arrow-left"></em><span>Kembali</span></a></div>
-                                <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
+                                <div class="nk-block-head-sub">
+                                    <a href="{{ route('pendaftaran.index') }}"
+                                        class="btn btn-outline-dark d-none d-sm-inline-flex"><em
+                                            class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
+                                </div>
+                                <div class="fw-normal">
+                                    <h2>{{ $title }}</h2>
+                                </div>
                             </div>
                         </div><!-- .nk-block-head -->
                         <div class="nk-block nk-block-lg">
@@ -164,12 +168,13 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Tujuan <span class="text-danger">*</span>
+                                                    <label class="form-label">Tujuan <span
+                                                            class="text-danger">*</span>
                                                     </label>
                                                     <div class="form-control-wrap ">
                                                         <select class="form-select select2 dokter-poli"
-                                                                style="position:absolute;" data-search="on" name="layanan_id"
-                                                                data-placeholder="Pilih layanan pasien">
+                                                            style="position:absolute;" data-search="on" name="layanan_id"
+                                                            data-placeholder="Pilih layanan pasien">
                                                             <option label="Pilih data" disabled selected value=""></option>
                                                             @foreach ($layanan as $item)
                                                                 <option value="{{ $item->id }}">
@@ -184,8 +189,9 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Informasi Tambahan</label>
                                                     <div class="form-control-wrap">
-                                                        <textarea class="form-control form-control-sm" name="informasi_tambahan"
-                                                                  required autocomplete="off"></textarea>
+                                                        <textarea class="form-control form-control-sm"
+                                                            name="informasi_tambahan" required
+                                                            autocomplete="off"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -216,5 +222,5 @@
 @endsection
 
 @push('js')
-     <script src="{{ asset('backend/pages/pendaftaran/create_sudah_daftar.js') }}"></script>
+    <script src="{{ asset('backend/pages/pendaftaran/create_sudah_daftar.js') }}"></script>
 @endpush

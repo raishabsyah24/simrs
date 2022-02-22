@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Poli;
+use App\Models\Pasien;
 use App\Models\Satuan;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
@@ -95,5 +97,43 @@ class Controller extends BaseController
         $total_tagihan = $kasir->total_tagihan;
         $total = ($total_tagihan - $diskon) + $pajak;
         return $total;
+    }
+
+    public function metodePembayaran()
+    {
+        return
+            [
+                ['semua', 'Semua'],
+                ['bpjs', 'BPJS'],
+                ['asuransi', 'Asuransi'],
+                ['cash', 'Cash'],
+                ['deposit', 'Bayar Dengan Deposit Pasien'],
+                ['transfer', 'Transfer'],
+                ['debit', 'Debit'],
+            ];
+    }
+
+    public function statusPembayaran()
+    {
+        return
+            [
+                ['semua', 'Semua'],
+                ['lunas', 'Lunas'],
+                ['piutang bpjs', 'Piutang BPJS'],
+                ['piutang asuransi', 'Piutang Asuransi'],
+                ['belum lunas', 'Belum Lunas']
+            ];
+    }
+
+    public function namaPasien(int $pasien_id)
+    {
+        $pasien = Pasien::select(['id', 'nama'])->whereId($pasien_id)->first();
+        return $pasien->nama;
+    }
+
+    public function namaPoli(int $poli_id)
+    {
+        $poli = Poli::select(['id', 'nama'])->whereId($poli_id)->first();
+        return $poli->nama;
     }
 }

@@ -11,4 +11,5 @@ interface ApotekInterface
     public function obatApotek();
     public function pasienApotek(int $periksa_dokter_id);
     public function identitasPasien(int $periksa_dokter_id);
+    public function laporan($tanggal_awal, $tanggal_akhir);
 }
