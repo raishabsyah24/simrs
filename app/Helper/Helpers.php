@@ -134,6 +134,10 @@ function kode(string $table, string $field, int $panjang, string $prefix, bool $
     return IdGenerator::generate($config);
 }
 
+function kodeLayanan($parent_id)
+{
+    return kode('layanan', 'kode', '6', 'L' . $parent_id);
+}
 
 function kodePasien()
 {
@@ -153,10 +157,10 @@ function kodeRekamMedis()
     return kode('rekam_medis', 'kode', '15', 'RMP' . $date);
 }
 
-function kodePembayaran()
+function kodePembayaranRajal()
 {
-    $date = date('dmy');
-    return kode('kasir', 'kode', '13', 'RSF' . $date);
+    $prefix = 'RSF/' . date('dmy') . '/';
+    return kode('kasir', 'kode', '15', $prefix);
 }
 
 function noUrutPasienPeriksa($tanggal, $poli_id, $dokter_id)

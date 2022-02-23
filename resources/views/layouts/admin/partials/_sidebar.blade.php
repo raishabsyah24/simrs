@@ -21,13 +21,12 @@
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
-                    {{--Dashboard pasien--}}
-                    <li
-                        class="nk-menu-item {{ activeClass('dashboard.index') }}}">
+                    {{-- Dashboard pasien --}}
+                    <li class="nk-menu-item {{ activeClass('dashboard.index') }}}">
                         <a href="{{ route('dashboard.index') }}" class="nk-menu-link">
-                                <span class="nk-menu-icon">
-                                    <em class="icon ni ni-dashboard-fill"></em>
-                                </span>
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-dashboard-fill"></em>
+                            </span>
                             <span class="nk-menu-text">Dashboard</span>
                         </a>
                     </li>
@@ -56,7 +55,7 @@
                         </li>
                     @endrole
                     <!-- DOKTER -->
-                    @role('dokter|super_admin')
+                    @role('dokter')
                         <li
                             class="nk-menu-item {{ activeClass('dokter-spesialis.periksa-pasien') }} {{ activeClass('dokter.daftar-pasien') }}">
                             <a href="{{ route('dokter.daftar-pasien') }}" class="nk-menu-link">
@@ -80,43 +79,26 @@
                         </li>
                     @endrole
 
-                    @role('radiologi|super_admin')
-                        <li class="nk-menu-item has-sub">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
-                                <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
-                                <span class="nk-menu-text">Pemeriksaan Radiologi</span>
-                            </a>
-                            <ul class="nk-menu-sub">
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('order.radiologi-otc') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pemeriksaan Radiologi OTC</span></a>
-                                    <a href="{{ route('order.radiologi-umum') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pemeriksaan Radiologi RS</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endrole
-
                     <!-- KASIR -->
                     @role('kasir|super_admin')
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
                                     <em class="icon ni ni-sign-idr"></em>
                                 </span>
-                            <span class="nk-menu-text">Kasir</span>
-                        </a>
-                        <ul class="nk-menu-sub ">
-                            <li class="nk-menu-item {{ activeClass('kasir.index') }}">
-                                <a href="{{ route('kasir.index') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Transaksi</span></a>
-                            </li>
-                            <li class="nk-menu-item {{ activeClass('kasir.laporan') }}">
-                                <a href="{{ route('kasir.laporan') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Laporan Transaksi Kasir</span></a>
-                            </li>
-                        </ul>
-                    </li>
+                                <span class="nk-menu-text">Kasir</span>
+                            </a>
+                            <ul class="nk-menu-sub ">
+                                <li class="nk-menu-item {{ activeClass('kasir.index') }}">
+                                    <a href="{{ route('kasir.index') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Transaksi</span></a>
+                                </li>
+                                <li class="nk-menu-item {{ activeClass('kasir.laporan') }}">
+                                    <a href="{{ route('kasir.laporan') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Laporan Transaksi Kasir</span></a>
+                                </li>
+                            </ul>
+                        </li>
                     @endrole
 
                     <!-- APOTEK -->
@@ -149,7 +131,7 @@
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
                                     <a href="{{ route('data') }}" class="nk-menu-link"><span
-                                        class="nk-menu-text">Data Obat</span></a>
+                                            class="nk-menu-text">Data Obat</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
                         </li>
@@ -164,6 +146,23 @@
                                             class="nk-menu-text">Stok Obat - Default</span></a>
                                 </li>
                             </ul><!-- .nk-menu-sub -->
+                        </li>
+                    @endrole
+
+                    @role('radiologi|super_admin')
+                        <li class="nk-menu-item has-sub">
+                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                                <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2-fill"></em></span>
+                                <span class="nk-menu-text">Pemeriksaan Radiologi</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item">
+                                    <a href="{{ route('order.radiologi-otc') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Pemeriksaan Radiologi OTC</span></a>
+                                    <a href="{{ route('order.radiologi-umum') }}" class="nk-menu-link"><span
+                                            class="nk-menu-text">Pemeriksaan Radiologi RS</span></a>
+                                </li>
+                            </ul>
                         </li>
                     @endrole
 
@@ -188,7 +187,8 @@
                         </li>
                     @endrole
                     @role('super_admin|admin')
-                        <li class="nk-menu-item has-sub {{ activeClass('dashboard.antrian-poli.jantung') }} {{ activeClass('dashboard.antrian-poli.anak') }}">
+                        <li
+                            class="nk-menu-item has-sub {{ activeClass('dashboard.antrian-poli.jantung') }} {{ activeClass('dashboard.antrian-poli.anak') }}">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon"><em class="icon ni ni-view-list-fill"></em>
                                 </span>
@@ -197,14 +197,12 @@
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item {{ activeClass('dashboard.antrian-poli.jantung') }}">
                                     <a href="{{ route('dashboard.antrian-poli.jantung') }}" class="nk-menu-link">
-                                        <span
-                                            class="nk-menu-text">Antrian Poli Jantung</span>
+                                        <span class="nk-menu-text">Antrian Poli Jantung</span>
                                     </a>
                                 </li>
                                 <li class="nk-menu-item {{ activeClass('dashboard.antrian-poli.anak') }}">
                                     <a href="{{ route('dashboard.antrian-poli.anak') }}" class="nk-menu-link">
-                                        <span
-                                            class="nk-menu-text">Antrian Poli Anak</span>
+                                        <span class="nk-menu-text">Antrian Poli Anak</span>
                                     </a>
                                 </li>
                             </ul>
@@ -247,4 +245,3 @@
         </div>
     </div>
 </div>
-

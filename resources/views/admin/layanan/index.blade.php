@@ -4,7 +4,7 @@
 @endpush
 
 @section('admin-content')
-    <div class="nk-content ">
+    <div class="nk-content">
         <div class="container-fluid">
             <nav>
                 <ul class="breadcrumb breadcrumb-arrow">
@@ -113,10 +113,70 @@
             </div>
         </div>
     </div>
-
     @includeIf('admin.layanan.partials.modal_form')
 @endsection
 
 @push('js')
     <script src="{{ asset('backend/pages/layanan.js') }}"></script>
+    <script>
+        const modal = '.modal-form';
+
+
+        function addForm(url) {
+            $(modal).modal("show");
+            $(".modal-title").text("Form Tambah Layanan");
+            $(`${modal} form`).attr('action', url)
+        }
+
+        async function editForm(url) {
+            await $.get(url)
+                .done(response => {
+                    resetForm(`${modal} form`);
+                    $(modal).modal('show');
+                    $(`${modal} .modal-title`).text("Ubah Data Layanan");
+                    $(`${modal} form`).attr('action', url);
+                    $(`${modal} [name=_method]`).val('put');
+                    loopForm(response.data);
+                })
+                .fail(errors => {
+                    alertError();
+                    return;
+                });
+
+        }
+
+        function submitForm(originalForm) {
+            event.preventDefault();
+            $(originalForm).find('.form-control').removeClass('error');
+            $(".invalid").remove();
+            $.post({
+                    url: $(originalForm).attr('action'),
+                    data: $(originalForm).serialize(),
+                    beforeSend: function() {
+                        $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                        $(originalForm).find('.text-simpan').text('Menyimpan . . .');
+                        $(originalForm).find('.loading-simpan').removeClass('d-none');
+                    },
+                    complete: function() {
+                        $(originalForm).find('.loading-simpan').addClass('d-none');
+                        $(originalForm).find('.text-simpan').text('Simpan');
+                        $(originalForm).find('.tombol-simpan').attr('disabled', false);
+
+                    }
+                })
+                .done(response => {
+                    $(modal).modal('hide');
+                    $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                    alertSuccess(response.message);
+                    pindahHalaman(response.url, 1500);
+                })
+                .fail(errors => {
+                    if (errors.status === 422) {
+                        loopErrors(errors.responseJSON.errors);
+                        return;
+                    }
+                    alertError();
+                })
+        }
+    </script>
 @endpush
