@@ -12,7 +12,7 @@
                         <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
                                 <div class="nk-block-head-sub">
-                                    <a href="{{ route('pendaftaran.index') }}"
+                                    <a href="{{ route('pendaftaran.rawat-jalan.index') }}"
                                         class="btn btn-outline-dark d-none d-sm-inline-flex"><em
                                             class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
                                 </div>
@@ -25,13 +25,14 @@
                             <div class="nk-block-head">
                                 <div class="nk-block-head-content">
                                     <h4 class="title nk-block-title"><a
-                                            href="{{ route('pendaftaran.createPasienSudahPernahDaftar') }}">Pasien sudah
+                                            href="{{ route('pendaftaran.rawat-jalan.createPasienSudahPernahDaftar') }}">Pasien
+                                            sudah
                                             pernah daftar<em class="icon ni ni-arrow-right"></em></a></h4>
                                 </div>
                             </div>
                             <div class="card card-bordered">
                                 <div class="card-inner">
-                                    <form class="form-validate" action="{{ route('pendaftaran.store') }}">
+                                    <form class="form-validate" action="{{ route('pendaftaran.rawat-jalan.store') }}">
                                         @csrf
                                         <div class="row g-gs">
 
@@ -405,7 +406,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="form-control-wrap ">
                                                         <select
-                                                            onchange="pilihPoli(`{{ route('pendaftaran.dokter-poli') }}`, this)"
+                                                            onchange="pilihPoli(`{{ route('pendaftaran.rawat-jalan.dokter-poli') }}`, this)"
                                                             class="form-select select2" style="position:absolute;"
                                                             data-search="on" name="poli_id"
                                                             data-placeholder="Pilih tujuan pasien">

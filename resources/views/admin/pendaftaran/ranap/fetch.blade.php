@@ -5,7 +5,6 @@
         <div class="nk-tb-col"><span class="sub-text">Pasien</span></div>
         <div class="nk-tb-col"><span class="sub-text">Kategori</span></div>
         <div class="nk-tb-col"><span class="sub-text">Tanggal Lahir</span></div>
-        <div class="nk-tb-col"><span class="sub-text">Tujuan Poli</span></div>
         <div class="nk-tb-col"><span class="sub-text">Waktu Daftar</span></div>
         <div class="nk-tb-col"><span class="sub-text">Rencana Periksa</span></div>
         <div class="nk-tb-col"><span class="sub-text"><em class="icon ni ni-setting-fill"></em></span>
@@ -54,9 +53,6 @@
                 </span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="text-capitalize tb-lead">{!! $item->tujuan !!}</span>
-            </div>
-            <div class="nk-tb-col tb-col-md">
                 <span class="tb-lead">{!! tanggalJam($item->created_at) !!}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
@@ -83,13 +79,14 @@
                                         </a>
                                     </li>
                                     @role('super_admin|pendaftaran')
-                                    @if($item->status_diperiksa == 'belum diperiksa')
-                                        <li>
-                                            <a href="#" onclick="hapusPasien(`{{ route('pendaftaran.destroy', $item->pemeriksaan_id) }}`)">
-                                                <em class="icon ni ni-trash"></em><span>Hapus</span>
-                                            </a>
-                                        </li>
-                                    @endif
+                                        @if ($item->status_diperiksa == 'belum diperiksa')
+                                            <li>
+                                                <a href="#"
+                                                    onclick="hapusPasien(`{{ route('pendaftaran.rawat-jalan.destroy', $item->pemeriksaan_id) }}`)">
+                                                    <em class="icon ni ni-trash"></em><span>Hapus</span>
+                                                </a>
+                                            </li>
+                                        @endif
                                     @endrole
                                 </ul>
                             </div>

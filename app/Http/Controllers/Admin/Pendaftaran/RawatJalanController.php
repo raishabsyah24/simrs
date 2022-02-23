@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Pendaftaran;
 
 use App\Models\{
     Kasir,
@@ -21,21 +21,20 @@ use App\Models\{
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\PendaftaranInterface;
 use App\Http\Requests\Admin\{PendaftaranPasienBaruRequest, PendaftaranPasienLamaRequest};
+use App\Repositories\Interfaces\PendaftaranRawatJalanInterface;
 use Carbon\Carbon;
 
-class PendaftaranController extends Controller
+class RawatJalanController extends Controller
 {
     public $perPage = 10;
-
     public $layananPeriksaDokter  = 1;
     public $layananPeriksaLaboratorium  = 2;
     public $layananPeriksaRadiologi  = 3;
 
     private $pendaftaranRepository;
 
-    public function __construct(PendaftaranInterface $pendaftaranRepository)
+    public function __construct(PendaftaranRawatJalanInterface $pendaftaranRepository)
     {
         $this->pendaftaranRepository = $pendaftaranRepository;
     }
@@ -54,7 +53,7 @@ class PendaftaranController extends Controller
             ['Umum', $this->pendaftaranRepository->totalPasienUmum()],
             ['Asuransi', $this->pendaftaranRepository->totalPasienAsuransi()],
         ];
-        return view('admin.pendaftaran.index', compact(
+        return view('admin.pendaftaran.rajal.index', compact(
             'title',
             'data',
             'total',
@@ -99,7 +98,7 @@ class PendaftaranController extends Controller
                 })
                 ->orderBy('p.created_at', $sortBy)
                 ->paginate($this->perPage);
-            return view('admin.pendaftaran.fetch', compact(
+            return view('admin.pendaftaran.rajal.fetch', compact(
                 'data',
                 'badge'
             ))->render();
@@ -113,7 +112,7 @@ class PendaftaranController extends Controller
         $faskes = $this->faskes();
         $layanan = $this->layanan();
         $poli = $this->poli();
-        return view('admin.pendaftaran.create', compact(
+        return view('admin.pendaftaran.rajal.create', compact(
             'title',
             'kategori_pasien',
             'faskes',
@@ -265,7 +264,7 @@ class PendaftaranController extends Controller
 
         return response()->json([
             'message' => 'Pasien berhasil ditambahkan',
-            'url' => route('pendaftaran.index')
+            'url' => route('pendaftaran.rawat-jalan.index')
         ], 200);
     }
 
@@ -276,7 +275,7 @@ class PendaftaranController extends Controller
         $faskes = $this->faskes();
         $layanan = $this->layanan();
         $poli = $this->poli();
-        return view('admin.pendaftaran.create_pasien_terdaftar', compact(
+        return view('admin.pendaftaran.rajal.create_pasien_terdaftar', compact(
             'title',
             'kategori_pasien',
             'faskes',
@@ -421,7 +420,7 @@ class PendaftaranController extends Controller
 
         return response()->json([
             'message' => 'Pasien berhasil ditambahkan',
-            'url' => route('pendaftaran.index')
+            'url' => route('pendaftaran.rawat-jalan.index')
         ], 200);
     }
 
@@ -441,7 +440,7 @@ class PendaftaranController extends Controller
         $output = '<div class="dropdown-menu d-block position-relative">';
         foreach ($data as $item) {
             $output .= '
-                <a href="#" class="item dropdown-item" onclick="pilihData(`' . $item->id . '`,`' . route('pendaftaran.change-pasien') . '`)">' . $item->nama . ' (' . $item->nik . ') </a>
+                <a href="#" class="item dropdown-item" onclick="pilihData(`' . $item->id . '`,`' . route('pendaftaran.rawat-jalan.change-pasien') . '`)">' . $item->nama . ' (' . $item->nik . ') </a>
                 ';
         }
         $output .= '</div>';
@@ -475,7 +474,7 @@ class PendaftaranController extends Controller
 
         return response()->json([
             'message' => 'Data berhasil dihapus',
-            'url' => route('pendaftaran.index')
+            'url' => route('pendaftaran.rawat-jalan.index')
         ], 200);
     }
 }

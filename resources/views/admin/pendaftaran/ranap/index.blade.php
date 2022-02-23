@@ -1,9 +1,4 @@
 @extends('layouts.admin.master', ['title' => $title])
-
-@push('css')
-
-@endpush
-
 @section('admin-content')
     <div class="nk-content ">
         <div class="container-fluid">
@@ -15,35 +10,6 @@
                                 <h3 class="nk-block-title page-title">
                                     {!! $title !!}
                                 </h3>
-                            </div>
-                        </div>
-                        <div class="nk-block">
-                            <div class="row mt-2">
-                                @foreach ($total as $item)
-                                    <div class="col-md-3">
-                                        <div class="card">
-                                            <div class="nk-ecwg nk-ecwg3">
-                                                <div class="card-inner pb-0">
-                                                    <div class="card-title-group">
-                                                        <div class="card-title">
-                                                            <h6 class="title">
-                                                                {{ $item[0] }}
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="data">
-                                                        <div class="data-group">
-                                                            <div class="amount fw-normal">
-                                                                {{ formatAngka($item[1]) }}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- .nk-ecwg -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
                             </div>
                         </div>
                         {{-- Head --}}
@@ -112,7 +78,9 @@
                                                             </li>
                                                             @foreach ($poli as $item)
                                                                 <li>
-                                                                    <a data-id="{{ $item->id }}" href="#" onclick="filterPoli(`{{ $item->nama }}`)"><input type="hidden" name="poli" />
+                                                                    <a data-id="{{ $item->id }}" href="#"
+                                                                        onclick="filterPoli(`{{ $item->nama }}`)"><input
+                                                                            type="hidden" name="poli" />
                                                                         <span class="text-uppercase">
                                                                             {{ $item->nama }}
                                                                         </span>
@@ -124,8 +92,8 @@
                                                 </div>
                                             </li>
                                             <li class="nk-block-tools-opt">
-                                                <a href="{{ route('pendaftaran.create') }}"
-                                                   class="btn btn-primary d-md-inline-flex"><em
+                                                <a href="{{ route('pendaftaran.rawat-inap.create') }}"
+                                                    class="btn btn-primary d-md-inline-flex"><em
                                                         class="icon ni ni-plus"></em><span>Tambah</span></a>
                                             </li>
                                         </ul>
@@ -143,7 +111,7 @@
                         </div>
                     </div>
                     <div class="nk-block fetch-data d-none">
-                        @include('admin.pendaftaran.fetch')
+                        @include('admin.pendaftaran.ranap.fetch')
                         <input type="hidden" name="page" value="1" />
                     </div>
                 </div>
@@ -153,5 +121,80 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('backend/pages/pendaftaran/index.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $(".fetch-data").removeClass("d-none");
+            $(".loader").addClass("d-none");
+        });
+
+        async function fetchData(
+            page = "",
+            query = "",
+            sortBy = "desc",
+            kategori = "",
+            poli = ""
+        ) {
+            await $.get(
+                    `/pendaftaran/rawat-inap/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}&kategori=${kategori}&poli=${poli}`
+                )
+                .done((data) => {
+                    $(".loader").addClass("d-none");
+                    $(".fetch-data").removeClass("d-none");
+                    $(".fetch-data").html(data);
+                })
+                .fail((error) => {
+                    $(".loader").addClass("d-none");
+                    modalError();
+                });
+        }
+
+        function search(el) {
+            let query = $(el).val(),
+                page = $("input[name=page]").val(),
+                kategori = $("input[name=kategori]").val();
+            $(".loader").removeClass("d-none");
+            $(".fetch-data").addClass("d-none");
+            fetchData(page, query, "desc");
+        }
+
+        function sortBy(sortBy) {
+            let page = $("input[name=page]").val(),
+                query = $("input[name=query]").val();
+            $(".loader").removeClass("d-none");
+            $(".fetch-data").addClass("d-none");
+            fetchData(page, query, sortBy);
+        }
+
+        $(document).on("click", ".pagination a", function(e) {
+            e.preventDefault();
+            let page = $(this).attr("href").split("page=")[1],
+                kategori = $("input[name=kategori]").val(),
+                query = $("input[name=query]").val();
+            $(".loader").removeClass("d-none");
+            $(".fetch-data").addClass("d-none");
+            fetchData(page, query, "desc", kategori);
+        });
+
+        function filterKategori(kategori) {
+            event.preventDefault();
+            let page = $("input[name=page]").val(),
+                query = $("input[name=query]").val(),
+                poli = $("input[name=poli]").val();
+            fetchData(page, query, "desc", kategori, poli);
+        }
+
+        function filterPoli(poli) {
+            event.preventDefault();
+            let page = $("input[name=page]").val(),
+                query = $("input[name=query]").val(),
+                kategori = $("input[name=kategori]").val();
+            fetchData(page, query, "desc", kategori, poli);
+        }
+
+        function hapusPasien(url) {
+            event.preventDefault();
+            confirmDelete(url);
+        }
+    </script>
+    {{-- <script src="{{ asset('backend/pages/pendaftaran/index.js') }}"></script> --}}
 @endpush

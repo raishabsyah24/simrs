@@ -8,7 +8,7 @@
                         <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
                                 <div class="nk-block-head-sub">
-                                    <a href="{{ route('pendaftaran.index') }}"
+                                    <a href="{{ route('pendaftaran.rawat-jalan.index') }}"
                                         class="btn btn-outline-dark d-none d-sm-inline-flex"><em
                                             class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
                                 </div>
@@ -21,7 +21,7 @@
                             <div class="card card-bordered">
                                 <div class="card-inner">
                                     <form class="form-validate"
-                                        action="{{ route('pendaftaran.storePasienSudahPernahDaftar') }}">
+                                        action="{{ route('pendaftaran.rawat-jalan.storePasienSudahPernahDaftar') }}">
                                         @csrf
                                         <div class="row g-gs">
                                             {{-- Form Identitas penanggung jawab pasien --}}
@@ -160,7 +160,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            onkeyup="searchData(`{{ route('pendaftaran.search-pasien') }}`,this)"
+                                                            onkeyup="searchData(`{{ route('pendaftaran.rawat-jalan.search-pasien') }}`,this)"
                                                             autofocus placeholder="Masukan nama pasien / NIK KTP pasien"
                                                             autocomplete="off" type="text" class="form-control"
                                                             name="pasien">
@@ -266,7 +266,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="form-control-wrap ">
                                                         <select data-search="on"
-                                                            onchange="pilihPoli(`{{ route('pendaftaran.dokter-poli') }}`, this)"
+                                                            onchange="pilihPoli(`{{ route('pendaftaran.rawat-jalan.dokter-poli') }}`, this)"
                                                             class="form-select select2" style="position:absolute;"
                                                             name="poli_id" data-placeholder="Pilih tujuan pasien">
                                                             <option data-search="on" label="Pilih data" disabled selected
@@ -479,7 +479,7 @@
             </div>
         </div>
     </div>
-    @includeIf('admin.pendaftaran.partials._modal_detail_pasien')
+    @includeIf('admin.pendaftaran.rajal.partials._modal_detail_pasien')
 @endsection
 
 @push('js')

@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-interface PendaftaranInterface
+interface PendaftaranRawatJalanInterface
 {
 
     public function pasienHariIni();

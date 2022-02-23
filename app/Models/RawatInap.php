@@ -5,23 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pemeriksaan extends Model
+class RawatInap extends Model
 {
     use HasFactory;
 
-    protected $table = 'pemeriksaan';
+    protected $table = 'rawat_inap';
 
     protected $fillable = [
         'kode',
         'no_sep',
         'no_bpjs',
-        'faskes_id',
+        'no_asuransi',
+        'no_rekam_medis',
         'pasien_id',
         'kategori_pasien',
-        'tanggal',
+        'posisi_pasien',
+        'checkin',
+        'checkout',
         'status',
-        'no_rekam_medis',
-        'pasien_sudah_membaca_dan_setuju_dengan_peraturan',
-        'no_asuransi'
+        'durasi',
+        'tanggal',
     ];
 }

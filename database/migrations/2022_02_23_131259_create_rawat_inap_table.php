@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePemeriksaanTable extends Migration
+class CreateRawatInapTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,22 @@ class CreatePemeriksaanTable extends Migration
      */
     public function up()
     {
-        Schema::create('pemeriksaan', function (Blueprint $table) {
+        Schema::create('rawat_inap', function (Blueprint $table) {
             $table->id();
             $table->string('kode')->unique();
             $table->string('no_sep')->unique()->nullable();
             $table->string('no_bpjs')->nullable();
             $table->string('no_asuransi')->nullable();
             $table->string('no_rekam_medis')->nullable();
-            $table->unsignedBigInteger('faskes_id')->nullable();
             $table->unsignedBigInteger('pasien_id');
             $table->unsignedBigInteger('kategori_pasien');
-            $table->date('tanggal');
+            $table->string('posisi_pasien')->nullable();
+            $table->date('tanggal')->nullable();
+            $table->dateTime('checkin')->nullable();
+            $table->dateTime('checkout')->nullable();
             $table->string('status')->default('belum selesai');
-            $table->string('pasien_sudah_membaca_dan_setuju_dengan_peraturan')->nullable();
             $table->timestamps();
 
-            $table->foreign('faskes_id')->references('id')->on('faskes')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
             $table->foreign('pasien_id')->references('id')->on('pasien')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
@@ -47,6 +45,6 @@ class CreatePemeriksaanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pemeriksaan');
+        Schema::dropIfExists('rawat_inap');
     }
 }
