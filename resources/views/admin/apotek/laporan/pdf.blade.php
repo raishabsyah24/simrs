@@ -46,22 +46,18 @@
                         <thead>
                           <tr>
                             <th>No</th>
-                            <th>Dokter</th>
                             <th>RM Pasien</th>
                             <th>Nama Pasien</th>
                             <th>Kategori</th>
-                            <th>Tujuan Poli</th>
                           </tr>
                         </thead>
                         <tbody>
                           @forelse ($data['data'] as $item)
                           <tr>
-                            <th>{!! $loop->iteration !!}</th>
-                            <td>{!! $item->nama_dokter !!}</td>
+                            <td>{!! $loop->iteration !!}</td>
                             <td>{!! $item->no_rekam_medis !!}</td>
                             <td>{!! $item->nama_pasien !!}</td>
                             <td>{!! $item->kategori_pasien !!}</td>
-                            <td>{!! $item->spesialis !!}</td>
                           </tr>
                           @empty
                           <tr>

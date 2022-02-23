@@ -238,21 +238,5 @@ class AntrianBpjsController extends Controller
             'query',
             'drug'
         ));
-
-        // // Cek jika ada file pdf sebelumnya
-        // if ($query(['pemeriksaan_id'])->filename_pdf) {
-        //     $path = public_path('swab/') . $query(['pemeriksaan_id'])->filename_pdf;
-
-        //     // Hapus file pdf
-        //     File::delete($path);
-        // }
-
-        // // Set filename pdf baru
-        // $data['filename'] = str_replace(' ', '', $query(['pemeriksaan_id'])->nama) . '_' . time() . uniqid() . '.pdf';
-
-        // // create pdf file baru
-        // $pdf = \PDF::loadView('admin.apotek.antrian_bpjs.pdf.hasil', compact('query'));
-        // $path = public_path('swab/') . $data['filename'];
-        // $pdf->save($path);
     }
 }

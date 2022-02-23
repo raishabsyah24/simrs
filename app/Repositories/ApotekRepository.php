@@ -130,19 +130,32 @@ class ApotekRepository implements ApotekInterface
 
     public function laporan($tanggal_awal, $tanggal_akhir)
     {
-        return DB::table('pemeriksaan as pe')
+        return DB::table('obat_pasien_periksa_rajal as ob')
             ->selectRaw('
-                  DISTINCT pe.id as pemeriksaan_id, ps.nama as nama_pasien, pe.tanggal,
-                  pe.no_rekam_medis, kt.nama as kategori_pasien, pl.spesialis, do.nama as nama_dokter
+                  DISTINCT pe.no_rekam_medis, ps.nama as nama_pasien, kt.nama as kategori_pasien,
+                    bt.nama_generik, ob.jumlah
             ')
-            ->join('pasien as ps', 'pe.pasien_id', '=', 'ps.id')
-            ->join('periksa_dokter as pdo', 'pdo.id', '=', 'pdo.id')
-            ->join('dokter as do', 'do.id', '=', 'pdo.dokter_id')
+            ->join('obat_apotek as oa', 'oa.id', '=', 'ob.obat_apotek_id')
+            ->join('obat as bt', 'bt.id', '=', 'oa.obat_id')
+            ->join('periksa_dokter as pdo', 'pdo.id', '=', 'ob.periksa_dokter_id')
+            ->join('pasien as ps', 'ps.id', '=', 'pdo.pasien_id')
+            ->join('pemeriksaan as pe', 'pe.pasien_id', '=', 'ps.id')
             ->join('kategori_pasien as kt', 'pe.kategori_pasien', '=', 'kt.id')
-            ->join('poli as pl', 'pl.id', '=', 'pl.id')
-            ->join('kasir as k', 'k.pemeriksaan_id', '=', 'k.id')
-            ->whereBetween('pe.tanggal', [$tanggal_awal, $tanggal_akhir])
-            ->where('k.status', 'sudah dilayani')
-            ->where('k.status', '!=', 'belum dibayar');
+            ->whereBetween('ob.created_at', [$tanggal_awal, $tanggal_akhir]);
+        // ->where('kt.nama', 'bpjs');
+        // return DB::table('pemeriksaan as pe')
+        //     ->selectRaw('
+        //           DISTINCT pe.id as pemeriksaan_id, ps.nama as nama_pasien, pe.tanggal,
+        //           pe.no_rekam_medis, kt.nama as kategori_pasien, pl.spesialis, do.nama as nama_dokter
+        //     ')
+        //     ->join('pasien as ps', 'pe.pasien_id', '=', 'ps.id')
+        //     ->join('periksa_dokter as pdo', 'pdo.id', '=', 'pdo.id')
+        //     ->join('dokter as do', 'do.id', '=', 'pdo.dokter_id')
+        //     ->join('kategori_pasien as kt', 'pe.kategori_pasien', '=', 'kt.id')
+        //     ->join('poli as pl', 'pl.id', '=', 'pl.id')
+        //     ->join('kasir as k', 'k.pemeriksaan_id', '=', 'k.id')
+        //     ->whereBetween('pe.tanggal', [$tanggal_awal, $tanggal_akhir])
+        //     ->where('k.status', 'sudah dilayani')
+        //     ->where('k.status', '!=', 'belum dibayar');
     }
 }

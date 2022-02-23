@@ -51,14 +51,18 @@ class LaporanController extends Controller
         $tanggal_awal = Carbon::parse($request->dari)->startOfDay();
         $tanggal_akhir = Carbon::parse($request->sampai)->endOfDay();
         $kategori_pasien = $res['kategori_pasien'];
+        $bpjs     = isset($res['bpjs']);
+        // $umum     = $res['umum'];
+        // $asuransi = $res['asuransi'];
 
         $data['data'] = $this->apotekRepository->laporan($tanggal_awal, $tanggal_akhir)
             ->when($kategori_pasien ?? false, function ($query) use ($kategori_pasien) {
                 if ($kategori_pasien == 'semua') {
                     return false;
                 }
-                return $query->where('kp.id', $kategori_pasien);
-            })->get();
+                return $query->where('kt.id', $kategori_pasien);
+            })
+            ->get();
 
         // return $data['data'];
 
