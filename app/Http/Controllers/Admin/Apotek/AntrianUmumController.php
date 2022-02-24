@@ -190,4 +190,15 @@ class AntrianUmumController extends Controller
             'url'     => route('data.umum')
         ], 200);
     }
+
+    public function previewPDF($pemeriksaan_id, $periksa_dokter_id)
+    {
+        $query = $this->apotekRepository->identitasPasien($periksa_dokter_id);
+        $drug  = $this->apotekRepository->obatBpjs($pemeriksaan_id);
+        // return $query;
+        return view('admin.apotek.antrian_umum.pdf.hasil', compact(
+            'query',
+            'drug'
+        ));
+    }
 }

@@ -149,10 +149,10 @@ Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () 
         ->name('apotek.proses-pasien');
     Route::post('/apotek/proses/pasien/{id}/update', [AntrianBpjsController::class, 'prosesPasienBpjs'])
         ->name('apotek.pasien-bpjs-update');
-
-    // Laporan riwayat obat pasien
     Route::get('/apotek/preview/{pemeriksaan_id}/pdf/{periksa_dokter_id}', [AntrianBpjsController::class, 'previewPDF'])
         ->name('apotek.preview-hasil');
+
+    // Laporan riwayat obat pasien
     Route::get('/apotek/laporan', [LaporanController::class, 'laporanApotek'])
         ->name('apotek.laporan');
     Route::post('/apotek/laporan/ekspor', [LaporanController::class, 'ekspor'])
@@ -167,6 +167,8 @@ Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () 
         ->name('apotek.pasien-umum');
     Route::post('/apotek/proses/pasien/umum/{id}/update', [AntrianUmumController::class, 'prosesPasienUmum'])
         ->name('apotek.pasien-umum-update');
+    Route::get('/apotek/preview/{pemeriksaan_id}/pdf/{periksa_dokter_id}', [AntrianUmumController::class, 'previewPDF'])
+        ->name('apotek.preview-hasil');
     // Route::get('/create/apotek', [AntrianBpjsController::class, 'createApotek'])->name('create.antrian');
     // Route::post('/store/apotek', [AntrianBpjsController::class, 'storeApotek'])->name('store.antrian');
     // Route::post('/apotek/{id}/update/', [AntrianBpjsController::class, 'updateApotek'])->name('update.antrian');
