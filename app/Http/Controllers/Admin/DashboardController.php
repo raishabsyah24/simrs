@@ -38,7 +38,6 @@ class DashboardController extends Controller
         // Total Pasien Dokter Spesialis Bulan Ini
         $dokter['total_pasien_dokter_spesialis'] = $this->dashboardRepository->totalPasienSpesialisSaya(Auth::id());
         $dokter['data'] = $this->dashboardRepository->dataPasienSpesialisSaya(Auth::id());
-        return $dokter['data'];
 
         return view('admin.dashboard.index', compact(
             'title',

@@ -17,6 +17,8 @@
         }
     })
 
+    const reloadHalaman = () => window.location.href;
+
     function modalError(message = "Harap hubungi tim developer") {
         $(".modal-error").modal("show");
         $(".nk-modal-text .lead").text(message);

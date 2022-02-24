@@ -31,21 +31,41 @@
                         </a>
                     </li>
                     @role('pendaftaran|super_admin')
-                        <li class="nk-menu-item has-sub">
+                        <li class="nk-menu-item has-sub {{ activeClass('pendaftaran.rawat-jalan.index') }}">
                             <a href="#" class="nk-menu-link nk-menu-toggle">
                                 <span class="nk-menu-icon">
                                     <i class="fas fa-clinic-medical fa-lg"></i>
                                 </span>
                                 <span class="nk-menu-text">Pendaftaran</span>
                             </a>
-                            <ul class="nk-menu-sub ">
-                                <li class="nk-menu-item {{ activeClass('pendaftaran.index') }}">
-                                    <a href="{{ route('pendaftaran.index') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Pasien Hari Ini</span></a>
+                            <ul class="nk-menu-sub  {{ activeClass('pendaftaran.rawat-jalan.index') }}">
+                                <li class="nk-menu-item {{ activeClass('pendaftaran.rawat-jalan.index') }}">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Rawat
+                                            Jalan</span></a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item {{ activeClass('pendaftaran.rawat-jalan.index') }}"><a
+                                                href="{{ route('pendaftaran.rawat-jalan.index') }}"
+                                                class="nk-menu-link"><span class="nk-menu-text">Pasien Hari
+                                                    Ini</span></a></li>
+                                        <li class="nk-menu-item {{ activeClass('pendaftaran.rawat-jalan.create') }}"><a
+                                                href="{{ route('pendaftaran.rawat-jalan.create') }}"
+                                                class="nk-menu-link"><span class="nk-menu-text">Tambah Pasien</span></a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li class="nk-menu-item {{ activeClass('pendaftaran.create') }}">
-                                    <a href="{{ route('pendaftaran.create') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Tambah Pasien</span></a>
+                                <li class="nk-menu-item {{ activeClass('pendaftaran.rawat-inap.index') }}">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Rawat
+                                            inap</span></a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item {{ activeClass('pendaftaran.rawat-inap.index') }}"><a
+                                                href="{{ route('pendaftaran.rawat-inap.index') }}"
+                                                class="nk-menu-link"><span class="nk-menu-text">Pasien Hari
+                                                    Ini</span></a></li>
+                                        <li class="nk-menu-item {{ activeClass('pendaftaran.rawat-inap.create') }}"><a
+                                                href="{{ route('pendaftaran.rawat-inap.create') }}"
+                                                class="nk-menu-link"><span class="nk-menu-text">Tambah Pasien</span></a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li class="nk-menu-item">
                                     <a href="https://vclaim.bpjs-kesehatan.go.id/vclaim" target="_blank"

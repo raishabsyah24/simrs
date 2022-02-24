@@ -1,6 +1,19 @@
 @extends('layouts.admin.master', ['title' => $title])
 
 @push('css')
+    <style>
+        .modal-full {
+            max-width: 90%;
+            margin: 2% 5%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            display: flex;
+        }
+
+    </style>
 @endpush
 
 @section('admin-content')
@@ -12,7 +25,7 @@
                         <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
                                 <div class="nk-block-head-sub">
-                                    <a href="{{ route('pendaftaran.index') }}"
+                                    <a href="{{ route('pendaftaran.rawat-inap.index') }}"
                                         class="btn btn-outline-dark d-none d-sm-inline-flex"><em
                                             class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
                                 </div>
@@ -25,19 +38,115 @@
                             <div class="nk-block-head">
                                 <div class="nk-block-head-content">
                                     <h4 class="title nk-block-title"><a
-                                            href="{{ route('pendaftaran.createPasienSudahPernahDaftar') }}">Pasien sudah
+                                            href="{{ route('pendaftaran.rawat-inap.createPasienSudahPernahDaftar') }}">Pasien
+                                            sudah
                                             pernah daftar<em class="icon ni ni-arrow-right"></em></a></h4>
                                 </div>
                             </div>
-                            <div class="card card-bordered">
+                            <div class="card shadow card-bordered">
                                 <div class="card-inner">
-                                    <form class="form-validate" action="{{ route('pendaftaran.store') }}">
+                                    <form class="form-validate" action="{{ route('pendaftaran.rawat-inap.store') }}">
                                         @csrf
                                         <div class="row g-gs">
-
+                                            {{-- Form Kategori pasien --}}
+                                            <div class="col-md-12"><span
+                                                    class=" mt-3 bg-teal-dim rounded col-md-12 pt-3 preview-title-lg overline-title  text-dark">Kategori
+                                                    Pasien</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Kategori Pasien <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap ">
+                                                        <select onchange="kategoriPasienDaftar(this)"
+                                                            class="form-select select2" style="position:absolute;"
+                                                            name="kategori_pasien" data-placeholder="Pilih kategori pasien">
+                                                            <option label="Pilih data" disabled selected value=""></option>
+                                                            @foreach ($kategori_pasien as $item)
+                                                                <option value="{{ $item->id }}">{{ $item->nama }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 d-none asuransi">
+                                                <div class="form-group">
+                                                    <label class="form-label">Asuransi <span
+                                                            class="text-danger">*</span>
+                                                    </label>
+                                                    <a href="" onclick="formAsuransi(`{{ route('asuransi.store') }}`)"
+                                                        class="float-right" data-toggle="tooltip" data-placement="top"
+                                                        title="Klik untuk menambahkan perusahaan asuransi">
+                                                        Perusahaan asuransi belum
+                                                        ada?
+                                                    </a>
+                                                    <div class="form-control-wrap ">
+                                                        <select class="form-select select2" style="position:absolute;"
+                                                            data-search="on" name="asuransi_id"
+                                                            data-placeholder="Pilih asuransi">
+                                                            <option label="Pilih data" disabled selected value=""></option>
+                                                            @foreach ($asuransi as $item)
+                                                                <option data-asuransi="{{ $item->nama }}"
+                                                                    value="{{ $item->id }}">{{ $item->nama }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 asuransi d-none">
+                                                <div class="form-group">
+                                                    <label class="form-label">Nomor Asuransi <span
+                                                            class="text-danger">*</span> </label>
+                                                    <div class="form-control-wrap">
+                                                        <input autocomplete="off" type="text" class="form-control"
+                                                            name="no_asuransi">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 bpjs d-none">
+                                                <div class="form-group">
+                                                    <label class="form-label">Nomor BPJS <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap">
+                                                        <input autocomplete="off" type="text" class="form-control"
+                                                            name="no_bpjs">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 bpjs d-none">
+                                                <div class="form-group">
+                                                    <label class="form-label">Nomor SEP <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" class="form-control" name="no_sep"
+                                                            autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- <div class="col-md-6 d-none bpjs">
+                                                <div class="form-group">
+                                                    <label class="form-label">Faskes <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap ">
+                                                        <select class="form-select select2" style="position:absolute;"
+                                                            data-search="on" name="faskes_id"
+                                                            data-placeholder="Pilih faskes">
+                                                            <option label="Pilih data" disabled selected value=""></option>
+                                                            @foreach ($faskes as $item)
+                                                                <option data-kategori="{{ $item->nama }}"
+                                                                    value="{{ $item->id }}">{{ $item->nama }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
                                             {{-- Form Identitas penanggung jawab pasien --}}
                                             <div class="col-md-12"><span
-                                                    class="ml-1 preview-title-lg overline-title">Identitas Penanggung Jawab
+                                                    class=" mt-3 bg-teal-dim rounded col-md-12 pt-3 preview-title-lg overline-title  text-dark">Identitas
+                                                    Penanggung Jawab
                                                     Pasien</span>
                                             </div>
                                             <div class="col-md-6">
@@ -161,7 +270,8 @@
                                             </div>
                                             {{-- Form Identitas pasien --}}
                                             <div class="col-md-12"><span
-                                                    class="ml-1 preview-title-lg overline-title">Identitas Pasien</span>
+                                                    class=" mt-3 bg-teal-dim rounded col-md-12 pt-3 preview-title-lg overline-title  text-dark">Identitas
+                                                    Pasien</span>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -170,15 +280,6 @@
                                                     <div class="form-control-wrap">
                                                         <input autocomplete="off" type="text" class="form-control"
                                                             name="nama">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Nomor BPJS</label>
-                                                    <div class="form-control-wrap">
-                                                        <input autocomplete="off" type="text" class="form-control"
-                                                            name="no_bpjs">
                                                     </div>
                                                 </div>
                                             </div>
@@ -335,22 +436,23 @@
                                             </div>
                                             {{-- Akhir Form Identitas pasien --}}
 
-                                            <div class="col-md-12">
-                                                <span class="ml-1 mt-4 preview-title-lg overline-title">
-                                                    Pemeriksaan</span>
+                                            <div class="col-md-12"><span
+                                                    class=" mt-3 bg-teal-dim rounded col-md-12 pt-3 preview-title-lg overline-title  text-dark">Pendaftaran</span>
                                             </div>
 
                                             {{-- Form order pemeriksaan --}}
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Kategori Pasien <span
+                                                    <label class="form-label">Nurse Station <span
                                                             class="text-danger">*</span></label>
                                                     <div class="form-control-wrap ">
-                                                        <select onchange="kategoriPasienDaftar(this)"
+                                                        <select
+                                                            onchange="pilihNS(`{{ route('pendaftaran.rawat-inap.nurse-station') }}`, this)"
                                                             class="form-select select2" style="position:absolute;"
-                                                            name="kategori_pasien" data-placeholder="Pilih kategori pasien">
+                                                            data-search="on" name="nurse_station_id"
+                                                            data-placeholder="Pilih tujuan pasien">
                                                             <option label="Pilih data" disabled selected value=""></option>
-                                                            @foreach ($kategori_pasien as $item)
+                                                            @foreach ($nurse_station as $item)
                                                                 <option value="{{ $item->id }}">{{ $item->nama }}
                                                                 </option>
                                                             @endforeach
@@ -360,103 +462,28 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Tanggal Periksa <span
+                                                    <label class="form-label">Ruangan / Kamar <span
                                                             class="text-danger">*</span></label>
-                                                    <div class="form-control-wrap">
-                                                        <div class="form-icon form-icon-left">
-                                                            <em class="icon ni ni-calendar"></em>
-                                                        </div>
-                                                        <input data-date-format="yyyy-mm-dd" name="tanggal" type="text"
-                                                            class="form-control date-picker">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 bpjs d-none">
-                                                <div class="form-group">
-                                                    <label class="form-label">Nomor SEP <span
-                                                            class="text-danger">*</span></label>
-                                                    <div class="form-control-wrap">
-                                                        <input type="text" class="form-control" name="no_sep"
+                                                    <div class="form-control-wrap ">
+                                                        <input readonly type="text" class="form-control" name="ruangan"
+                                                            autocomplete="off">
+                                                        <input type="hidden" class="form-control" name="ruangan_id"
                                                             autocomplete="off">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 d-none bpjs">
+                                            <div class="col-md-6 d-none umum">
                                                 <div class="form-group">
-                                                    <label class="form-label">Faskes <span
+                                                    <label class="form-label">Deposit Awal <span
                                                             class="text-danger">*</span></label>
                                                     <div class="form-control-wrap ">
-                                                        <select class="form-select select2" style="position:absolute;"
-                                                            data-search="on" name="faskes_id"
-                                                            data-placeholder="Pilih faskes">
-                                                            <option label="Pilih data" disabled selected value=""></option>
-                                                            @foreach ($faskes as $item)
-                                                                <option data-kategori="{{ $item->nama }}"
-                                                                    value="{{ $item->id }}">{{ $item->nama }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Poli <span
-                                                            class="text-danger">*</span></label>
-                                                    <div class="form-control-wrap ">
-                                                        <select
-                                                            onchange="pilihPoli(`{{ route('pendaftaran.dokter-poli') }}`, this)"
-                                                            class="form-select select2" style="position:absolute;"
-                                                            data-search="on" name="poli_id"
-                                                            data-placeholder="Pilih tujuan pasien">
-                                                            <option label="Pilih data" disabled selected value=""></option>
-                                                            @foreach ($poli as $item)
-                                                                <option value="{{ $item->id }}">{{ $item->nama }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Dokter <span
-                                                            class="text-danger">*</span></label>
-                                                    <div class="form-control-wrap ">
-                                                        <select class="form-select select2 dokter-poli"
-                                                            style="position:absolute;" data-search="on" name="dokter_id"
-                                                            data-placeholder="Pilih dokter">
-                                                            <option label="Pilih data" disabled selected value=""></option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Tujuan <span
-                                                            class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="form-control-wrap ">
-                                                        <select class="form-select select2 dokter-poli"
-                                                            style="position:absolute;" data-search="on" name="layanan_id"
-                                                            data-placeholder="Pilih layanan pasien">
-                                                            <option label="Pilih data" disabled selected value=""></option>
-                                                            @foreach ($layanan as $item)
-                                                                <option value="{{ $item->id }}">
-                                                                    {{ $item->keterangan }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">Informasi Tambahan</label>
-                                                    <div class="form-control-wrap">
-                                                        <textarea class="form-control form-control-sm"
-                                                            name="informasi_tambahan" required
-                                                            autocomplete="off"></textarea>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon1">Rp</span>
+                                                            </div>
+                                                            <input type="text" autocomplete="off" name="deposit_awal"
+                                                                class="form-control">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -549,17 +576,143 @@
             </div>
         </div>
     </div>
+
+    @includeIf('admin.asuransi.partials._modal_form')
+    @includeIf('admin.pendaftaran.ranap.partials._modal_bed')
 @endsection
 
 @push('js')
-    <script src="{{ asset('backend/pages/pendaftaran/create.js') }}"></script>
     <script>
+        const modalBed = '.modal-bed';
+
         function penanggungJawabPasien(value) {
             if (value == 'tidak') {
                 $('.penanggung-jawab-pasien').removeClass('d-none')
             } else {
                 $('.penanggung-jawab-pasien').addClass('d-none')
             }
+        }
+
+        const pilihNS = (url, attr) => {
+            let ns = $(attr).val();
+            $('[name=ruangan_id] .kamar').remove();
+            $.get(url, {
+                    nurse_station_id: ns
+                })
+                .done(response => {
+                    let data = response.data;
+                    console.log(response);
+                    $(modalBed).modal('show');
+                    $(`${modalBed} .modal-body`).html(response.output);
+                })
+                .fail(error => {
+                    alertError()
+                })
+        }
+
+        const pilihRuangan = (ruangan_id, ruangan) => {
+            $(modalBed).modal('hide');
+            $('input[name=ruangan_id]').val(ruangan_id);
+            $('input[name=ruangan]').val(ruangan);
+        }
+
+        const kategoriPasienDaftar = (attr) => {
+            let kategori = $(attr).val();
+            if (kategori == 1) {
+                $('.bpjs').removeClass('d-none')
+            } else {
+                $('.bpjs').addClass('d-none')
+            }
+            if (kategori == 2) {
+                $('.umum').removeClass('d-none')
+            } else {
+                $('.umum').addClass('d-none')
+            }
+            if (kategori == 3) {
+                $('.asuransi').removeClass('d-none')
+            } else {
+                $('.asuransi').addClass('d-none')
+            }
+        }
+
+        function submitForm(originalForm) {
+            event.preventDefault();
+            $(originalForm).find('.form-control').removeClass('error');
+            $(originalForm).find('.form-control').removeClass('select2-hidden-accessible');
+            $(".invalid").remove();
+            $.post({
+                    url: $(originalForm).attr('action'),
+                    data: new FormData(originalForm),
+                    beforeSend: function() {
+                        $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                        $(originalForm).find('.text-simpan').text('Menyimpan . . .');
+                        $(originalForm).find('.loading-simpan').removeClass('d-none');
+                    },
+                    dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    complete: function() {
+                        $(originalForm).find('.loading-simpan').addClass('d-none');
+                        $(originalForm).find('.text-simpan').text('Simpan');
+                        $(originalForm).find('.tombol-simpan').attr('disabled', false);
+
+                    }
+                })
+                .done(response => {
+                    $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                    alertSuccess(response.message);
+                    pindahHalaman(response.url, 1500);
+                })
+                .fail(errors => {
+                    if (errors.status === 422) {
+                        loopErrors(errors.responseJSON.errors);
+
+                        return;
+                    }
+                    alertError();
+                })
+        }
+
+        const formAsuransi = (url) => {
+            event.preventDefault();
+            $('.modal-asuransi').modal('show')
+            $(`.modal-asuransi form`).attr('action', url);
+            $('.modal-form [name=_method]').val('post');
+        }
+
+        function submitAsuransi(originalForm) {
+            event.preventDefault();
+            $(originalForm).find('.form-control').removeClass('error');
+            $(originalForm).find('.form-control').removeClass('select2-hidden-accessible');
+            $(".invalid").remove();
+            $.post({
+                    url: $(originalForm).attr('action'),
+                    data: $(originalForm).serialize(),
+                    beforeSend: function() {
+                        $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                        $(originalForm).find('.text-simpan').text('Menyimpan . . .');
+                        $(originalForm).find('.loading-simpan').removeClass('d-none');
+                    },
+                    complete: function() {
+                        $(originalForm).find('.loading-simpan').addClass('d-none');
+                        $(originalForm).find('.text-simpan').text('Simpan');
+                        $(originalForm).find('.tombol-simpan').attr('disabled', false);
+                    }
+                })
+                .done(response => {
+                    $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                    alertSuccess(response.message);
+                    pindahHalaman(reloadHalaman(), 1500);
+                })
+                .fail(errors => {
+                    if (errors.status === 422) {
+                        loopErrors(errors.responseJSON.errors);
+
+                        return;
+                    }
+                    alertError();
+                })
         }
     </script>
 @endpush

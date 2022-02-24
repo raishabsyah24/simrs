@@ -15,15 +15,19 @@ class CreateNurseStationTable extends Migration
     {
         Schema::create('nurse_station', function (Blueprint $table) {
             $table->id();
+            $table->string('kode');
             $table->string('nama');
-            $table->text('lokasi');
-            $table->string('pic')->nullable();
+            $table->string('lokasi');
+            $table->unsignedBigInteger('dokter_ruangan')->nullable();
             $table->unsignedBigInteger('dpjp')->nullable();
             $table->timestamps();
 
+            $table->foreign('dokter_ruangan')->references('id')->on('dokter')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreign('dpjp')->references('id')->on('dokter')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
         });
     }
 

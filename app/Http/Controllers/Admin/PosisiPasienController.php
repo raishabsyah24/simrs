@@ -27,4 +27,14 @@ class PosisiPasienController extends Controller
             'data'
         ));
     }
+    public function ranap($rawat_inap_id)
+    {
+        $title = 'Posisi Pasien Rawat Inap';
+        $data = $this->posisiPasienRepository->pasienRaNap($rawat_inap_id);
+
+        return view('admin.posisi_pasien.ranap', compact(
+            'title',
+            'data'
+        ));
+    }
 }

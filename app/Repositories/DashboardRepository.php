@@ -82,10 +82,12 @@ class DashboardRepository implements DashboardInterface
                 ->selectRaw("
                 DATE(tanggal) AS tanggal,
                 DATE_FORMAT(tanggal, '%d') AS hari,
-                COUNT(*) AS pasien
+                COUNT(*) AS jumlah
             ")
                 ->whereMonth('tanggal', $bulan)
                 ->whereYear('tanggal', $tahun)
+                ->where('dokter_id', $dokter->id)
+                ->where('pd.status_diperiksa', 'sudah diperiksa')
                 ->groupBy('tanggal', 'hari')
                 ->orderBy('tanggal', 'ASC')
                 ->get();

@@ -72,6 +72,72 @@
                                     </div>
                                 @endforeach
                             @endrole
+                            @role('dokter')
+                                <div class="col-xxl-3 col-sm-6">
+                                    <div class="card card-bordered">
+                                        <div class="card-inner-group">
+                                            <div class="card-inner p-0">
+                                                <div class="card-title-group mb-3">
+                                                    <div class="card-title">
+                                                        <h6 class="title mt-2 ml-2">Total Pasien Saya Bulan {{ date('F') }}
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="nk-tb-list">
+                                                    <div class="nk-tb-item nk-tb-head">
+                                                        <div class="nk-tb-col">
+                                                            <h6>No.</h6>
+                                                        </div>
+                                                        <div class="nk-tb-col">
+                                                            <h6>Tanggal</h6>
+                                                        </div>
+                                                        <div class="nk-tb-col">
+                                                            <h6>Jumlah Pasien</h6>
+                                                        </div>
+                                                    </div>
+                                                    @forelse ($dokter['data'] as $item)
+                                                        <div class="nk-tb-item">
+                                                            <div class="nk-tb-col">
+                                                                <span class="tb-lead text-center">{!! $loop->iteration !!}</span>
+                                                            </div>
+                                                            <div class="nk-tb-col">
+                                                                <span class="tb-lead">{!! tanggal($item->tanggal) !!}</span>
+                                                            </div>
+                                                            <div class="nk-tb-col">
+                                                                <span class="tb-lead">{!! formatAngka($item->jumlah) !!}</span>
+                                                            </div>
+                                                        </div>
+                                                    @empty
+                                                        <div class="nk-tb-item">
+                                                            <div class="nk-tb-col">
+                                                                <span class="tb-sub"></span>
+                                                            </div>
+                                                            <div class="nk-tb-col">
+                                                                <span class="tb-lead">Belum ada</span>
+                                                            </div>
+                                                            <div class="nk-tb-col">
+                                                                <span class="tb-sub"></span>
+                                                            </div>
+                                                        </div>
+                                                    @endforelse
+                                                    <div class="nk-tb-item">
+                                                        <div class="nk-tb-col">
+                                                            <span class="tb-sub"></span>
+                                                        </div>
+                                                        <div class="nk-tb-col">
+                                                            <span class="tb-lead">Total</span>
+                                                        </div>
+                                                        <div class="nk-tb-col">
+                                                            <span
+                                                                class="tb-lead">{{ $dokter['data']->sum('jumlah') }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endrole
                             <div class="col-xxl-6">
                                 <div class="card card-full">
                                     <div class="nk-ecwg nk-ecwg8 h-100">
@@ -102,13 +168,12 @@
                                                 <div class="chart-label">01 Jul, 2020</div>
                                                 <div class="chart-label">30 Jul, 2020</div>
                                             </div>
-                                        </div><!-- .card-inner -->
+                                        </div>
                                     </div>
-                                </div><!-- .card -->
+                                </div>
                             </div>
-                            <!-- .col -->
-                        </div><!-- .row -->
-                    </div><!-- .nk-block -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

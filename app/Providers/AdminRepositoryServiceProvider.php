@@ -8,26 +8,28 @@ use App\Repositories\{
     KasirRepository,
     LayananRepository,
     PasienRepository,
-    PendaftaranRepository,
     DokterRepository,
     ApotekRepository,
     PosisiPasienRepository,
     DashboardRepository,
     UserRepository,
     PoliStationRepository,
+    PendaftaranRawatJalanRepository,
+    PendaftaranRawatInapRepository,
 };
 use App\Repositories\Interfaces\{
     AntrianPoliInterface,
     PasienInterface,
     LayananInterface,
-    PendaftaranInterface,
     DokterInterface,
     ApotekInterface,
     KasirInterface,
     PosisiPasienInterface,
     DashboardInterface,
     UserInterface,
-    PoliStationInterface
+    PoliStationInterface,
+    PendaftaranRawatJalanInterface,
+    PendaftaranRawatInapInterface,
 };
 
 class AdminRepositoryServiceProvider extends ServiceProvider
@@ -48,8 +50,12 @@ class AdminRepositoryServiceProvider extends ServiceProvider
             LayananRepository::class
         );
         $this->app->bind(
-            PendaftaranInterface::class,
-            PendaftaranRepository::class
+            PendaftaranRawatJalanInterface::class,
+            PendaftaranRawatJalanRepository::class
+        );
+        $this->app->bind(
+            PendaftaranRawatInapInterface::class,
+            PendaftaranRawatInapRepository::class
         );
         $this->app->bind(
             DokterInterface::class,

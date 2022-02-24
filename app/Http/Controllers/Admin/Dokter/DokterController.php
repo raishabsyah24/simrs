@@ -30,8 +30,6 @@ class DokterController extends Controller
 
     public function index()
     {
-        // $data = $this->dokterRepository->semuaDokter()->get();
-        // return $data;
         $data = $this->dokterRepository->semuaDokter()
             ->orderBy('d.created_at', 'desc')
             ->paginate($this->perPage);
