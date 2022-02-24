@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="nk-block-head-content">
-                            <a href="html/user-list-regular.html" class="btn btn-outline-light bg-white d-none d-sm-inline-flex">
+                            <a href="{{ url('apotek/data-umum') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex">
                                 <em class="icon ni ni-arrow-left"></em>
                                 <span>Kembali</span>
                             </a>
