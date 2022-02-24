@@ -18,14 +18,19 @@ use App\Http\Controllers\Admin\{
     LabController,
     KasirController,
     RadiologiController,
-    TenagaMedisController,
     RekammedisController,
     PoliStationController,
     PosisiPasienController,
     AntrianPoliController,
-    GudangFarmasiController
+    GudangFarmasiController,
+    GudangApotekController,
+    GudangATKController
 };
-use App\Http\Controllers\Admin\Nurse_Station\MelatiController;
+use App\Http\Controllers\Admin\Nurse_Station\{
+    MelatiController,
+    DahliaController
+};
+
 use App\Http\Controllers\Auth\UserDetailController;
 
 
@@ -173,6 +178,9 @@ Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () 
 
     // Search obat
     Route::get('/search-obat-apotek', [Select2Controller::class, 'searchObat'])->name('search.obat-apotek');
+
+    Route::get('/gudang-permintaan-obat', [GudangApotekController::class, 'perencanaan_permintaan_apotek'])
+        ->name('gudang.permintaan_obat');
 });
 
 // Role poli
@@ -316,45 +324,12 @@ Route::group(['middleware' => ['auth', 'role:gudangfarmasi|super_admin']], funct
     Route::get('/gudang-po/obat', [GudangFarmasiController::class, 'po_obat'])
         ->name('gudang.po-obat');
     // Permintaan
-    Route::post('/gudang/input-permintaan', [GudangFarmasiController::class, 'input_permintaan'])
-        ->name('gudang.permintaan-input');
+    Route::post('/gudang/input-permintaan-farmasi', [GudangFarmasiController::class, 'input_permintaan_farmasi'])
+        ->name('gudang.permintaan-input-farmasi');
     Route::get('/gudang-permintaan/ns', [GudangFarmasiController::class, 'permintaan_ns'])
         ->name('gudang.po-obat');
-    Route::get('/gudang-permintaan', [GudangFarmasiController::class, 'perencanaan_permintaan'])
-        ->name('gudang.permintaan');
-
-    Route::get('/user', [UserController::class, 'index'])
-        ->name('user.index');
-    Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
-        ->name('user.fetchData');
-    Route::get('/user/create', [UserController::class, 'create'])
-        ->name('user.create');
-    Route::get('/user/{user}/edit', [UserController::class, 'edit'])
-        ->name('user.edit');
-    Route::post('/user/store', [UserController::class, 'store'])
-        ->name('user.store');
-    Route::put('/user/{user}/update-status', [UserController::class, 'updateStatus'])
-        ->name('user.update-status');
-    Route::put('/user/{user}/reset-password', [UserController::class, 'resetPassword'])
-        ->name('user.reset-password');
-    Route::put('/user/{user}/update', [UserController::class, 'update'])
-        ->name('user.update');
-    Route::delete('/user/{user}/delete', [UserController::class, 'delete'])
-        ->name('user.delete');
-
-    Route::post('/layanan/data', [LayananController::class, 'data'])
-        ->name('layanan.data');
-    Route::get('/layanan', [LayananController::class, 'index'])
-        ->name('layanan.index');
-    Route::get('/layanan/fetch-data', [LayananController::class, 'fetchData'])
-        ->name('layanan.fetchData');
-    Route::post('/layanan', [LayananController::class, 'store'])
-        ->name('layanan.store');
-
-    Route::get('/aktifitas-user', [ActivityLogController::class, 'index'])
-        ->name('aktifitas-user.index');
-    Route::get('/aktifitas-user/fetch-data', [ActivityLogController::class, 'fetchData'])
-        ->name('aktifitas-user.fetchData');
+    Route::get('/gudang-permintaan', [GudangFarmasiController::class, 'perencanaan_permintaan_farmasi'])
+        ->name('gudang.permintaan-farmasi');
 });
 
 
@@ -383,7 +358,62 @@ Route::group(['middleware' => ['auth', 'role:melati|super_admin']], function () 
    
     Route::get('/ns-permintaan', [MelatiController::class, 'perencanaan_permintaan'])
         ->name('ns.permintaan');
+
+    Route::get('/ns-permintaan-atk', [MelatiController::class, 'perencanaan_permintaan_atk'])
+        ->name('ns.permintaan_atk');
+    Route::get('/ns-permintaan-obat', [MelatiController::class, 'perencanaan_permintaan_obat'])
+        ->name('ns.permintaan_obat');
+
     
 });
+
+Route::group(['middleware' => ['auth', 'role:dahlia|super_admin']], function () {
+
+    
+    Route::get('/dahlia/dahlia-pasien', [DahliaController::class, 'index'])
+        ->name('dahlia.daftar-pasien');
+    Route::get('/ns/{id}/posisi-pasien', [DahliaController::class, 'rajal'])
+        ->name('nurse_station.posisi');
+ 
+    Route::post('/gudang-atk/input-permintaan', [GudangATKController::class, 'input_permintaan_atk'])
+        ->name('gudang.permintaan_input_atk-dahlia');
+    Route::post('/ns/input-permintaan', [DahliaController::class, 'input_permintaan_dahlia'])
+        ->name('ns.permintaan-input-dahlia');
+    Route::post('/ns/input-permintaan-atk', [DahliaController::class, 'input_permintaan_atk_dahlia'])
+        ->name('ns.permintaan-input-atk-dahlia');
+    Route::post('/ns/input-permintaan-obat', [DahliaController::class, 'input_permintaan_obat_dahlia'])
+        ->name('ns.permintaan-input-obat-dahlia');
+   
+    Route::get('/ns-permintaan', [DahliaController::class, 'perencanaan_permintaan_dahlia'])
+        ->name('ns.permintaan-dahlia');
+    Route::get('/ns-permintaan-atk', [DahliaController::class, 'perencanaan_permintaan_atk_dahlia'])
+        ->name('ns.permintaan_atk-dahlia');
+    Route::get('/ns-permintaan-obat', [DahliaController::class, 'perencanaan_permintaan_obat_dahlia'])
+        ->name('ns.permintaan_obat-dahlia');
+
+    
+});
+
+
+Route::group(['middleware' => ['auth', 'role:gudangatk|super_admin']], function () {
+
+
+    Route::get('/gudang-migrasi', [GudangATKController::class, 'migrasi'])
+        ->name('gudang.migrasi');
+    Route::get('/gudang-penyimpanan', [GudangATKController::class, 'penyimpanan'])
+        ->name('gudang.penyimpanan');
+    Route::get('/gudang-permintaan-bhp', [GudangATKController::class, 'permintaan_bhp'])
+        ->name('gudang.permintaan_bhp');
+    // Permintaan
+    Route::post('/gudang/input-permintaan', [GudangATKController::class, 'input_permintaan_atk'])
+        ->name('gudang.permintaan_input_atk');
+    Route::get('/gudang-permintaan/ns', [GudangATKController::class, 'permintaan_ns'])
+        ->name('gudang.po-obat');
+    Route::get('/gudang-permintaan/atk', [GudangATKController::class, 'perencanaan_permintaan_atk'])
+        ->name('gudang.permintaan_atk');
+    Route::get('/gudang-po/obat', [GudangATKController::class, 'po_atk'])
+        ->name('gudang.po-atk');
+});
+
 
 require __DIR__ . '/auth.php';

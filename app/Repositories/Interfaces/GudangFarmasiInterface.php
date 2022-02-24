@@ -11,8 +11,8 @@ interface GudangFarmasiInterface
     public function input_po();
     public function perencanaan_po();
     public Function searchObat(string $nama_obat);
-    public function perencanaan_permintaan();
-    public function input_permintaan();
+    public function perencanaan_permintaan_farmasi();
+    public function input_permintaan_farmasi();
 
     
 }

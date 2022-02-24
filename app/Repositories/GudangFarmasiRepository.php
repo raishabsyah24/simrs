@@ -21,14 +21,14 @@ class GudangFarmasiRepository implements GudangFarmasiInterface
         ->orderByDesc('p.created_at');
     }
 
-    public function perencanaan_permintaan()
+    public function perencanaan_permintaan_farmasi()
     {
         return DB::table('gudang_permintaan as gp')
         ->selectRaw('gp.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
         ->orderByDesc('gp.created_at');
     }
 
-    public function input_permintaan()
+    public function input_permintaan_farmasi()
     {
         return DB::table('gudang_permintaan as gp')
         ->selectRaw('gp.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')

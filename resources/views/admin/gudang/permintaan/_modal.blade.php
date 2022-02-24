@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger" style="display:none"></div>
-                <form class="image-upload" method="post" action="{{route('gudang.permintaan-input')}}" enctype="multipart/form-data">
+                <form class="image-upload" method="post" action="{{route('gudang.permintaan-input-farmasi')}}" enctype="multipart/form-data">
                     @csrf
 
                    <div class="row">

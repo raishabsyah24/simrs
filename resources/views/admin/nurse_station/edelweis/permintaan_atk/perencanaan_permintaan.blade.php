@@ -83,14 +83,14 @@
     
                  {{-- Table --}}
                 <div class="nk-block fetch-data d-none">
-                        @include('admin.nurse_station.melati.permintaan.fetch_permintaan_melati')
+                        @include('admin.nurse_station.melati.permintaan_atk.fetch_permintaan')
                         <input type="hidden" name="page" value="1" />
                 </div>
             </div>
         </div>
     </div>
 </div>
-@includeIf('admin.nurse_station.melati.permintaan._modal')
+@includeIf('admin.nurse_station.melati.permintaan_atk._modal')
 @endsection
 
 @push('js')

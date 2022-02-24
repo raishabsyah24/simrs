@@ -77,20 +77,11 @@ class GudangFarmasiController extends Controller
         }
 
 
-        public function perencanaan_permintaan(Request $request)
-        {
-            // $melati_permintaan = DB::table('melati_permintaan as mp')
-            // ->selectRaw('mp.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
-            // ->orderByDesc('mp.created_at')->paginate($this->perPage);
-    
-            // $data = DB::table('gudang_permintaan as gp')
-            // ->selectRaw('gp.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
-            // ->orderByDesc('gp.created_at')->paginate($this->perPage);
-            // return $melati_permintaan;
-            
-            $data = $this->gudangFarmasiRepository->perencanaan_permintaan()
+        public function perencanaan_permintaan_farmasi(Request $request)
+        {   
+            $data = $this->gudangFarmasiRepository->perencanaan_permintaan_farmasi()
                 ->paginate($this->perPage);
-            $title = 'Gudang';
+            $title = 'Gudang Farmasi';
             $badge = $this->badge();
             $per_page = $this->perPage;
             // return $data;
@@ -100,7 +91,7 @@ class GudangFarmasiController extends Controller
             ));
         }
 
-        public function input_permintaan(Request $request)
+        public function input_permintaan_farmasi(Request $request)
         {
             dd($request->all());
             $gudang_permintaan = new GudangPermintaan();
@@ -116,6 +107,8 @@ class GudangFarmasiController extends Controller
             $gudang_permintaan->save();
             return back();
         }
+
+        
 
 
     public function po_obat(Request $request)

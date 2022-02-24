@@ -17,7 +17,10 @@ use App\Repositories\{
     DashboardRepository,
     UserRepository,
     PoliStationRepository,
-    MelatiRepository
+    MelatiRepository,
+    GudangATKRepository,
+    GudangApotekRepository,
+    DahliaRepository
 };
 use App\Repositories\Interfaces\{
     AntrianPoliInterface,
@@ -33,7 +36,9 @@ use App\Repositories\Interfaces\{
     DashboardInterface,
     UserInterface,
     PoliStationInterface,
-    MelatiInterface
+    MelatiInterface,
+    GudangATKInterface,
+    GudangApotekInterface,DahliaInterface
 };
 
 class AdminRepositoryServiceProvider extends ServiceProvider
@@ -86,22 +91,40 @@ class AdminRepositoryServiceProvider extends ServiceProvider
             UserInterface::class,
             UserRepository::class
         );
+
         $this->app->bind(
             PoliStationInterface::class,
             PoliStationRepository::class
         );
+
         $this->app->bind(
             PosisiPasienInterface::class,
             PosisiPasienRepository::class
         );
+
         $this->app->bind(
             MelatiInterface::class,
             MelatiRepository::class
+        );
+
+        $this->app->bind(
+            DahliaInterface::class,
+            DahliaRepository::class
         );
        
         $this->app->bind(
             KasirInterface::class,
             KasirRepository::class
+        );
+
+        $this->app->bind(
+            GudangATKInterface::class,
+            GudangATKRepository::class
+        );
+
+        $this->app->bind(
+            GudangApotekInterface::class,
+            GudangApotekRepository::class
         );
     }
 

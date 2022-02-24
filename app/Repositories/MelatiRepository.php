@@ -22,6 +22,34 @@ class MelatiRepository implements MelatiInterface
         ->orderByDesc('gp.created_at');
     }
 
+    public function perencanaan_permintaan_atk()
+    {
+        return DB::table('gudang_atk_permintaan as gap')
+        ->selectRaw('gap.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
+        ->orderByDesc('gap.created_at');
+    }
+
+    public function input_permintaan_atk()
+    {
+        return DB::table('gudang_atk_permintaan as gap')
+        ->selectRaw('gap.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
+        ->orderByDesc('gap.created_at');
+    }
+
+    public function perencanaan_permintaan_obat()
+    {
+        return DB::table('gudang_apotek as ga')
+        ->selectRaw('ga.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
+        ->orderByDesc('ga.created_at');
+    }
+
+    public function input_permintaan_obat()
+    {
+        return DB::table('gudang_apotek as ga')
+        ->selectRaw('ga.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
+        ->orderByDesc('ga.created_at');
+    }
+
     public function pasienRajal(int $pemeriksaan_id)
     {
         return DB::table('posisi_detail_pasien_rajal AS pdpr')
