@@ -21,7 +21,7 @@ use App\Models\{
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\{PendaftaranPasienBaruRequest, PendaftaranPasienLamaRequest};
+use App\Http\Requests\Admin\{PendaftaranRawatJalanPasienBaruRequest, PendaftaranRawatJalanPasienLamaRequest};
 use App\Repositories\Interfaces\PendaftaranRawatJalanInterface;
 use Carbon\Carbon;
 
@@ -43,7 +43,7 @@ class RawatJalanController extends Controller
     {
         $data = $this->pendaftaranRepository->pasienHariIni()
             ->paginate($this->perPage);
-        $title = 'Pendaftaran';
+        $title = 'Pendaftaran Rawat Jalan';
         $badge = $this->badge();
         $kategori_pasien = $this->kategoriPasien();
         $poli = $this->poli();
@@ -73,9 +73,8 @@ class RawatJalanController extends Controller
             $badge = $this->badge();
             $data = $this->pendaftaranRepository->pasienHariIni()
                 ->when($q ?? false, function ($query) use ($q) {
-                    return $query->where('p.id', 'like', '%' . $q . '%')
-                        ->where('p.kode', 'like', '%' . $q . '%')
-                        ->where('p.no_rekam_medis', 'like', '%' . $q . '%')
+                    return $query->where('p.kode', 'like', '%' . $q . '%')
+                        ->orWhere('p.no_rekam_medis', 'like', '%' . $q . '%')
                         ->orWhere('p.no_sep', 'like', '%' . $q . '%')
                         ->orWhere('p.no_bpjs', 'like', '%' . $q . '%')
                         ->orWhere('pasien.nama', 'like', '%' . $q . '%')
@@ -107,7 +106,7 @@ class RawatJalanController extends Controller
 
     public function create()
     {
-        $title = 'Tambah Pasien';
+        $title = 'Tambah Pasien Rawat Jalan';
         $kategori_pasien = $this->kategoriPasien();
         $faskes = $this->faskes();
         $layanan = $this->layanan();
@@ -130,7 +129,7 @@ class RawatJalanController extends Controller
     }
 
 
-    public function store(PendaftaranPasienBaruRequest $request)
+    public function store(PendaftaranRawatJalanPasienBaruRequest $request)
     {
         $attr = $request->all();
         DB::transaction(function () use ($attr) {
@@ -284,7 +283,7 @@ class RawatJalanController extends Controller
         ));
     }
 
-    public function storePasienSudahPernahDaftar(PendaftaranPasienLamaRequest $request)
+    public function storePasienSudahPernahDaftar(PendaftaranRawatJalanPasienLamaRequest $request)
     {
         $attr = $request->all();
         DB::transaction(

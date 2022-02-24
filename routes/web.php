@@ -19,17 +19,22 @@ use App\Http\Controllers\Admin\{
     RadiologiController,
     PoliStationController,
     PosisiPasienController,
-    AntrianPoliController
+    AntrianPoliController,
+    AsuransiController
 };
 use App\Http\Controllers\Admin\Pendaftaran\{
     RawatJalanController as PendaftaranRawatJalanController,
     RawatInapController as PendaftaranRawatInapController
 };
 use App\Http\Controllers\Auth\UserDetailController;
+use App\Http\Controllers\Frontend\PersetujuanController;
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
+Route::get('/informasi/persetujuan-pasien', [PersetujuanController::class, 'index'])
+    ->name('informasi.persetujuan-pasien');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/profil-saya', [UserDetailController::class, 'show'])->name('user.profile');
@@ -82,7 +87,25 @@ Route::group(['middleware' => ['auth', 'role:super_admin|pendaftaran']], functio
         ->name('pendaftaran.rawat-inap.fetchData');
     Route::get('/pendaftaran/rawat-inap/create', [PendaftaranRawatInapController::class, 'create'])
         ->name('pendaftaran.rawat-inap.create');
+    Route::get('/pendaftaran/rawat-inap/nurse-station', [PendaftaranRawatInapController::class, 'getNurseStation'])
+        ->name('pendaftaran.rawat-inap.nurse-station');
+    Route::post('/pendaftaran/rawat-inap', [PendaftaranRawatInapController::class, 'store'])
+        ->name('pendaftaran.rawat-inap.store');
+    Route::get('/pendaftaran/rawat-inap/create-pasien-terdaftar', [PendaftaranRawatInapController::class, 'createPasienSudahPernahDaftar'])
+        ->name('pendaftaran.rawat-inap.createPasienSudahPernahDaftar');
+
+
+    // Posisi pasien ranap
+    Route::get('/pendaftaran/rawat-inap/{id}/posisi-pasien', [PosisiPasienController::class, 'ranap'])
+        ->name('posisi-pasien.ranap');
+    // End
+
+
+    // Asuransi
+    Route::post('/asuransi', [AsuransiController::class, 'store'])
+        ->name('asuransi.store');
 });
+
 
 // Role dokter
 Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () {

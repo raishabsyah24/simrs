@@ -46,6 +46,20 @@ class Controller extends BaseController
             ->get();
     }
 
+    public function nurseStation()
+    {
+        return DB::table('nurse_station')
+            ->select(['id', 'nama'])
+            ->get();
+    }
+
+    public function asuransi()
+    {
+        return DB::table('asuransi')
+            ->select(['id', 'nama'])
+            ->get();
+    }
+
     public function kategoriPasien()
     {
         return DB::table('kategori_pasien')

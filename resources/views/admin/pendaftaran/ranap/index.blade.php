@@ -66,21 +66,21 @@
                                                     <a href="#"
                                                         class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white"
                                                         data-toggle="dropdown" aria-expanded="false">Filter Berdasarkan
-                                                        Poli</a>
+                                                        Nurse Station</a>
                                                     <div class="dropdown-menu dropdown-menu-right" style="">
                                                         <ul class="link-list-opt no-bdr">
                                                             <li>
-                                                                <a href="" onclick="filterPoli(`semua`)">
+                                                                <a href="" onclick="filterNurseStation(`semua`)">
                                                                     <span class="text-uppercase">
                                                                         Semua
                                                                     </span>
                                                                 </a>
                                                             </li>
-                                                            @foreach ($poli as $item)
+                                                            @foreach ($nurse_station as $item)
                                                                 <li>
-                                                                    <a data-id="{{ $item->id }}" href="#"
-                                                                        onclick="filterPoli(`{{ $item->nama }}`)"><input
-                                                                            type="hidden" name="poli" />
+                                                                    <a href="#"
+                                                                        onclick="filterNurseStation(`{{ $item->id }}`)">
+                                                                        <input type="hidden" name="nurse_station" />
                                                                         <span class="text-uppercase">
                                                                             {{ $item->nama }}
                                                                         </span>
@@ -130,12 +130,11 @@
         async function fetchData(
             page = "",
             query = "",
-            sortBy = "desc",
             kategori = "",
-            poli = ""
+            nurse_station = ""
         ) {
             await $.get(
-                    `/pendaftaran/rawat-inap/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}&kategori=${kategori}&poli=${poli}`
+                    `/pendaftaran/rawat-inap/fetch-data?page=${page}&query=${query}&kategori=${kategori}&ns=${nurse_station}`
                 )
                 .done((data) => {
                     $(".loader").addClass("d-none");
@@ -151,50 +150,44 @@
         function search(el) {
             let query = $(el).val(),
                 page = $("input[name=page]").val(),
-                kategori = $("input[name=kategori]").val();
+                kategori = $("input[name=kategori]").val(),
+                nurse_station = $("input[name=nurse_station]").val();
             $(".loader").removeClass("d-none");
             $(".fetch-data").addClass("d-none");
-            fetchData(page, query, "desc");
-        }
-
-        function sortBy(sortBy) {
-            let page = $("input[name=page]").val(),
-                query = $("input[name=query]").val();
-            $(".loader").removeClass("d-none");
-            $(".fetch-data").addClass("d-none");
-            fetchData(page, query, sortBy);
+            fetchData(page, query, kategori, nurse_station);
         }
 
         $(document).on("click", ".pagination a", function(e) {
             e.preventDefault();
             let page = $(this).attr("href").split("page=")[1],
                 kategori = $("input[name=kategori]").val(),
-                query = $("input[name=query]").val();
+                query = $("input[name=query]").val(),
+                nurse_station = $("input[name=nurse_station]").val();
+
             $(".loader").removeClass("d-none");
             $(".fetch-data").addClass("d-none");
-            fetchData(page, query, "desc", kategori);
+            fetchData(page, query, kategori, nurse_station);
         });
 
         function filterKategori(kategori) {
             event.preventDefault();
             let page = $("input[name=page]").val(),
                 query = $("input[name=query]").val(),
-                poli = $("input[name=poli]").val();
-            fetchData(page, query, "desc", kategori, poli);
+                nurse_station = $("input[name=nurse_station]").val();
+            fetchData(page, query, kategori, nurse_station);
         }
 
-        function filterPoli(poli) {
+        function filterNurseStation(nurse_station) {
             event.preventDefault();
             let page = $("input[name=page]").val(),
                 query = $("input[name=query]").val(),
                 kategori = $("input[name=kategori]").val();
-            fetchData(page, query, "desc", kategori, poli);
+            fetchData(page, query, kategori, nurse_station);
         }
 
-        function hapusPasien(url) {
-            event.preventDefault();
-            confirmDelete(url);
-        }
+        // function hapusPasien(url) {
+        //     event.preventDefault();
+        //     confirmDelete(url);
+        // }
     </script>
-    {{-- <script src="{{ asset('backend/pages/pendaftaran/index.js') }}"></script> --}}
 @endpush

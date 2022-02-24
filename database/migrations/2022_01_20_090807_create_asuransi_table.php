@@ -15,22 +15,12 @@ class CreateAsuransiTable extends Migration
     {
         Schema::create('asuransi', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pemeriksaan_id')->nullable();
-            $table->unsignedBigInteger('rawat_inap_id')->nullable();
             $table->string('nama');
             $table->string('email')->nullable();
             $table->string('no_telpon')->nullable();
             $table->string('no_hp')->nullable();
             $table->string('alamat')->nullable();
             $table->timestamps();
-
-
-            $table->foreign('pemeriksaan_id')->references('id')->on('pemeriksaan')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-            $table->foreign('rawat_inap_id')->references('id')->on('rawat_inap')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
         });
     }
 

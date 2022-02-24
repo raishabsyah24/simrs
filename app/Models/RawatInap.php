@@ -25,5 +25,7 @@ class RawatInap extends Model
         'status',
         'durasi',
         'tanggal',
+        'asuransi_id',
+        'pasien_sudah_membaca_dan_setuju_dengan_peraturan'
     ];
 }

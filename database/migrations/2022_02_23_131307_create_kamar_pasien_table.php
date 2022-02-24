@@ -17,6 +17,8 @@ class CreateKamarPasienTable extends Migration
             $table->id();
             $table->unsignedBigInteger('rawat_inap_id');
             $table->unsignedBigInteger('ruangan_id');
+            $table->unsignedBigInteger('dokter_ruangan')->nullable();
+            $table->unsignedBigInteger('dpjp')->nullable();
             $table->dateTime('checkin')->nullable();
             $table->dateTime('checkout')->nullable();
             $table->integer('durasi')->nullable();
@@ -29,6 +31,12 @@ class CreateKamarPasienTable extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreign('ruangan_id')->references('id')->on('ruangan')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreign('dpjp')->references('id')->on('dokter')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreign('dokter_ruangan')->references('id')->on('dokter')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });

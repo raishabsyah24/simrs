@@ -187,5 +187,18 @@ class MasterSeeder extends Seeder
                 'tarif' => $item[4],
             ]);
         }
+
+        // Asuransi
+        for ($i = 1; $i <= 10; $i++) {
+            DB::table('asuransi')->insert([
+                'nama' => $faker->company,
+                'email' => $faker->email,
+                'no_hp' => $faker->phoneNumber(),
+                'no_telpon' => $faker->e164PhoneNumber(),
+                'alamat' => $faker->address,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

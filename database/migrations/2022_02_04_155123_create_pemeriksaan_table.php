@@ -20,6 +20,7 @@ class CreatePemeriksaanTable extends Migration
             $table->string('no_bpjs')->nullable();
             $table->string('no_asuransi')->nullable();
             $table->string('no_rekam_medis')->nullable();
+            $table->unsignedBigInteger('asuransi_id')->nullable();
             $table->unsignedBigInteger('faskes_id')->nullable();
             $table->unsignedBigInteger('pasien_id');
             $table->unsignedBigInteger('kategori_pasien');
@@ -35,6 +36,9 @@ class CreatePemeriksaanTable extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreign('kategori_pasien')->references('id')->on('kategori_pasien')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreign('asuransi_id')->references('id')->on('asuransi')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });

@@ -22,6 +22,7 @@ class Pemeriksaan extends Model
         'status',
         'no_rekam_medis',
         'pasien_sudah_membaca_dan_setuju_dengan_peraturan',
+        'asuransi_id',
         'no_asuransi'
     ];
 }

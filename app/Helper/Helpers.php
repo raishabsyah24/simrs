@@ -151,6 +151,12 @@ function kodePemeriksaanPasien()
     return kode('pemeriksaan', 'kode', '15', 'PPRJ' . $date);
 }
 
+function kodePasienRanap()
+{
+    $prefix = 'PRI/' . date('dmy') . '/';
+    return kode('rawat_inap', 'kode', '15', $prefix);
+}
+
 function kodeRekamMedis()
 {
     $date = date('myd');

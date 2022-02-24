@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(MasterSeeder::class);
         $this->call(ObatSeeder::class);
-        $this->call(RanapSeeder::class);
+        // $this->call(RanapSeeder::class);
     }
 }

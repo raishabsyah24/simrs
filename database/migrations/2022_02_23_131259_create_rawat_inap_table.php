@@ -21,11 +21,13 @@ class CreateRawatInapTable extends Migration
             $table->string('no_asuransi')->nullable();
             $table->string('no_rekam_medis')->nullable();
             $table->unsignedBigInteger('pasien_id');
+            $table->unsignedBigInteger('asuransi_id')->nullable();
             $table->unsignedBigInteger('kategori_pasien');
             $table->string('posisi_pasien')->nullable();
             $table->date('tanggal')->nullable();
             $table->dateTime('checkin')->nullable();
             $table->dateTime('checkout')->nullable();
+            $table->string('pasien_sudah_membaca_dan_setuju_dengan_peraturan')->nullable();
             $table->string('status')->default('belum selesai');
             $table->timestamps();
 
@@ -33,6 +35,9 @@ class CreateRawatInapTable extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreign('kategori_pasien')->references('id')->on('kategori_pasien')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreign('asuransi_id')->references('id')->on('asuransi')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });

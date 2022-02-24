@@ -6,7 +6,8 @@
         <div class="nk-tb-col"><span class="sub-text">Kategori</span></div>
         <div class="nk-tb-col"><span class="sub-text">Tanggal Lahir</span></div>
         <div class="nk-tb-col"><span class="sub-text">Waktu Daftar</span></div>
-        <div class="nk-tb-col"><span class="sub-text">Rencana Periksa</span></div>
+        <div class="nk-tb-col"><span class="sub-text">Ruangan</span></div>
+        <div class="nk-tb-col"><span class="sub-text">Bed</span></div>
         <div class="nk-tb-col"><span class="sub-text"><em class="icon ni ni-setting-fill"></em></span>
         </div>
 
@@ -22,21 +23,19 @@
                 </span>
             </div>
             <div class="nk-tb-col">
-                <a href="">
-                    <div class="user-card">
-                        <div class="user-avatar bg-primary">
-                            <span class="text-uppercase">
-                                {{ $item->jenis_kelamin == 'laki-laki' ? 'Tn' : 'Ny' }}
-                            </span>
-                        </div>
-                        <div class="user-info">
-                            <span class="tb-lead">{!! $item->nama_pasien !!}
-                                <span class="dot dot-success d-md-none ml-1"></span>
-                            </span>
-                            <span>{!! $item->nik ?? '' !!}</span>
-                        </div>
+                <div class="user-card">
+                    <div class="user-avatar bg-primary">
+                        <span class="text-uppercase">
+                            {{ $item->jenis_kelamin == 'laki-laki' ? 'Tn' : 'Ny' }}
+                        </span>
                     </div>
-                </a>
+                    <div class="user-info">
+                        <span class="tb-lead">{!! $item->nama_pasien !!}
+                            <span class="dot dot-success d-md-none ml-1"></span>
+                        </span>
+                        <span>{!! $item->nik ?? '' !!}</span>
+                    </div>
+                </div>
             </div>
             <div class="nk-tb-col">
                 <div class="user-card">
@@ -47,16 +46,35 @@
                     </div>
                 </div>
             </div>
+            <div class="nk-tb-col">
+                <div class="user-card">
+                    <div class="user-info">
+                        <span class="tb-lead">{!! tanggal($item->tanggal_lahir) !!}
+                            <span class="dot dot-success d-md-none ml-1"></span>
+                        </span>
+                        <span>{!! usia($item->tanggal_lahir) !!}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="nk-tb-col tb-col-md">
+                <span class="tb-lead">{!! tanggalJam($item->waktu_daftar) !!}</span>
+            </div>
+            <div class="nk-tb-col">
+                <a href="">
+                    <div class="user-card">
+                        <div class="user-info">
+                            <span class="tb-lead">{!! $item->nurse_station !!}
+                                <span class="dot dot-success d-md-none ml-1"></span>
+                            </span>
+                            <span>{!! $item->nama_ruangan !!}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
             <div class="nk-tb-col tb-col-md">
                 <span class="tb-lead">
-                    {!! tanggal($item->tanggal_lahir) !!}
+                    {!! $item->nama_bed !!}
                 </span>
-            </div>
-            <div class="nk-tb-col tb-col-md">
-                <span class="tb-lead">{!! tanggalJam($item->created_at) !!}</span>
-            </div>
-            <div class="nk-tb-col tb-col-md">
-                <span class="tb-lead">{!! tanggal($item->tanggal) !!}</span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
@@ -73,21 +91,16 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
                                     <li>
-                                        <a href="{{ route('posisi-pasien.rajal', $item->pemeriksaan_id) }}">
+                                        <a href="{{ route('posisi-pasien.ranap', $item->rawat_inap_id) }}">
                                             <em class="icon ni ni-location"></em>
                                             <span>Lihat Posisi Pasien</span>
                                         </a>
                                     </li>
-                                    @role('super_admin|pendaftaran')
-                                        @if ($item->status_diperiksa == 'belum diperiksa')
-                                            <li>
-                                                <a href="#"
-                                                    onclick="hapusPasien(`{{ route('pendaftaran.rawat-jalan.destroy', $item->pemeriksaan_id) }}`)">
-                                                    <em class="icon ni ni-trash"></em><span>Hapus</span>
-                                                </a>
-                                            </li>
-                                        @endif
-                                    @endrole
+                                    <li>
+                                        <a href="#" onclick="hapusPasien()">
+                                            <em class="icon ni ni-trash"></em><span>Hapus</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

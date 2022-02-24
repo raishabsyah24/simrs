@@ -19,5 +19,7 @@ class KamarPasien extends Model
         'tarif',
         'resiko_jatuh_pasien',
         'status',
+        'dokter_ruangan',
+        'dpjp',
     ];
 }
