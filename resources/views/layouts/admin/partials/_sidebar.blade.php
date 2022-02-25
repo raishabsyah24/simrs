@@ -384,7 +384,7 @@
                                         <li class="nk-menu-item">
                                             <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Permintaan</span></a>
                                             <ul class="nk-menu-sub">
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan-dahlia')}}" class="nk-menu-link"><span class="nk-menu-text">BHP</span></a></li>
+                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_dahlia')}}" class="nk-menu-link"><span class="nk-menu-text">BHP</span></a></li>
                                                 <li class="nk-menu-item"><a href="{{route('ns.permintaan_obat-dahlia')}}" class="nk-menu-link"><span class="nk-menu-text">OBAT</span></a></li>
                                                 <li class="nk-menu-item"><a href="{{route('ns.permintaan_atk-dahlia')}}" class="nk-menu-link"><span class="nk-menu-text">ATK</span></a></li>
                                                 <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">CSSD</span></a></li>
@@ -447,9 +447,9 @@
                             <li class="nk-menu-item">
                                             <a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Pasien</span></a>
                                             <ul class="nk-menu-sub">
-                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 201</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 202</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 203</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">KAMAR 201</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">KAMAR 202</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">KAMAR 203</span></a></li>
                                             </ul><!-- .nk-menu-sub -->
                                         </li>
                                         <li class="nk-menu-item">
@@ -463,9 +463,9 @@
                                         <li class="nk-menu-item">
                                             <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Permintaan</span></a>
                                             <ul class="nk-menu-sub">
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan')}}" class="nk-menu-link"><span class="nk-menu-text">BHP</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_obat')}}" class="nk-menu-link"><span class="nk-menu-text">OBAT</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_atk')}}" class="nk-menu-link"><span class="nk-menu-text">ATK</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">BHP</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">OBAT</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">ATK</span></a></li>
                                                 <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">CSSD</span></a></li>
 
                                             </ul><!-- .nk-menu-sub -->
@@ -485,9 +485,9 @@
                             <li class="nk-menu-item">
                                             <a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Pasien</span></a>
                                             <ul class="nk-menu-sub">
-                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 201</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 202</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 203</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">KAMAR 201</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">KAMAR 202</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">KAMAR 203</span></a></li>
                                             </ul><!-- .nk-menu-sub -->
                                         </li>
                                         <li class="nk-menu-item">
@@ -501,9 +501,9 @@
                                         <li class="nk-menu-item">
                                             <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Permintaan</span></a>
                                             <ul class="nk-menu-sub">
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan')}}" class="nk-menu-link"><span class="nk-menu-text">BHP</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_obat')}}" class="nk-menu-link"><span class="nk-menu-text">OBAT</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_atk')}}" class="nk-menu-link"><span class="nk-menu-text">ATK</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">BHP</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">OBAT</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">ATK</span></a></li>
                                                 <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">CSSD</span></a></li>
 
                                             </ul><!-- .nk-menu-sub -->
@@ -522,9 +522,9 @@
                             <li class="nk-menu-item">
                                             <a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Pasien</span></a>
                                             <ul class="nk-menu-sub">
-                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 201</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 202</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{ route('melati.daftar-pasien') }}" class="nk-menu-link"><span class="nk-menu-text">KAMAR 203</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">KAMAR 201</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">KAMAR 202</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">KAMAR 203</span></a></li>
                                             </ul><!-- .nk-menu-sub -->
                                         </li>
                                         <li class="nk-menu-item">
@@ -538,9 +538,9 @@
                                         <li class="nk-menu-item">
                                             <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Permintaan</span></a>
                                             <ul class="nk-menu-sub">
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan')}}" class="nk-menu-link"><span class="nk-menu-text">BHP</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_obat')}}" class="nk-menu-link"><span class="nk-menu-text">OBAT</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_atk')}}" class="nk-menu-link"><span class="nk-menu-text">ATK</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">BHP</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">OBAT</span></a></li>
+                                                <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">ATK</span></a></li>
                                                 <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">CSSD</span></a></li>
 
                                             </ul><!-- .nk-menu-sub -->

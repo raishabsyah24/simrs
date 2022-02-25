@@ -357,7 +357,7 @@ Route::group(['middleware' => ['auth', 'role:melati|super_admin']], function () 
     Route::post('/ns/input-permintaan-melati', [MelatiController::class, 'input_permintaan_melati'])
         ->name('ns.permintaan-input_melati');
     Route::post('/ns/input-permintaan-atk-melati', [MelatiController::class, 'input_permintaan_atk_melati'])
-        ->name('ns.permintaan-input_tk_melati');
+        ->name('ns.permintaan-input_atk_melati');
     Route::post('/ns/input-permintaan-obat-melati', [MelatiController::class, 'input_permintaan_obat_melati'])
         ->name('ns.permintaan-input_obat_melati');
    
@@ -383,18 +383,18 @@ Route::group(['middleware' => ['auth', 'role:dahlia|super_admin']], function () 
  
     Route::post('/gudang-atk/input-permintaan', [GudangATKController::class, 'input_permintaan_atk'])
         ->name('gudang.permintaan_input_atk-dahlia');
-    Route::post('/ns/input-permintaan', [DahliaController::class, 'input_permintaan_dahlia'])
+    Route::post('/ns/input-permintaan-dahlia', [DahliaController::class, 'input_permintaan_dahlia'])
         ->name('ns.permintaan-input-dahlia');
-    Route::post('/ns/input-permintaan-atk', [DahliaController::class, 'input_permintaan_atk_dahlia'])
+    Route::post('/ns/input-permintaan-atk-dahlia', [DahliaController::class, 'input_permintaan_atk_dahlia'])
         ->name('ns.permintaan-input-atk-dahlia');
-    Route::post('/ns/input-permintaan-obat', [DahliaController::class, 'input_permintaan_obat_dahlia'])
+    Route::post('/ns/input-permintaan-obat-dahlia', [DahliaController::class, 'input_permintaan_obat_dahlia'])
         ->name('ns.permintaan-input-obat-dahlia');
    
-    Route::get('/ns-permintaan', [DahliaController::class, 'perencanaan_permintaan_dahlia'])
-        ->name('ns.permintaan-dahlia');
-    Route::get('/ns-permintaan-atk', [DahliaController::class, 'perencanaan_permintaan_atk_dahlia'])
+    Route::get('/ns-permintaan-dahlia', [DahliaController::class, 'perencanaan_permintaan_dahlia'])
+        ->name('ns.permintaan_dahlia');
+    Route::get('/ns-permintaan-atk-dahlia', [DahliaController::class, 'perencanaan_permintaan_atk_dahlia'])
         ->name('ns.permintaan_atk-dahlia');
-    Route::get('/ns-permintaan-obat', [DahliaController::class, 'perencanaan_permintaan_obat_dahlia'])
+    Route::get('/ns-permintaan-obat-dahlia', [DahliaController::class, 'perencanaan_permintaan_obat_dahlia'])
         ->name('ns.permintaan_obat-dahlia');
 
     
