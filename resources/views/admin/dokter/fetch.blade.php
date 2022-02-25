@@ -85,14 +85,14 @@
 </div>
 
 
-@if ($data->count() > $data->perPage())
-    <div class="card">
-        <div class="card-inner">
-            <div class="nk-block-between-md g-3">
-                <div class="g">
-                    {{ $data->links('components.pagination') }}
-                </div>
+{{-- @if ($data->count() > $data->perPage()) --}}
+<div class="card">
+    <div class="card-inner">
+        <div class="nk-block-between-md g-3">
+            <div class="g">
+                {{ $data->links('components.pagination') }}
             </div>
         </div>
     </div>
-@endif
+</div>
+{{-- @endif --}}

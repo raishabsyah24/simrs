@@ -83,13 +83,14 @@
                                         </a>
                                     </li>
                                     @role('super_admin|pendaftaran')
-                                    @if($item->status_diperiksa == 'belum diperiksa')
-                                        <li>
-                                            <a href="#" onclick="hapusPasien(`{{ route('pendaftaran.destroy', $item->pemeriksaan_id) }}`)">
-                                                <em class="icon ni ni-trash"></em><span>Hapus</span>
-                                            </a>
-                                        </li>
-                                    @endif
+                                        @if ($item->status_diperiksa == 'belum diperiksa')
+                                            <li>
+                                                <a href="#"
+                                                    onclick="hapusPasien(`{{ route('pendaftaran.rawat-jalan.destroy', $item->pemeriksaan_id) }}`)">
+                                                    <em class="icon ni ni-trash"></em><span>Hapus</span>
+                                                </a>
+                                            </li>
+                                        @endif
                                     @endrole
                                 </ul>
                             </div>

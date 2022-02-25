@@ -18,4 +18,16 @@ class PosisiPasienRepository implements PosisiPasienInterface
             ->where('ppr.pemeriksaan_id', $pemeriksaan_id)
             ->get();
     }
+
+    public function pasienRanap(int $rawat_inap_id)
+    {
+        return DB::table('posisi_detail_pasien_ranap AS pdpr')
+            ->selectRaw('
+            pdpr.keterangan, pdpr.waktu, pdpr.status, pdpr.aktifitas
+        ')
+            ->join('posisi_pasien_ranap AS ppr', 'ppr.id', '=', 'pdpr.posisi_pasien_ranap_id')
+            ->join('rawat_inap AS r', 'r.id', '=', 'ppr.rawat_inap_id')
+            ->where('ppr.rawat_inap_id', $rawat_inap_id)
+            ->get();
+    }
 }

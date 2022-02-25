@@ -8,7 +8,7 @@
                         <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
                                 <div class="nk-block-head-sub"><a class="back-to"
-                                        href="{{ route('pendaftaran.index') }}"><em
+                                        href="{{ route('pendaftaran.rawat-jalan.index') }}"><em
                                             class="icon ni ni-arrow-left"></em><span>Kembali</span></a></div>
                                 <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
                             </div>
@@ -21,7 +21,9 @@
                                             <div class="card-inner border-bottom">
                                                 <div class="card-title-group">
                                                     <div class="card-title">
-                                                        <h6 class="title">Jumlah Waktu Yang Dikeluarkan Pasien <br>{{ jumlahWaktuPasien($data->first()->waktu, $data->last()->waktu) }}</h6>
+                                                        <h6 class="title">Jumlah Waktu Yang Dikeluarkan Pasien
+                                                            <br>{{ jumlahWaktuPasien($data->first()->waktu, $data->last()->waktu) }}
+                                                        </h6>
                                                     </div>
                                                 </div>
                                             </div>

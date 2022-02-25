@@ -24,17 +24,16 @@ class CreateObatNurseStationTable extends Migration
             $table->unsignedBigInteger('satuan_id')->nullable();
             $table->date('ed')->nullable();
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('obat_id')->references('id')->on('obat')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('satuan_id')->references('id')->on('satuan')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
             $table->foreign('nurse_station_id')->references('id')->on('nurse_station')
                 ->cascadeOnUpdate()
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
         });
     }
 
