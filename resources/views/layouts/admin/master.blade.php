@@ -19,7 +19,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/libs/fontawesome-icons.css') }}">
 
     {{-- Theme --}}
+<<<<<<< HEAD
     <link rel="stylesheet" href="{{ asset('backend/css/skins/theme-blue.css') }}">
+=======
+    <link rel="stylesheet" href="{{ asset('backend/css/skins/theme-green.css') }}">
+>>>>>>> fb18979 (kamis 3 februari)
     @stack('css')
 </head>
 

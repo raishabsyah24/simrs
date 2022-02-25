@@ -17,6 +17,7 @@ interface DokterInterface
     public function obatPasien(int $periksa_dokter_id);
 
     public function semuaDokter();
+<<<<<<< HEAD
 
     public function searchDiagnosa(string $nama_diagnosa, int $periksa_dokter_id = null);
 
@@ -29,4 +30,6 @@ interface DokterInterface
     public function periksaPoliStation($periksa_poli_station_id);
 
     public function posisiPasienRajal(int $pemeriksaan_id);
+=======
+>>>>>>> fb18979 (kamis 3 februari)
 }

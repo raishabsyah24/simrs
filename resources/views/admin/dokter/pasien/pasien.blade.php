@@ -8,6 +8,7 @@
                     <div class="nk-block-head nk-block-head-lg wide-sm">
                         <div class="nk-block-head-content">
                             <div class="nk-block-head-sub">
+<<<<<<< HEAD
                                 <a href="{{ route('dokter.daftar-pasien') }}"
                                     class="btn btn-outline-dark d-none d-sm-inline-flex"><em
                                         class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
@@ -15,6 +16,12 @@
                             <div class="fw-normal">
                                 <h2>{{ $title }}</h2>
                             </div>
+=======
+                                <a class="back-to" href="{{ route('dokter.daftar-pasien') }}"><em
+                                        class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
+                            </div>
+                            <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
+>>>>>>> fb18979 (kamis 3 februari)
                         </div>
                     </div>
                     <div class="nk-block nk-block-lg">
@@ -232,6 +239,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+<<<<<<< HEAD
                                                             <div class="col-md-6">
                                                             </div>
                                                             <div class="col-md-6">
@@ -290,6 +298,8 @@
                                                                     </tbody>
                                                                 </table>
                                                             </div>
+=======
+>>>>>>> fb18979 (kamis 3 februari)
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label class="form-label">Status Lanjutan<span
@@ -354,7 +364,11 @@
                                                         </div>
                                                         <div class="mt-3">
                                                             <table class="table table-hover">
+<<<<<<< HEAD
                                                                 <thead class="table-success">
+=======
+                                                                <thead>
+>>>>>>> fb18979 (kamis 3 februari)
                                                                     <tr>
                                                                         <th>No</th>
                                                                         <th>Nama Obat</th>
@@ -440,8 +454,186 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 @endsection
 
 @push('js')
     <script src="{{ asset('backend/pages/periksa_pasien_rajal/periksa.js') }}"></script>
+=======
+    </div>
+
+@endsection
+
+@push('js')
+    <script>
+        reloadTable();
+
+        async function searchObat(id, url, attr) {
+            if ($('.dropdown-obat').hasClass('d-none')) {
+                $('.dropdown-obat').removeClass('d-none');
+            }
+
+            let obat = $(attr).val();
+
+            await $.get(url, {
+                    obat: obat,
+                    periksa_dokter_id: id
+                })
+                .done(output => {
+                    if (output != '') {
+                        $('.dropdown-obat').html(output);
+                    }
+                })
+        }
+
+        function pilihObat(obat_apotek_id, periksa_dokter_id, url) {
+            event.preventDefault();
+            $('.dropdown-obat').addClass('d-none');
+            $.post({
+                    url: url,
+                    type: 'post',
+                    data: {
+                        obat_apotek_id: obat_apotek_id,
+                        periksa_dokter_id: periksa_dokter_id
+                    }
+                })
+                .done(response => {
+                    let status = response.status;
+                    $('[name=obat]').val('')
+                    if (status == false) {
+                        $('input[name=obat]').prop('disabled', true);
+                        alertError('Pasien bpjs sudah mencapai limit obat',
+                            'Silahkan kurangi jumlah obat atau kurangi obat pasien');
+                    } else {
+                        alertSuccess(response.message);
+                        let url = response.url;
+                        $.get(url)
+                            .done(output => {
+                                $('table .data-obat').html(output);
+                                reloadTable();
+                            })
+                    }
+                })
+        }
+
+        function reloadTable() {
+            setTimeout(() => {
+                $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
+                    .done(response => {
+                        let limit = response.limit;
+                        if (limit == 'limit') {
+                            $('input[name=obat]').prop('disabled', true);
+                            alertError('Limit bos');
+                        }
+                        $('table .data-obat').html(response.output);
+                    })
+            }, 600);
+        }
+
+        function updateQuantity(url, attr, obat_pasien_periksa_rajal_id) {
+            let qty = $(attr).val();
+            $('input[name=obat]').prop('disabled', false);
+
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        jumlah: qty,
+                        obat_pasien_periksa_rajal_id: obat_pasien_periksa_rajal_id,
+                    },
+                })
+                .done(response => {
+                    let limit = response.limit;
+                    if (limit == 'limit') {
+                        $(attr).val(1);
+                        $('input[name=obat]').prop('disabled', true);
+                        alertError('Pasien bpjs sudah mencapai limit obat',
+                            'Silahkan kurangi jumlah obat atau kurangi obat pasien');
+                    }
+                    reloadTable();
+                })
+        }
+
+        function hapusObat(url, id, periksa_dokter_id) {
+            event.preventDefault();
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "DELETE",
+                        id: id,
+                        periksa_dokter_id: periksa_dokter_id
+                    },
+                })
+                .done(response => {
+                    let input = response.input;
+                    if (input == true) {
+                        $('[name=obat]').prop('disabled', false)
+                    }
+                    alertSuccess(response.message)
+                    reloadTable();
+                })
+        }
+
+        function submitForm(originalForm) {
+            event.preventDefault();
+            $.post({
+                    url: $(originalForm).attr('action'),
+                    data: new FormData(originalForm),
+                    beforeSend: function() {
+                        $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                        $(originalForm).find('.text-simpan').text('Menyimpan . . .');
+                        $(originalForm).find('.loading-simpan').removeClass('d-none');
+                    },
+                    dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    complete: function() {
+                        $(originalForm).find('.loading-simpan').addClass('d-none');
+                        $(originalForm).find('.text-simpan').text('Simpan');
+                        $(originalForm).find('.tombol-simpan').attr('disabled', false);
+                    }
+                })
+                .done(response => {
+                    $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                    modalTerimakasih(response.message);
+                    pindahHalaman(response.url, 3000);
+                })
+        }
+
+        function signaSatu(url, attr, obat_pasien_periksa_rajal_id) {
+            let signa1 = $(attr).val();
+            $('input[name=obat]').prop('disabled', false);
+
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        signa1: signa1,
+                        obat_pasien_periksa_rajal_id: obat_pasien_periksa_rajal_id,
+                    },
+                })
+                .done(response => {
+                    reloadTable();
+                })
+        }
+
+        function signaDua(url, attr, obat_pasien_periksa_rajal_id) {
+            let signa2 = $(attr).val();
+            $('input[name=obat]').prop('disabled', false);
+
+            $.post({
+                    url: url,
+                    data: {
+                        _method: "PUT",
+                        signa2: signa2,
+                        obat_pasien_periksa_rajal_id: obat_pasien_periksa_rajal_id,
+                    },
+                })
+                .done(response => {
+                    reloadTable();
+                })
+        }
+    </script>
+>>>>>>> fb18979 (kamis 3 februari)
 @endpush

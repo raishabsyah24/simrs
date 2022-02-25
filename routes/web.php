@@ -167,6 +167,7 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
         ->name('dokter.tindakan-pasien.bagian');
 });
 
+
 // Role apotek
 Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () {
     // Data obat
@@ -283,6 +284,14 @@ Route::group(['middleware' => ['auth', 'role:pendaftaran|super_admin']], functio
         ->name('pendaftaran.antrian');
     Route::get('/loket', [PendaftaranController::class, 'loket'])
         ->name('pendaftaran.loket');
+    Route::post('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'storePasienSudahPernahDaftar'])
+        ->name('pendaftaran.storePasienSudahPernahDaftar');
+    Route::get('/pendaftaran/cari-pasien', [PendaftaranController::class, 'searchPasien'])
+        ->name('pendaftaran.search-pasien');
+    Route::get('/pendaftaran/change-pasien', [PendaftaranController::class, 'changePasien'])
+        ->name('pendaftaran.change-pasien');
+
+   
 
     Route::get('/generate-antrian', [AntrianController::class, 'generate'])
         ->name('antrian.generate');
