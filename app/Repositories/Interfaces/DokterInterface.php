@@ -30,8 +30,6 @@ interface DokterInterface
 
     public function posisiPasienRajal(int $pemeriksaan_id);
 
-    // public function dokterPoli(int $poli_id);
 
-    public function tenagaMedis();
 
 }
