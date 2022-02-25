@@ -18,12 +18,15 @@ class CreatePemeriksaanTable extends Migration
             $table->string('kode')->unique();
             $table->string('no_sep')->unique()->nullable();
             $table->string('no_bpjs')->nullable();
+            $table->string('no_asuransi')->nullable();
             $table->string('no_rekam_medis')->nullable();
+            $table->unsignedBigInteger('asuransi_id')->nullable();
             $table->unsignedBigInteger('faskes_id')->nullable();
             $table->unsignedBigInteger('pasien_id');
             $table->unsignedBigInteger('kategori_pasien');
             $table->date('tanggal');
             $table->string('status')->default('belum selesai');
+            $table->string('pasien_sudah_membaca_dan_setuju_dengan_peraturan')->nullable();
             $table->timestamps();
 
             $table->foreign('faskes_id')->references('id')->on('faskes')
@@ -33,6 +36,9 @@ class CreatePemeriksaanTable extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreign('kategori_pasien')->references('id')->on('kategori_pasien')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreign('asuransi_id')->references('id')->on('asuransi')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
         });

@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <form>
                     @csrf
-                    @method('put')
+                    @method('post')
                     <div class="form-group">
                         <label class="form-label">Tinggi Badan (cm)<span class="text-danger">*</span></label>
                         <div class="form-control-wrap">

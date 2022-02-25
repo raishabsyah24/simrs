@@ -12,6 +12,10 @@ class NurseStation extends Model
     protected $table = 'nurse_station';
 
     protected $fillable = [
-        'nama', 'lokasi', 'pic', 'dpjp'
+        'kode',
+        'nama',
+        'lokasi',
+        'dokter_ruangan',
+        'dpjp'
     ];
 }

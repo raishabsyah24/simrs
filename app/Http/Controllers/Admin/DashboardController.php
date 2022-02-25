@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\DashboardInterface;
+use Auth;
 
 class DashboardController extends Controller
 {
@@ -33,9 +34,15 @@ class DashboardController extends Controller
             ['Pasien Umum Rawat Jalan Hari Ini', $total_pasien_rajal_umum_hari_ini],
             ['Pasien Asuransi Rawat Jalan Hari Ini', $total_pasien_rajal_asuransi_hari_ini]
         ];
+
+        // Total Pasien Dokter Spesialis Bulan Ini
+        $dokter['total_pasien_dokter_spesialis'] = $this->dashboardRepository->totalPasienSpesialisSaya(Auth::id());
+        $dokter['data'] = $this->dashboardRepository->dataPasienSpesialisSaya(Auth::id());
+
         return view('admin.dashboard.index', compact(
             'title',
-            'total'
+            'total',
+            'dokter'
         ));
     }
 }

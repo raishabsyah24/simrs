@@ -11,7 +11,7 @@ async function fetchData(
     poli = ""
 ) {
     await $.get(
-        `/pendaftaran/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}&kategori=${kategori}&poli=${poli}`
+        `/pendaftaran/rawat-jalan/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}&kategori=${kategori}&poli=${poli}`
     )
         .done((data) => {
             $(".loader").addClass("d-none");

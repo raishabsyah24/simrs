@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Interfaces\PendaftaranInterface;
+use App\Repositories\Interfaces\PendaftaranRawatJalanInterface;
 use Illuminate\Support\Facades\DB;
 
-class PendaftaranRepository implements PendaftaranInterface
+class PendaftaranRawatJalanRepository implements PendaftaranRawatJalanInterface
 {
     public function pasienHariIni()
     {

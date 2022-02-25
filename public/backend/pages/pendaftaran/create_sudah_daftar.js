@@ -1,17 +1,17 @@
 function searchData(url, attr) {
-    $('.card-pasien').addClass('d-none');
+    $(".card-pasien").addClass("d-none");
     let data = $(attr).val();
     $.get(url, {
-        data: data
+        data: data,
     })
-        .done(output => {
-            if (output != '') {
-                $('.dropdown-pasien').removeClass('d-none');
-                $('.dropdown-pasien').fadeIn();
-                $('.dropdown-pasien').html(output);
+        .done((output) => {
+            if (output != "") {
+                $(".dropdown-pasien").removeClass("d-none");
+                $(".dropdown-pasien").fadeIn();
+                $(".dropdown-pasien").html(output);
             }
-            if (data == '') {
-                $('.dropdown-pasien').addClass('d-none');
+            if (data == "") {
+                $(".dropdown-pasien").addClass("d-none");
             }
         })
         .fail((error) => {
@@ -20,35 +20,35 @@ function searchData(url, attr) {
 }
 
 function pilihData(id, url) {
-    $('.dropdown-pasien').addClass('d-none');
+    $(".dropdown-pasien").addClass("d-none");
     $.get(url, {
-        id: id
+        id: id,
     })
-        .done(response => {
+        .done((response) => {
             let pasien = response.data;
-            $('.card-pasien').removeClass('d-none');
-            $('[name=pasien]').val(pasien.id);
-            if (pasien.jenis_kelamin == 'laki-laki') {
-                $('.nama-pasien').text('Tn. ' + pasien.nama);
+            $(".card-pasien").removeClass("d-none");
+            $("[name=pasien]").val(pasien.id);
+            if (pasien.jenis_kelamin == "laki-laki") {
+                $(".nama-pasien").text("Tn. " + pasien.nama);
             } else {
-                $('.nama-pasien').text('Ny. ' + pasien.nama);
+                $(".nama-pasien").text("Ny. " + pasien.nama);
             }
-            $('.nik-pasien').text(pasien.nik);
-            $('.tanggal-lahir-pasien').text(response.usia);
-            $('.jenis-kelamin-pasien').text(pasien.jenis_kelamin);
-            $('.no-hp-pasien').text(pasien.no_hp);
-            $('.alamat-pasien').text(pasien.alamat);
-            $('.tanggal-periksa-pasien').text(response.tanggal_periksa);
-            $('.poli-pasien').text(pasien.tujuan);
-            $('.dokter-pasien').text(pasien.dokter);
+            $(".nik-pasien").text(pasien.nik);
+            $(".tanggal-lahir-pasien").text(response.usia);
+            $(".jenis-kelamin-pasien").text(pasien.jenis_kelamin);
+            $(".no-hp-pasien").text(pasien.no_hp);
+            $(".alamat-pasien").text(pasien.alamat);
+            $(".tanggal-periksa-pasien").text(response.tanggal_periksa);
+            $(".poli-pasien").text(pasien.tujuan);
+            $(".dokter-pasien").text(pasien.dokter);
         })
-        .fail(error => {
+        .fail((error) => {
             alertError();
         });
 }
 
 function showModalPasien() {
-    $('.modal-detail-pasien').modal('show');
+    $(".modal-detail-pasien").modal("show");
 }
 
 function pilihPoli(url, attr) {
@@ -59,7 +59,7 @@ function pilihPoli(url, attr) {
     })
         .done((response) => {
             let data = response.data;
-            data.forEach(function(item) {
+            data.forEach(function (item) {
                 $("[name=dokter_id]").append(
                     `<option class="dokter-id" value="${item.id}">${item.nama_dokter} (${item.jam_mulai} - ${item.jam_selesai})</option>`
                 );
@@ -89,7 +89,7 @@ function submitForm(originalForm) {
     $.post({
         url: $(originalForm).attr("action"),
         data: new FormData(originalForm),
-        beforeSend: function() {
+        beforeSend: function () {
             $(originalForm).find(".tombol-simpan").attr("disabled", true);
             $(originalForm).find(".text-simpan").text("Menyimpan . . .");
             $(originalForm).find(".loading-simpan").removeClass("d-none");
@@ -98,7 +98,7 @@ function submitForm(originalForm) {
         contentType: false,
         cache: false,
         processData: false,
-        complete: function() {
+        complete: function () {
             $(originalForm).find(".loading-simpan").addClass("d-none");
             $(originalForm).find(".text-simpan").text("Simpan");
             $(originalForm).find(".tombol-simpan").attr("disabled", false);

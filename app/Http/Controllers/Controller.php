@@ -46,6 +46,20 @@ class Controller extends BaseController
             ->get();
     }
 
+    public function nurseStation()
+    {
+        return DB::table('nurse_station')
+            ->select(['id', 'nama'])
+            ->get();
+    }
+
+    public function asuransi()
+    {
+        return DB::table('asuransi')
+            ->select(['id', 'nama'])
+            ->get();
+    }
+
     public function kategoriPasien()
     {
         return DB::table('kategori_pasien')
@@ -135,5 +149,15 @@ class Controller extends BaseController
     {
         $poli = Poli::select(['id', 'nama'])->whereId($poli_id)->first();
         return $poli->nama;
+    }
+
+
+    public function kategoriLayanan()
+    {
+        return DB::table('layanan')
+            ->select(['id', 'nama', 'parent_id'])
+            ->where('parent_id', 0)
+            ->whereNotIn('id', [1])
+            ->get();
     }
 }

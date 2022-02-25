@@ -14,27 +14,28 @@ use App\Http\Controllers\Admin\Dokter\{PasienDokterController, DokterController}
 use App\Http\Controllers\Admin\{
     DashboardController,
     LayananController,
-    PendaftaranController,
     UserController,
     LabController,
     KasirController,
     RadiologiController,
-    TenagaMedisController,
-    RekammedisController,
     PoliStationController,
     PosisiPasienController,
-    AntrianPoliController
+    AntrianPoliController,
+    AsuransiController
+};
+use App\Http\Controllers\Admin\Pendaftaran\{
+    RawatJalanController as PendaftaranRawatJalanController,
+    RawatInapController as PendaftaranRawatInapController
 };
 use App\Http\Controllers\Auth\UserDetailController;
-
+use App\Http\Controllers\Frontend\PersetujuanController;
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/data', [PasienDokterController::class, 'q']);
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->name('dashboard.index');
+Route::get('/informasi/persetujuan-pasien', [PersetujuanController::class, 'index'])
+    ->name('informasi.persetujuan-pasien');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/profil-saya', [UserDetailController::class, 'show'])->name('user.profile');
@@ -50,37 +51,62 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('dashboard.antrian-poli.anak');
 });
 
-// Role super admin
+// Role super admin | pendaftaran
 Route::group(['middleware' => ['auth', 'role:super_admin|pendaftaran']], function () {
-    // Pendaftaran
-    Route::get('/pendaftaran', [PendaftaranController::class, 'index'])
-        ->name('pendaftaran.index');
-    Route::get('/pendaftaran/fetch-data', [PendaftaranController::class, 'fetchData'])
-        ->name('pendaftaran.fetchData');
-    Route::get('/pendaftaran/create', [PendaftaranController::class, 'create'])
-        ->name('pendaftaran.create');
-    Route::get('/pendaftaran/dokter-poli', [PendaftaranController::class, 'getDokterPoli'])
-        ->name('pendaftaran.dokter-poli');
-    Route::get('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'createPasienSudahPernahDaftar'])
-        ->name('pendaftaran.createPasienSudahPernahDaftar');
-    Route::get('/pendaftaran/cari-pasien', [PendaftaranController::class, 'searchPasien'])
-        ->name('pendaftaran.search-pasien');
-    Route::get('/pendaftaran/change-pasien', [PendaftaranController::class, 'changePasien'])
-        ->name('pendaftaran.change-pasien');
-    Route::post('/pendaftaran', [PendaftaranController::class, 'store'])
-        ->name('pendaftaran.store');
-    Route::post('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'storePasienSudahPernahDaftar'])
-        ->name('pendaftaran.storePasienSudahPernahDaftar');
-    Route::delete('/pendaftaran/pasien/{pemeriksaan}/delete', [PendaftaranController::class, 'destroy'])
-        ->name('pendaftaran.destroy');
+    // Pendaftaran Rawat Jalan
+    Route::get('/pendaftaran/rawat-jalan', [PendaftaranRawatJalanController::class, 'index'])
+        ->name('pendaftaran.rawat-jalan.index');
+    Route::get('/pendaftaran/rawat-jalan/fetch-data', [PendaftaranRawatJalanController::class, 'fetchData'])
+        ->name('pendaftaran.rawat-jalan.fetchData');
+    Route::get('/pendaftaran/rawat-jalan/create', [PendaftaranRawatJalanController::class, 'create'])
+        ->name('pendaftaran.rawat-jalan.create');
+    Route::get('/pendaftaran/rawat-jalan/dokter-poli', [PendaftaranRawatJalanController::class, 'getDokterPoli'])
+        ->name('pendaftaran.rawat-jalan.dokter-poli');
+    Route::get('/pendaftaran/rawat-jalan/create-pasien-terdaftar', [PendaftaranRawatJalanController::class, 'createPasienSudahPernahDaftar'])
+        ->name('pendaftaran.rawat-jalan.createPasienSudahPernahDaftar');
+    Route::get('/pendaftaran/rawat-jalan/cari-pasien', [PendaftaranRawatJalanController::class, 'searchPasien'])
+        ->name('pendaftaran.rawat-jalan.search-pasien');
+    Route::get('/pendaftaran/rawat-jalan/change-pasien', [PendaftaranRawatJalanController::class, 'changePasien'])
+        ->name('pendaftaran.rawat-jalan.change-pasien');
+    Route::post('/pendaftaran/rawat-jalan', [PendaftaranRawatJalanController::class, 'store'])
+        ->name('pendaftaran.rawat-jalan.store');
+    Route::post('/pendaftaran/rawat-jalan/create-pasien-terdaftar', [PendaftaranRawatJalanController::class, 'storePasienSudahPernahDaftar'])
+        ->name('pendaftaran.rawat-jalan.storePasienSudahPernahDaftar');
+    Route::delete('/pendaftaran/rawat-jalan/pasien/{pemeriksaan}/delete', [PendaftaranRawatJalanController::class, 'destroy'])
+        ->name('pendaftaran.rawat-jalan.destroy');
+    // End
 
-    Route::delete('/pendaftaran/pasien/{pemeriksaan}/delete', [PendaftaranController::class, 'destroy'])
-        ->name('pendaftaran.destroy');
-
-    // Posisi pasien
-    Route::get('/pendaftaran/{id}/posisi-pasien', [PosisiPasienController::class, 'rajal'])
+    // Posisi pasien rajal
+    Route::get('/pendaftaran/rawat-jalan/{id}/posisi-pasien', [PosisiPasienController::class, 'rajal'])
         ->name('posisi-pasien.rajal');
+    // End
+
+    // Pendaftaran Rawat Inap
+    Route::get('/pendaftaran/rawat-inap', [PendaftaranRawatInapController::class, 'index'])
+        ->name('pendaftaran.rawat-inap.index');
+    Route::get('/pendaftaran/rawat-inap/fetch-data', [PendaftaranRawatInapController::class, 'fetchData'])
+        ->name('pendaftaran.rawat-inap.fetchData');
+    Route::get('/pendaftaran/rawat-inap/create', [PendaftaranRawatInapController::class, 'create'])
+        ->name('pendaftaran.rawat-inap.create');
+    Route::get('/pendaftaran/rawat-inap/nurse-station', [PendaftaranRawatInapController::class, 'getNurseStation'])
+        ->name('pendaftaran.rawat-inap.nurse-station');
+    Route::post('/pendaftaran/rawat-inap', [PendaftaranRawatInapController::class, 'store'])
+        ->name('pendaftaran.rawat-inap.store');
+    Route::get('/pendaftaran/rawat-inap/create-pasien-terdaftar', [PendaftaranRawatInapController::class, 'createPasienSudahPernahDaftar'])
+        ->name('pendaftaran.rawat-inap.createPasienSudahPernahDaftar');
+
+
+    // Posisi pasien ranap
+    Route::get('/pendaftaran/rawat-inap/{id}/posisi-pasien', [PosisiPasienController::class, 'ranap'])
+        ->name('posisi-pasien.ranap');
+    // End
+
+
+    // Asuransi
+    Route::post('/asuransi', [AsuransiController::class, 'store'])
+        ->name('asuransi.store');
 });
+
 
 // Role dokter
 Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () {
@@ -225,26 +251,6 @@ Route::group(['middleware' => ['auth', 'role: lab|super_admin']], function () {
         ->name('lab.umum');
 });
 
-Route::group(['middleware' => ['auth', 'role:pendaftaran|super_admin']], function () {
-
-    Route::get('/data', [PendaftaranController::class, 'q']);
-    Route::get('/pendaftaran', [PendaftaranController::class, 'index'])
-        ->name('pendaftaran.index');
-    Route::get('/pendaftaran/fetch-data', [PendaftaranController::class, 'fetchData'])
-        ->name('pendaftaran.fetchData');
-    Route::get('/pendaftaran/create', [PendaftaranController::class, 'create'])
-        ->name('pendaftaran.create');
-    Route::get('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'createPasienTerdaftar'])
-        ->name('pendaftaran.create.pasien-terdaftar');
-    Route::get('/pendaftaran/dokter-poli', [PendaftaranController::class, 'getDokterPoli'])
-        ->name('pendaftaran.dokter-poli');
-    Route::post('/pendaftaran', [PendaftaranController::class, 'store'])
-        ->name('pendaftaran.store');
-    // Route::get('/pendaftaranmessanger', [PendaftaranController::class, 'messanger'])
-    // ->name('pendaftaran.messanger');
-    Route::get('/pendaftaran/create-pasien-terdaftar', [PendaftaranController::class, 'createPasienSudahPernahDaftar'])
-        ->name('pendaftaran.createPasienSudahPernahDaftar');
-});
 
 Route::group(['middleware' => ['auth', 'role:radiologi|super_admin']], function () {
     Route::get('/otcradio', [RadiologiController::class, 'radiologi_otc'])
@@ -290,12 +296,16 @@ Route::group(['middleware' => ['auth', 'role:admin|super_admin']], function () {
     Route::delete('/user/{user}/delete', [UserController::class, 'delete'])
         ->name('user.delete');
 
-    Route::post('/layanan/data', [LayananController::class, 'data'])
-        ->name('layanan.data');
     Route::get('/layanan', [LayananController::class, 'index'])
         ->name('layanan.index');
     Route::get('/layanan/fetch-data', [LayananController::class, 'fetchData'])
         ->name('layanan.fetchData');
+    Route::get('/layanan/{layanan}', [LayananController::class, 'show'])
+        ->name('layanan.show');
+    Route::put('/layanan/{layanan}', [LayananController::class, 'update'])
+        ->name('layanan.update');
+    Route::delete('/layanan/{layanan}/delete', [LayananController::class, 'delete'])
+        ->name('layanan.delete');
     Route::post('/layanan', [LayananController::class, 'store'])
         ->name('layanan.store');
 

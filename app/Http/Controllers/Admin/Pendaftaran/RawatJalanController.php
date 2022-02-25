@@ -1,40 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Pendaftaran;
 
-use App\Models\Kasir;
-use App\Models\KasirDetail;
-use App\Models\Poli;
-use App\Models\Dokter;
-use App\Models\Pasien;
-use App\Models\PeriksaLab;
-use App\Models\RekamMedis;
-use App\Models\Pemeriksaan;
+use App\Models\{
+    Kasir,
+    Poli,
+    Dokter,
+    Pasien,
+    PeriksaLab,
+    RekamMedis,
+    Pemeriksaan,
+    PeriksaDokter,
+    PeriksaRadiologi,
+    PemeriksaanDetail,
+    PenanggungJawabPasien,
+    PeriksaPoliStation,
+    PosisiDetailPasienRajal,
+    PosisiPasienRajal
+};
 use Illuminate\Http\Request;
-use App\Models\PeriksaDokter;
-use App\Models\PeriksaRadiologi;
-use App\Models\PemeriksaanDetail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\PendaftaranInterface;
-use App\Http\Requests\Admin\PendaftaranPasienBaruRequest;
-use App\Http\Requests\Admin\PendaftaranPasienLamaRequest;
-use App\Models\PeriksaPoliStation;
-use App\Models\PosisiDetailPasienRajal;
-use App\Models\PosisiPasienRajal;
+use App\Http\Requests\Admin\{PendaftaranRawatJalanPasienBaruRequest, PendaftaranRawatJalanPasienLamaRequest};
+use App\Repositories\Interfaces\PendaftaranRawatJalanInterface;
 use Carbon\Carbon;
 
-class PendaftaranController extends Controller
+class RawatJalanController extends Controller
 {
     public $perPage = 10;
-
     public $layananPeriksaDokter  = 1;
     public $layananPeriksaLaboratorium  = 2;
     public $layananPeriksaRadiologi  = 3;
 
     private $pendaftaranRepository;
 
-    public function __construct(PendaftaranInterface $pendaftaranRepository)
+    public function __construct(PendaftaranRawatJalanInterface $pendaftaranRepository)
     {
         $this->pendaftaranRepository = $pendaftaranRepository;
     }
@@ -43,7 +43,7 @@ class PendaftaranController extends Controller
     {
         $data = $this->pendaftaranRepository->pasienHariIni()
             ->paginate($this->perPage);
-        $title = 'Pendaftaran';
+        $title = 'Pendaftaran Rawat Jalan';
         $badge = $this->badge();
         $kategori_pasien = $this->kategoriPasien();
         $poli = $this->poli();
@@ -53,7 +53,7 @@ class PendaftaranController extends Controller
             ['Umum', $this->pendaftaranRepository->totalPasienUmum()],
             ['Asuransi', $this->pendaftaranRepository->totalPasienAsuransi()],
         ];
-        return view('admin.pendaftaran.index', compact(
+        return view('admin.pendaftaran.rajal.index', compact(
             'title',
             'data',
             'total',
@@ -73,9 +73,8 @@ class PendaftaranController extends Controller
             $badge = $this->badge();
             $data = $this->pendaftaranRepository->pasienHariIni()
                 ->when($q ?? false, function ($query) use ($q) {
-                    return $query->where('p.id', 'like', '%' . $q . '%')
-                        ->where('p.kode', 'like', '%' . $q . '%')
-                        ->where('p.no_rekam_medis', 'like', '%' . $q . '%')
+                    return $query->where('p.kode', 'like', '%' . $q . '%')
+                        ->orWhere('p.no_rekam_medis', 'like', '%' . $q . '%')
                         ->orWhere('p.no_sep', 'like', '%' . $q . '%')
                         ->orWhere('p.no_bpjs', 'like', '%' . $q . '%')
                         ->orWhere('pasien.nama', 'like', '%' . $q . '%')
@@ -98,7 +97,7 @@ class PendaftaranController extends Controller
                 })
                 ->orderBy('p.created_at', $sortBy)
                 ->paginate($this->perPage);
-            return view('admin.pendaftaran.fetch', compact(
+            return view('admin.pendaftaran.rajal.fetch', compact(
                 'data',
                 'badge'
             ))->render();
@@ -107,12 +106,12 @@ class PendaftaranController extends Controller
 
     public function create()
     {
-        $title = 'Tambah Pasien';
+        $title = 'Tambah Pasien Rawat Jalan';
         $kategori_pasien = $this->kategoriPasien();
         $faskes = $this->faskes();
         $layanan = $this->layanan();
         $poli = $this->poli();
-        return view('admin.pendaftaran.create', compact(
+        return view('admin.pendaftaran.rajal.create', compact(
             'title',
             'kategori_pasien',
             'faskes',
@@ -130,7 +129,7 @@ class PendaftaranController extends Controller
     }
 
 
-    public function store(PendaftaranPasienBaruRequest $request)
+    public function store(PendaftaranRawatJalanPasienBaruRequest $request)
     {
         $attr = $request->all();
         DB::transaction(function () use ($attr) {
@@ -167,8 +166,32 @@ class PendaftaranController extends Controller
                 'pasien_id' => $pasien->id,
                 'kategori_pasien' => $attr['kategori_pasien'],
                 'tanggal' => $attr['tanggal'],
+                'pasien_sudah_membaca_dan_setuju_dengan_peraturan' => $attr['pasien_sudah_membaca_dan_setuju_dengan_peraturan'],
                 'status' => 'belum selesai',
             ]);
+
+            // Jika identitas Penanggung Jawab Pasien tidak sama dengan identitas pasien
+            if ($attr['penanggung_jawab_sama_dengan_pasien'] == 'tidak') {
+                $penanggung_jawab['pemeriksaan_id'] = $pemeriksaan->id;
+                $penanggung_jawab['nama'] = $attr['nama_penanggung_jawab'];
+                $penanggung_jawab['nik'] = $attr['nik_penanggung_jawab'];
+                $penanggung_jawab['no_hp'] = $attr['no_hp_penanggung_jawab'];
+                $penanggung_jawab['jenis_kelamin'] = $attr['jenis_kelamin_penanggung_jawab'];
+                $penanggung_jawab['hubungan_dengan_pasien'] = $attr['hubungan_dengan_pasien'];
+                $penanggung_jawab['alamat'] = $attr['alamat_penanggung_jawab'];
+                PenanggungJawabPasien::create($penanggung_jawab);
+            } else if ($attr['penanggung_jawab_sama_dengan_pasien'] == 'ya') {
+                // Jika identitas Penanggung Jawab Pasien sama dengan identitas pasien
+                $penanggung_jawab = new PenanggungJawabPasien();
+                $penanggung_jawab['pemeriksaan_id'] = $pemeriksaan->id;
+                $penanggung_jawab->nama = $attr['nama'];
+                $penanggung_jawab->nik = $attr['nik'];
+                $penanggung_jawab->no_hp = $attr['no_hp'];
+                $penanggung_jawab->jenis_kelamin = $attr['jenis_kelamin'];
+                $penanggung_jawab->hubungan_dengan_pasien = $attr['hubungan_dengan_pasien'];
+                $penanggung_jawab->alamat = $attr['alamat'];
+                $penanggung_jawab->save();
+            }
 
             // Insert pemeriksaan detail
             $pemeriksaan_detail = PemeriksaanDetail::create([
@@ -240,7 +263,7 @@ class PendaftaranController extends Controller
 
         return response()->json([
             'message' => 'Pasien berhasil ditambahkan',
-            'url' => route('pendaftaran.index')
+            'url' => route('pendaftaran.rawat-jalan.index')
         ], 200);
     }
 
@@ -251,7 +274,7 @@ class PendaftaranController extends Controller
         $faskes = $this->faskes();
         $layanan = $this->layanan();
         $poli = $this->poli();
-        return view('admin.pendaftaran.create_pasien_terdaftar', compact(
+        return view('admin.pendaftaran.rajal.create_pasien_terdaftar', compact(
             'title',
             'kategori_pasien',
             'faskes',
@@ -260,7 +283,7 @@ class PendaftaranController extends Controller
         ));
     }
 
-    public function storePasienSudahPernahDaftar(PendaftaranPasienLamaRequest $request)
+    public function storePasienSudahPernahDaftar(PendaftaranRawatJalanPasienLamaRequest $request)
     {
         $attr = $request->all();
         DB::transaction(
@@ -290,7 +313,31 @@ class PendaftaranController extends Controller
                     'kategori_pasien' => $attr['kategori_pasien'],
                     'tanggal' => $attr['tanggal'],
                     'status' => 'belum selesai',
+                    'pasien_sudah_membaca_dan_setuju_dengan_peraturan' => $attr['pasien_sudah_membaca_dan_setuju_dengan_peraturan']
                 ]);
+
+                // Jika identitas Penanggung Jawab Pasien tidak sama dengan identitas pasien
+                if ($attr['penanggung_jawab_sama_dengan_pasien'] == 'tidak') {
+                    $penanggung_jawab['pemeriksaan_id'] = $pemeriksaan->id;
+                    $penanggung_jawab['nama'] = $attr['nama_penanggung_jawab'];
+                    $penanggung_jawab['nik'] = $attr['nik_penanggung_jawab'];
+                    $penanggung_jawab['no_hp'] = $attr['no_hp_penanggung_jawab'];
+                    $penanggung_jawab['jenis_kelamin'] = $attr['jenis_kelamin_penanggung_jawab'];
+                    $penanggung_jawab['hubungan_dengan_pasien'] = $attr['hubungan_dengan_pasien'];
+                    $penanggung_jawab['alamat'] = $attr['alamat_penanggung_jawab'];
+                    PenanggungJawabPasien::create($penanggung_jawab);
+                } else if ($attr['penanggung_jawab_sama_dengan_pasien'] == 'ya') {
+                    // Jika identitas Penanggung Jawab Pasien sama dengan identitas pasien
+                    $penanggung_jawab = new PenanggungJawabPasien();
+                    $penanggung_jawab['pemeriksaan_id'] = $pemeriksaan->id;
+                    $penanggung_jawab->nama = $pasien->nama;
+                    $penanggung_jawab->nik = $pasien->nik;
+                    $penanggung_jawab->no_hp = $pasien->no_hp;
+                    $penanggung_jawab->jenis_kelamin = $pasien->jenis_kelamin;
+                    $penanggung_jawab->hubungan_dengan_pasien = $attr['hubungan_dengan_pasien'];
+                    $penanggung_jawab->alamat = $pasien->alamat;
+                    $penanggung_jawab->save();
+                }
 
                 // Insert posisi pasien saat ini
                 $posisi_pasien_rajal = PosisiPasienRajal::create([
@@ -372,7 +419,7 @@ class PendaftaranController extends Controller
 
         return response()->json([
             'message' => 'Pasien berhasil ditambahkan',
-            'url' => route('pendaftaran.index')
+            'url' => route('pendaftaran.rawat-jalan.index')
         ], 200);
     }
 
@@ -380,10 +427,11 @@ class PendaftaranController extends Controller
     {
         $query = $request->get('data');
 
-        $data = DB::table('pasien')
+        $data = DB::table('pasien as p')
             ->selectRaw('
-            id, nik, no_bpjs, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, no_hp
+            p.id, p.nik, p.nama
             ')
+            ->join('rekam_medis as rm', 'rm.pasien_id', '=', 'p.id')
             ->where("nik", "LIKE", "%{$query}%")
             ->orWhere("nama", "LIKE", "%{$query}%")
             ->get();
@@ -391,7 +439,7 @@ class PendaftaranController extends Controller
         $output = '<div class="dropdown-menu d-block position-relative">';
         foreach ($data as $item) {
             $output .= '
-                <a href="#" class="item dropdown-item" onclick="pilihData(`' . $item->id . '`,`' . route('pendaftaran.change-pasien') . '`)">' . $item->nama . ' (' . $item->nik . ') </a>
+                <a href="#" class="item dropdown-item" onclick="pilihData(`' . $item->id . '`,`' . route('pendaftaran.rawat-jalan.change-pasien') . '`)">' . $item->nama . ' (' . $item->nik . ') </a>
                 ';
         }
         $output .= '</div>';
@@ -425,7 +473,7 @@ class PendaftaranController extends Controller
 
         return response()->json([
             'message' => 'Data berhasil dihapus',
-            'url' => route('pendaftaran.index')
+            'url' => route('pendaftaran.rawat-jalan.index')
         ], 200);
     }
 }
