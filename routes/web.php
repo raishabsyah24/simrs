@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
 // Role super admin
 Route::group(['middleware' => ['auth', 'role:super_admin|pendaftaran']], function () {
     // Pendaftaran
+    Route::get('/data', [PendaftaranController::class, 'q']);
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])
         ->name('pendaftaran.index');
     Route::get('/pendaftaran/fetch-data', [PendaftaranController::class, 'fetchData'])
@@ -79,6 +80,18 @@ Route::group(['middleware' => ['auth', 'role:super_admin|pendaftaran']], functio
         ->name('pendaftaran.storePasienSudahPernahDaftar');
     Route::delete('/pendaftaran/pasien/{pemeriksaan}/delete', [PendaftaranController::class, 'destroy'])
         ->name('pendaftaran.destroy');
+    Route::get('/user/data', [UserController::class, 'index'])
+        ->name('data.user');
+    Route::get('/user/fetch-data', [UserController::class, 'fetchData'])
+        ->name('user.fetchData');
+    Route::get('/user/create', [UserController::class, 'createUser'])
+        ->name('user.create');
+    Route::post('/user/store', [UserController::class, 'storeUser'])
+        ->name('user.store');
+    Route::get('/user/{id}/edit', [UserController::class, 'editUser'])
+        ->name('user.edit');
+    Route::put('/user/{id}/update', [UserController::class, 'updateUser'])
+        ->name('user.update');
 
     Route::delete('/pendaftaran/pasien/{pemeriksaan}/delete', [PendaftaranController::class, 'destroy'])
         ->name('pendaftaran.destroy');
