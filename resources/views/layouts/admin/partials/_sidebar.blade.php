@@ -128,16 +128,23 @@
                             </a>
                             <ul class="nk-menu-sub">
                                 <li class="nk-menu-item">
-                                    <a href="{{ route('data.antrian.bpjs') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Bpjs</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="{{ route('data.umum') }}" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Umum</span></a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="html/orders-sales.html" class="nk-menu-link"><span
-                                            class="nk-menu-text">Order Asuransi</span></a>
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-text">List Pasien Apotek</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item">
+                                            <a href="{{ route('data.antrian.bpjs') }}" class="nk-menu-link"><span
+                                                    class="nk-menu-text">Order Bpjs</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="{{ route('data.umum') }}" class="nk-menu-link"><span
+                                                    class="nk-menu-text">Order Umum</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="html/orders-sales.html" class="nk-menu-link"><span
+                                                    class="nk-menu-text">Order Asuransi</span></a>
+                                        </li>
+                                    </ul><!-- .nk-menu-sub -->
                                 </li>
                                 <li class="nk-menu-item">
                                     <a href="{{ route('apotek.laporan') }}" class="nk-menu-link">
@@ -163,9 +170,17 @@
                                     </a>
                                     <ul class="nk-menu-sub">
                                         <li class="nk-menu-item">
-                                            <a href="html/components/forms/form-summernote.html" class="nk-menu-link"><span class="nk-menu-text">Summernote</span></a></li>
-                                        <li class="nk-menu-item"><a href="html/components/forms/form-quill.html" class="nk-menu-link"><span class="nk-menu-text">Quill</span></a></li>
-                                        <li class="nk-menu-item"><a href="html/components/forms/form-tinymce.html" class="nk-menu-link"><span class="nk-menu-text">Tinymce</span></a></li>
+                                            <a href="html/components/forms/form-summernote.html" class="nk-menu-link">
+                                                <span class="nk-menu-text">Summernote</span></a>
+                                            </li>
+                                        <li class="nk-menu-item">
+                                            <a href="html/components/forms/form-quill.html" class="nk-menu-link">
+                                                <span class="nk-menu-text">Quill</span></a>
+                                            </li>
+                                        <li class="nk-menu-item">
+                                            <a href="html/components/forms/form-tinymce.html" class="nk-menu-link">
+                                                <span class="nk-menu-text">Tinymce</span></a>
+                                            </li>
                                     </ul><!-- .nk-menu-sub -->
                                 </li>
                             </ul><!-- .nk-menu-sub -->

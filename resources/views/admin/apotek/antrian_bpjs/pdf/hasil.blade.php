@@ -60,15 +60,29 @@
                 <div class="invoice-brand text-center">
                     <img src="{{ asset('backend/images/logo-rs.jpeg') }}">
                 </div>
+                {{-- begin card section--}}
                 <div class="card__section">
                 <div class="nk-block">
                     <div class="nk-block-head">
-                        <h5 class="title">Personal Information</h5>
-                        <p>Basic info, like your name and address, that you use on Nio Platform.</p>
+                        <ul class="list-plan">
+                            <li>
+                                <em class="icon ni ni-map-pin-fill"></em>
+                                <span>Komplek Bea Cukai Jalan Siak J5</span>
+                                <div class="description" style="margin-left: 23px;">
+                                    <p>No.14,RT.10/RW.7, Sukapura, Kec. <br>
+                                        Cilincing, Kota Jkt Utara, <br>
+                                        Daerah Khusus Ibukota Jakarta 14140
+                                    </p>
+                                </div>
+                                <em class="icon ni ni-call-fill"></em>
+                                <span>(021) 4407322</span>
+                            </li>
+                        </ul>
                     </div><!-- .nk-block-head -->
                 </div>
-                
+                {{-- end nk-block --}}
                     <div class="row mt-4">
+                        {{-- begin col-8 --}}
                         <div class="col-8">
                             <div class="row">
                                 <div class="col-6">
@@ -119,6 +133,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {{-- begin table obat --}}
                             <div class="row" style="margin-top: 1.25rem;">
                                 <div class="col-12">
                                     <h5 class="title">Catatan Tambahan</h5>
@@ -155,6 +170,7 @@
                                     </table>
                                 </div>
                             </div>
+                            {{-- end table obat --}}
                             <div class="row">
                                 <div class="col-12">
                                     <table class="table-bordered" style="width:100%">
@@ -175,7 +191,7 @@
                                           </th>
                                           <th>
                                             <p class="fs-5">Disetujui</p>
-                                          </td>
+                                          </th>
                                         </tr>
                                         <tr style="height: 80px;">
                                           <td></td>
@@ -189,6 +205,7 @@
                                </div>
                             </div>
                         </div>
+                        {{-- end col-8 --}}
                         <div class="col-4">
                             <h5 class="title">Table Kanan</h5>
                              <table class="table-bordered pos_fixed2" width="100%">
@@ -305,6 +322,7 @@
                         </div>
                     </div>
                 </div>
+                {{-- end card section --}}
             </div>
         </div>
         

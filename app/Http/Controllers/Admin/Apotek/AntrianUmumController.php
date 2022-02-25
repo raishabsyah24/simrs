@@ -83,11 +83,24 @@ class AntrianUmumController extends Controller
             ->join('kategori_pasien as kt', 'kt.id', '=', 'pm.kategori_pasien')
             ->where('po.id', $pasien_umum)
             ->first();
-        // return $pasien;
+
+        $obat = DB::table('obat_pasien_periksa_rajal as ob')
+            ->selectRaw('
+            DISTINCT ob.id as obat_pasien_rajal_id, o.nama_generik, ob.jumlah, ob.signa1, ob.signa2,
+            ob.harga_obat, ob.subtotal
+                ')
+            ->join('obat_apotek as ot', 'ot.id', '=', 'ob.obat_apotek_id')
+            ->join('obat as o', 'o.id', '=', 'ot.obat_id')
+            ->join('periksa_dokter as pd', 'pd.id', '=', 'ob.periksa_dokter_id')
+            ->join('pasien as pe', 'pe.id', '=', 'pd.pasien_id')
+            ->where('pd.id', '=', $pasien_umum)
+            ->get();
+        // return $obat;
         $title = 'Detail Pasien';
         return view('admin.apotek.antrian_umum._pasien-umum', compact(
+            'title',
             'pasien',
-            'title'
+            'obat'
         ));
     }
 
