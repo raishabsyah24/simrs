@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\{
     AntrianPoliController,
     AsuransiController
 };
+use App\Http\Controllers\Admin\NurseStation\{NurseStationController};
 use App\Http\Controllers\Admin\Pendaftaran\{
     RawatJalanController as PendaftaranRawatJalanController,
     RawatInapController as PendaftaranRawatInapController
@@ -313,6 +314,9 @@ Route::group(['middleware' => ['auth', 'role:admin|super_admin']], function () {
         ->name('aktifitas-user.index');
     Route::get('/aktifitas-user/fetch-data', [ActivityLogController::class, 'fetchData'])
         ->name('aktifitas-user.fetchData');
+
+    Route::get('/station', [NurseStationController::class, 'index'])
+        ->name('nurse-station.index');
 });
 
 require __DIR__ . '/auth.php';
