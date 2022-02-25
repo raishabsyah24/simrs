@@ -353,16 +353,22 @@ Route::group(['middleware' => ['auth', 'role:melati|super_admin']], function () 
         ->name('nurse_station.posisi');
         Route::post('/gudang/input-permintaan', [GudangFarmasiController::class, 'input_permintaan'])
         ->name('gudang.permintaan-input');
-    Route::post('/ns/input-permintaan', [MelatiController::class, 'input_permintaan'])
-        ->name('ns.permintaan-input');
    
-    Route::get('/ns-permintaan', [MelatiController::class, 'perencanaan_permintaan'])
-        ->name('ns.permintaan');
+    Route::post('/ns/input-permintaan-melati', [MelatiController::class, 'input_permintaan_melati'])
+        ->name('ns.permintaan-input_melati');
+    Route::post('/ns/input-permintaan-atk-melati', [MelatiController::class, 'input_permintaan_atk_melati'])
+        ->name('ns.permintaan-input_tk_melati');
+    Route::post('/ns/input-permintaan-obat-melati', [MelatiController::class, 'input_permintaan_obat_melati'])
+        ->name('ns.permintaan-input_obat_melati');
+   
+    Route::get('/ns-permintaan-melati', [MelatiController::class, 'perencanaan_permintaan_melati'])
+        ->name('ns.permintaan_melati');
+    Route::get('/ns-permintaan-atk-melati', [MelatiController::class, 'perencanaan_permintaan_atk_melati'])
+        ->name('ns.permintaan_atk_melati');
+    Route::get('/ns-permintaan-obat-melati', [MelatiController::class, 'perencanaan_permintaan_obat_melati'])
+        ->name('ns.permintaan_obat_melati');
 
-    Route::get('/ns-permintaan-atk', [MelatiController::class, 'perencanaan_permintaan_atk'])
-        ->name('ns.permintaan_atk');
-    Route::get('/ns-permintaan-obat', [MelatiController::class, 'perencanaan_permintaan_obat'])
-        ->name('ns.permintaan_obat');
+        
 
     
 });

@@ -8,42 +8,42 @@ use App\Repositories\Interfaces\MelatiInterface;
 class MelatiRepository implements MelatiInterface
 {
 
-    public function perencanaan_permintaan()
+    public function perencanaan_permintaan_melati()
     {
         return DB::table('gudang_permintaan as gp')
         ->selectRaw('gp.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
         ->orderByDesc('gp.created_at');
     }
 
-    public function input_permintaan()
+    public function input_permintaan_melati()
     {
         return DB::table('gudang_permintaan as gp')
         ->selectRaw('gp.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
         ->orderByDesc('gp.created_at');
     }
 
-    public function perencanaan_permintaan_atk()
+    public function perencanaan_permintaan_atk_melati()
     {
         return DB::table('gudang_atk_permintaan as gap')
         ->selectRaw('gap.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
         ->orderByDesc('gap.created_at');
     }
 
-    public function input_permintaan_atk()
+    public function input_permintaan_atk_melati()
     {
         return DB::table('gudang_atk_permintaan as gap')
         ->selectRaw('gap.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
         ->orderByDesc('gap.created_at');
     }
 
-    public function perencanaan_permintaan_obat()
+    public function perencanaan_permintaan_obat_melati()
     {
         return DB::table('gudang_apotek as ga')
         ->selectRaw('ga.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')
         ->orderByDesc('ga.created_at');
     }
 
-    public function input_permintaan_obat()
+    public function input_permintaan_obat_melati()
     {
         return DB::table('gudang_apotek as ga')
         ->selectRaw('ga.id, no_permintaan, nama_unit, tanggal_permintaan, jenis_permintaan, item_permintaan, jumlah, stok_lama')

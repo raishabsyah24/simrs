@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger" style="display:none"></div>
-                <form class="image-upload" method="post" action="{{route('ns.permintaan-input')}}" enctype="multipart/form-data">
+                <form class="image-upload" method="post" action="{{route('ns.permintaan-input_melati')}}" enctype="multipart/form-data">
                     @csrf
 
                    <div class="row">

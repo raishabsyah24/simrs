@@ -26,11 +26,11 @@ class MelatiController extends Controller
     // Data pasien hari ini berdasarkan login dokter spesialis
   
 
-    public function perencanaan_permintaan(Request $request)
+    public function perencanaan_permintaan_melati(Request $request)
     {
      
         
-        $data = $this->melatiRepository->perencanaan_permintaan()
+        $data = $this->melatiRepository->perencanaan_permintaan_melati()
                 ->paginate($this->perPage);
             $title = 'Melati';
             $badge = $this->badge();
@@ -42,7 +42,7 @@ class MelatiController extends Controller
             ));
     }
 
-    public function input_permintaan(Request $request)
+    public function input_permintaan_melati(Request $request)
         {
             $gudang_permintaan = new GudangPermintaan();
             $gudang_permintaan->no_permintaan  = $request->no_permintaan;
@@ -58,11 +58,11 @@ class MelatiController extends Controller
             return back();  
         }
 
-        public function perencanaan_permintaan_atk(Request $request)
+        public function perencanaan_permintaan_atk_melati(Request $request)
     {
      
         
-        $data = $this->melatiRepository->perencanaan_permintaan_atk()
+        $data = $this->melatiRepository->perencanaan_permintaan_atk_melati()
                 ->paginate($this->perPage);
             $title = 'Melati';
             $badge = $this->badge();
@@ -90,11 +90,11 @@ class MelatiController extends Controller
             return back();
         }
 
-        public function perencanaan_permintaan_obat(Request $request)
+        public function perencanaan_permintaan_obat_melati(Request $request)
         {
          
             
-            $data = $this->melatiRepository->perencanaan_permintaan_obat()
+            $data = $this->melatiRepository->perencanaan_permintaan_obat_melati()
                     ->paginate($this->perPage);
                 $title = 'Melati';
                 $badge = $this->badge();
@@ -106,7 +106,7 @@ class MelatiController extends Controller
                 ));
         }
     
-        public function input_permintaan_obat(Request $request)
+        public function input_permintaan_obat_melati(Request $request)
             {
                 $gudang_apotek = new gudang_apotek();
                 $gudang_apotek->no_permintaan  = $request->no_permintaan;

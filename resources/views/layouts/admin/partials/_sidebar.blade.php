@@ -421,9 +421,9 @@
                                         <li class="nk-menu-item">
                                             <a href="#" class="nk-menu-link nk-menu-toggle"><span class="nk-menu-text">Permintaan</span></a>
                                             <ul class="nk-menu-sub">
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan')}}" class="nk-menu-link"><span class="nk-menu-text">BHP</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_obat')}}" class="nk-menu-link"><span class="nk-menu-text">OBAT</span></a></li>
-                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_atk')}}" class="nk-menu-link"><span class="nk-menu-text">ATK</span></a></li>
+                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_melati')}}" class="nk-menu-link"><span class="nk-menu-text">BHP</span></a></li>
+                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_obat_melati')}}" class="nk-menu-link"><span class="nk-menu-text">OBAT</span></a></li>
+                                                <li class="nk-menu-item"><a href="{{route('ns.permintaan_atk_melati')}}" class="nk-menu-link"><span class="nk-menu-text">ATK</span></a></li>
                                                 <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">CSSD</span></a></li>
 
                                             </ul><!-- .nk-menu-sub -->
