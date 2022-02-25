@@ -17,6 +17,8 @@ use App\Repositories\{
     PendaftaranRawatJalanRepository,
     PendaftaranRawatInapRepository,
     NurseStationRepository,
+    AntrianRepository,
+    GudangFarmasiRepository,
 };
 use App\Repositories\Interfaces\{
     AntrianPoliInterface,
@@ -32,6 +34,8 @@ use App\Repositories\Interfaces\{
     PendaftaranRawatJalanInterface,
     PendaftaranRawatInapInterface,
     NurseStationInterface,
+    AntrianInterface,
+    GudangFarmasiInterface,
 };
 
 class AdminRepositoryServiceProvider extends ServiceProvider
@@ -98,6 +102,15 @@ class AdminRepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             NurseStationInterface::class,
             NurseStationRepository::class
+        );
+
+        $this->app->bind(   
+            AntrianInterface::class,
+            AntrianRepository::class
+        );
+        $this->app->bind(
+            GudangFarmasiInterface::class,
+            GudangFarmasiRepository::class
         );
     }
 

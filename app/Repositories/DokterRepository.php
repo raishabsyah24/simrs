@@ -103,7 +103,6 @@ class DokterRepository implements DokterInterface
 
     public function semuaDokter()
     {
-<<<<<<< HEAD
         return DB::table('dokter as d')
             ->selectRaw('
             d.id, d.nama, d.email, d.no_str, d.no_hp, d.foto, d.status, d.tanggal_bergabung, d.created_at, p.spesialis, p.nama as nama_poli
@@ -148,14 +147,6 @@ class DokterRepository implements DokterInterface
                     ->orWhere('t.nama', 'like', '%' . $nama_tindakan . '%');
             })
             ->get();
-=======
-        return DB::tabel('dokter as d')
-            ->selectRaw('
-            d.nama
-        ')
-            ->join('users as u', 'u.id', '=', 'd.user_id')
-            ->whereNull('d.deleted_at');
->>>>>>> fb18979 (kamis 3 februari)
     }
 
     public function tindakanPasien(int $periksa_dokter_id)

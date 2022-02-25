@@ -30,11 +30,8 @@ class DokterController extends Controller
 
     public function index()
     {
-<<<<<<< HEAD
-=======
         // $data = $this->dokterRepository->semuaDokter()->get();
         // return $data;
->>>>>>> aef3444 (baru ni)
         $data = $this->dokterRepository->semuaDokter()
             ->orderBy('d.created_at', 'desc')
             ->paginate($this->perPage);
@@ -107,11 +104,7 @@ class DokterController extends Controller
             $attr['name'] = $request->nama;
             $attr['password'] = bcrypt($this->defaultPassword);
 
-<<<<<<< HEAD
-            // Insert ke table user
-=======
             // Insert ke table user 
->>>>>>> aef3444 (baru ni)
             $user = User::create($attr);
 
             // Set role dokter
@@ -198,7 +191,6 @@ class DokterController extends Controller
         ], 200);
     }
 
-<<<<<<< HEAD
     public function gantiJadwal(Dokter $dokter)
     {
         $title = 'Ganti Jadwal Praktek Dokter';
@@ -238,8 +230,6 @@ class DokterController extends Controller
         ], 200);
     }
 
-=======
->>>>>>> aef3444 (baru ni)
     public function delete(Dokter $dokter)
     {
         DB::transaction(function () use ($dokter) {

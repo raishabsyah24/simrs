@@ -46,16 +46,25 @@
         <div onclick="antrian('A')" class="col-lg-3 mt-3 btn btn-primary btn-lg">
 
         <h1>UMUM</h1>
+    </a>
 
+<<<<<<< HEAD
         </div>
 
         <div onclick="antrian('B')" class="col-lg-3 mt-3 btn btn-primary btn-lg mx-5">
+=======
+<a href="{{route('antrian.asuransi')}}"  target="pendaftaran.loket" class="col-lg-3 mt-3 btn btn-primary btn-lg mx-5">
+>>>>>>> 411fff7 (selasa 8/2/22 22:12)
 
         <h1>ASURANSI</h1>
 
         </div>
 
+<<<<<<< HEAD
         <div onclick="antrian('C')" class="col-lg-3 mt-3 btn btn-primary btn-lg">
+=======
+<a href="{{route('antrian.bpjs')}}"  target="pendaftaran.loket" class="col-lg-3 mt-3 btn btn-primary btn-lg">
+>>>>>>> 411fff7 (selasa 8/2/22 22:12)
 
         <h1>BPJS</h1>
 

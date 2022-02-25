@@ -43,16 +43,10 @@ class PasienDokterController extends Controller
     // Data pasien hari ini berdasarkan login dokter spesialis
     public function index()
     {
-<<<<<<< HEAD
         $user_id = Auth::id();
         $user_dokter = Dokter::select('id')->where('user_id', $user_id)->first();
         if (!$user_dokter) {
             return abort(403);
-=======
-        $dokter_id = Auth::user()->dokter->id;
-        if (!$dokter_id) {
-            return redirect()->abort(403);
->>>>>>> fb18979 (kamis 3 februari)
         }
         $dokter = $this->dokterRepository->dokterSpesialis($user_dokter->id);
         $data = $this->dokterRepository->daftarPasienDokterSpesialis($user_id)
@@ -130,12 +124,8 @@ class PasienDokterController extends Controller
             'rekam_medis',
             'pasien',
             'periksa_dokter_id',
-<<<<<<< HEAD
             'periksa_dokter',
             'periksa_poli_station'
-=======
-            'periksa_dokter'
->>>>>>> fb18979 (kamis 3 februari)
         ));
     }
 
@@ -198,10 +188,6 @@ class PasienDokterController extends Controller
                     'jumlah' => 1,
                     'subtotal' => $harga_obat
                 ]);
-<<<<<<< HEAD
-
-=======
->>>>>>> fb18979 (kamis 3 februari)
                 return response()->json([
                     'message' => 'Obat berhasil ditambahkan',
                     'url' => route('dokter.obat-pasien', $attr['periksa_dokter_id'])
@@ -209,11 +195,7 @@ class PasienDokterController extends Controller
             }
         } else {
 
-<<<<<<< HEAD
             $obat = ObatApotek::find($attr['obat_apotek_id']);
-=======
-            $$obat = ObatApotek::find($attr['obat_apotek_id']);
->>>>>>> fb18979 (kamis 3 februari)
             $harga_obat = $obat->harga_jual;
 
             ObatPasienRajal::create([
@@ -296,11 +278,7 @@ class PasienDokterController extends Controller
             </tr>
         ';
         }
-<<<<<<< HEAD
         $output .= '<tr>
-=======
-        $output .= '<tr> 
->>>>>>> fb18979 (kamis 3 februari)
                         <td colspan="6" class="text-right"><h5>Total</h5></td>
                         <td class="text-right"><h5>Rp. </h5></td>
                         <td colspan="2" class="text-right"><h4>' . formatAngka($total) . '</h4></td>
@@ -423,7 +401,6 @@ class PasienDokterController extends Controller
                     ->get();
                 $tagihan_obat = $obat_pasien_periksa->sum('subtotal');
 
-<<<<<<< HEAD
                 //                Cek status pasien diperiksa
                 if ($periksaDokter->status_diperiksa == 'belum diperiksa') {
                     //                    Query layanan untuk mendapatkan tarif layanan pasien
@@ -468,11 +445,6 @@ class PasienDokterController extends Controller
 
                 //              Update periksa dokter
                 $periksaDokter->update($attr);
-=======
-                // Cek rekam medis pasien
-                $rm = RekamMedis::where('pasien_id', $periksaDokter->pasien_id)->first();
-                $poli = Poli::find($periksaDokter->poli_id);
->>>>>>> fb18979 (kamis 3 februari)
 
                 // Cek rekam medis pasien
                 $rm = RekamMedis::select(['id', 'pasien_id'])
@@ -497,7 +469,6 @@ class PasienDokterController extends Controller
                     'tanggal' => now()
                 ]);
 
-<<<<<<< HEAD
                 //              Update activity user / dokter
                 $nama_poli = $poli->nama;
                 activity('melakukan pemeriksaan pasien ' . $this->namaPasien($periksaDokter->pasien_id) . ' di poli ' . $nama_poli);
@@ -523,13 +494,6 @@ class PasienDokterController extends Controller
                         'status' => 'selesai'
                     ]);
                 }
-=======
-                $pasien = Pasien::find($periksaDokter->pasien_id);
-                $nama_pasien = $pasien->nama;
-                $nama_poli = $poli->nama;
-
-                activity('melakukan pemeriksaan pasien ' . $nama_pasien . ' di poli ' . $nama_poli);
->>>>>>> fb18979 (kamis 3 februari)
             }
         );
         return response()->json([
@@ -538,10 +502,7 @@ class PasienDokterController extends Controller
         ], 200);
     }
 
-<<<<<<< HEAD
     // Update signa 1 untuk obat pasien
-=======
->>>>>>> fb18979 (kamis 3 februari)
     public function signa1(Request $request)
     {
         $attr = $request->all();
@@ -557,10 +518,7 @@ class PasienDokterController extends Controller
         ], 200);
     }
 
-<<<<<<< HEAD
     // Update signa 2 untuk obat pasien
-=======
->>>>>>> fb18979 (kamis 3 februari)
     public function signa2(Request $request)
     {
         $attr = $request->all();
@@ -575,7 +533,6 @@ class PasienDokterController extends Controller
             'status' => true
         ], 200);
     }
-<<<<<<< HEAD
 
     public function searchDiagnosa(Request $request)
     {
@@ -725,6 +682,4 @@ class PasienDokterController extends Controller
             'message' => 'Bagian tindakan berhasil diupdate'
         ], 200);
     }
-=======
->>>>>>> fb18979 (kamis 3 februari)
 }
