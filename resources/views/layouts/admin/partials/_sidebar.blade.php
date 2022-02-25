@@ -275,6 +275,14 @@
                             <span class="nk-menu-text">Dokter</span>
                         </a>
                     </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('nurse-station.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-cc-secure-fill"></em>
+                            </span>
+                            <span class="nk-menu-text">Nurse Station</span>
+                        </a>
+                    </li>
                     <li class="nk-menu-item {{ activeClass('user.index') }}">
                         <a href="{{ route('user.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon">
