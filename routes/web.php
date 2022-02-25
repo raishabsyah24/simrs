@@ -38,8 +38,10 @@ Route::get('/', function () {
 Route::get('/informasi/persetujuan-pasien', [PersetujuanController::class, 'index'])
     ->name('informasi.persetujuan-pasien');
 
-// Role super admin
-Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|rekam_medis']], function () {
+// HISTORY USER && MANAGEMEN USER
+Route::group(['middleware' => ['auth', 'role:super_admin|admin']], function () {
+    
+    // Layanan
     Route::post('/layanan/data', [LayananController::class, 'data'])
         ->name('layanan.data');
     Route::get('/layanan', [LayananController::class, 'index'])
@@ -132,8 +134,11 @@ Route::group(['middleware' => ['auth', 'role:super_admin|pendaftaran']], functio
 });
 
 
-// Role dokter
+
+//DOKTER
 Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () {
+
+    Route::get('/dokter', [DokterController::class, 'index'])->name('dokter.index');
     Route::get('/dokter/daftar-pasien', [PasienDokterController::class, 'index'])
         ->name('dokter.daftar-pasien');
     Route::get('/dokter/daftar-pasien/fetch', [PasienDokterController::class, 'fetch'])
@@ -182,9 +187,8 @@ Route::group(['middleware' => ['auth', 'role:dokter|super_admin']], function () 
         ->name('dokter.tindakan-pasien.bagian');
 });
 
-
-// Role apotek
-Route::group(['middleware' => ['auth', 'role:apotek|super_admin']], function () {
+// APOTEK
+Route::group(['middleware' => ['auth', 'role:apotek | super_admin']], function () {
     // Data obat
     Route::get('/obat', [ObatController::class, 'dataObat'])->name('data');
     Route::get('/obat/fetch-data', [ObatController::class, '_fetchData'])->name('obat.fetchData');
@@ -269,6 +273,7 @@ Route::group(['middleware' => ['auth', 'role:kasir|super_admin']], function () {
         ->name('kasir.laporan.ekspor');
 });
 
+// LAB
 Route::group(['middleware' => ['auth', 'role: lab|super_admin']], function () {
     Route::get('/otclab', [LabController::class, 'lab_otc'])
         ->name('lab.otc');
@@ -276,6 +281,7 @@ Route::group(['middleware' => ['auth', 'role: lab|super_admin']], function () {
         ->name('lab.umum');
 });
 
+// PENDAFTARAN
 Route::group(['middleware' => ['auth', 'role:pendaftaran|super_admin']], function () {
 
     Route::get('/data', [PendaftaranController::class, 'q']);
@@ -322,6 +328,7 @@ Route::group(['middleware' => ['auth', 'role:pendaftaran|super_admin']], functio
         ->name('antrian.tidakada');
 });
 
+// RADIOLOGI
 Route::group(['middleware' => ['auth', 'role:radiologi|super_admin']], function () {
     Route::get('/otcradio', [RadiologiController::class, 'radiologi_otc'])
         ->name('order.radiologi-otc');

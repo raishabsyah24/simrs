@@ -12,11 +12,16 @@ interface DokterInterface
 
     public function identitasPasien(int $pasien_id);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> aef3444 (baru ni)
     public function searchObat(string $nama_obat, int $periksa_dokter_id = null);
 
     public function obatPasien(int $periksa_dokter_id);
 
     public function semuaDokter();
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     public function searchDiagnosa(string $nama_diagnosa, int $periksa_dokter_id = null);
@@ -32,4 +37,11 @@ interface DokterInterface
     public function posisiPasienRajal(int $pemeriksaan_id);
 =======
 >>>>>>> fb18979 (kamis 3 februari)
+=======
+
+    // public function dokterPoli(int $poli_id);
+
+    public function tenagaMedis();
+
+>>>>>>> aef3444 (baru ni)
 }
