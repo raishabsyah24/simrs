@@ -60,6 +60,21 @@ Route::group(['middleware' => ['auth', 'role:super_admin|apotek|dokter|poli|reka
         ->name('dashboard.antrian-poli.anak');
 });
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/profil-saya', [UserDetailController::class, 'show'])->name('user.profile');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard.index');
+
+    Route::get('/antrian-pasien/poli-jantung', [AntrianPoliController::class, 'antrianPoliJantung'])
+        ->name('dashboard.antrian-poli.jantung');
+    Route::get('/antrian-pasien/poli-jantung/data', [AntrianPoliController::class, 'dataAntrianPoliJantung'])
+        ->name('dashboard.antrian-poli.jantung.data');
+    Route::get('/antrian-pasien/poli-anak', [AntrianPoliController::class, 'antrianPoliAnak'])
+        ->name('dashboard.antrian-poli.anak');
+});
+
+
 // Role super admin | pendaftaran
 Route::group(['middleware' => ['auth', 'role:super_admin|pendaftaran']], function () {
     // Pendaftaran Rawat Jalan
