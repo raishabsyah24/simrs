@@ -1,7 +1,7 @@
 @extends('layouts.admin.master', ['title' => $title])
 
 @section('admin-content')
-    <div class="nk-content ">
+    <div class="nk-content">
         <div class="container-fluid">
             <div class="nk-content-inner">
                 <div class="nk-content-body">
@@ -29,7 +29,7 @@
                                                     class="icon ni ni-property"></em><span>Rekam Medis</span></a>
                                         </li>
                                     </ul>
-                                    <div class="card-inner">
+                                    <div class="card-inner" id="periksa-dokter-id" data-id="{{ $periksa_dokter_id }}">
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="tabItem1">
                                                 {{-- Informasi pasien --}}
@@ -143,8 +143,7 @@
                                                         <div class="row g-gs">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Keluhan Pasien<span
-                                                                            class="text-danger">*</span></label>
+                                                                    <label class="form-label">Keluhan Pasien<span class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <textarea class="form-control form-control-sm"
                                                                             name="keluhan" autocomplete="off"></textarea>
@@ -153,8 +152,7 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Subjektif<span
-                                                                            class="text-danger">*</span></label>
+                                                                    <label class="form-label">Subjektif<span class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <textarea class="form-control form-control-sm"
                                                                             name="subjektif" autocomplete="off"></textarea>
@@ -163,8 +161,7 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Objektif<span
-                                                                            class="text-danger">*</span></label>
+                                                                    <label class="form-label">Objektif<span class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <textarea class="form-control form-control-sm"
                                                                             name="objektif" autocomplete="off"></textarea>
@@ -173,8 +170,7 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Assesment<span
-                                                                            class="text-danger">*</span></label>
+                                                                    <label class="form-label">Assesment<span class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <textarea class="form-control form-control-sm"
                                                                             name="assesment" autocomplete="off"></textarea>
@@ -188,40 +184,23 @@
                                                                     <div class="form-control-wrap">
                                                                         <ul class="custom-control-group">
                                                                             <li>
-                                                                                <div
-                                                                                    class="custom-control custom-radio custom-control-pro no-control">
-                                                                                    <input type="radio" value="lab"
-                                                                                        class="custom-control-input"
+                                                                                <div class="custom-control custom-radio custom-control-pro no-control">
+                                                                                    <input type="radio" value="lab" class="custom-control-input"
                                                                                         name="plan" id="lab">
-                                                                                    <label for="lab"
-                                                                                        class="custom-control-label"><i
-                                                                                            class="fas fa-vials mr-1"></i>Cek
-                                                                                        Laboratorium</label>
+                                                                                    <label for="lab" class="custom-control-label"><i class="fas fa-vials mr-1"></i>Cek Laboratorium</label>
                                                                                 </div>
                                                                             </li>
                                                                             <li>
-                                                                                <div
-                                                                                    class="custom-control custom-radio custom-control-pro no-control">
-                                                                                    <input type="radio"
-                                                                                        class="custom-control-input"
-                                                                                        name="plan" value="radiologi"
-                                                                                        id="radiologi" autocomplete="off">
-                                                                                    <label for="radiologi"
-                                                                                        class="custom-control-label"><i
-                                                                                            class="fas fa-radiation mr-1"></i>
+                                                                                <div class="custom-control custom-radio custom-control-pro no-control">
+                                                                                    <input type="radio" class="custom-control-input" name="plan" value="radiologi" id="radiologi" autocomplete="off">
+                                                                                    <label for="radiologi" class="custom-control-label"><i class="fas fa-radiation mr-1"></i>
                                                                                         Cek Radiologi</label>
                                                                                 </div>
                                                                             </li>
                                                                             <li>
-                                                                                <div
-                                                                                    class="custom-control custom-radio custom-control-pro no-control">
-                                                                                    <input disabled type="radio"
-                                                                                        class="custom-control-input"
-                                                                                        name="plan" value="perempuan"
-                                                                                        id="terapi" autocomplete="off">
-                                                                                    <label for="terapi"
-                                                                                        class="custom-control-label"><i
-                                                                                            class="fas fa-female mr-1"></i>
+                                                                                <div class="custom-control custom-radio custom-control-pro no-control">
+                                                                                    <input disabled type="radio" class="custom-control-input" name="plan" value="perempuan" id="terapi" autocomplete="off">
+                                                                                    <label for="terapi" class="custom-control-label"><i class="fas fa-female mr-1"></i>
                                                                                         Cek Terapi</label>
                                                                                 </div>
                                                                             </li>
@@ -230,75 +209,17 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
-                                                            </div>
-                                                            <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Diagnosa (ICD 10)<span
-                                                                            class="text-danger">*</span></label>
-                                                                    <div class="form-control-wrap">
-                                                                        <input
-                                                                            onkeyup="searchDiagnosa(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-diagnosa') }}`,this)"
-                                                                            type="text" class="form-control"
-                                                                            name="diagnosa" autocomplete="off" />
-                                                                    </div>
-                                                                    <div class="dropdown-diagnosa"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 table-diagnosa d-none">
-                                                                <h5>Diagnosa</h5>
-                                                                <table class="table table-hover">
-                                                                    <thead class="table-dark">
-                                                                        <tr>
-                                                                            <th>Kode</th>
-                                                                            <th>Diagnosa</th>
-                                                                            <th align="text-left">Bagian</th>
-                                                                            <th class="text-center">Hapus</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody class="data-diagnosa">
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Tindakan (ICD 9)<span
-                                                                            class="text-danger">*</span></label>
-                                                                    <div class="form-control-wrap">
-                                                                        <input
-                                                                            onkeyup="searchTindakan(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-tindakan') }}`,this)"
-                                                                            type="text" class="form-control"
-                                                                            name="tindakan" autocomplete="off" />
-                                                                    </div>
-                                                                    <div class="dropdown-tindakan"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 table-tindakan d-none">
-                                                                <h5>Tindakan</h5>
-                                                                <table class="table table-hover">
-                                                                    <thead class="table-dark">
-                                                                        <tr>
-                                                                            <th>Kode</th>
-                                                                            <th>Tindakan</th>
-                                                                            <th align="text-left">Bagian</th>
-                                                                            <th class="text-center">Hapus</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody class="data-tindakan">
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">Status Lanjutan<span
-                                                                            class="text-danger">*</span></label>
+                                                                    <label class="form-label">Status Lanjutan<span class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap ">
                                                                         <select class="form-select select2"
-                                                                            style="position:absolute;"
-                                                                            name="status_lanjutan"
-                                                                            data-placeholder="Pilih data">
+                                                                            style="position:absolute;" name="status_lanjutan" data-placeholder="Pilih data">
                                                                             <option label="Pilih data" disabled selected
                                                                                 value=""></option>
-                                                                            <option value="dirujuk">Dirujuk</option>
+                                                                            <option value="dirujuk internal">Dirujuk
+                                                                                Internal</option>
+                                                                            <option value="dirujuk eksternal">Dirujuk
+                                                                                Eksternal</option>
                                                                             <option value="selesai">Selesai</option>
                                                                         </select>
                                                                     </div>
@@ -333,8 +254,7 @@
                                                         <div class="row g-gs">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Masukan nama obat<span
-                                                                            class="text-danger">*</span></label>
+                                                                    <label class="form-label">Masukan nama obat<span class="text-danger">*</span></label>
                                                                     <div class="form-control-wrap">
                                                                         <input
                                                                             onkeyup="searchObat(`{{ $periksa_dokter_id }}`,`{{ route('dokter.search-obat') }}`,this)"
@@ -348,13 +268,12 @@
                                                         </div>
                                                         <div class="mt-3">
                                                             <table class="table table-hover">
-                                                                <thead class="table-success">
+                                                                <thead>
                                                                     <tr>
                                                                         <th>No</th>
                                                                         <th>Nama Obat</th>
                                                                         <th class="text-left">Jumlah</th>
-                                                                        <th colspan="3" scope="colgroup"
-                                                                            class="text-center">Signa</th>
+                                                                        <th colspan="3" scope="colgroup" class="text-center">Signa</th>
                                                                         <th class="text-center">Harga Obat</th>
                                                                         <th>Subtotal</th>
                                                                         <th class="text-center">Opsi</th>
@@ -434,13 +353,13 @@
             </div>
         </div>
     </div>
+    </div>
 
 @endsection
 
 @push('js')
     <script>
-        // Obat
-        reloadTableObat();
+        reloadTable();
 
         async function searchObat(id, url, attr) {
             if ($('.dropdown-obat').hasClass('d-none')) {
@@ -484,13 +403,13 @@
                         $.get(url)
                             .done(output => {
                                 $('table .data-obat').html(output);
-                                reloadTableObat();
+                                reloadTable();
                             })
                     }
                 })
         }
 
-        function reloadTableObat() {
+        function reloadTable() {
             setTimeout(() => {
                 $.get(`/dokter/obat-pasien/{{ $periksa_dokter_id }}`)
                     .done(response => {
@@ -500,9 +419,6 @@
                             alertError('Limit bos');
                         }
                         $('table .data-obat').html(response.output);
-                    })
-                    .fail(error => {
-                        alertError();
                     })
             }, 600);
         }
@@ -527,7 +443,7 @@
                         alertError('Pasien bpjs sudah mencapai limit obat',
                             'Silahkan kurangi jumlah obat atau kurangi obat pasien');
                     }
-                    reloadTableObat();
+                    reloadTable();
                 })
         }
 
@@ -576,13 +492,6 @@
                     modalTerimakasih(response.message);
                     pindahHalaman(response.url, 3000);
                 })
-                .fail(errors => {
-                    if (errors.status === 422) {
-                        loopErrors(errors.responseJSON.errors);
-                        return;
-                    }
-                    alertError();
-                })
         }
 
         function signaSatu(url, attr, obat_pasien_periksa_rajal_id) {
@@ -598,7 +507,7 @@
                     },
                 })
                 .done(response => {
-                    reloadTableObat();
+                    reloadTable();
                 })
         }
 
@@ -615,179 +524,7 @@
                     },
                 })
                 .done(response => {
-                    reloadTableObat();
-                })
-        }
-
-        // Diagnosa
-        reloadTableDiagnosa();
-
-        function reloadTableDiagnosa() {
-            setTimeout(() => {
-                $.get(`/dokter/diagnosa-pasien/{{ $periksa_dokter_id }}`)
-                    .done(response => {
-                        $('.dropdown-diagnosa').addClass('d-none');
-                        $('.table-diagnosa').removeClass('d-none');
-                        $('table .data-diagnosa').html(response.output);
-                    })
-                    .fail(error => {
-                        alertError();
-                    })
-            }, 600);
-        }
-
-        function searchDiagnosa(id, url, attr) {
-            let diagnosa = $(attr).val();
-            if ($('.dropdown-diagnosa').hasClass('d-none')) {
-                $('.dropdown-diagnosa').removeClass('d-none');
-            }
-            $.get(url, {
-                    diagnosa: diagnosa,
-                    periksa_dokter_id: id
-                })
-                .done(output => {
-                    if (output != '') {
-                        $('.dropdown-diagnosa').html(output);
-                    }
-                })
-        }
-
-        function pilihDiagnosa(diagnosa_id, periksa_dokter_id, url) {
-            event.preventDefault();
-            $.post({
-                    url: url,
-                    type: 'post',
-                    data: {
-                        diagnosa_id: diagnosa_id,
-                        periksa_dokter_id: periksa_dokter_id
-                    }
-                })
-                .done(response => {
-                    let status = response.status;
-                    $('[name=diagnosa]').val('')
-                    alertSuccess(response.message);
-                    let url = response.url;
-                    $.get(url)
-                        .done(output => {
-                            $('.dropdown-diagnosa').addClass('d-none');
-                            $('.table-diagnosa').removeClass('d-none');
-                            $('table .data-diagnosa').html(output);
-                            reloadTableDiagnosa();
-                        })
-                })
-        }
-
-        function hapusDiagnosa(url, id, periksa_dokter_id) {
-            event.preventDefault();
-            $.post({
-                    url: url,
-                    data: {
-                        _method: "DELETE"
-                    },
-                })
-                .done(response => {
-                    alertSuccess('Hapus diagnosa pasien berhasil')
-                    reloadTableDiagnosa();
-                })
-        }
-
-        function diagnosaBagian(url, attr) {
-            let bagian = $(attr).val();
-            $.post({
-                    url: url,
-                    data: {
-                        _method: "PUT",
-                        bagian: bagian
-                    },
-                })
-                .done(response => {
-                    console.log(response);
-                })
-        }
-
-        // Tindakan
-        reloadTableTindakan();
-
-        function reloadTableTindakan() {
-            setTimeout(() => {
-                $.get(`/dokter/tindakan-pasien/{{ $periksa_dokter_id }}`)
-                    .done(response => {
-                        $('.dropdown-tindakan').addClass('d-none');
-                        $('.table-tindakan').removeClass('d-none');
-                        $('table .data-tindakan').html(response.output);
-                    })
-                    .fail(error => {
-                        alertError();
-                    })
-            }, 600);
-        }
-
-        function searchTindakan(id, url, attr) {
-            let tindakan = $(attr).val();
-            if ($('.dropdown-tindakan').hasClass('d-none')) {
-                $('.dropdown-tindakan').removeClass('d-none');
-            }
-            $.get(url, {
-                    tindakan: tindakan,
-                    periksa_dokter_id: id
-                })
-                .done(output => {
-                    if (output != '') {
-                        $('.dropdown-tindakan').html(output);
-                    }
-                })
-        }
-
-        function pilihTindakan(tindakan_id, periksa_dokter_id, url) {
-            event.preventDefault();
-            $.post({
-                    url: url,
-                    type: 'post',
-                    data: {
-                        tindakan_id: tindakan_id,
-                        periksa_dokter_id: periksa_dokter_id
-                    }
-                })
-                .done(response => {
-                    let status = response.status;
-                    $('[name=tindakan]').val('')
-                    alertSuccess(response.message);
-                    let url = response.url;
-                    $.get(url)
-                        .done(output => {
-                            $('.dropdown-tindakan').addClass('d-none');
-                            $('.table-tindakan').removeClass('d-none');
-                            $('table .data-tindakan').html(output);
-                            reloadTableTindakan();
-                        })
-                })
-        }
-
-        function hapusTindakan(url, id, periksa_dokter_id) {
-            event.preventDefault();
-            $.post({
-                    url: url,
-                    data: {
-                        _method: "DELETE"
-                    },
-                })
-                .done(response => {
-                    alertSuccess('Hapus tindakan pasien berhasil')
-                    reloadTableTindakan();
-                })
-        }
-
-        function tindakanBagian(url, attr) {
-            let bagian = $(attr).val();
-            $.post({
-                    url: url,
-                    data: {
-                        _method: "PUT",
-                        bagian: bagian
-                    },
-                })
-                .done(response => {
-                    console.log(response);
+                    reloadTable();
                 })
         }
     </script>

@@ -43,7 +43,7 @@
 
     <div class="row justify-content-center generate">
 
-        <a href="{{route('antrian.umum')}}"  target="pendaftaran.loket" class="col-lg-3 mt-3 btn btn-primary btn-lg">
+        <div onclick="antrian('A')" class="col-lg-3 mt-3 btn btn-primary btn-lg">
 
         <h1>UMUM</h1>
     </a>
@@ -59,6 +59,18 @@
         <h1>BPJS</h1>
 
 </a>
+<a href="{{route('antrian.asuransi')}}"  target="pendaftaran.loket" class="col-lg-3 mt-3 btn btn-primary btn-lg mx-5">
+
+        <h1>ASURANSI</h1>
+
+        </div>
+
+<a href="{{route('antrian.bpjs')}}"  target="pendaftaran.loket" class="col-lg-3 mt-3 btn btn-primary btn-lg">
+
+        <h1>BPJS</h1>
+
+        </div>
+>>>>>>> rhabsyah24/medich.id-rais
 
     </div>
 

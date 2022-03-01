@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin\Nurse_Station;
 
 use App\Http\Controllers\Controller;
+use App\Models\gudang_apotek;
+use App\Models\gudangAtkPermintaan;
 use App\Models\GudangPermintaan;
-use App\Models\Melati;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\MelatiInterface;
 
@@ -25,11 +26,11 @@ class MelatiController extends Controller
     // Data pasien hari ini berdasarkan login dokter spesialis
   
 
-    public function perencanaan_permintaan(Request $request)
+    public function perencanaan_permintaan_melati(Request $request)
     {
      
         
-        $data = $this->melatiRepository->perencanaan_permintaan()
+        $data = $this->melatiRepository->perencanaan_permintaan_melati()
                 ->paginate($this->perPage);
             $title = 'Melati';
             $badge = $this->badge();
@@ -41,7 +42,7 @@ class MelatiController extends Controller
             ));
     }
 
-    public function input_permintaan(Request $request)
+    public function input_permintaan_melati(Request $request)
         {
             $gudang_permintaan = new GudangPermintaan();
             $gudang_permintaan->no_permintaan  = $request->no_permintaan;
@@ -54,8 +55,72 @@ class MelatiController extends Controller
 
             // dd($request->all());
             $gudang_permintaan->save();
+            return back();  
+        }
+
+        public function perencanaan_permintaan_atk_melati(Request $request)
+    {
+     
+        
+        $data = $this->melatiRepository->perencanaan_permintaan_atk_melati()
+                ->paginate($this->perPage);
+            $title = 'Melati';
+            $badge = $this->badge();
+            $per_page = $this->perPage;
+            // return $data;
+            return view('admin.nurse_station.melati.permintaan_atk.perencanaan_permintaan', compact(
+                'title',
+                'data',
+            ));
+    }
+
+    public function input_permintaan_atk(Request $request)
+        {
+            $gudang_atk_permintaan = new gudangAtkPermintaan();
+            $gudang_atk_permintaan->no_permintaan  = $request->no_permintaan;
+            $gudang_atk_permintaan->nama_unit = $request->nama_unit;
+            $gudang_atk_permintaan->tanggal_permintaan = now();
+            $gudang_atk_permintaan->jenis_permintaan = "ATK";
+            $gudang_atk_permintaan->item_permintaan = $request->item_permintaan;
+            $gudang_atk_permintaan->jumlah = $request->jumlah;
+            $gudang_atk_permintaan->stok_lama = "20";
+
+            // dd($request->all());
+            $gudang_atk_permintaan->save();
             return back();
         }
+
+        public function perencanaan_permintaan_obat_melati(Request $request)
+        {
+         
+            
+            $data = $this->melatiRepository->perencanaan_permintaan_obat_melati()
+                    ->paginate($this->perPage);
+                $title = 'Melati';
+                $badge = $this->badge();
+                $per_page = $this->perPage;
+                // return $data;
+                return view('admin.nurse_station.melati.permintaan_obat.perencanaan_permintaan', compact(
+                    'title',
+                    'data',
+                ));
+        }
+    
+        public function input_permintaan_obat_melati(Request $request)
+            {
+                $gudang_apotek = new gudang_apotek();
+                $gudang_apotek->no_permintaan  = $request->no_permintaan;
+                $gudang_apotek->nama_unit = $request->nama_unit;
+                $gudang_apotek->tanggal_permintaan = now();
+                $gudang_apotek->jenis_permintaan = "OBAT";
+                $gudang_apotek->item_permintaan = $request->item_permintaan;
+                $gudang_apotek->jumlah = $request->jumlah;
+                $gudang_apotek->stok_lama = "20";
+    
+                // dd($request->all());
+                $gudang_apotek->save();
+                return back();
+            }
 
 
         public function rajal($pemeriksaan_id)

@@ -24,30 +24,32 @@ class PendaftaranPasienLamaRequest extends FormRequest
     public function rules()
     {
         $kategori_pasien = $this->kategori_pasien;
-        if ($kategori_pasien == 1) {
-            return
-                [
-                    'pasien' => 'required',
-                    'no_sep' => 'required',
-                    'kategori_pasien' => 'required',
-                    'poli_id' => 'required',
-                    'layanan_id' => 'required',
-                    'faskes_id' => 'required',
-                    'dokter_id' => 'required',
-                    'tujuan' => 'required',
-                    'tanggal' => 'required|date_format:Y-m-d',
-                ];
-        } else {
-            return [
-                'pasien' => 'required',
-                'kategori_pasien' => 'required',
-                'poli_id' => 'required',
-                'layanan_id' => 'required',
-                'dokter_id' => 'required',
-                'tujuan' => 'required',
-                'tanggal' => 'required|date_format:Y-m-d',
-
-            ];
+        $penanggung_jawab_sama_dengan_pasien = $this->penanggung_jawab_sama_dengan_pasien;
+        $rules = [
+            // Pasien
+            'penanggung_jawab_sama_dengan_pasien' => 'required',
+            'tanggal' => 'required|date_format:Y-m-d',
+            'pasien' => 'required',
+            'kategori_pasien' => 'required',
+            'poli_id' => 'required',
+            'layanan_id' => 'required',
+            'dokter_id' => 'required',
+            'pasien_sudah_membaca_dan_setuju_dengan_peraturan' => 'required',
+            'hubungan_dengan_pasien' => 'required',
+        ];
+        if ($penanggung_jawab_sama_dengan_pasien == 'tidak') {
+            // Penanggung Jawab
+            $rules['nama_penanggung_jawab'] = 'required';
+            $rules['nik_penanggung_jawab'] = 'required';
+            $rules['no_hp_penanggung_jawab'] = 'required';
+            $rules['jenis_kelamin_penanggung_jawab'] = 'required';
+            $rules['alamat_penanggung_jawab'] = 'required';
         }
+        if ($kategori_pasien == 1) {
+            $rules['no_sep'] = 'required';
+            $rules['faskes_id'] = 'required';
+        }
+
+        return $rules;
     }
 }

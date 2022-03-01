@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Dokter;
+use App\Models\DokterPoli;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -499,7 +501,7 @@ class UserSeeder extends Seeder
             Profile::create([
                 'user_id' => $dapur->id
             ]);
-            $role = 'dapur';
+            $role = 'melati';
             $permission = 'full_permission';
             $dapur->assignRole([$role]);
             $dapur->givePermissionTo([$permission]);
@@ -522,7 +524,7 @@ class UserSeeder extends Seeder
             Profile::create([
                 'user_id' => $laundry->id
             ]);
-            $role = 'laundry';
+            $role = 'melati';
             $permission = 'full_permission';
             $laundry->assignRole([$role]);
             $laundry->givePermissionTo([$permission]);
@@ -568,7 +570,7 @@ class UserSeeder extends Seeder
             Profile::create([
                 'user_id' => $gudangfarmasi->id
             ]);
-            $role = 'gudangfarmasi';
+            $role = 'cssd';
             $permission = 'full_permission';
             $gudangfarmasi->assignRole([$role]);
             $gudangfarmasi->givePermissionTo([$permission]);
@@ -591,7 +593,7 @@ class UserSeeder extends Seeder
             Profile::create([
                 'user_id' => $gudangatk->id
             ]);
-            $role = 'gudangatk';
+            $role = 'cssd';
             $permission = 'full_permission';
             $gudangatk->assignRole([$role]);
             $gudangatk->givePermissionTo([$permission]);

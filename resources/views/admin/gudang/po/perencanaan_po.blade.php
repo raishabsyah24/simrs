@@ -46,19 +46,8 @@
                                     </div>
                                 </form>
                             </div>
-                            
                             <div class="nk-block-head-content">
                                 <ul class="nk-block-tools ml-2 mb-3">
-                                    <ul class="nk-block-tools ml-2 mb-3">
-                                        <li class="nk-block-tools-opt">
-                                           
-                                        </ul>
-                                        <div class="card-body">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                               Buat PO
-                                            </button>
-                                        </div>
-                                        
                                     <li class="ml-5">
                                         <div class="form-control-wrap">
                                             <div class="form-icon form-icon-right">
@@ -80,118 +69,17 @@
                             </div>
                         </div>
                     </div>
-    
-                 {{-- Table --}}
-                <div class="nk-block fetch-data d-none">
+                    {{-- Table --}}
+                    <div class="nk-block fetch-data d-none">
                         @include('admin.gudang.po.fetch_po')
                         <input type="hidden" name="page" value="1" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@includeIf('admin.gudang.po._modal')
 @endsection
 
 @push('js')
-<script>
-    $(document).ready(function () {
-        $(".fetch-data").removeClass("d-none");
-        $(".loader").addClass("d-none");
-    });
-    // Obat
-    
-    async function searchObat(url, attr) {
-        if ($('.dropdown-obat').hasClass('d-none')) {
-            $('.dropdown-obat').removeClass('d-none');
-        }
-        
-        let obat = $(attr).val();
-        
-        await $.get(url, {
-            obat: obat
-        })
-        .done(output => {
-            console.log(output);
-            if (output != '') {
-                $('.dropdown-obat').html(output);
-            }
-        })
-    }
-    
-    function pilihObat(url) {
-        event.preventDefault();
-        $('.dropdown-obat').addClass('d-none');
-        $.post({
-            url: url,
-            type: 'post',
-            data: {
-                obat_apotek_id: obat_apotek_id,
-                periksa_dokter_id: periksa_dokter_id
-            }
-        })
-        .done(response => {
-            let status = response.status;
-            $('[name=obat]').val('')
-            if (status == false) {
-                $('input[name=obat]').prop('disabled', true);
-                alertError('Pasien bpjs sudah mencapai limit obat',
-                'Silahkan kurangi jumlah obat atau kurangi obat pasien');
-            } else {
-                alertSuccess(response.message);
-                let url = response.url;
-                $.get(url)
-                .done(output => {
-                    $('table .data-obat').html(output);
-                    reloadTableObat();
-                })
-            }
-        })
-    }
-    
-    
-    
-    function updateQuantity(url, attr) {
-        let qty = $(attr).val();
-        $('input[name=obat]').prop('disabled', false);
-        
-        $.post({
-            url: url,
-            data: {
-                _method: "PUT",
-                jumlah: qty,
-            },
-        })
-        .done(response => {
-            let limit = response.limit;
-            if (limit == 'limit') {
-                $(attr).val(1);
-                $('input[name=obat]').prop('disabled', true);
-                alertError('Pasien bpjs sudah mencapai limit obat',
-                'Silahkan kurangi jumlah obat atau kurangi obat pasien');
-            }
-            reloadTableObat();
-        })
-    }
-    
-    function hapusObat(url, id) {
-        event.preventDefault();
-        $.post({
-            url: url,
-            data: {
-                _method: "DELETE",
-                id: id
-            },
-        })
-        .done(response => {
-            let input = response.input;
-            if (input == true) {
-                $('[name=obat]').prop('disabled', false)
-            }
-            alertSuccess(response.message)
-            reloadTable();
-        })
-    }
-    
-    </script>
+    <script src="{{ asset('backend/pages/activity_log.js') }}"></script>
 @endpush

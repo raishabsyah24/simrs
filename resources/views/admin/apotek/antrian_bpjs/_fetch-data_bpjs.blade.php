@@ -58,27 +58,37 @@
                 <span class="tb-amount">{{ $item->kategori_pasien }}</span>
             </div>
             <div class="nk-tb-col tb-col-md">
-                <span class="tb-amount badge badge-dim badge-{{ $badge->random() }}" >
-                    {{ $item->status_pembayaran ?? '' }}
+                <span class="text-uppercase badge badge-dim badge-{{ $item->status_pemeriksaan == 'selesai' ? 'success' : 'danger' }}" >
+                    {{ $item->status_pemeriksaan }}
                 </span>
             </div>
             <div class="nk-tb-col nk-tb-col-tools">
                 <ul class="nk-tb-actions gx-1">
+                    @if($item->status_pemeriksaan == 'selesai')
+                    <li class="nk-tb-action-hidden">
+                        <a href="{{ route('apotek.preview-hasil', [$item->pemeriksaan_id, $item->periksa_dokter_id]) }}" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top"
+                            title="Print">
+                            <em class="icon ni ni-printer-fill"></em>
+                        </a>
+                    </li>
+                    @endif
                     <li>
                         <div class="drodown">
                             <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em
                                     class="icon ni ni-more-h"></em></a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="link-list-opt no-bdr">
+                                @if($item->status_pemeriksaan == 'belum selesai')
                                     <li>
-                                        <a href="{{ route('apotek.proses-pasien', $item->pemeriksaan_id) }}">
-                                            <em class="icon ni ni-edit-fill"></em>
-                                            <span>Proses</span>
-                                        </a>
-                                    </li>
-                                    
+                                        <a href="{{ route('apotek.proses-pasien',
+                                         [$item->pemeriksaan_id, $item->periksa_dokter_id]) }}">
+                                        <em class="icon ni ni-edit-fill"></em>
+                                        <span>Proses</span>
+                                    </a>
+                                </li>
+                                @endif
                                     <li>
-                                        <a href="{{ route('apotek.pasien-bpjs', $item->pemeriksaan_id) }}">
+                                        <a href="{{ route('apotek.pasien-bpjs', $item->periksa_dokter_id) }}">
                                             <em class="icon ni ni-eye"></em>
                                             <span>Detail</span>
                                         </a>

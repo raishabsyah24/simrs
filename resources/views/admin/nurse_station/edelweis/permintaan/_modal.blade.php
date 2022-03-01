@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">PO GUDANG FARMASI FIRDAUS HOSPITAL</h5>
+                <h5 class="modal-title" id="exampleModalLabel">PERMINTAAN BHP MELATI</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -31,9 +31,9 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                         <div class="form-group">
-                        <label>Jenis Permintaan</label>
-                        <input type="text" name="jenis_permintaan" id="name" class="form-control"/>
-                    </div>  
+                        <label  for="default-1-03">Jenis Permintaan</label>
+                        <input type="text" class="form-control" id="default-1-03" disabled value="BHP">
+                    </div>
 
                     
                         </div>
@@ -47,19 +47,20 @@
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
+                        
                         <div class="form-group">
                         <label>Jumlah</label>
                         <input type="text" name="jumlah" id="name" class="form-control"/>
                     </div>  
-                        </div>
-                        <div class="col-md-6">
-                        <div class="form-group">
-                        <label>Stok Lama</label>
-                        <input type="text" name="stok_lama" id="name" class="form-control"/>
-                    </div>  
-                        </div>
 
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <label  for="default-1-03">Stok Lama</label>
+                        <input type="text" class="form-control" id="default-1-03" disabled value="20">
+                    </div>
 
+                </div>
                     </div>
                 <div class="row g-gs">
                     <div class="col-md-6">

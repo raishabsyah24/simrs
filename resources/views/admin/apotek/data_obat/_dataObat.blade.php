@@ -25,19 +25,26 @@
                                 <div class="toggle-expand-content" data-content="pageMenu">
                                     <ul class="nk-block-tools g-3">
                                         <li class="nk-block-tools-opt">
-                                            <div class="drodown">
-                                                <a href="#" class="dropdown-toggle btn btn-icon btn-primary"
-                                                    data-toggle="dropdown"><em class="icon ni ni-plus"></em></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <ul class="link-list-opt no-bdr">
-                                                        <li>
-                                                            <a href="#" onclick="modalAddObat()">
-                                                                <span>Tambah Obat</span>
+                                            <div class="nk-block-head-content">
+                                                <div class="toggle-wrap nk-block-tools-toggle">
+                                                    <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
+                                                    <div class="toggle-expand-content" data-content="pageMenu">
+                                                        <ul class="nk-block-tools g-3">
+                                                            <li>
+                                                                <a href="#" class="btn btn-white btn-dim btn-outline-primary" onclick="modalAddObat()">
+                                                                    <em class="icon ni ni-plus"></em>
+                                                                    <span>Tambah Obat</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                               <a href="#" class="btn btn-white btn-dim btn-outline-primary">
+                                                                <em class="icon ni ni-reports"></em>
+                                                                <span>Export ke PDF</span>
                                                             </a>
-                                                        </li>
-                                                        <li><a href="#"><span>Export ke PDF</span></a></li>
-                                                    </ul>
-                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div><!-- .toggle-expand-content -->
+                                                </div><!-- .toggle-wrap -->
                                             </div>
                                         </li>
                                     </ul>
@@ -181,6 +188,16 @@
 
         function modalAddObat () {
             $('.modal-obat').modal('show');
+        }
+
+        function minus(){
+            event.preventDefault();
+            console.log('ok');
+        }
+
+        function plus(){
+            event.preventDefault();
+            console.log('ok');
         }
     </script>
 @endpush

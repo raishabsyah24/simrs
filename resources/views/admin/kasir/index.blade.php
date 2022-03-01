@@ -1,58 +1,21 @@
 @extends('layouts.admin.master', ['title' => $title])
-
-@push('css')
-
-@endpush
-
 @section('admin-content')
     <div class="nk-content ">
         <div class="container-fluid">
             <div class="nk-content-inner">
                 <div class="nk-content-body">
                     <div class="nk-block-head nk-block-head-sm">
-                        <div class="nk-block-between">
+                        <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">
-                                    {!! $title !!}
-                                </h3>
+                                <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
                             </div>
                         </div>
-                        <div class="nk-block">
-                            <div class="row mt-2">
-                                @foreach ($total as $item)
-                                    <div class="col-md-3">
-                                        <div class="card">
-                                            <div class="nk-ecwg nk-ecwg3">
-                                                <div class="card-inner pb-0">
-                                                    <div class="card-title-group">
-                                                        <div class="card-title">
-                                                            <h6 class="title">
-                                                                {{ $item[0] }}
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="data">
-                                                        <div class="data-group">
-                                                            <div class="amount fw-normal">
-                                                                {{ formatAngka($item[1]) }}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- .nk-ecwg -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        {{-- Head --}}
-                        <div class="nk-block-between mt-4">
+                        <div class="nk-block-between">
                             <div class="nk-block-head-content"></div>
                             <div class="nk-block-head-content">
                                 <div class="toggle-wrap nk-block-tools-toggle">
                                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1"
-                                        data-target="more-options"><em class="icon ni ni-more-v"></em></a>
+                                       data-target="more-options"><em class="icon ni ni-more-v"></em></a>
                                     <div class="toggle-expand-content" data-content="more-options">
                                         <ul class="nk-block-tools g-3">
                                             <li>
@@ -61,15 +24,94 @@
                                                         <em class="icon ni ni-search"></em>
                                                     </div>
                                                     <input onkeyup="search(this)" type="text" name="query"
-                                                        autocomplete="off" class="form-control"
-                                                        placeholder="Cari data . . ." />
+                                                           autocomplete="off" class="form-control"
+                                                           placeholder="Cari data . . ." />
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <!-- .nk-block-head-content -->
+                        </div>
+                        <div class="nk-block-between mt-4">
+                            <div class="nk-block-head-content"></div>
+                            <div class="nk-block-head-content">
+                                <div class="toggle-wrap nk-block-tools-toggle">
+                                    <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1"
+                                       data-target="more-options"><em class="icon ni ni-more-v"></em></a>
+                                    <div class="toggle-expand-content" data-content="more-options">
+                                        <ul class="nk-block-tools g-3">
+                                            <li>
+                                                <div class="drodown">
+                                                    <a href="#"
+                                                       class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white"
+                                                       data-toggle="dropdown" aria-expanded="false">Filter Berdasarkan
+                                                        Kategori</a>
+                                                    <div class="dropdown-menu dropdown-menu-right" >
+                                                        <ul class="link-list-opt no-bdr">
+                                                            <li>
+                                                                <a href="" onclick="filterKategori(`semua`)">
+                                                                    <span class="text-uppercase">
+                                                                        Semua
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+                                                            @foreach ($kategori_pasien as $item)
+                                                                <li>
+                                                                    <a data-id="{{ $item->id }}" href="#"
+                                                                       onclick="filterKategori(`{{ $item->id }}`)"><input
+                                                                            type="hidden" name="kategori" />
+                                                                        <span class="text-uppercase">
+                                                                            {{ $item->nama }}
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="drodown">
+                                                    <a href="#"
+                                                       class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white"
+                                                       data-toggle="dropdown" aria-expanded="false">Filter Berdasarkan
+                                                        Status Dilayani</a>
+                                                    <div class="dropdown-menu dropdown-menu-right" >
+                                                        <ul class="link-list-opt no-bdr">
+                                                            <li>
+                                                                <a href="" onclick="filterStatus(`semua`)">
+                                                                    <span class="text-uppercase">
+                                                                        Semua
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#"
+                                                                   onclick="filterStatus(`sudah dilayani`)"><input
+                                                                        type="hidden" name="status" />
+                                                                    <span class="text-uppercase">
+                                                                           Sudah Dilayani
+                                                                        </span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#"
+                                                                   onclick="filterStatus(`belum dilayani`)"><input
+                                                                        type="hidden" name="status" />
+                                                                    <span class="text-uppercase">
+                                                                           Belum Dilayani
+                                                                        </span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="loader card-inner p-0">
@@ -80,7 +122,7 @@
                         </div>
                     </div>
                     <div class="nk-block fetch-data d-none">
-                        @include('admin.kasir._fetch-kasir')
+                        @include('admin.kasir.fetch')
                         <input type="hidden" name="page" value="1" />
                     </div>
                 </div>
@@ -91,74 +133,55 @@
 
 @push('js')
     <script>
-        $(document).ready(function () {
-            $(".fetch-data").removeClass("d-none");
-            $(".loader").addClass("d-none");
-        });
+        $(document).ready(function() {
+            $('.fetch-data').removeClass('d-none');
+            $('.loader').addClass('d-none');
+        })
 
-        async function fetchData(
-            page = "",
-            query = "",
-            sortBy = "desc",
-            kategori = "",
-            poli = ""
-        ) {
-            await $.get(
-                `/kasir/fetch-data?page=${page}&query=${query}&sortBy=${sortBy}&kategori=${kategori}&poli=${poli}`
-            )
-                .done((data) => {
-                    $(".loader").addClass("d-none");
-                    $(".fetch-data").removeClass("d-none");
-                    $(".fetch-data").html(data);
+        async function fetchData(page = '', query = '', kategori = '', status = '') {
+            await $.get(`/kasir/fetch-data?page=${page}&query=${query}&kategori=${kategori}&status=${status}`)
+                .done(data => {
+                    $('.loader').addClass('d-none');
+                    $('.fetch-data').removeClass('d-none');
+                    $('.fetch-data').html(data)
                 })
-                .fail((error) => {
-                    $(".loader").addClass("d-none");
-                    modalError();
+                .fail((errors) => {
+                    alertError();
+                    return;
                 });
         }
 
         function search(el) {
             let query = $(el).val(),
-                page = $("input[name=page]").val(),
-                kategori = $("input[name=kategori]").val();
-            $(".loader").removeClass("d-none");
-            $(".fetch-data").addClass("d-none");
-            fetchData(page, query, "desc");
+                page = $('input[name=page]').val();
+            $('.loader').removeClass('d-none');
+            $('.fetch-data').addClass('d-none');
+            fetchData(page, query);
         }
-
-        function sortBy(sortBy) {
-            let page = $("input[name=page]").val(),
-                query = $("input[name=query]").val();
-            $(".loader").removeClass("d-none");
-            $(".fetch-data").addClass("d-none");
-            fetchData(page, query, sortBy);
-        }
-
-        $(document).on("click", ".pagination a", function (e) {
-            e.preventDefault();
-            let page = $(this).attr("href").split("page=")[1],
-                kategori = $("input[name=kategori]").val(),
-                query = $("input[name=query]").val();
-            $(".loader").removeClass("d-none");
-            $(".fetch-data").addClass("d-none");
-            fetchData(page, query, "desc", kategori);
-        });
 
         function filterKategori(kategori) {
             event.preventDefault();
             let page = $("input[name=page]").val(),
                 query = $("input[name=query]").val(),
-                poli = $("input[name=poli]").val();
-            fetchData(page, query, "desc", kategori, poli);
+                status = $("input[name=status]").val();
+            fetchData(page, query, kategori, status);
         }
 
-        function filterPoli(poli) {
+        function filterStatus(status) {
             event.preventDefault();
             let page = $("input[name=page]").val(),
                 query = $("input[name=query]").val(),
                 kategori = $("input[name=kategori]").val();
-            fetchData(page, query, "desc", kategori, poli);
+            fetchData(page, query, kategori, status);
         }
 
+        $(document).on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            let page = $(this).attr('href').split('page=')[1],
+                query = $('input[name=query]').val();
+            $('.loader').removeClass('d-none');
+            $('.fetch-data').addClass('d-none');
+            fetchData(page, query);
+        });
     </script>
 @endpush

@@ -104,7 +104,7 @@ class DokterController extends Controller
             $attr['name'] = $request->nama;
             $attr['password'] = bcrypt($this->defaultPassword);
 
-            // Insert ke table user 
+            // Insert ke table user
             $user = User::create($attr);
 
             // Set role dokter

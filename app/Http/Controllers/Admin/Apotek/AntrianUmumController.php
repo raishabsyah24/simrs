@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Admin\Apotek;
 
 use App\Models\Pasien;
+use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
+use App\Models\PeriksaDokter;
+use App\Models\ObatPasienRajal;
+use App\Models\PemeriksaanDetail;
+use App\Models\PosisiPasienRajal;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\PosisiDetailPasienRajal;
 use App\Repositories\Interfaces\ApotekInterface;
 use App\Repositories\Interfaces\DokterInterface;
 
@@ -25,6 +31,7 @@ class AntrianUmumController extends Controller
     public function umum()
     {
         $data = $this->apotekRepository->antrianApotekUmum()->paginate($this->perPage);
+        // return $data;
         $total = $this->apotekRepository->antrianApotekUmum()->count();
         $title = 'Antrian Umum';
         $perPage = $this->perPage;
@@ -41,20 +48,15 @@ class AntrianUmumController extends Controller
     function _fetchUmum(Request $request)
     {
         if ($request->ajax()) {
-            // $p = $request->get('pasien_id');
             $q = $request->get('query');
             $badge = $this->badge();
             $sortBy = $request->get('sortBy');
             $data = $this->apotekRepository->antrianApotekUmum()
                 ->when($q ?? false, function ($query) use ($q) {
                     return $query->where('id', 'like', '%' . $q . '%')
-                        ->orWhere('rm.kode', 'like', '%' . $q . '%')
-                        ->orWhere('pd.pasien_id', 'like', '%' . $q . '%')
-                        ->orWhere('pn.tanggal_lahir', 'like', '%' . $q . '%')
-                        ->orWhere('pl.spesialis', 'like', '%' . $q . '%')
-                        ->orWhere('pd.dokter_id', 'like', '%' . $q . '%');
+                        ->orWhere('rm.kode', 'like', '%' . $q . '%');
                 })
-                ->orderBy('pa.created_at', $sortBy)
+                ->orderBy('created_at', $sortBy)
                 ->paginate($this->perPage);
             return view('admin.apotek.antrian_umum._fetch-umum', compact(
                 'data',
@@ -67,27 +69,149 @@ class AntrianUmumController extends Controller
 
     public function detailPasienUmum($pasien_umum)
     {
-        $pasien = DB::table('pemeriksaan as pd')
-            ->selectRaw(
-                'DISTINCT pn.id, pd.no_rekam_medis, pn.nama as nama_pasien, pn.email, pn.jenis_kelamin, pn.tempat_lahir, 
-                      pn.tanggal_lahir, pn.golongan_darah, pn.alamat, pd.status as status_pemeriksaan, pk.no_antrian_apotek, pk.tanggal as tanggal_periksa, pk.status_diperiksa, pl.spesialis, dr.nama as nama_dokter, kp.nama as kategori_pasien
-                     '
-            )
-            ->join('pasien as pn', 'pn.id', '=', 'pd.pasien_id')
-            ->join('pemeriksaan_detail as pm', 'pm.pemeriksaan_id', 'pm.id')
-            ->join('periksa_dokter as pk', 'pk.id', '=', 'pm.dokter_id')
-            ->join('poli as pl', 'pm.pemeriksaan_id', '=', 'pl.id')
-            ->join('dokter as dr', 'pm.dokter_id', '=', 'dr.id')
-            ->join('kategori_pasien as kp', 'kp.id', '=', 'pd.kategori_pasien')
-            ->where('pd.id', '=', $pasien_umum)
+        $pasien = DB::table('periksa_dokter as po')
+            ->selectRaw('
+                    po.id as periksa_dokter_id, ps.nama as nama_pasien, ps.tanggal_lahir, ps.alamat, 
+                    pm.no_rekam_medis, do.nama as nama_dokter, pl.nama as spesialis, kt.nama as kategori_pasien,
+                    pm.id as pemeriksaan_id,pm.tanggal as tanggal_pemeriksaan, pm.status as status_pemeriksaan
+                ')
+            ->join('pemeriksaan_detail as pd', 'pd.id', '=', 'po.pemeriksaan_detail_id')
+            ->join('pemeriksaan as pm', 'pm.id', '=', 'pd.pemeriksaan_id')
+            ->join('pasien as ps', 'ps.id', '=', 'po.pasien_id')
+            ->join('dokter as do', 'do.id', '=', 'po.dokter_id')
+            ->join('poli as pl', 'pl.id', '=', 'pd.poli_id')
+            ->join('kategori_pasien as kt', 'kt.id', '=', 'pm.kategori_pasien')
+            ->where('po.id', $pasien_umum)
             ->first();
-        // return $pasien;
+
+        $obat = DB::table('obat_pasien_periksa_rajal as ob')
+            ->selectRaw('
+            DISTINCT ob.id as obat_pasien_rajal_id, o.nama_generik, ob.jumlah, ob.signa1, ob.signa2,
+            ob.harga_obat, ob.subtotal
+                ')
+            ->join('obat_apotek as ot', 'ot.id', '=', 'ob.obat_apotek_id')
+            ->join('obat as o', 'o.id', '=', 'ot.obat_id')
+            ->join('periksa_dokter as pd', 'pd.id', '=', 'ob.periksa_dokter_id')
+            ->join('pasien as pe', 'pe.id', '=', 'pd.pasien_id')
+            ->where('pd.id', '=', $pasien_umum)
+            ->get();
+        // return $obat;
         $title = 'Detail Pasien';
-        $head  = 'Informasi Pasien';
         return view('admin.apotek.antrian_umum._pasien-umum', compact(
             'title',
-            'head',
-            'pasien'
+            'pasien',
+            'obat'
+        ));
+    }
+
+    public function pasienUmum($pemeriksaan_id, $periksa_dokter_id)
+    {
+        // Pemeriksaan pasien umum
+        $res  = $this->apotekRepository->identitasPasien($periksa_dokter_id);
+
+        // Obat pasien umum
+        $obat = $this->apotekRepository->obatUmum($pemeriksaan_id);
+
+        // Update pasien checkin apotek
+        $posisi_pasien = PosisiPasienRajal::where('pemeriksaan_id', $pemeriksaan_id)->firstOrFail();
+        if ($posisi_pasien->status == 'proses obat') {
+            $posisi_pasien->update([
+                'status' => 'proses apotek'
+            ]);
+
+            $user = auth()->user()->name;
+            $aktifitas = "Pasien sedang diproses di apotek oleh {$user}";
+            $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+                'posisi_pasien_rajal_id' => $posisi_pasien->id,
+                'aktifitas' => $aktifitas,
+                'waktu' => now(),
+                'keterangan' => 'checkin',
+                'status' => 'proses'
+            ]);
+        }
+
+        return view('admin.apotek.antrian_umum._proses-pasien-umum', compact(
+            'res',
+            'obat',
+            'periksa_dokter_id'
+        ));
+    }
+
+    public function prosesPasienUmum(Request $request)
+    {
+        $attr = $request->all();
+
+        DB::transaction(
+            function () use ($attr) {
+                // Query pemeriksaa
+                $pemeriksaan = Pemeriksaan::find($attr['pemeriksaan_id']);
+
+                // Query pemeriksaan detail
+                $pemeriksaan_detail = PemeriksaanDetail::where('pemeriksaan_id', '=', $pemeriksaan->id)
+                    ->first();
+
+                // Query obat pasien
+                $periksaDokter = PeriksaDokter::where('pemeriksaan_detail_id', '=', $attr['periksa_dokter_id'])->first();
+                $obatPasien = ObatPasienRajal::where('periksa_dokter_id', '=', $periksaDokter->id)
+                    ->get();
+
+                // Update status pemeriksaan
+                $pemeriksaan->update([
+                    'status' => 'selesai'
+                ]);
+
+                // Update status pemeriksaan detail
+                $pemeriksaan_detail->update([
+                    'status' => 'selesai'
+                ]);
+
+                // Update status obat pasien rajal
+                foreach ($obatPasien as $obat) {
+                    $obat->update([
+                        'status' => 'sudah diterima'
+                    ]);
+                }
+
+                // Query checkout pasien apotek
+                $posisi_pasien = PosisiPasienRajal::where('pemeriksaan_id', $pemeriksaan->id)->firstOrFail();
+
+                if ($posisi_pasien->status == 'proses apotek') {
+                    $posisi_pasien->update([
+                        'status' => 'selesai'
+                    ]);
+
+                    // Update pasien checkout apotek
+                    $res = PosisiDetailPasienRajal::where('posisi_pasien_rajal_id', $posisi_pasien->id)->latest('waktu');
+                    $res->update([
+                        'status' => 'selesai'
+                    ]);
+
+                    $user = auth()->user()->name;
+                    $aktifitas = "Pasien sudah selesai diproses di apotek oleh {$user}";
+                    $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
+                        'posisi_pasien_rajal_id' => $posisi_pasien->id,
+                        'aktifitas' => $aktifitas,
+                        'waktu' => now(),
+                        'keterangan' => 'checkout',
+                        'status' => 'selesai'
+                    ]);
+                }
+            }
+        );
+        return response()->json([
+            'message' => 'Status berhasil di ubah!',
+            'url'     => route('data.umum')
+        ], 200);
+    }
+
+    public function previewPDF($pemeriksaan_id, $periksa_dokter_id)
+    {
+        $query = $this->apotekRepository->identitasPasien($periksa_dokter_id);
+        $drug  = $this->apotekRepository->obatBpjs($pemeriksaan_id);
+        // return $query;
+        return view('admin.apotek.antrian_umum.pdf.hasil', compact(
+            'query',
+            'drug'
         ));
     }
 }

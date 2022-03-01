@@ -8,7 +8,6 @@
         <div class="nk-tb-col"><span class="sub-text">Status</span></div>
         <div class="nk-tb-col"><span class="sub-text text-center"><em class="icon ni ni-setting-fill"></em></span>
         </div>
-
     </div>
     @forelse ($data as $item)
         <div class="nk-tb-item">
@@ -63,11 +62,6 @@
                                         <a href="{{ route('dokter.ganti-jadwal-praktek', $item->id) }}"><em
                                                 class="icon ni ni-clock"></em><span>Ganti Jadwal Praktek</span></a>
                                     </li>
-                                    <li>
-                                        <a href="#"
-                                            onclick="hapusDokter(`{{ route('dokter.delete', $item->id) }}`)"><em
-                                                class="icon ni ni-trash"></em><span>Hapus</span></a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -91,14 +85,14 @@
 </div>
 
 
-@if ($data->count() > $data->perPage())
-    <div class="card">
-        <div class="card-inner">
-            <div class="nk-block-between-md g-3">
-                <div class="g">
-                    {{ $data->links('components.pagination') }}
-                </div>
+{{-- @if ($data->count() > $data->perPage()) --}}
+<div class="card">
+    <div class="card-inner">
+        <div class="nk-block-between-md g-3">
+            <div class="g">
+                {{ $data->links('components.pagination') }}
             </div>
         </div>
     </div>
-@endif
+</div>
+{{-- @endif --}}

@@ -5,25 +5,25 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\{
     AntrianPoliRepository,
+    KasirRepository,
     LayananRepository,
     PasienRepository,
-    PendaftaranRepository,
     DokterRepository,
     ApotekRepository,
-    KasirRepository,
-    AntrianRepository,
-    GudangFarmasiRepository,
     PosisiPasienRepository,
     DashboardRepository,
     UserRepository,
     PoliStationRepository,
-    MelatiRepository
+    PendaftaranRawatJalanRepository,
+    PendaftaranRawatInapRepository,
+    NurseStationRepository,
+    AntrianRepository,
+    GudangFarmasiRepository,
 };
 use App\Repositories\Interfaces\{
     AntrianPoliInterface,
     PasienInterface,
     LayananInterface,
-    PendaftaranInterface,
     DokterInterface,
     ApotekInterface,
     KasirInterface,
@@ -33,7 +33,10 @@ use App\Repositories\Interfaces\{
     DashboardInterface,
     UserInterface,
     PoliStationInterface,
-    MelatiInterface
+    PendaftaranRawatJalanInterface,
+    PendaftaranRawatInapInterface,
+    NurseStationInterface,
+   
 };
 
 class AdminRepositoryServiceProvider extends ServiceProvider
@@ -54,8 +57,12 @@ class AdminRepositoryServiceProvider extends ServiceProvider
             LayananRepository::class
         );
         $this->app->bind(
-            PendaftaranInterface::class,
-            PendaftaranRepository::class
+            PendaftaranRawatJalanInterface::class,
+            PendaftaranRawatJalanRepository::class
+        );
+        $this->app->bind(
+            PendaftaranRawatInapInterface::class,
+            PendaftaranRawatInapRepository::class
         );
         $this->app->bind(
             DokterInterface::class,
@@ -86,19 +93,58 @@ class AdminRepositoryServiceProvider extends ServiceProvider
             UserInterface::class,
             UserRepository::class
         );
+
         $this->app->bind(
             PoliStationInterface::class,
             PoliStationRepository::class
         );
+
         $this->app->bind(
             PosisiPasienInterface::class,
             PosisiPasienRepository::class
         );
+
         $this->app->bind(
             MelatiInterface::class,
             MelatiRepository::class
         );
+
+        $this->app->bind(
+            DahliaInterface::class,
+            DahliaRepository::class
+        );
        
+        $this->app->bind(
+            KasirInterface::class,
+            KasirRepository::class
+        );
+
+        $this->app->bind(
+            GudangATKInterface::class,
+            GudangATKRepository::class
+        );
+
+        $this->app->bind(
+            GudangApotekInterface::class,
+            GudangApotekRepository::class
+        );
+        $this->app->bind(
+            KasirInterface::class,
+            KasirRepository::class
+        );
+        $this->app->bind(
+            NurseStationInterface::class,
+            NurseStationRepository::class
+        );
+
+        $this->app->bind(   
+            AntrianInterface::class,
+            AntrianRepository::class
+        );
+        $this->app->bind(
+            GudangFarmasiInterface::class,
+            GudangFarmasiRepository::class
+        );
     }
 
     /**

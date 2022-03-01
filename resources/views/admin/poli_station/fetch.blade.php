@@ -3,7 +3,6 @@
             <div class="nk-tb-col"><span class="sub-text">No</span></div>
             <div class="nk-tb-col"><span class="sub-text">No RM Pasien</span></div>
             <div class="nk-tb-col"><span class="sub-text">Pasien</span></div>
-            <div class="nk-tb-col"><span class="sub-text">Kategori</span></div>
             <div class="nk-tb-col"><span class="sub-text">Tanggal Lahir</span></div>
             <div class="nk-tb-col"><span class="sub-text">Tujuan Poli</span></div>
             <div class="nk-tb-col"><span class="sub-text">Tenaga Medis</span></div>
@@ -39,15 +38,6 @@
                         </div>
                     </a>
                 </div>
-                <div class="nk-tb-col">
-                    <div class="user-card">
-                        <div class="user-info">
-                            <span class="tb-lead text-capitalize">{!! $item->kategori_pasien !!}
-                                <span class="dot dot-success d-md-none ml-1"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
                 <div class="nk-tb-col tb-col-md">
                     <span class="tb-lead">
                         {!! tanggal($item->tanggal_lahir) !!}
@@ -57,7 +47,7 @@
                     <span class="text-capitalize tb-lead">{!! $item->nama_poli !!}</span>
                 </div>
                 <div class="nk-tb-col">
-                    <span class="tb-lead text-capitalize">{!! $item->nama_dokter !!}</span>
+                    <span class="tb-lead text-capitalize">{!! $item->nama_dokter ?? '' !!}</span>
                 </div>
                 <div class="nk-tb-col tb-col-md">
                     <span class="tb-lead">{!! tanggal($item->tanggal_periksa) !!}</span>
@@ -105,9 +95,7 @@
                 <div class="nk-tb-col"></div>
                 <div class="nk-tb-col"></div>
                 <div class="nk-tb-col"></div>
-                <div class="nk-tb-col"></div>
             </div>
-
         @endforelse
     </div>
 
