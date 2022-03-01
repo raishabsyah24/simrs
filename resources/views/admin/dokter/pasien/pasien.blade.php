@@ -528,5 +528,4 @@
                 })
         }
     </script>
->>>>>>> rhabsyah24/medich.id-rais
 @endpush

@@ -36,8 +36,7 @@ use App\Repositories\Interfaces\{
     PendaftaranRawatJalanInterface,
     PendaftaranRawatInapInterface,
     NurseStationInterface,
-    AntrianInterface,
-    GudangFarmasiInterface,
+   
 };
 
 class AdminRepositoryServiceProvider extends ServiceProvider

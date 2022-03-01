@@ -815,7 +815,7 @@
                                 </a>
                                 <ul class="nk-menu-sub ">
                                     <li class="nk-menu-item">
-                                        <a href="{{ route('data.user') }}" class="nk-menu-link"><span
+                                        <a href="#" class="nk-menu-link"><span
                                                 class="nk-menu-text">Pengguna</span></a>
                                     </li>
                                 </ul>
