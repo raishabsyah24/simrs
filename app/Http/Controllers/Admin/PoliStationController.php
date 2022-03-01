@@ -103,7 +103,15 @@ class PoliStationController extends Controller
 
             $attr = $request->all();
             $attr['status_diperiksa'] = 'sudah diperiksa';
+            $tb = ((int)$attr['tb'] / 100) * 2;
+            // $kuadrat_tb = pow((int)$tb, 2);
+            $bmi = (int)$attr['bb'] / (int)$tb;
+            $attr['bmi'] = round($bmi, 2);
+
             $periksaPoliStation->update($attr);
+
+            // Aktivitas user
+            activity("memeriksa pasien atas nama {$this->namaPasien($periksaPoliStation->pasien_id)} dipoli station");
 
             // Update posisi pasien
             $posisi_pasien_rajal = PosisiPasienRajal::findOrFail($this->posisiPasienRajal($periksaPoliStation->id));

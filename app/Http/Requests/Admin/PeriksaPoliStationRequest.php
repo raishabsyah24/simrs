@@ -24,8 +24,10 @@ class PeriksaPoliStationRequest extends FormRequest
     public function rules()
     {
         return [
-            'tb' => 'required',
-            'bb' => 'required',
+            'tb' => 'required|numeric',
+            'bb' => 'required|numeric',
+            'td' => 'required',
+            'su' => 'required',
         ];
     }
 }

@@ -15,7 +15,7 @@
                                 <h3 class="nk-block-title page-title">GUDANG FARMASI</h3>
                             </div>
                         </div>
-                        <h3 class="nk-block-title page-title">PO</h3>
+                        <h3 class="nk-block-title page-title">PENYIMPANAN</h3>
                         {{-- Filter date --}}
                         <p class="mt-3">Filter berdasarkan tanggal</p>
                         <div class="nk-block-between">
@@ -46,14 +46,8 @@
                                     </div>
                                 </form>
                             </div>
-                            
                             <div class="nk-block-head-content">
                                 <ul class="nk-block-tools ml-2 mb-3">
-                                    <ul class="nk-block-tools ml-2 mb-3">
-                                        <li class="nk-block-tools-opt">
-                                           
-                                        </ul>
-                                        
                                     <li class="ml-5">
                                         <div class="form-control-wrap">
                                             <div class="form-icon form-icon-right">
@@ -75,25 +69,17 @@
                             </div>
                         </div>
                     </div>
-    
-                 {{-- Table --}}
-                <div class="nk-block fetch-data d-none">
+                    {{-- Table --}}
+                    <div class="nk-block fetch-data d-none">
                         @include('admin.gudang.fetch_penyimpanan')
                         <input type="hidden" name="page" value="1" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@includeIf('admin.gudang.po._modal')
 @endsection
 
 @push('js')
-<script>
-    $(document).ready(function () {
-        $(".fetch-data").removeClass("d-none");
-        $(".loader").addClass("d-none");
-    });
-
-    </script>
+    <script src="{{ asset('backend/pages/activity_log.js') }}"></script>
 @endpush

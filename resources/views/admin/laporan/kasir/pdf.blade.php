@@ -48,6 +48,7 @@
                                     <th>Kategori</th>
                                     <th>Kasir</th>
                                     <th>Metode Pembayaran</th>
+                                    <th>Status Pembayaran</th>
                                     <th>Tanggal Pembayaran</th>
                                     <th>Tagihan</th>
                                     <th>Diskon %</th>
@@ -63,6 +64,7 @@
                                         <td>{!! $item->kategori_pasien !!}</td>
                                         <td>{!! $item->admin !!}</td>
                                         <td>{!! $item->metode_pembayaran !!}</td>
+                                        <td>{!! $item->status_pembayaran !!}</td>
                                         <td>{!! tanggalJam($item->tanggal_pembayaran) !!}</td>
                                         <td>{!! formatAngka($item->total_tagihan, true) !!} %</td>
                                         <td>{!! $item->diskon !!} %</td>
@@ -71,6 +73,7 @@
                                     </tr>
                                 @empty
                                     <tr>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -86,7 +89,7 @@
                                     </tr>
                                 @endforelse
                                 <tr>
-                                    <td colspan="8" class="text-right">
+                                    <td colspan="9" class="text-right">
                                         <h5>Grand Total</h5>
                                     </td>
                                     <td colspan="2">
@@ -95,7 +98,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td colspan="10" class="text-right text-capitalize">
+                                    <td colspan="11" class="text-right text-capitalize">
                                         <h5>{!! terbilangRupiah($data['grand_total']) !!}</h5>
                                     </td>
                                 </tr>

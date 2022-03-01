@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Dokter;
 
 use Illuminate\Http\Request;
 use App\Models\{
-    Diagnosa,
     DiagnosaPasienRajal,
     Dokter,
     Kasir,
@@ -50,12 +49,13 @@ class PasienDokterController extends Controller
             return abort(403);
         }
         $dokter = $this->dokterRepository->dokterSpesialis($user_dokter->id);
-        $data = $this->dokterRepository->daftarPasienDokterSpesialis($dokter->poli_id)
+        $data = $this->dokterRepository->daftarPasienDokterSpesialis($user_id)
             ->paginate($this->perPage);
         $title = 'Daftar Pasien';
         return view('admin.dokter.pasien.index', compact(
             'title',
             'data',
+            'dokter_id',
             'dokter'
         ));
     }
@@ -369,13 +369,13 @@ class PasienDokterController extends Controller
         ], 200);
     }
 
-
     // Simpan pemeriksaan pasien
     public function storePasien(PeriksaDokter $periksaDokter, PeriksaPasienRajalRequest $request)
     {
         $attr = $request->except(['obat', 'satuan', 'signa', 'jumlah', 'tindakan', 'diagnosa']);
         $attr['status_diperiksa'] = 'sudah diperiksa';
         $attr['status'] = 'selesai';
+        $attr['dokter_id'] = auth()->user()->dokter->id;
 
         DB::transaction(
             function () use ($attr, $periksaDokter) {
@@ -469,43 +469,9 @@ class PasienDokterController extends Controller
                     'tanggal' => now()
                 ]);
 
-                // $kasir = Kasir::create([
-                //     'pemeriksaan_id' => $pemeriksaan->id,
-                //     'status' => 'belum bayar'
-                // ]);
-
-                // $kasir_detail = KasirDetail::create([
-                //     'kasir_id' => $kasir->id,
-                //     'jenis_tagihan' => 'periksa dokter',
-                //     'tanggal_layanan' => now(),
-                //     'subtotal' =>  $pemeriksaan_detail->tagihan_layanan
-                // ]);
-
-                // $kasir_detail = KasirDetail::create([
-                //     'kasir_id' => $kasir->id,
-                //     'jenis_tagihan' => 'obat pasien',
-                //     'tanggal_layanan' => now(),
-                //     'subtotal' =>  $obat_pasien_periksa->sum('subtotal')
-                // ]);
-
-                // $total_kasir = KasirDetail::where('kasir_id', $kasir->id)->get();
-
-                // $kasir_total = Kasir::find($kasir->id);
-
-                // $kasir_total->update([
-                //     'total_tagihan' => $total_kasir->sum('subtotal'),
-                //     'diskon' => 0,
-                //     'pajak' => 0,
-                //     'grand_total' => $total_kasir->sum('subtotal')
-                // ]);
-                $pasien = Pasien::find($periksaDokter->pasien_id);
                 //              Update activity user / dokter
-                $pasien = Pasien::select(['id', 'nama'])
-                    ->where('id', $periksaDokter->pasien_id)
-                    ->first();
-                $nama_pasien = $pasien->nama;
                 $nama_poli = $poli->nama;
-                activity('melakukan pemeriksaan pasien ' . $nama_pasien . ' di poli ' . $nama_poli);
+                activity('melakukan pemeriksaan pasien ' . $this->namaPasien($periksaDokter->pasien_id) . ' di poli ' . $nama_poli);
 
                 // Update posisi pasien
                 $posisi_pasien_rajal = PosisiPasienRajal::select(['id', 'pemeriksaan_id', 'status'])

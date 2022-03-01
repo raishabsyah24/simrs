@@ -21,8 +21,8 @@ class KasirRepository implements KasirInterface
             ->join('pemeriksaan_detail as pd', 'pd.pemeriksaan_id', '=', 'pe.id')
             ->join('pasien as p', 'p.id', '=', 'pe.pasien_id')
             ->join('kategori_pasien as kp', 'kp.id', '=', 'pe.kategori_pasien')
-            ->where('pd.status', 'selesai');
-            // ->orderBy('pe.created_at', 'desc');
+            ->where('pd.status', 'selesai')
+            ->orderBy('pe.created_at', 'desc');
     }
 
     public function identitasPasien(int $kasir_id)
@@ -99,7 +99,7 @@ class KasirRepository implements KasirInterface
         return DB::table('kasir as k')
             ->selectRaw('
                 p.nama as nama_pasien, k.tanggal_pembayaran, kp.nama as kategori_pasien, u.name as admin,
-                k.total_tagihan, k.diskon, k.pajak, k.id as kasir_id, k.metode_pembayaran
+                k.total_tagihan, k.diskon, k.pajak, k.id as kasir_id, k.metode_pembayaran, k.status_pembayaran
             ')
             ->join('pemeriksaan as pe', 'pe.id', '=', 'k.pemeriksaan_id')
             ->join('pasien as p', 'p.id', '=', 'pe.pasien_id')

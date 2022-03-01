@@ -52,4 +52,44 @@ class DashboardRepository implements DashboardInterface
             ->count();
     }
 
+    public function totalPasienSpesialisSaya(int $user_id)
+    {
+        $bulan = date('m');
+        $tahun = date('Y');
+        $dokter = DB::table('dokter')->select('id')
+            ->where('user_id', $user_id)
+            ->first();
+
+        if ($dokter)
+            return DB::table('periksa_dokter as pd')
+                ->selectRaw('pd.id, pd.dokter_id, pd.tanggal')
+                ->where('dokter_id', $dokter->id)
+                ->whereMonth('pd.tanggal', $bulan)
+                ->whereYear('pd.tanggal', $tahun)
+                ->count();
+    }
+
+    public function dataPasienSpesialisSaya(int $user_id)
+    {
+        $bulan = date('m');
+        $tahun = date('Y');
+        $dokter = DB::table('dokter')->select('id')
+            ->where('user_id', $user_id)
+            ->first();
+
+        if ($dokter)
+            return DB::table('periksa_dokter as pd')
+                ->selectRaw("
+                DATE(tanggal) AS tanggal,
+                DATE_FORMAT(tanggal, '%d') AS hari,
+                COUNT(*) AS jumlah
+            ")
+                ->whereMonth('tanggal', $bulan)
+                ->whereYear('tanggal', $tahun)
+                ->where('dokter_id', $dokter->id)
+                ->where('pd.status_diperiksa', 'sudah diperiksa')
+                ->groupBy('tanggal', 'hari')
+                ->orderBy('tanggal', 'ASC')
+                ->get();
+    }
 }

@@ -69,16 +69,45 @@ class AntrianUmumController extends Controller
 
     public function detailPasienUmum($pasien_umum)
     {
+        $pasien = DB::table('periksa_dokter as po')
+            ->selectRaw('
+                    po.id as periksa_dokter_id, ps.nama as nama_pasien, ps.tanggal_lahir, ps.alamat, 
+                    pm.no_rekam_medis, do.nama as nama_dokter, pl.nama as spesialis, kt.nama as kategori_pasien,
+                    pm.id as pemeriksaan_id,pm.tanggal as tanggal_pemeriksaan, pm.status as status_pemeriksaan
+                ')
+            ->join('pemeriksaan_detail as pd', 'pd.id', '=', 'po.pemeriksaan_detail_id')
+            ->join('pemeriksaan as pm', 'pm.id', '=', 'pd.pemeriksaan_id')
+            ->join('pasien as ps', 'ps.id', '=', 'po.pasien_id')
+            ->join('dokter as do', 'do.id', '=', 'po.dokter_id')
+            ->join('poli as pl', 'pl.id', '=', 'pd.poli_id')
+            ->join('kategori_pasien as kt', 'kt.id', '=', 'pm.kategori_pasien')
+            ->where('po.id', $pasien_umum)
+            ->first();
+
+        $obat = DB::table('obat_pasien_periksa_rajal as ob')
+            ->selectRaw('
+            DISTINCT ob.id as obat_pasien_rajal_id, o.nama_generik, ob.jumlah, ob.signa1, ob.signa2,
+            ob.harga_obat, ob.subtotal
+                ')
+            ->join('obat_apotek as ot', 'ot.id', '=', 'ob.obat_apotek_id')
+            ->join('obat as o', 'o.id', '=', 'ot.obat_id')
+            ->join('periksa_dokter as pd', 'pd.id', '=', 'ob.periksa_dokter_id')
+            ->join('pasien as pe', 'pe.id', '=', 'pd.pasien_id')
+            ->where('pd.id', '=', $pasien_umum)
+            ->get();
+        // return $obat;
         $title = 'Detail Pasien';
         return view('admin.apotek.antrian_umum._pasien-umum', compact(
-            'title'
+            'title',
+            'pasien',
+            'obat'
         ));
     }
 
     public function pasienUmum($pemeriksaan_id, $periksa_dokter_id)
     {
         // Pemeriksaan pasien umum
-        $res  = $this->apotekRepository->pasienUmum($pemeriksaan_id);
+        $res  = $this->apotekRepository->identitasPasien($periksa_dokter_id);
 
         // Obat pasien umum
         $obat = $this->apotekRepository->obatUmum($pemeriksaan_id);
@@ -173,5 +202,16 @@ class AntrianUmumController extends Controller
             'message' => 'Status berhasil di ubah!',
             'url'     => route('data.umum')
         ], 200);
+    }
+
+    public function previewPDF($pemeriksaan_id, $periksa_dokter_id)
+    {
+        $query = $this->apotekRepository->identitasPasien($periksa_dokter_id);
+        $drug  = $this->apotekRepository->obatBpjs($pemeriksaan_id);
+        // return $query;
+        return view('admin.apotek.antrian_umum.pdf.hasil', compact(
+            'query',
+            'drug'
+        ));
     }
 }

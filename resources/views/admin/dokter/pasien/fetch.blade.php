@@ -16,7 +16,7 @@
                              @endif
                              <div class="user-card user-card-s2">
                                  <div class="user-avatar md bg-primary">
-                                     <span>{{ getInitialUser($item->nama_pasien) }}</span>
+                                     <span class="text-uppercase">{{ getInitialUser($item->nama_pasien) }}</span>
                                  </div>
                                  <div class="user-info">
                                      <h6>{{ $item->jenis_kelamin == 'laki-laki' ? 'Tn' : 'Ny' }}.

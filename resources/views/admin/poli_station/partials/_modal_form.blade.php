@@ -10,17 +10,17 @@
             <div class="modal-body">
                 <form>
                     @csrf
-                    @method('put')
+                    @method('post')
                     <div class="form-group">
-                        <label class="form-label">Tinggi Badan <span class="text-danger">*</span></label>
+                        <label class="form-label">Tinggi Badan (cm)<span class="text-danger">*</span></label>
                         <div class="form-control-wrap">
-                            <input type="text" class="form-control" name="tb">
+                            <input type="number" class="form-control" name="tb">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Berat Badan <span class="text-danger">*</span></label>
+                        <label class="form-label">Berat Badan (kg)<span class="text-danger">*</span></label>
                         <div class="form-control-wrap">
-                            <input type="text" class="form-control" name="bb">
+                            <input type="number" class="form-control" name="bb">
                         </div>
                     </div>
                     <div class="form-group">
@@ -30,15 +30,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Suhu <span class="text-danger">*</span></label>
+                        <label class="form-label">Suhu (derajat)<span class="text-danger">*</span></label>
                         <div class="form-control-wrap">
-                            <input type="text" class="form-control" name="su">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Body Mass Index <span class="text-danger">*</span></label>
-                        <div class="form-control-wrap">
-                            <input type="text" class="form-control" name="bmi">
+                            <input type="number" class="form-control" name="su">
                         </div>
                     </div>
                     <div class="form-group text-center">

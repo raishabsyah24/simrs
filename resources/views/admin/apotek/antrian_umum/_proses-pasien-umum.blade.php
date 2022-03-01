@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="nk-block-head-content">
-                            <a href="{{ url('apotek/bpjs') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex">
+                            <a href="{{ url('apotek/data-umum') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex">
                                 <em class="icon ni ni-arrow-left"></em>
                                 <span>Kembali</span>
                             </a>
@@ -57,7 +57,7 @@
                                             <div class="profile-ud-item">
                                                 <div class="profile-ud wider">
                                                     <span class="profile-ud-label">Alamat</span>
-                                                    <span class="profile-ud-value"></span>
+                                                    <span class="profile-ud-value">{{ $res->alamat }}</span>
                                                 </div>
                                             </div>
                                             <div class="profile-ud-item">
@@ -69,7 +69,7 @@
                                             <div class="profile-ud-item">
                                                 <div class="profile-ud wider">
                                                     <span class="profile-ud-label">Nomor Rekam Medis</span>
-                                                    <span class="profile-ud-value">IO</span>
+                                                    <span class="profile-ud-value">{{ $res->no_rekam_medis }}</span>
                                                 </div>
                                             </div>
                                             <div class="profile-ud-item">
@@ -81,7 +81,7 @@
                                             <div class="profile-ud-item">
                                                 <div class="profile-ud wider">
                                                     <span class="profile-ud-label">Kategori Pasien</span>
-                                                    <span class="profile-ud-value">IO</span>
+                                                    <span class="profile-ud-value">{{ $res->kategori_pasien }}</span>
                                                 </div>
                                             </div>
                                         </div><!-- .profile-ud-list -->
@@ -106,7 +106,9 @@
                                             <div class="profile-ud-item">
                                                 <div class="profile-ud wider">
                                                     <span class="profile-ud-label">Tanggal Periksa</span>
-                                                    <span class="profile-ud-value">{{ tanggalJam($res->tanggal_pemeriksaan) }}</span>
+                                                    <span class="profile-ud-value">
+                                                        {{ tanggalJam($res->tanggal_pemeriksaan) }}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div><!-- .profile-ud-list -->

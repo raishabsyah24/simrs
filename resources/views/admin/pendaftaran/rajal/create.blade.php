@@ -1,7 +1,6 @@
 @extends('layouts.admin.master', ['title' => $title])
 
 @push('css')
-
 @endpush
 
 @section('admin-content')
@@ -12,45 +11,166 @@
                     <div class="components-preview">
                         <div class="nk-block-head nk-block-head-lg wide-sm">
                             <div class="nk-block-head-content">
-                                <div class="nk-block-head-sub"><a class="back-to"
-                                        href="{{ route('pendaftaran.index') }}"><em
-                                            class="icon ni ni-arrow-left"></em><span>Kembali</span></a></div>
-                                <h2 class="nk-block-title fw-normal">{{ $title }}</h2>
+                                <div class="nk-block-head-sub">
+                                    <a href="{{ route('pendaftaran.rawat-inap.index') }}"
+                                        class="btn btn-outline-dark d-none d-sm-inline-flex"><em
+                                            class="icon ni ni-arrow-left"></em><span>Kembali</span></a>
+                                </div>
+                                <div class="fw-normal">
+                                    <h2>{{ $title }}</h2>
+                                </div>
                             </div>
                         </div>
                         <div class="nk-block nk-block-lg">
                             <div class="nk-block-head">
                                 <div class="nk-block-head-content">
                                     <h4 class="title nk-block-title"><a
-                                            href="{{ route('pendaftaran.createPasienSudahPernahDaftar') }}">Pasien sudah
+                                            href="{{ route('pendaftaran.rawat-jalan.createPasienSudahPernahDaftar') }}">Pasien
+                                            sudah
                                             pernah daftar<em class="icon ni ni-arrow-right"></em></a></h4>
                                 </div>
                             </div>
                             <div class="card card-bordered">
                                 <div class="card-inner">
-                                    <form class="form-validate" action="{{ route('pendaftaran.store') }}">
+                                    <form class="form-validate" action="{{ route('pendaftaran.rawat-jalan.store') }}">
                                         @csrf
                                         <div class="row g-gs">
+
+                                            {{-- Form Identitas penanggung jawab pasien --}}
+                                            <div class="col-md-12"><span
+                                                    class="ml-1 preview-title-lg overline-title">Identitas Penanggung Jawab
+                                                    Pasien</span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Pasien Sama Dengan Penanggung Jawab ?<span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap">
+                                                        <ul class="custom-control-group">
+                                                            <li>
+                                                                <div
+                                                                    class="custom-control custom-radio custom-control-pro no-control">
+                                                                    <input type="radio" value="ya"
+                                                                        class="custom-control-input"
+                                                                        name="penanggung_jawab_sama_dengan_pasien" id="ya"
+                                                                        onclick="penanggungJawabPasien('ya')">
+                                                                    <label for="ya" class="custom-control-label"><em
+                                                                            class="icon ni ni-check-thick"></em>Ya,
+                                                                        Sama</label>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div
+                                                                    class="custom-control custom-radio custom-control-pro no-control">
+                                                                    <input type="radio" class="custom-control-input"
+                                                                        onclick="penanggungJawabPasien('tidak')"
+                                                                        name="penanggung_jawab_sama_dengan_pasien"
+                                                                        value="tidak" id="tidak" autocomplete="off">
+                                                                    <label for="tidak" class="custom-control-label"><em
+                                                                            class="icon ni ni-cross"></em>
+                                                                        Tidak</label>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 penanggung-jawab-pasien d-none">
+                                                <div class="form-group">
+                                                    <label class="form-label">Nama Lengkap Penanggung Jawab <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap">
+                                                        <input autocomplete="off" type="text" class="form-control"
+                                                            name="nama_penanggung_jawab">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 penanggung-jawab-pasien d-none">
+                                                <div class="form-group">
+                                                    <label class="form-label">NIK KTP <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" autocomplete="off" class="form-control"
+                                                            name="nik_penanggung_jawab">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 penanggung-jawab-pasien d-none">
+                                                <div class="form-group">
+                                                    <label class="form-label">Nomor Handphone /
+                                                        WA <span class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap">
+                                                        <div class="form-icon form-icon-right">
+                                                            <em class="icon ni ni-call"></em>
+                                                        </div>
+                                                        <input type="text" class="form-control"
+                                                            name="no_hp_penanggung_jawab" autocomplete="off">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 penanggung-jawab-pasien d-none">
+                                                <div class="form-group">
+                                                    <label class="form-label">Jenis Kelamin <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap">
+                                                        <ul class="custom-control-group">
+                                                            <li>
+                                                                <div
+                                                                    class="custom-control custom-radio custom-control-pro no-control">
+                                                                    <input type="radio" value="laki-laki"
+                                                                        class="custom-control-input"
+                                                                        name="jenis_kelamin_penanggung_jawab" id="L">
+                                                                    <label for="L" class="custom-control-label"><i
+                                                                            class="fas fa-male mr-1"></i>Laki-laki</label>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div
+                                                                    class="custom-control custom-radio custom-control-pro no-control">
+                                                                    <input type="radio" class="custom-control-input"
+                                                                        name="jenis_kelamin_penanggung_jawab"
+                                                                        value="perempuan" id="P" autocomplete="off">
+                                                                    <label for="P" class="custom-control-label"><i
+                                                                            class="fas fa-female mr-1"></i>
+                                                                        Perempuan</label>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Hubungan Dengan Pasien <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap">
+                                                        <input type="text" autocomplete="off" class="form-control"
+                                                            name="hubungan_dengan_pasien">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 penanggung-jawab-pasien d-none">
+                                                <div class="form-group">
+                                                    <label class="form-label">Alamat<span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap">
+                                                        <textarea class="form-control form-control-sm"
+                                                            name="alamat_penanggung_jawab" required
+                                                            autocomplete="off"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             {{-- Form Identitas pasien --}}
                                             <div class="col-md-12"><span
                                                     class="ml-1 preview-title-lg overline-title">Identitas Pasien</span>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Nama Lengkap <span
+                                                    <label class="form-label">Nama Lengkap Pasien <span
                                                             class="text-danger">*</span></label>
                                                     <div class="form-control-wrap">
-                                                        <input autofocus autocomplete="off" type="text"
-                                                            class="form-control" name="nama">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Nomor BPJS</label>
-                                                    <div class="form-control-wrap">
-                                                        <input autofocus autocomplete="off" type="text"
-                                                            class="form-control" name="no_bpjs">
+                                                        <input autocomplete="off" type="text" class="form-control"
+                                                            name="nama">
                                                     </div>
                                                 </div>
                                             </div>
@@ -243,6 +363,26 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6 asuransi d-none">
+                                                <div class="form-group">
+                                                    <label class="form-label">Nomor Asuransi <span
+                                                            class="text-danger">*</span> </label>
+                                                    <div class="form-control-wrap">
+                                                        <input autocomplete="off" type="text" class="form-control"
+                                                            name="no_bpjs">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 bpjs d-none">
+                                                <div class="form-group">
+                                                    <label class="form-label">Nomor BPJS <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="form-control-wrap">
+                                                        <input autocomplete="off" type="text" class="form-control"
+                                                            name="no_bpjs">
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-md-6 bpjs d-none">
                                                 <div class="form-group">
                                                     <label class="form-label">Nomor SEP <span
@@ -277,7 +417,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="form-control-wrap ">
                                                         <select
-                                                            onchange="pilihPoli(`{{ route('pendaftaran.dokter-poli') }}`, this)"
+                                                            onchange="pilihPoli(`{{ route('pendaftaran.rawat-jalan.dokter-poli') }}`, this)"
                                                             class="form-select select2" style="position:absolute;"
                                                             data-search="on" name="poli_id"
                                                             data-placeholder="Pilih tujuan pasien">
@@ -305,7 +445,8 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">Tujuan <span class="text-danger">*</span>
+                                                    <label class="form-label">Tujuan <span
+                                                            class="text-danger">*</span>
                                                     </label>
                                                     <div class="form-control-wrap ">
                                                         <select class="form-select select2 dokter-poli"
@@ -325,12 +466,79 @@
                                                 <div class="form-group">
                                                     <label class="form-label">Informasi Tambahan</label>
                                                     <div class="form-control-wrap">
-                                                        <textarea class="form-control form-control-sm" name="informasi_tambahan"
-                                                            required autocomplete="off"></textarea>
+                                                        <textarea class="form-control form-control-sm"
+                                                            name="informasi_tambahan" required
+                                                            autocomplete="off"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            {{-- Term Condition --}}
+                                            <div class="col-md-12">
+                                                <div id="faqs" class="accordion">
+                                                    {{-- Persetujuan Umum --}}
+                                                    <div class="accordion-item border border-bottom-0">
+                                                        <a href="#" class="accordion-head collapsed" data-toggle="collapse"
+                                                            data-target="#faq-q1">
+                                                            <h6 class="title">Persetujuan Umum (General Concent)
+                                                            </h6>
+                                                            <span class="accordion-icon"></span>
+                                                        </a>
+                                                        <div class="accordion-body collapse" id="faq-q1"
+                                                            data-parent="#faqs">
+                                                            <div class="accordion-inner">
+                                                                <p>If your <strong>end product</strong> including the item
+                                                                    is going to be free to the end user then a
+                                                                    <strong>Regular License</strong> is what you need. An
+                                                                    <strong>Extended License</strong> is required if the
+                                                                    <strong>end user</strong> must pay to use the
+                                                                    <strong>end product</strong>.
+                                                                </p>
+                                                                <p>You may charge your client for your services to create an
+                                                                    end product, even under the <strong>Regular
+                                                                        License</strong>. <strong>But you can’t use one of
+                                                                        our Standard Licenses on multiple clients or
+                                                                        jobs.</strong></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- Persetujuan Aturan RS Firdaus Terkait Kondisi Pandemi --}}
+                                                    <div class="accordion-item border">
+                                                        <a href="#" class="accordion-head collapsed" data-toggle="collapse"
+                                                            data-target="#faq-q2">
+                                                            <h6 class="title">Persetujuan Aturan RS Firdaus
+                                                                Terkait Kondisi Pandemi</h6>
+                                                            <span class="accordion-icon"></span>
+                                                        </a>
+                                                        <div class="accordion-body collapse" id="faq-q2"
+                                                            data-parent="#faqs">
+                                                            <div class="accordion-inner">
+                                                                <p>If your <strong>end product</strong> including the item
+                                                                    is going to be free to the end user then a
+                                                                    <strong>Regular License</strong> is what you need. An
+                                                                    <strong>Extended License</strong> is required if the
+                                                                    <strong>end user</strong> must pay to use the
+                                                                    <strong>end product</strong>.
+                                                                </p>
+                                                                <p>You may charge your client for your services to create an
+                                                                    end product, even under the <strong>Regular
+                                                                        License</strong>. <strong>But you can’t use one of
+                                                                        our Standard Licenses on multiple clients or
+                                                                        jobs.</strong></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="custom-control custom-control-lg custom-checkbox">
+                                                    <input type="checkbox" value="ya" class="custom-control-input"
+                                                        id="customCheck2"
+                                                        name="pasien_sudah_membaca_dan_setuju_dengan_peraturan">
+                                                    <label class="custom-control-label" for="customCheck2">Pasien sudah
+                                                        membaca informasi persetujuan umum dan persetujuan aturan dari RS
+                                                        Firdaus dan setuju</label>
+                                                </div>
+                                            </div>
                                             {{-- Button submit --}}
                                             <div class="col-md-7 offset-lg-5">
                                                 <div class="form-group">
@@ -356,5 +564,86 @@
 @endsection
 
 @push('js')
-     <script src="{{ asset('backend/pages/pendaftaran/create.js') }}"></script>
+    <script>
+        function penanggungJawabPasien(value) {
+            if (value == 'tidak') {
+                $('.penanggung-jawab-pasien').removeClass('d-none')
+            } else {
+                $('.penanggung-jawab-pasien').addClass('d-none')
+            }
+        }
+
+        function pilihPoli(url, attr) {
+            let poli = parseInt($(attr).val());
+            $('[name=dokter_id] .dokter-id').remove();
+            $.get(url, {
+                    poli_id: poli
+                })
+                .done(response => {
+                    let data = response.data;
+                    data.forEach(function(item) {
+                        $('[name=dokter_id]').append(
+                            `<option class="dokter-id" value="${item.id}">${item.nama_dokter}</option>`
+                        )
+                    })
+                })
+                .fail(error => {
+                    alertError()
+                })
+        }
+
+        const kategoriPasienDaftar = (attr) => {
+            let kategori = $(attr).val();
+            if (kategori == 1) {
+                $('.bpjs').removeClass('d-none')
+            } else {
+                $('.bpjs').addClass('d-none')
+            }
+            if (kategori == 3) {
+                console.log('asuransi');
+                $('.asuransi').removeClass('d-none')
+            } else {
+                $('.asuransi').addClass('d-none')
+            }
+        }
+
+        function submitForm(originalForm) {
+            event.preventDefault();
+            $(originalForm).find('.form-control').removeClass('error');
+            $(originalForm).find('.form-control').removeClass('select2-hidden-accessible');
+            $(".invalid").remove();
+            $.post({
+                    url: $(originalForm).attr('action'),
+                    data: new FormData(originalForm),
+                    beforeSend: function() {
+                        $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                        $(originalForm).find('.text-simpan').text('Menyimpan . . .');
+                        $(originalForm).find('.loading-simpan').removeClass('d-none');
+                    },
+                    dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    complete: function() {
+                        $(originalForm).find('.loading-simpan').addClass('d-none');
+                        $(originalForm).find('.text-simpan').text('Simpan');
+                        $(originalForm).find('.tombol-simpan').attr('disabled', false);
+
+                    }
+                })
+                .done(response => {
+                    $(originalForm).find('.tombol-simpan').attr('disabled', true);
+                    alertSuccess(response.message);
+                    pindahHalaman(response.url, 1500);
+                })
+                .fail(errors => {
+                    if (errors.status === 422) {
+                        loopErrors(errors.responseJSON.errors);
+
+                        return;
+                    }
+                    alertError();
+                })
+        }
+    </script>
 @endpush

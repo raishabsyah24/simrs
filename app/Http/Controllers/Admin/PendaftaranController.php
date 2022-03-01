@@ -13,15 +13,13 @@ use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 use App\Models\PeriksaDokter;
 use App\Models\PeriksaRadiologi;
+use App\Models\RekamMedisPasien;
 use App\Models\PemeriksaanDetail;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\PendaftaranInterface;
 use App\Http\Requests\Admin\PendaftaranPasienBaruRequest;
 use App\Http\Requests\Admin\PendaftaranPasienLamaRequest;
-use App\Models\PeriksaPoliStation;
-use App\Models\PosisiDetailPasienRajal;
-use App\Models\PosisiPasienRajal;
 use Carbon\Carbon;
 
 class PendaftaranController extends Controller
@@ -39,6 +37,11 @@ class PendaftaranController extends Controller
         $this->pendaftaranRepository = $pendaftaranRepository;
     }
 
+    public function q()
+    {
+        return $this->pendaftaranRepository->pasienHariIni()->get();
+    }
+
     public function index()
     {
         $data = $this->pendaftaranRepository->pasienHariIni()
@@ -47,6 +50,7 @@ class PendaftaranController extends Controller
         $badge = $this->badge();
         $kategori_pasien = $this->kategoriPasien();
         $poli = $this->poli();
+        $per_page = $this->perPage;
         $total = [
             ['Total Pasien Hari Ini', $this->pendaftaranRepository->pasienHariIni()->count()],
             ['BPJS', $this->pendaftaranRepository->totalPasienBpjs()],
@@ -60,6 +64,7 @@ class PendaftaranController extends Controller
             'badge',
             'kategori_pasien',
             'poli',
+            'per_page'
         ));
     }
 
@@ -121,6 +126,22 @@ class PendaftaranController extends Controller
         ));
     }
 
+    public function messanger()
+    {
+        $title = 'Tambah Pasien';
+        $kategori_pasien = $this->kategoriPasien();
+        $faskes = $this->faskes();
+        $layanan = $this->layanan();
+        $poli = $this->poli();
+        return view('admin.pendaftaran.messanger', compact(
+            'title',
+            'kategori_pasien',
+            'faskes',
+            'layanan',
+            'poli',
+        ));
+    }
+
     public function getDokterPoli(Request $request)
     {
         $data = $this->pendaftaranRepository->dokterPoli($request->poli_id);
@@ -128,7 +149,6 @@ class PendaftaranController extends Controller
             'data' => $data
         ], 200);
     }
-
 
     public function store(PendaftaranPasienBaruRequest $request)
     {
@@ -166,7 +186,7 @@ class PendaftaranController extends Controller
                 'faskes_id' => $attr['faskes_id'] ?? null,
                 'pasien_id' => $pasien->id,
                 'kategori_pasien' => $attr['kategori_pasien'],
-                'tanggal' => $attr['tanggal'],
+                'tanggal' => now(),
                 'status' => 'belum selesai',
             ]);
 
@@ -175,36 +195,16 @@ class PendaftaranController extends Controller
                 'pemeriksaan_id' => $pemeriksaan->id,
                 'poli_id' => $attr['poli_id'],
                 'layanan_id' => $attr['layanan_id'],
+                'dokter_id' => $attr['dokter_id'],
                 'status' => 'belum selesai',
             ]);
 
-            // Insert posisi pasien saat ini
-            $posisi_pasien_rajal = PosisiPasienRajal::create([
-                'pemeriksaan_id' => $pemeriksaan->id,
-                'status' => 'proses periksa poli'
-            ]);
-            $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
-                'posisi_pasien_rajal_id' => $posisi_pasien_rajal->id,
-                'aktifitas' => 'Pasien selesai melakukan pendaftaran',
-                'waktu' => now(),
-                'status' => 'selesai'
-            ]);
-
-            if ($attr['layanan_id'] == $this->layananPeriksaDokter) {
-//              Insert ke table periksa di poli station
-                $periksa_poli_station = PeriksaPoliStation::create([
-                    'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
-                    'pasien_id' => $pasien->id,
-                    'tanggal' => $attr['tanggal']
-                ]);
-
-//                Insert ke tabel pemeriksaan dokter
+            if ($attr['tujuan'] == 'periksa') {
                 $periksa_dokter = PeriksaDokter::create([
                     'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
-                    'periksa_poli_station_id' => $periksa_poli_station->id,
                     'pasien_id' => $pasien->id,
-                    'dokter_id' => $attr['dokter_id'],
-                    'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id, $pemeriksaan_detail->dokter_id),
+                    'poli_id' => $pemeriksaan_detail->poli_id,
+                    'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id),
                     'tanggal' => $attr['tanggal'],
                     'informasi_tambahan' => $attr['informasi_tambahan'],
                     'status_diperiksa' => 'belum diperiksa'
@@ -219,7 +219,7 @@ class PendaftaranController extends Controller
                 $periksa_lab = PeriksaLab::create([
                     'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                     'pasien_id' => $pasien->id,
-                    'tanggal' => $attr['tanggal'],
+                    'tanggal' => now(),
                     'keterangan' => $attr['keterangan'],
                     'status_diperiksa' => 'belum diperiksa'
                 ]);
@@ -228,7 +228,7 @@ class PendaftaranController extends Controller
                 $periksa_radiologi = PeriksaRadiologi::create([
                     'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                     'pasien_id' => $pasien->id,
-                    'tanggal' => $attr['tanggal'],
+                    'tanggal' => now(),
                     'keterangan' => $attr['keterangan'],
                     'status_diperiksa' => 'belum diperiksa'
                 ]);
@@ -285,20 +285,8 @@ class PendaftaranController extends Controller
                     'faskes_id' => $attr['faskes_id'] ?? null,
                     'pasien_id' => $pasien->id,
                     'kategori_pasien' => $attr['kategori_pasien'],
-                    'tanggal' => $attr['tanggal'],
+                    'tanggal' => now(),
                     'status' => 'belum selesai',
-                ]);
-
-                // Insert posisi pasien saat ini
-                $posisi_pasien_rajal = PosisiPasienRajal::create([
-                    'pemeriksaan_id' => $pemeriksaan->id,
-                    'status' => 'proses periksa poli'
-                ]);
-                $posisi_detail_pasien_rajal = PosisiDetailPasienRajal::create([
-                    'posisi_pasien_rajal_id' => $posisi_pasien_rajal->id,
-                    'aktifitas' => 'Pasien selesai melakukan pendaftaran',
-                    'waktu' => now(),
-                    'status' => 'selesai'
                 ]);
 
                 // Insert pemeriksaan detail
@@ -310,21 +298,12 @@ class PendaftaranController extends Controller
                     'status' => 'belum selesai',
                 ]);
 
-                if ($attr['layanan_id'] == $this->layananPeriksaDokter) {
-//              Insert ke table periksa di poli station
-                    $periksa_poli_station = PeriksaPoliStation::create([
-                        'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
-                        'pasien_id' => $pasien->id,
-                        'tanggal' => $attr['tanggal']
-                    ]);
-
-//                Insert ke tabel pemeriksaan dokter
+                if ($attr['tujuan'] == 'periksa') {
                     $periksa_dokter = PeriksaDokter::create([
                         'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
-                        'periksa_poli_station_id' => $periksa_poli_station->id,
                         'pasien_id' => $pasien->id,
-                        'dokter_id' => $attr['dokter_id'],
-                        'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id, $pemeriksaan_detail->dokter_id),
+                        'poli_id' => $pemeriksaan_detail->poli_id,
+                        'no_antrian_periksa' => noUrutPasienPeriksa($tanggal, $pemeriksaan_detail->poli_id),
                         'tanggal' => $attr['tanggal'],
                         'informasi_tambahan' => $attr['informasi_tambahan'],
                         'status_diperiksa' => 'belum diperiksa'
@@ -339,7 +318,7 @@ class PendaftaranController extends Controller
                     $periksa_lab = PeriksaLab::create([
                         'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                         'pasien_id' => $pasien->id,
-                        'tanggal' => $attr['tanggal'],
+                        'tanggal' => now(),
                         'keterangan' => $attr['keterangan'],
                         'status_diperiksa' => 'belum diperiksa'
                     ]);
@@ -352,7 +331,7 @@ class PendaftaranController extends Controller
                     $periksa_radiologi = PeriksaRadiologi::create([
                         'pemeriksaan_detail_id' => $pemeriksaan_detail->id,
                         'pasien_id' => $pasien->id,
-                        'tanggal' => $attr['tanggal'],
+                        'tanggal' => now(),
                         'keterangan' => $attr['keterangan'],
                         'status_diperiksa' => 'belum diperiksa'
                     ]);
@@ -417,6 +396,8 @@ class PendaftaranController extends Controller
             $pemeriksaan->delete();
         });
 
+
+
         return response()->json([
             'message' => 'Data berhasil dihapus',
             'url' => route('pendaftaran.index')
@@ -425,9 +406,4 @@ class PendaftaranController extends Controller
 
 
    
-    public function namaPasien(int $pasien_id)
-    {
-        $pasien = Pasien::select(['id','nama'])->whereId($pasien_id)->first();
-        return $pasien->nama;
-    }
 }

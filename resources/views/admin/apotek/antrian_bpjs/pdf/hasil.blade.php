@@ -1,208 +1,340 @@
-<!DOCTYPE html>
-<html lang="zxx" class="js">
+@extends('layouts.print.master')
 
-<head>
-    <base href="../">
-    <meta charset="utf-8">
-    <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="./images/favicon.png">
-    <!-- Page Title  -->
-    <title>apotek</title>
-    <!-- StyleSheets  -->
-    <link rel="stylesheet" href="{{ asset('backend/css/dashlite.css?ver=2.9.1') }}">
-    <link id="skin-default" rel="stylesheet" href="{{ asset('backend/css/theme.css?ver=2.9.1') }}">
-</head>
+@push('css')
     <style>
-        .medich__contact {
-            margin: 0 0 15px 20px;
-        }
-        
-        .admin__note  {
-            box-shadow: none!important;
-            border: 0!important;
-        }
+   @media print {
+        body {
+            /* width view print */
+            width: 20cm;
+            height: 29.7cm;
+            margin: 10mm 20mm 0 10mm; 
+            border:1px solid #000;
+            /* change the margins as you want them to be. */
+    }
+    /* table,th:nth-child(even),td:nth-child(even) {
+        background-color: #D6EEEE;
+    } */
 
-        .description {
-            cursor: default;
-        }
+    .pos_fixed1{
+        font-size: 5pt;
+    }
+    
+    .pos_fixed2{
+        font-size: 5pt;
+    }
 
-        .firdaus-brands {
-            text-align: center;
-            align-items: center;
-        }
-        .dragula-container > *:not(:last-child) {margin-bottom: 0.75rem;}
+    .profile-ud-item, .information__sub {
+        margin-left: 1.25mm;
+        width: auto;
+        min-width: 97.8%;
+    }
+}
+    .card__section {
+        padding: 0 1.1rem 1.25rem 1.1rem;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+
+    .pos_fixed1 {
+        font-size: 10pt;
+    }
+    .pos_fixed2 {
+        font-size: 9pt;
+    }
+
+    th:nth-child(even),td:nth-child(even) {
+        background-color: #D6EEEE;
+    }
+
+    .profile-ud-item, .information__sub {
+        width: 30vw;
+    }
+
+
     </style>
-<body class="bg-grey" onload="printPromot()"> 
-    <div class="nk-content">
-        <div class="container">
-            <div class="nk-content-inner">
-                <div class="nk-content-body">
-                    <div class="invoice-brand firdaus-brands">
-                        <img src="/backend/images/logo-rs.jpeg">
-                    </div>
-                    <div class="invoice-contact medich__contact">
-                        <div class="invoice-contact-info mt-3">
-                            <ul class="list-plain">
-                                <li><em class="icon ni ni-map-pin-fill fs-18px"></em>
-                                    <span>House #65, 4328 Marion Street<br>Newbury, VT 05051</span></li>
-                                <li><em class="icon ni ni-call-fill fs-14px"></em>
-                                    <span>+012 8764 556</span></li>
-                            </ul>
+@endpush
+
+@section('print-content')
+    <div class="nk-block">
+        <div class="invoice invoice-print">
+            <div class="invoice-wrap">
+                <div class="invoice-brand text-center">
+                    <img src="{{ asset('backend/images/logo-rs.jpeg') }}">
+                </div>
+                {{-- begin card section--}}
+                <div class="card__section">
+                <div class="nk-block">
+                    <div class="nk-block-head">
+                        <ul class="list-plan">
+                            <li>
+                                <em class="icon ni ni-map-pin-fill"></em>
+                                <span>Komplek Bea Cukai Jalan Siak J5</span>
+                                <div class="description" style="margin-left: 23px;">
+                                    <p>No.14,RT.10/RW.7, Sukapura, Kec. <br>
+                                        Cilincing, Kota Jkt Utara, <br>
+                                        Daerah Khusus Ibukota Jakarta 14140
+                                    </p>
+                                </div>
+                                <em class="icon ni ni-call-fill"></em>
+                                <span>(021) 4407322</span>
+                            </li>
+                        </ul>
+                    </div><!-- .nk-block-head -->
+                </div>
+                {{-- end nk-block --}}
+                    <div class="row mt-4">
+                        {{-- begin col-8 --}}
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5 class="title">Informasi Pasien</h5>
+                                    <div class="profile-ud-list">
+                                        <div class="profile-ud-item information__sub">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Nama Pasien</span>
+                                                <span>:</span>
+                                                <span class="profile-ud-value">{!! $query->nama_pasien !!}</span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item information__sub">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Tanggal Lahir</span>
+                                                <span>:</span>
+                                                <span class="profile-ud-value">
+                                                    {!! tanggalLahirUsia($query->tanggal_lahir) !!}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <h5 class="title">Informasi Lainnya</h5>
+                                    <div class="profile-ud-list">
+                                        <div class="profile-ud-item information__sub">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Nama Dokter</span>
+                                                <span>:</span>
+                                                <span class="profile-ud-value">{!! $query->nama_dokter !!}</span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item information__sub">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">Tujuan Poli</span>
+                                                <span>:</span>
+                                                <span class="profile-ud-value">{!! $query->spesialis !!}</span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-ud-item information__sub">
+                                            <div class="profile-ud wider">
+                                                <span class="profile-ud-label">No. Rekam Medis</span>
+                                                <span>:</span>
+                                                <span class="profile-ud-value">{!! kodeRekamMedis($query->no_rekam_medis) !!}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- begin table obat --}}
+                            <div class="row" style="margin-top: 1.25rem;">
+                                <div class="col-12">
+                                    <h5 class="title">Catatan Tambahan</h5>
+                                     <table class="table-bordered pos_fixed1" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Obat</th>
+                                                <th>Jumlah</th>
+                                                <th>Signa</th>
+                                                <th>Harga Obat</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($drug as $item)
+                                            <tr>
+                                                <td>{!! $loop->iteration !!}</td>
+                                                <td>{!! $item->nama_generik !!}</td>
+                                                <td>{!! $item->jumlah !!}</td>
+                                                <td></td>
+                                                <td>Rp. {!! formatAngka($item->harga_obat) !!}</td>
+                                            </tr>
+                                            @empty
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <h3>Belum ada data</h3>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            {{-- end table obat --}}
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table-bordered" style="width:100%">
+                                        <tr>
+                                          <th colspan="2">
+                                              <h6 class="title text-center" style="margin: 5px 0 5px;">Perubahan Resep</h6>
+                                          </th>
+                                        </tr>
+                                        <tr>
+                                          <th>
+                                            <p class="fs-5">Tertulis</p>
+                                          </th>
+                                          <th>
+                                            <p class="fs-5">Menjadi</p>
+                                          </th>
+                                          <th>
+                                            <p class="fs-5">Petugas Farmasi</p>
+                                          </th>
+                                          <th>
+                                            <p class="fs-5">Disetujui</p>
+                                          </th>
+                                        </tr>
+                                        <tr style="height: 80px;">
+                                          <td></td>
+                                          <td></td>
+                                          <td>
+                                              <p class="fs-5 text-center">{!! auth()->user()->name !!}</p>
+                                          </td>
+                                          <td></td>
+                                        </tr>
+                                      </table>
+                               </div>
+                            </div>
+                        </div>
+                        {{-- end col-8 --}}
+                        <div class="col-4">
+                            <h5 class="title">Table Kanan</h5>
+                             <table class="table-bordered pos_fixed2" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Pengkajian Resep</th>
+                                        <th>Ya</th>
+                                        <th>Tidak</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Tulisan dokter jelas</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Identitas pasien benar</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Obat,benar</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Dosis,benar</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Cara pemberian obat benar</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Waktu dan frekuensi pemberian obat benar</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>Waktu dan frekuensi pemberian obat benar</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>Poli farmasi, ada</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>Duplikasi terapi, ada</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>ESO yang mungkin terjadi, ada</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>Interaksi obat, ada</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p class="text">H. (Harga)</p>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p class="text">T. (Teknik)</p>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p class="text">K. (Kemas)</p>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <p class="text">P. (Penyerahan)</p>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <textarea class="form-control"></textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="nk-block">
-                        <div class="card">
-                            <div class="card-aside-wrap">
-                                <div class="card-content">
-                                    <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="#">
-                                                <em class="icon ni ni-user-circle"></em>
-                                                <span>Personal</span>
-                                            </a>
-                                        </li>
-                                    </ul><!-- .nav-tabs -->
-                                    <div class="card-inner">
-                                        <div class="nk-block">
-                                            <div class="nk-block-head">
-                                                <h5 class="title">Informasi Pasien</h5>
-                                            </div><!-- .nk-block-head -->
-                                            <div class="profile-ud-list">
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Nama Pasien</span>
-                                                        <span class="profile-ud-value">{{ $query->nama_pasien }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Berat Badan</span>
-                                                        <span class="profile-ud-value">Abu Bin Ishtiyak</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Tanggal Lahir</span>
-                                                        <span class="profile-ud-value">{{ $query->tanggal_lahir }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Tanggal </span>
-                                                        <span class="profile-ud-value">10 Aug, 1980</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Umur</span>
-                                                        <span class="profile-ud-value">{{ usia($query->tanggal_lahir) }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Ruangan </span>
-                                                        <span class="profile-ud-value">10 Aug, 1980</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Nomor Rekam Medis</span>
-                                                        <span class="profile-ud-value">{{ $query->no_rekam_medis }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Riwayat Alergi Obat </span>
-                                                        <span class="profile-ud-value">10 Aug, 1980</span>
-                                                    </div>
-                                                </div>
-                                            </div><!-- .profile-ud-list -->
-                                        </div><!-- .nk-block -->
-                                        <div class="nk-block">
-                                            <div class="nk-block-head nk-block-head-line">
-                                                <h6 class="title overline-title text-base">Informasi Lainnya</h6>
-                                            </div><!-- .nk-block-head -->
-                                            <div class="profile-ud-list">
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Nama Dokter</span>
-                                                        <span class="profile-ud-value">{{ $query->nama_dokter }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Tanggal Periksa</span>
-                                                        <span class="profile-ud-value">{{ $query->tanggal_pemeriksaan }}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="profile-ud-item">
-                                                    <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Tujuan Poli</span>
-                                                        <span class="profile-ud-value">{{ $query->spesialis }}</span>
-                                                    </div>
-                                                </div>
-                                            </div><!-- .profile-ud-list -->
-                                        </div><!-- .nk-block -->
-                                        <div class="nk-divider divider md"></div>
-                                        <div class="nk-block">
-                                            <div class="nk-block-head nk-block-head-sm nk-block-between">
-                                                <h5 class="title">Catatan Tambahan</h5>
-                                            </div><!-- .nk-block-head -->
-                                            <table class="table table-tranx">
-                                                <thead>
-                                                    <tr class="tb-tnx-head">
-                                                        <th class="tb-tnx-id"><span class="">#</span></th>
-                                                        <th class="tb-tnx-info">
-                                                            <span class="tb-tnx-desc d-none d-sm-inline-block">
-                                                                <span>Bill For</span>
-                                                            </span>
-                                                            <span class="tb-tnx-date d-md-inline-block d-none">
-                                                                <span class="d-md-none">Date</span>
-                                                                <span class="d-none d-md-block">
-                                                                    <span>Issue Date</span>
-                                                                    <span>Due Date</span>
-                                                                </span>
-                                                            </span>
-                                                        </th>
-                                                        <th class="tb-tnx-amount">
-                                                            <span class="tb-tnx-total">Total</span>
-                                                            <span class="tb-tnx-status d-none d-md-inline-block">Status</span>
-                                                        </th>
-                                                     </tr>
-                                                 </thead>
-                                                <tbody>
-                                                    @forelse ($drug as $item)
-                                                    <tr class="tb-tnx-item">
-                                                        <td class="tb-tnx-id">
-                                                            <span>{{ $loop->iteration }}</span>
-                                                        </td>
-                                                    </tr>
-                                                    @empty
-                                                        <tr>
-                                                            <td class="text-center" colspan="8">
-                                                                <h6>Belum ada
-                                                                    riwayat</h6>
-                                                            </td>
-                                                        </tr>
-                                                        @endforelse
-                                                </tbody>
-                                            </table>
-                                           
-                                            </div><!-- .bq-note -->
-                                        </div><!-- .nk-block -->
-                                    </div><!-- .card-inner -->
-                                </div><!-- .card-content -->
-                            </div><!-- .card-aside-wrap -->
-                        </div><!-- .card -->
-                    </div>
                 </div>
+                {{-- end card section --}}
             </div>
         </div>
-    </div>
+        
+@endsection
+
+@push('js')
     <script>
-        function printPromot() {
+          function printPromot() {
             window.print();
         }
+        window.onfocus = function() {
+            window.close();
+        }
     </script>
-</body>
-</html>
+@endpush
