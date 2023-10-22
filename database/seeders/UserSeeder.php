@@ -26,9 +26,9 @@ class UserSeeder extends Seeder
         $faker = Faker::create('id_ID');
 
         $users = [
-            ['Ardi', 'ardi', 'ardi@mail.com'],
+            ['Ade', 'ade', 'ade@mail.com'],
             ['Rais', 'rais', 'rais@mail.com'],
-            ['Ilham', 'ilham', 'ilham@mail.com'],
+            ['Umam', 'umam', 'umam@mail.com'],
         ];
 
         foreach ($users as $user) {
